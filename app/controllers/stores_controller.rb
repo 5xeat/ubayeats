@@ -16,7 +16,7 @@ class StoresController < ApplicationController
       
         private
         def params_store
-          params.require(:store_profile).permit(:store_id_Certificate, :store_id_list, :store_name, :store_sype, :store_mail, :store_address, :store_phone )
+          params.require(:store_profile).permit(:store_id_Certificate, :store_id_list, :store_name, :store_type, :store_mail, :store_address, :store_phone )
         end
          
 end
