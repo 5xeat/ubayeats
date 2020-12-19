@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  taiwan_id_front: MyString
+  taiwan_id_back: MyString
+  license: MyString
+  car_number: MyString
+  account: MyString
+  user: one
+
+two:
+  taiwan_id_front: MyString
+  taiwan_id_back: MyString
+  license: MyString
+  car_number: MyString
+  account: MyString
+  user: two
