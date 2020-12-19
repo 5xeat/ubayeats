@@ -1,0 +1,7 @@
+<h1>菜單</h1>
+<%= link_to "新增產品", new_users_product_path %> 
+<% @products.each do |product| %>
+<ul>
+  <li><%= link_to product.name, product_path(product) %></li>
+</ul>
+<% end %>
