@@ -1,0 +1,29 @@
+<h1>註冊成為外送員</h1>
+
+<%= form_for(@driver_profile, url:drivers_path, method:'post') do |form| %>
+
+  <div>
+    <%= form.label :taiwan_id_front, '身分證正面' %>
+    <%= form.file_field :taiwan_id_front %>
+  </div>
+  <div>
+    <%= form.label :taiwan_id_back, '身分證反面' %>
+    <%= form.file_field :taiwan_id_back %>
+  </div>
+  <div>
+    <%= form.label :license, '駕照' %>
+    <%= form.file_field :license %>
+  </div>
+  <div>
+    <%= form.label :car_number, '車牌號碼' %>
+    <%= form.text_field :car_number %>
+  </div>
+  <div>
+    <%= form.label :account, '帳戶' %>
+    <%= form.text_field :account %>
+  </div>
+  <div>
+    <%= form.submit '註冊' %>
+  </div>
+
+<% end %>
