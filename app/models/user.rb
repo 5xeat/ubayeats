@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include AASM
   has_one :driver_profile
+  has_one :store_profile
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -28,7 +29,11 @@ class User < ApplicationRecord
     event :become_store do
       transitions from: :user, to: :store
     end
-  end
 
-  
+    # event :store do
+    #   transitions from: :driver, to: :store
+
+   
+
+  end
 end

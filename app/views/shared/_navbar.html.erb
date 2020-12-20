@@ -19,6 +19,12 @@
         <% else %>
         <%= link_to '成為外送員', new_drivers_path, class: 'nav-link'  %>
         <% end %>
+        <li class="nav-item">
+        <% if current_user.role == 'store' %>
+        <%= link_to '開店', '#', class: 'nav-link'  %>
+        <% else %>
+        <%= link_to '成為合作店家', new_stores_path, class: 'nav-link'  %>
+        <% end %>
       </li>
       <% else %>
       <li class="nav-item">
