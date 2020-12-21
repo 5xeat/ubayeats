@@ -1,0 +1,18 @@
+<h1>編輯產品</h1>
+<%= form_for(@product, url: product_path(@product), method: "put") do |form| %>
+
+<div class="fields">
+  <%= form.label :name, "產品名稱" %>
+  <%= form.text_field :name %>
+</div>
+<div class="fields">
+  <%= form.label :price, "產品價格" %>
+  <%= form.text_field :price %>
+</div>
+<div class="fields">
+  <%= form.label :description, "產品描述" %>
+  <%= form.text_field :description %>
+</div>
+  
+<%= form.submit %>
+<% end %>

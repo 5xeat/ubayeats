@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include AASM
+  has_many :products
   has_one :driver_profile
   has_one :store_profile
   # Include default devise modules. Others available are:
