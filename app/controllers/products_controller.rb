@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :destroy]
-  before_action :find_user_id, only: [:create, :update]
 
   def index
     @products = Product.all
