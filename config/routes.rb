@@ -3,4 +3,10 @@ Rails.application.routes.draw do
   root 'home#index'
   resource :stores
   resource :drivers
+
+  resource :users, only: [:show, :edit, :update] do
+    get '/productlist', to: 'products#index'
+    resources :products, shallow: true, only: [:show, :new, :create, :edit, :update, :destroy] do
+    end
+  end
 end

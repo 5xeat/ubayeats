@@ -1,0 +1,24 @@
+<h1><%= @product.name %></h1>
+<%= link_to "返回商品列表", productlist_users_path %>
+<%= link_to "返回", :back %>
+<table>
+  <thead>
+    <tr>
+      <td>產品名稱</td>
+      <td>產品價格</td>
+      <td>產品描述</td>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr>
+      <td><%= @product.name %></td>
+      <td><%= @product.price %></td>
+      <td><%= @product.description %></td>
+      <td><%= link_to '編輯', edit_product_path(@product) %></td>
+      <td><%= link_to '刪除', product_path(@product), method: 'delete', data: { confirm: '確定要刪除嗎?'}  %></td>
+    </tr>
+
+  </tbody>
+</table>
