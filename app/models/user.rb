@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
 
   def display_name
-    name || email
+    name.blank? ? email : name
   end
 
   def self.create_from_provider_data(provider_data)
