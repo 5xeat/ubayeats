@@ -17,6 +17,16 @@
     <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
   </div>
 
+  <div class="field">
+    <%= f.label :phone, "手機號碼" %><br />
+    <%= f.text_field :phone, autofocus: true, autocomplete: "phone" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address, "送餐地址" %><br />
+    <%= f.text_field :address, autofocus: true, autocomplete: "address" %>
+  </div>
+
   <div class="actions">
     <%= f.submit "送出" %>
   </div>
