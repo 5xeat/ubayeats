@@ -1,5 +1,6 @@
 <h1>新增產品</h1>
-<%= form_for(@product, url: users_products_path(@product), method: "post") do |form| %>
+
+<%= form_for(@product, url: stores_products_path(@product), method: "post") do |form| %>
 
 <div class="fields">
   <%= form.label :name, "產品名稱" %>
