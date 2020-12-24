@@ -2,7 +2,8 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :destroy]
 
   def index
-    @products = Product.order(id: :desc)
+    @products = Product.where(state: 'available').order(id: :desc)
+    @productsUnavailable = Product.where(state: 'unavailable').order(id: :desc)
   end
 
   def show

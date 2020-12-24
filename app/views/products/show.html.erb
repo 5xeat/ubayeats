@@ -11,17 +11,14 @@
   </thead>
 
   <tbody>
-
     <tr>
       <td><%= @product.name %></td>
       <td><%= @product.price %></td>
       <td><%= @product.description %></td>
       <td><%= link_to '編輯', edit_product_path(@product) %></td>
       <td><%= link_to '刪除', product_path(@product), method: 'delete', data: { confirm: '確定要刪除嗎?'}  %></td>
-
-      <td><%= link_to '商品上架', publish_product_path, method: 'patch' if check_publish?(@product) %></td>
-      <td><%= link_to '商品下架', delist_product_path, method: 'patch' if check_delist?(@product) %></td>
-
+      <td><%= link_to '上架', publish_product_path(@product), method: 'patch' if check_publish?(@product) %></td>
+      <td><%= link_to '下架', delist_product_path(@product), method: 'patch' if check_delist?(@product)  %></td>
     </tr>
 
   </tbody>
