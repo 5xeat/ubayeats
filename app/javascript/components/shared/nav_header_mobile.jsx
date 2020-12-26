@@ -1,4 +1,5 @@
 import React from 'react'
+import Styled from "@emotion/styled";
 
 import { Layout, Menu } from 'antd';
 
@@ -9,24 +10,25 @@ import {
 
 const { Header } = Layout;
 
+const Logo = Styled.div`
+  position: absolute;
+  top: 0;
+  right: calc(50% - 90px);
+  width: 180px;
+`;
+
 const NavHeader = (props) => {
   return (
     <Header className="site-layout-background" style={{ position: 'fixed', zIndex: 1, width: '100%', padding: 0 }}>
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="1" onClick={props.toggle}>
           {
-            props.state ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+            props.state ? <MenuUnfoldOutlined style={{fontSize:'20px'}}/> : <MenuFoldOutlined style={{fontSize:'20px'}}/>
           }
         </Menu.Item>
-        <div key="2"
-        style={{
-          position:'absolute', 
-          right:'37%',
-          margin:'auto',
-          top:0,
-          width:'180px'}}>
+        <Logo>
           <img src={require(  "../../images/logo/logo-white.png")} alt="Logo" style={{width:'100%'}} />
-        </div>
+        </Logo>
       </Menu>
     </Header>
   );

@@ -9,7 +9,7 @@ import { Layout } from 'antd';
 
 const { Footer } = Layout;
 
-const RegistrationNew = () => {
+const RegistrationsNew = () => {
 
   const device=useRWD();
 
@@ -21,7 +21,7 @@ const RegistrationNew = () => {
 
   if(device==="mobile"){
     return (
-      <Layout>
+      <Layout style={{position:'absolute', zIndex:1}}>
         <AppSideBar
           state={state}
         />
@@ -42,4 +42,4 @@ const RegistrationNew = () => {
   }
 }
 
-export default RegistrationNew;
+export default RegistrationsNew;
