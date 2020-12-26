@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
     @product = current_user.products.new(params_product)
     
     if @product.save
-      redirect_to productlist_users_path, notice: "新增產品成功"
+      redirect_to productlist_stores_path, notice: "新增產品成功"
     else
       render :new
     end
@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
   def destroy
     @user = @product.user
     @product.destroy if @product
-    redirect_to productlist_users_path, notice: '刪除商品成功'
+    redirect_to productlist_stores_path, notice: '刪除商品成功'
   end
 
   private
