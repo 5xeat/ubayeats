@@ -37,7 +37,7 @@ const AppSideBar = (props) => {
   return (
     <Sider 
       trigger={null} 
-      collapsible collapsed={props.state} collapsedWidth="0" 
+      collapsible={true} collapsed={props.state} collapsedWidth="0" 
       style={{height:'100vh'}}
     >
       <UserOutlined 

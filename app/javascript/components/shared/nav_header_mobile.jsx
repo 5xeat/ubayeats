@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+
 import Styled from "@emotion/styled";
 
 import { Layout, Menu } from 'antd';
@@ -27,7 +29,9 @@ const NavHeader = (props) => {
           }
         </Menu.Item>
         <Logo>
-          <img src={require(  "../../images/logo/logo-white.png")} alt="Logo" style={{width:'100%'}} />
+          <Link to='/'>
+            <img src={require(  "../../images/logo/logo-white.png")} alt="Logo" style={{width:'100%'}} />
+          </Link>
         </Logo>
       </Menu>
     </Header>

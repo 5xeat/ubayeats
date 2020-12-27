@@ -16,8 +16,8 @@ const AppStoreCard = (props) => {
       }
       actions={[
         <Row align="middle">
-          <Col flex={2}><Rate disabled defaultValue={2} /></Col>
-          <Col flex={1}><HeartOutlined key="like"/></Col>
+          <Col span={18}><Rate disabled={true} defaultValue={2}/></Col>
+          <Col span={6}><HeartOutlined key="like" style={{color:"#ea2b4b"}}/></Col>
         </Row>,
       ]}
       hoverable={true}

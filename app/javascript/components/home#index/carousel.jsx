@@ -11,7 +11,7 @@ const contentStyle = {
 
 const AppCarousel =  () => {
   return(
-    <Carousel autoplay style={{marginTop:'20px'}}>
+    <Carousel autoplay={true} style={{marginTop:'20px'}}>
       <div>
         <h3 style={contentStyle}>1</h3>
       </div>

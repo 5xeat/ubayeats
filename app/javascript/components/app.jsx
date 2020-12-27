@@ -7,7 +7,7 @@ import SessionsNew from './sessions#new/app'
 const App =() => {
   return (
     <div>
-      <Route path="/" exact component={HomeIndex} />
+      <Route path="/" exact={true} component={HomeIndex} />
       <Route path="/users/sign_up" component={RegistrationsNew} />
       <Route path="/users/sign_in" component={SessionsNew} />
     </div>

@@ -38,7 +38,7 @@ const AppCategoryCardList = () => {
     <List
       grid={{
         gutter: 16,
-        xs: 1,
+        xs: 2,
         sm: 3,
         md: 6,
         lg: 6,
