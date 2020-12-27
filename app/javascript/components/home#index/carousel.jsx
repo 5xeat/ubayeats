@@ -9,7 +9,7 @@ const contentStyle = {
   background: '#364d79',
 };
 
-const AppCarousel =  () => {
+const HomeCarousel =  () => {
   return(
     <Carousel autoplay={true} style={{marginTop:'20px'}}>
       <div>
@@ -28,4 +28,4 @@ const AppCarousel =  () => {
   );
 }
 
-export default AppCarousel;
+export default HomeCarousel;

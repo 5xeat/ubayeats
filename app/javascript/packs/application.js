@@ -11,9 +11,11 @@ require("channels")
 import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-import "../components"
+import "../index"
 import "../images"
 
+import "../stylesheets"
+import "tailwindcss/tailwind.css"
 
 
 

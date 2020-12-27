@@ -10,39 +10,48 @@ import { Layout } from 'antd';
 
 const { Footer } = Layout;
 
-const HomeIndex = () => {
+const HomeIndex = (props) => {
+  const { history } = props
+  console.log('props :Home>> ', props);
 
-  const device=useRWD();
+  const device = useRWD();
 
   const [state, setState] = React.useState(true);
 
   const toggle = () => {
     setState(!state);
   };
+  return (
+    <Layout>
+      <NavHeader history={history} />
+      <AppContent />
+      <Footer style={{ textAlign: 'center' }}>Ubayeats ©2020</Footer>
+    </Layout>
+  )
 
-  if(device==="mobile"){
-    return (
-      <Layout>
-        <AppSideBar
-          state={state}
-        />
-        <Layout className="site-layout">
-          <NavHeaderMobile 
-            state={state}
-            toggle={toggle}/>
-          <AppContent />
-        </Layout>
-      </Layout>
-    );
-  } else {
-    return (
-      <Layout>
-          <NavHeader />
-          <AppContent />
-          <Footer style={{ textAlign: 'center' }}>Ubayeats ©2020</Footer>
-      </Layout>
-    );
-  }
+  // if(device==="mobile"){
+  //   return (
+  //     <Layout>
+  //       <AppSideBar
+  //         state={state}
+  //       />
+  //       <Layout className="site-layout">
+  //         {/* <NavHeaderMobile 
+  //           state={state}
+  //           toggle={toggle}/> */}
+  //         <AppContent />
+  //       </Layout>
+  //     </Layout>
+  //   );
+  // } else {
+  //   return (
+  //     <Layout>
+  //         <NavHeader history={history} />
+  //         <AppContent />
+  //         <Footer style={{ textAlign: 'center' }}>Ubayeats ©2020</Footer>
+  //     </Layout>
+  //   );
+  // }
 }
 
 export default HomeIndex;

@@ -6,18 +6,23 @@ import { Layout, Menu } from 'antd';
 
 const { Header } = Layout;
 
-const NavHeader = () => {
+const NavHeader = (props) => {
+  console.log('props :>> ', props);
+  const { history } = props
 
-const atClick = (e) => {
-  // window.location.href= "/" + `users/${e.key}`;
 
-  if (e.key === "sign_up"){
-    window.location.pathname ='users/sign_up';
+  const atClick = (...props) => {
+    // window.location.href= "/" + `users/${e.key}`;
+    console.log(props);
+    console.log('history :>> ', history);
+    // if (e.key === "sign_up"){
+    //   // window.location.pathname ='users/sign_up';
+    //   history.push('/users/sign_up')
+    // }
+    // else if (e.key === "sign_in"){
+    //   history.push('/users/sign_in')
+    // }
   }
-  else if (e.key === "sign_in"){
-    window.location.pathname ='users/sign_in';
-  }
-}
   
   return (
     <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
