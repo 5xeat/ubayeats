@@ -66,6 +66,6 @@ class ProductsController < ApplicationController
   end
 
   def find_user_id
-    @user = User.find_by(id: params[:user_id])
+    @user = User.find_by!(id: params[:user_id])
   end
 end
