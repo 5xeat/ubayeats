@@ -1,42 +1,101 @@
 .app {
   .nav {
     @apply flex;
+    @apply flex-nowrap;
     @apply flex-row;
     @apply bg-gray-900;
     @apply px-5;
     @apply w-full;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
+    @apply md:justify-between;
+    @apply items-center;
+    @apply fixed;
+    @apply z-10;
+    height: 70px;
     top:0;
-    z-index: 1;
-    span {
-      @apply flex;
+    .bars {
+      @apply md:hidden;
+      @apply absolute;
+      @apply text-white;
+      @apply text-2xl;
+      @apply cursor-pointer;
+      left: 20px;
     }
     .logo {
+      @apply mx-auto;
+      @apply md:m-0;
       height: 60px;
-      cursor: pointer;
+      @apply cursor-pointer;
       img {
         @apply h-full
       }
     }
-    &-item {
-      @apply text-white;
-      @apply font-medium;
-      line-height: 60px;
-      font-size: 18px;
-      letter-spacing: .1em;
-      padding: 5px 20px;
-      cursor: pointer;
+    .search {
+      @apply my-auto;
+      height: 40px;
+      max-width: 50px;
+      @apply sm:max-w-4xl;
+      @apply relative;
+      .search-input {
+        @apply bg-white;
+        @apply rounded-full;
+        @apply py-3;
+        @apply pr-6;
+        @apply pl-10;
+        @apply mr-2;
+        @apply h-full;
+        @apply w-full;
+      }
+      .search-input:focus {
+        @apply outline-none;
+      }
     }
-    &-item:hover {
+    .search::before {
+      @apply font-semibold;
+      @apply text-lg;
       @apply text-gray-900;
-      @apply bg-red-500;
-      @apply shadow-inner-lg;
+      font-family: "Font Awesome 5 Free"; 
+      content: "\f002";
+      @apply absolute;
+      left: 12px;
+      top: 5px;
     }
-    &-item:last-child {
-      @apply text-gray-900;
-      @apply bg-red-500;
+    .list-up {
+      top: -140px;
+    }
+    .list-down {
+      top: 70px;
+    }
+    .list {
+      @apply bg-gray-900;
+      @apply absolute;
+      @apply left-0;
+      @apply w-full;
+      @apply mx-auto;
+      @apply md:w-auto;
+      @apply md:h-auto;
+      @apply md:static;
+      @apply md:flex;
+      &-item {
+        @apply text-white;
+        @apply font-medium;
+        line-height: 60px;
+        font-size: 18px;
+        letter-spacing: .1em;
+        padding: 5px 20px;
+        cursor: pointer;
+      }
+      &-item:hover {
+        @apply text-gray-900;
+        @apply bg-red-500;
+        @apply shadow-inner-lg;
+      }
+      &-item:last-child {
+        @apply text-gray-900;
+        @apply bg-red-500;
+      }
+      &-item:last-child:hover {
+        @apply text-white;
+      }
     }
   }
   .container {

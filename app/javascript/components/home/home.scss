@@ -1,6 +1,7 @@
 .category-card-list {
   @apply grid;
-  @apply grid-cols-6;
+  @apply grid-cols-2;
+  @apply md:grid-cols-6;
   @apply gap-4;
   .card {
     @apply text-center;
@@ -31,36 +32,55 @@
 
 .store-card-list {
   @apply grid;
-  @apply grid-cols-3;
+  @apply grid-cols-1;
+  @apply md:grid-cols-3;
   @apply gap-4;
     .card {
-    cursor: pointer;
-    .image {
-      width: 100%;
-      img {
-        @apply w-full;
-      }
-    }
-    .text{
-      @apply p-3;
-      @apply grid;
-      @apply  grid-rows-2;
-      @apply  grid-flow-col;
-      .title {
-        @apply col-span-1;
+      cursor: pointer;
+      .heart {
+        @apply text-red-500;
         @apply text-lg;
-        @apply font-medium;
+        position: absolute;
+        top: 10px;
+        right: 10px;
       }
-      .description {
-        @apply col-span-1;
-        @apply text-sm;
-        @apply font-normal;
+      .image {
+        width: 100%;
+        img {
+          @apply w-full;
+        }
       }
-    }
+      .text{
+        @apply p-3;
+        @apply grid;
+        @apply  grid-rows-2;
+        @apply  grid-flow-col;
+        color: black;
+        .title {
+          @apply row-span-1;
+          @apply col-span-5;
+          @apply text-lg;
+          @apply font-medium;
+        }
+        .description {
+          @apply row-span-1;
+          @apply col-span-5;
+          @apply text-sm;
+          @apply font-normal;
+        }
+        .star {
+          @apply row-span-1;
+          @apply col-span-1;
+          @apply text-right;
+          @apply text-yellow-300;
+          @apply text-lg;
+        }
+      }
   }
   .card:hover{
     @apply transform;
-    @apply  scale-105;
+    @apply scale-105;
+    @apply shadow-md;
     @apply transition;
     @apply  duration-500;
   }

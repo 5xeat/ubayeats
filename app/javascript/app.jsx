@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 import "./app.scss";
@@ -41,28 +41,44 @@ function App(props){
     history.push(route);
   };
 
+  const [sideBar, setSideBar] = useState(false)
+  const sidebar = () => {
+    setSideBar(!sideBar)
+  }
+
   return (
     <div className="app">
       <ul className="nav">
-        <li onClick={() => handleRouteClick("/")}>
-          <div className="logo">
-            <img src={require("./images/logo/logo-white.png")} alt=""/>
-          </div>
+        <li className="bars" onClick={sidebar}>
+          {
+            sideBar ? <i class="fas fa-times"></i> : <i className="fas fa-bars"></i>
+          }
         </li>
-        <span>
-          <li
-            className="nav-item"
-            onClick={() => handleRouteClick("/users/sign_in")}
-          >
-            登入
-          </li>
-          <li
-            className="nav-item"
-            onClick={() => handleRouteClick("/users/sign_up")}
-          >
-            註冊
-          </li>
-        </span>
+        <li className="logo" onClick={() => handleRouteClick("/")}>
+          <img src={require("./images/logo/logo-white.png")} alt=""/>
+        </li>
+        <div className="flex">
+          <div className="search">
+              <input className="search-input" type="text" placeholder="今天想吃什麼？">
+                
+              </input>
+          </div>
+
+          <div className={sideBar ? 'list list-down' : 'list list-up'}>
+            <li
+              className="list-item"
+              onClick={() => handleRouteClick("/users/sign_in")}
+            >
+              登入
+            </li>
+            <li
+              className="list-item"
+              onClick={() => handleRouteClick("/users/sign_up")}
+            >
+              註冊
+            </li>
+          </div>
+        </div>
       </ul>
       <Switch>
         {routes.map(({ route, component, id }) => (

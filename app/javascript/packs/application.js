@@ -17,6 +17,7 @@ import "../images"
 import "../stylesheets"
 import "tailwindcss/tailwind.css"
 
+import "@fortawesome/fontawesome-free/css/all.css"
 
 
 
