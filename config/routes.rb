@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   resource :stores, only: [:show, :edit, :update] do
     get '/productlist', to: 'products#index'
     resources :products, shallow: true, only: [:show, :new, :create, :edit, :update, :destroy] do
+      member do
+        patch :publish
+        patch :delist
+      end
     end
   end
 end

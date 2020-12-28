@@ -5,3 +5,11 @@
   <li><%= link_to product.name, product_path(product) %></li>
 </ul>
 <% end %>
+
+
+<h1>已下架商品</h1>
+<% @productsUnavailable.each do |product| %>
+  <ul>
+    <li><%= link_to product.name, product_path(product) %></li>
+  </ul>
+  <% end %>
