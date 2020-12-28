@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :drivers
+  resource :drivers do
+    get :index
+  end
 
   resource :stores, only: [:show, :edit, :update] do
     get '/productlist', to: 'products#index'
