@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :destroy]
+  before_action :find_current_user_product, only: [:update, :toggle_publish]
 
   def index
-    @products = Product.where(state: 'available').order(id: :desc)
-    @productsUnavailable = Product.where(state: 'unavailable').order(id: :desc)
+    @products = Product.available.order(id: :desc)
+    @productsUnavailable = Product.unavailable.order(id: :desc)
   end
 
   def show
@@ -18,7 +19,7 @@ class ProductsController < ApplicationController
     @product = current_user.products.new(params_product)
     
     if @product.save
-      redirect_to productlist_stores_path, notice: "新增產品成功"
+      redirect_to stores_products_path, notice: "新增產品成功"
     else
       render :new
     end
@@ -28,7 +29,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = current_user.products.find_by(id: params[:id])
     if @product.update(params_product)
       redirect_to product_path(@product), notice: '編輯商品成功'
     else
@@ -37,33 +37,32 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @user = @product.user
     @product.destroy if @product
-    redirect_to productlist_stores_path, notice: '刪除商品成功'
+    redirect_to stores_products_path, notice: '刪除商品成功'
   end
 
-  def publish
-    @product = current_user.products.find_by(id: params[:id])
+  def toggle_publish
     authorize @product, :publish?
-    @product.publish! if @product.may_publish?
-    redirect_to product_path(@product)
+    if @product.may_publish?
+      @product.publish!
+      redirect_to product_path(@product), notice: '商品已上架'
+    elsif @product.may_delist?
+      @product.delist!
+      redirect_to product_path(@product), notice: '商品已下架'
+    end
   end
-
-  def delist
-    @product = current_user.products.find_by(id: params[:id])
-    authorize @product, :delist?
-    @product.delist! if @product.may_delist?
-    redirect_to product_path(@product)
-  end
-  
 
   private
   def params_product
-      params.require(:product).permit(:name, :price, :description)
+    params.require(:product).permit(:name, :price, :description)
   end
 
   def find_product
-    @product = Product.find_by(id: params[:id])
+    @product = Product.find_by!(id: params[:id])
+  end
+
+  def find_current_user_product
+    @product = current_user.products.find_by!(id: params[:id])
   end
 
   def find_user_id
