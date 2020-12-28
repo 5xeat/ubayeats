@@ -13,11 +13,15 @@
     
   </head>
 
-  <body>
+  <body class="<%= controller_name %> <%= action_name%>">
     <div id="root"></div>
     <%= render 'shared/navbar' %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield %>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+    
   </body>
 </html>

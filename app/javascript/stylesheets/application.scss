@@ -1,7 +1,35 @@
 // @import "tailwindcss/base";
 // @import "tailwindcss/components";
 // @import "tailwindcss/utilities";
-.btn-blue {
-  @apply bg-blue-500;
-  @apply font-bold;
+.sessions.new {
+  @apply bg-yellow-50;
+  .container {
+    @apply px-60;
+    @apply pt-8;
+    .img {
+      @apply max-w-sm;
+      @apply mx-auto;
+      @apply mb-5;
+      img {
+        @apply w-full;
+      }
+    }
+    h2 {
+      @apply text-center;
+      @apply text-4xl;
+      @apply font-black;
+    }
+    .new_user {
+      @apply mx-auto;
+      .form-item{
+        @apply text-4xl;
+        @apply font-black;
+        input {
+        }
+        input:focus {
+          @apply border-none;
+        }
+      }
+    }
+  }
 }
