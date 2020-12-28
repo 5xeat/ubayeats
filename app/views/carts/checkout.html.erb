@@ -1,0 +1,22 @@
+<h1>結帳</h1>
+<%= render "carts/cart" %>
+
+<%= form_for(@order) do |form| %>
+  <div>
+    <%= form.label :username, '名稱'%>
+    <%= form.text_field :username%>
+  </div>
+  <div>
+    <%= form.label :tel,'電話'%>
+    <%= form.text_field :tel%>
+  </div>
+  <div>
+    <%= form.label :address, '地址'%>
+    <%= form.text_field :address%>
+  </div>
+
+  <div id="dropin-container"></div>
+  <input type="hidden" id="nonce" name="payment_method_nonce"/>
+
+  <%= form.submit '確認付款' %>
+<% end %>
