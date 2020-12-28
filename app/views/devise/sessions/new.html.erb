@@ -6,8 +6,8 @@
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-item">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :帳號 %><br />
+    <%= f.email_field :email, placeholeder: 'email', autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="form-item">
@@ -22,8 +22,8 @@
     </div>
   <% end %>
 
-  <div>
-    <%= f.submit "Log in" %>
+  <div class="actions">
+    <%= f.submit "登入" %>
   </div>
 <% end %>
 
