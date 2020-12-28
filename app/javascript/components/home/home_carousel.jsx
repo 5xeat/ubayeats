@@ -9,7 +9,7 @@ const contentStyle = {
   background: '#364d79',
 };
 
-const HomeCarousel =  () => {
+function HomeCarousel(){
   return(
     <Carousel autoplay={true} style={{marginTop:'20px'}}>
       <div>

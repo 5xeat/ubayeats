@@ -1,0 +1,67 @@
+.category-card-list {
+  @apply grid;
+  @apply grid-cols-6;
+  @apply gap-4;
+  .card {
+    @apply text-center;
+    @apply border-0;
+    cursor: pointer;
+    .image {
+      @apply mx-auto;
+      width: 35%;
+      img {
+        @apply w-full;
+      }
+    }
+    p {
+      @apply text-lg;
+      @apply font-normal;
+      @apply pt-3;
+    }
+  }
+  .card:hover{
+    .image {
+      @apply transform;
+      @apply  scale-110;
+      @apply transition;
+      @apply  duration-500;
+    }
+  }
+}
+
+.store-card-list {
+  @apply grid;
+  @apply grid-cols-3;
+  @apply gap-4;
+    .card {
+    cursor: pointer;
+    .image {
+      width: 100%;
+      img {
+        @apply w-full;
+      }
+    }
+    .text{
+      @apply p-3;
+      @apply grid;
+      @apply  grid-rows-2;
+      @apply  grid-flow-col;
+      .title {
+        @apply col-span-1;
+        @apply text-lg;
+        @apply font-medium;
+      }
+      .description {
+        @apply col-span-1;
+        @apply text-sm;
+        @apply font-normal;
+      }
+    }
+  }
+  .card:hover{
+    @apply transform;
+    @apply  scale-105;
+    @apply transition;
+    @apply  duration-500;
+  }
+}

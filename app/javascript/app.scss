@@ -1,13 +1,46 @@
 .app {
   .nav {
-    display: flex;
+    @apply flex;
+    @apply flex-row;
+    @apply bg-gray-900;
+    @apply px-5;
+    @apply w-full;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    position: fixed;
+    top:0;
+    z-index: 1;
+    span {
+      @apply flex;
+    }
+    .logo {
+      height: 60px;
+      cursor: pointer;
+      img {
+        @apply h-full
+      }
+    }
     &-item {
-      margin: 0 5px;
-      border: 1px solid red;
-      padding: 5px 10px;
+      @apply text-white;
+      @apply font-medium;
+      line-height: 60px;
+      font-size: 18px;
+      letter-spacing: .1em;
+      padding: 5px 20px;
       cursor: pointer;
     }
+    &-item:hover {
+      @apply text-gray-900;
+      @apply bg-red-500;
+      @apply shadow-inner-lg;
+    }
+    &-item:last-child {
+      @apply text-gray-900;
+      @apply bg-red-500;
+    }
+  }
+  .container {
+    @apply px-10;
+    @apply pt-10;
   }
 }
