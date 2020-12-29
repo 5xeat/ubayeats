@@ -8,13 +8,15 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 
-import "../index"
+// import "../index"
 import "../images"
 
 import "../stylesheets"
 import "tailwindcss/tailwind.css"
 
 import "@fortawesome/fontawesome-free/css/all.css"
+
+import "../views"
 
 
 

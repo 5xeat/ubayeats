@@ -1,4 +1,6 @@
 import React from "react";
+import ReactDOM from "react-dom";
+
 import classnames from "classnames/bind";
 import styles from "./style.module.scss";
 
@@ -26,4 +28,10 @@ function Home(){
   );
 };
 
-export default Home;
+document.addEventListener("DOMContentLoaded", () => {
+  ReactDOM.render(
+    <Home />,
+    document.querySelector(".home.index #content")
+  );
+});
+

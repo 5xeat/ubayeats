@@ -1,6 +1,15 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+#content{
+  margin-top: 70px;
+}
+.container {
+  @apply px-10;
+  @apply pt-10;
+  @apply mx-auto;
+}
+
 .btn {
   @apply px-4;
   @apply py-3;

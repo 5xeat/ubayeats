@@ -14,14 +14,16 @@
   </head>
 
   <body class="<%= controller_name %> <%= action_name%>">
-    <div id="root"></div>
-    <%= render 'shared/navbar' %>
+    <%= content_tag :div,
+      id: "navbar",
+      data: current_user.to_json do %>
+    <% end %>
+    <div id="navbar_component"></div>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <div class="container">
+    <div id="content">
       <%= yield %>
     </div>
-
   </body>
 </html>
