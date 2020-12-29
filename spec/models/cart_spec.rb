@@ -11,6 +11,6 @@ RSpec.describe Cart, type: :model do
     cart = Cart.new
     3.times { cart.add_item(1) }
     5.times { cart.add_item(2) }
-    expect(cart.items.quantity).to be 2
+    expect(cart.items.count).to be 2
   end
 end
