@@ -1,4 +1,7 @@
 class DriversController < ApplicationController
+  def index
+  end
+  
   def new
     @driver_profile = DriverProfile.new
   end
