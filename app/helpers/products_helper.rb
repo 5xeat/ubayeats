@@ -1,9 +1,8 @@
 module ProductsHelper
-  def check_publish?(product)
-    policy(product).publish?
+
+  def check_product_state?(product)
+    product.may_publish?
   end
 
-  def check_delist?(product)
-    policy(product).delist?
-  end
+
 end

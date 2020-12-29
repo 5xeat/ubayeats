@@ -18,12 +18,13 @@
       <td><%= link_to '編輯', edit_product_path(@product) %></td>
       <td><%= link_to '刪除', product_path(@product), method: 'delete', data: { confirm: '確定要刪除嗎?'}  %></td>
 
-      <% if check_publish?(@product) %>
+      <% if check_product_state?(@product) %>
       <td><%= link_to '上架', toggle_publish_product_path(@product), method: 'patch' %></td>
-      <% elsif check_delist?(@product) %>
+      <% else %>
       <td><%= link_to '下架', toggle_publish_product_path(@product), method: 'patch'  %></td>
       <% end %>
     </tr>
+
 
   </tbody>
 </table>
