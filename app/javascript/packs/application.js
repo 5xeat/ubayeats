@@ -8,9 +8,6 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 
-import "bootstrap"
-import "bootstrap/dist/css/bootstrap.min.css"
-
 import "../index"
 import "../images"
 

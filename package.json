@@ -2,7 +2,6 @@
   "name": "ubayeats",
   "private": true,
   "dependencies": {
-    "@ant-design/icons": "^4.3.0",
     "@babel/preset-react": "^7.12.10",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
@@ -16,7 +15,6 @@
     "autoprefixer": "^9",
     "babel-plugin-import": "^1.13.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "bootstrap": "4.5.3",
     "classnames": "^2.2.6",
     "jquery": "^3.5.1",
     "less": "3.13.1",
