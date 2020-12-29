@@ -20,4 +20,15 @@ RSpec.describe Cart, type: :model do
     cart.add_item(p1.id)
     expect(cart.items.first.item_id).to be p1.id
   end
+
+  it "每個CartItem都可以計算金額（小計）" do
+    user = User.create(email: "a@a", password: "aaaaaa")  # 因為Product belongs_to User
+    p1 = Product.create(name: "珍珠奶茶", price: 500, user_id: user.id)
+    p2 = Product.create(name: "雞排", price: 300, user_id: user.id)
+    cart = Cart.new
+    3.times { cart.add_item(p1.id) }
+    5.times { cart.add_item(p2.id) }
+    expect(cart.items.first.price).to be 1500
+    expect(cart.items.second.price).to be 1500
+  end
 end

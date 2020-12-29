@@ -10,7 +10,7 @@ class Cart
     found_item = @items.find { |item| item.item_id == item_id }
     
     if found_item
-      found_item.increment(quantity)            # 增加數量
+      found_item.increment(quantity)             # 增加數量
     else
       @items << CartItem.new(item_id, quantity)  # 增加一個新CartItem
     end
