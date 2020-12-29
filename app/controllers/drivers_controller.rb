@@ -1,4 +1,7 @@
 class DriversController < ApplicationController
+  before_action :session_required
+  before_action :driver_pundit, except: [:new, :create]
+
   def index
   end
   
@@ -21,5 +24,9 @@ class DriversController < ApplicationController
   private
   def params_driver
     params.require(:driver_profile).permit(:taiwan_id_front, :taiwan_id_back, :license, :car_number, :account)
+  end
+
+  def driver_pundit
+    authorize @current_user, :delivery
   end
 end

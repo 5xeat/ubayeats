@@ -1,4 +1,7 @@
 class StoresController < ApplicationController
+  before_action :session_required
+  before_action :store_pundit, except: [:new, :create]
+
   def index
   end
   
@@ -20,6 +23,10 @@ class StoresController < ApplicationController
   private
   def params_store
     params.require(:store_profile).permit(:store_id_Certificate, :store_id_list, :store_name, :store_type, :store_mail, :store_address, :store_phone )
+  end
+
+  def store_pundit
+    authorize @current_user, :start_business
   end
          
 end
