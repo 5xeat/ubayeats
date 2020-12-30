@@ -34,6 +34,7 @@ default: &default
     - .woff2
 
   extensions:
+    - .jsx
     - .mjs
     - .js
     - .sass
@@ -47,6 +48,8 @@ default: &default
     - .gif
     - .jpeg
     - .jpg
+    - .less
+    - .module.less
 
 development:
   <<: *default

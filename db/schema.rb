@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2020_12_28_053254) do
 
   # These are extensions that must be enabled in order to support this database
@@ -45,6 +46,14 @@ ActiveRecord::Schema.define(version: 2020_12_28_053254) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -58,6 +67,12 @@ ActiveRecord::Schema.define(version: 2020_12_28_053254) do
     t.string "state", default: "unavailable"
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
     t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "store_profiles", force: :cascade do |t|
@@ -97,6 +112,8 @@ ActiveRecord::Schema.define(version: 2020_12_28_053254) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "products", "users"
   add_foreign_key "store_profiles", "users"
 end
