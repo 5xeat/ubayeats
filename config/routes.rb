@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { 
     omniauth_callbacks: "users/omniauth_callbacks",
-    registrations: "users/registrations" 
+    registrations: "users/registrations",
+    sessions: "users/sessions" 
   }
   root 'home#index'
   
@@ -16,7 +17,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :drivers
+  resource :drivers do
+    get :index
+  end
 
   resource :stores, only: [:show, :edit, :update] do
     get '/productlist', to: 'products#index'
