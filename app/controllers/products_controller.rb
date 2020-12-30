@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :destroy]
   before_action :find_current_user_product, only: [:update, :toggle_publish]
+  before_action :session_required
+
 
   def index
     @products = Product.available.order(id: :desc)
