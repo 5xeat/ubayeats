@@ -34,13 +34,12 @@ function Navbar({user}){
     <ul className="nav">
       <li className="bars" onClick={sidebar}>
         {
-          sideBar ? <i class="fas fa-times"></i> : <i className="fas fa-bars"></i>
+          sideBar ? <i className="fas fa-times"></i> : <i className="fas fa-bars"></i>
         }
       </li>
       <li className="logo" onClick={() => handleRouteClick("/")}>
         <img src={require("../../images/logo/logo-white.png")} alt=""/>
       </li>
-      <div className="flex">
         { user === null ||
           <div className="search">
             <input className="search-input" type="text" placeholder={user.name + "，今天想吃什麼？"}>
@@ -55,13 +54,14 @@ function Navbar({user}){
             </input>
           </div>
         }
+      <div className="flex">
         <div className={sideBar ? 'list list-down' : 'list list-up'}>
           { user === null ||
             <li
               className="list-item"
               onClick={() => handleRouteClick("/drivers/new")}
             >
-              成為外送員
+              外送員
             </li>
           }
           { user === null ||
@@ -69,7 +69,7 @@ function Navbar({user}){
               className="list-item"
               onClick={() => handleRouteClick("/stores/new")}
             >
-              開店
+              店家
             </li>
           }
           { user === null ||

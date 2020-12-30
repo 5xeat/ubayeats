@@ -1,9 +1,8 @@
 .nav {
   @apply flex;
   @apply flex-nowrap;
-  @apply flex-row;
   @apply bg-gray-900;
-  @apply px-5;
+  @apply px-14;
   @apply w-full;
   @apply md:justify-between;
   @apply items-center;
@@ -21,9 +20,9 @@
   }
   .logo {
     @apply pl-20;
-    @apply mx-auto;
     @apply p-0;
-    @apply md:m-0;
+    @apply m-0;
+    @apply flex-none;
     height: 60px;
     @apply cursor-pointer;
     img {
@@ -31,12 +30,10 @@
     }
   }
   .search {
-    @apply my-auto;
+    @apply flex-grow;
     height: 40px;
-    max-width: 90px;
-    @apply md:max-w-4xl;
     @apply relative;
-    @apply mr-2;
+    @apply mx-2;
     .search-input {
       @apply bg-white;
       @apply rounded-full;
@@ -61,7 +58,7 @@
     top: 5px;
   }
   .list-up {
-    top: -140px;
+    top: -280px;
   }
   .list-down {
     top: 70px;
@@ -70,8 +67,9 @@
     @apply bg-gray-900;
     @apply absolute;
     @apply left-0;
-    @apply w-full;
     @apply mx-auto;
+    @apply w-full;
+    @apply md:flex-none;
     @apply md:w-auto;
     @apply md:h-auto;
     @apply md:static;
