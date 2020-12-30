@@ -1,34 +1,51 @@
-<h2>用戶註冊</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email, "用戶信箱" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, "用戶密碼" %>
-    <% if @minimum_password_length %>
-    <em>(最少<%= @minimum_password_length %>個字元)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "密碼確認" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :name, "用戶名稱" %><br />
-    <%= f.text_field :name, autocomplete: "name" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+<div class="container">
+  <h2>註冊成為新會員 <i class="fas fa-motorcycle"></i></h2>
+  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+  
+    <div class="form-item">
+      <%= f.label :email, "電子信箱" %><br />
+      <%= f.email_field :email, placeholder: 'xxxxx@example.com', autofocus: true, autocomplete: "email" %>
+    </div>
+  
+    <div class="form-item">
+      <%= f.label :password, "密碼" %>
+      <%= f.password_field :password,
+          placeholder: "請輸入6個英數混合字元", 
+          autocomplete: "new-password" %>
+    </div>
+  
+    <div class="form-item">
+      <%= f.label :password_confirmation, "密碼確認" %><br />
+      <%= f.password_field :password_confirmation,
+          placeholder: "請再次輸入密碼", 
+          autocomplete: "new-password" %>
+    </div>
+  
+    <div class="form-item">
+      <%= f.label :name, "暱稱" %><br />
+      <%= f.text_field :name, placeholder: "請輸入使用者暱稱", autocomplete: "name" %>
+    </div>
+  
+    <div class="actions">
+      <%= f.submit "註冊", class:"btn-blue", class: 'btn btn-primary'  %>
+    </div>
+  
+    <div class="flex">
+      <%- if devise_mapping.omniauthable? %>
+        <%- resource_class.omniauth_providers.each do |provider| %>
+          <%= link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-google' do %>
+            <span>使用Google帳號登入</span>
+          <% end %>
+          <br />
+        <% end %>
+      <% end %>
+    </div>
+  
+  <% end %>
+  
+  <%- if controller_name != 'sessions' %>
+    已經有帳號？ <%= link_to "登入", new_session_path(resource_name) %><br />
+  <% end %>
+</div>

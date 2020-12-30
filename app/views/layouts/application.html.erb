@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ubayeats</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,11 +14,17 @@
     
   </head>
 
-  <body>
-    <%= render 'shared/navbar' %>
+  <body class="<%= controller_name %> <%= action_name%>">
+    <%= content_tag :div,
+      id: "navbar",
+      data: current_user.to_json do %>
+    <% end %>
+    <div id="navbar_component"></div>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield %>
 
+    <div id="content">
+      <%= yield %>
+    </div>
   </body>
 </html>
