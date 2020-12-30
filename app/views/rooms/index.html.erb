@@ -1,15 +1,22 @@
 <div class="container">
-  <p>hello,<%= current_user.name %></p>
-  <div class="room">
   <% if @room.present? %>
-    <%= @room.id %>
-    <% @room.messages.each do |message| %>
-      <%= message.content %>
-      <br>
-    <% end %>
-      <div class="chat-room">
+    <p>hello,<%= current_user.name %></p>
+    <div class="chat-room">
+      <% @room.messages.each do |message| %>
+        <div class="message <%= 'me' if message.user == current_user %>">
+          <div class="content-container">
+            <div class="content">
+              <%= message.content %>
+            </div>
+            <div class="author">
+              <%= message.user.name %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="chat-box">
         <%= render 'messages/form', message: Message.new, room: @room %>
       </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
 </div>
