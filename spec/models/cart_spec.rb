@@ -43,4 +43,24 @@ RSpec.describe Cart, type: :model do
       expect(cart.total_price).to be 3000
     end
   end
+
+  describe "進階功能" do
+    it "將購物車的內容轉換為Hash，並存入session" do
+      cart = Cart.new
+      3.times { cart.add_item(1) }
+      5.times { cart.add_item(2) }
+      expect(cart.serialize).to eq cart_hash
+    end
+  end
+
+  private
+  def cart_hash
+    {
+      "items" =>
+        [
+          { "item_id" => 1, "quantity" => 3 },
+          { "item_id" => 2, "quantity" => 5 }
+        ]
+    }
+  end
 end
