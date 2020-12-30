@@ -51,6 +51,14 @@ RSpec.describe Cart, type: :model do
       5.times { cart.add_item(2) }
       expect(cart.serialize).to eq cart_hash
     end
+
+    it "將session內的Hash還原為購物車內容" do
+      cart = Cart.from_hash(cart_hash)
+      expect(cart.items.first.item_id).to be 1
+      expect(cart.items.first.quantity).to be 3
+      expect(cart.items.last.item_id).to be 2
+      expect(cart.items.last.quantity).to be 5
+    end
   end
 
   private
