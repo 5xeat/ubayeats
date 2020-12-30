@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :rooms
+  resources :messages
   resource :drivers do
     get :index
   end

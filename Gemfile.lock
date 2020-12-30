@@ -196,6 +196,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.2.5)
     regexp_parser (1.8.2)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -259,24 +260,25 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aasm
+  aasm (~> 5.1, >= 5.1.1)
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
   carrierwave (~> 2.1)
   devise (~> 4.2)
-  figaro
+  figaro (~> 1.2)
   foreman (~> 0.87.2)
   jbuilder (~> 2.7)
   listen (~> 3.2)
-  omniauth
-  omniauth-google-oauth2
+  omniauth (~> 1.9, >= 1.9.1)
+  omniauth-google-oauth2 (~> 0.8.1)
   paranoia (~> 2.4, >= 2.4.3)
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
-  pundit
+  pundit (~> 2.1)
   rails (~> 6.0.3, >= 6.0.3.4)
-  rails-i18n
+  rails-i18n (~> 6.0)
+  redis (~> 4.2, >= 4.2.5)
   sass-rails (>= 6)
   selenium-webdriver
   spring

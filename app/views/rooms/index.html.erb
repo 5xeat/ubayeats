@@ -1,0 +1,15 @@
+<div class="container">
+  <p>hello,<%= current_user.name %></p>
+  <div class="room">
+  <% if @room.present? %>
+    <%= @room.id %>
+    <% @room.messages.each do |message| %>
+      <%= message.content %>
+      <br>
+    <% end %>
+      <div class="chat-room">
+        <%= render 'messages/form', message: Message.new, room: @room %>
+      </div>
+    <% end %>
+  </div>
+</div>
