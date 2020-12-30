@@ -2,7 +2,8 @@ class MessagesController < ApplicationController
   def create
     @message = current_user.messages.new(message_params)
     @message.save
-    redirect_to request.referrer
+
+    SendMessageJob.perform_later(@message)
   end
 
   private

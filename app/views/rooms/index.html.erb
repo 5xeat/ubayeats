@@ -1,19 +1,15 @@
+<div id="room-id" data-room-id="<%= @room.id %>"></div>
+<div id="user-id" data-user-id="<%= current_user.id %>"></div>
+
 <div class="container">
   <% if @room.present? %>
     <p>hello,<%= current_user.name %></p>
     <div class="chat-room">
-      <% @room.messages.each do |message| %>
-        <div class="message <%= 'me' if message.user == current_user %>">
-          <div class="content-container">
-            <div class="content">
-              <%= message.content %>
-            </div>
-            <div class="author">
-              <%= message.user.name %>
-            </div>
-          </div>
-        </div>
-      <% end %>
+      <div id="messages">
+        <% @room.messages.each do |message| %>
+          <%= render 'messages/message', message: message %>
+        <% end %>
+      </div>
       <div class="chat-box">
         <%= render 'messages/form', message: Message.new, room: @room %>
       </div>
