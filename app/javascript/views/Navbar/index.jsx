@@ -27,7 +27,7 @@ function Navbar({user}){
       return
     }
 
-    window.location.href = route
+    Turbolinks.visit(route)
   }
 
   return (
@@ -110,7 +110,7 @@ function Navbar({user}){
   );
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('turbolinks:load', () => {
   const node = document.getElementById('navbar')
   const data = JSON.parse(node.getAttribute('data'))
   console.log(data);
