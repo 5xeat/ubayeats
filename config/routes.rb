@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :orders
   resource :carts do
     get :checkout
+    get :orderfinish
     collection do
       post :pay
       get :confirm

@@ -4,7 +4,6 @@
 <%= form_for(@order, url: pay_carts_path)  do |form| %>
   <div>
     <%= form.label :username, '名稱'%>
-    
     <%= form.text_field :username %>
   </div>
   <div>
@@ -19,7 +18,7 @@
   <div id="dropin-container"></div>
   <input type="hidden" id="nonce" name="payment_method_nonce"/>
 
-
+ <%= link_to '訂單內容', orderfinish_carts_path data: { confirm: '要追蹤此訂單？' } %> 
   <%= form.submit '確認付款' %>
 <% end %>
 

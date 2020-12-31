@@ -50,7 +50,10 @@ class CartsController < ApplicationController
         "Content-Type" => "application/json; charest=UTF-8"}
     res = Net::HTTP.post(url, body.to_json, headers)
     p res.body
-    render html: res.body.to_s
-    # redirect_to 
+    # render html: res.body.to_s
+     redirect_to orderfinish_carts_path '交易完成'
+    end
+
+    def orderfinish
     end
 end
