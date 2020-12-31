@@ -4,6 +4,10 @@ class StoresController < ApplicationController
 
   def index
   end
+
+  def delicacy
+    
+  end
   
   def new
     @store_profile = StoreProfile.new
