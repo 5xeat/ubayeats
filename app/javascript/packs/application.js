@@ -4,7 +4,7 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start()
-// require("turbolinks").start()
+require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
@@ -17,6 +17,8 @@ import "tailwindcss/tailwind.css"
 import "@fortawesome/fontawesome-free/css/all.css"
 
 import "../views"
+
+import '../rooms/room.scss'
 
 
 

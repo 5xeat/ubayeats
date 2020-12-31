@@ -29,16 +29,19 @@ Rails.application.routes.draw do
 
 
 
+  resources :rooms
+  resources :messages
   resource :drivers do
     get :index
   end
 
   resource :stores, only: [:show, :edit, :update] do
-    get '/productlist', to: 'products#index'
     resources :products, shallow: true, only: [:show, :new, :create, :edit, :update, :destroy] do
+      collection do
+        get :index
+      end
       member do
-        patch :publish
-        patch :delist
+        patch :toggle_publish
       end
     end
   end

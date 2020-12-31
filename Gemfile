@@ -14,7 +14,7 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-# gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -29,22 +29,25 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'devise', '~> 4.2'
-gem 'rails-i18n'
+gem 'rails-i18n', '~> 6.0'
 
+gem 'omniauth', '~> 1.9', '>= 1.9.1'
+gem 'omniauth-google-oauth2', '~> 0.8.1'
+gem 'figaro', '~> 1.2'
 
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'figaro'
-
-gem 'aasm'
+gem 'aasm', '~> 5.1', '>= 5.1.1'
 gem 'carrierwave', '~> 2.1'
-gem "pundit"
+gem 'pundit', '~> 2.1'
+gem 'redis', '~> 4.2', '>= 4.2.5'
 
 gem 'paranoia', '~> 2.4', '>= 2.4.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 4.0', '>= 4.0.2'
+  gem 'factory_bot_rails', '~> 6.1'
+  gem 'faker', '~> 2.15', '>= 2.15.1'
 end
 
 group :development do
