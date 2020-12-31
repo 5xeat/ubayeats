@@ -46,6 +46,10 @@
     @apply md:h-auto;
     @apply md:static;
     @apply md:flex;
+    .flex {
+      @apply flex-col;
+      @apply md:flex-row;
+    }
     &-text {
       @apply text-white;
       @apply font-medium;

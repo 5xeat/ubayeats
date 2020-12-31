@@ -55,7 +55,6 @@ function StoreCardList(){
       url: "/stores.json",
       type: "GET",
       success: (resp) => {
-        console.log(resp.stores)
         const newData = resp.stores
         setData(newData)
       },

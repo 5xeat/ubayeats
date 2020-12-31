@@ -1,6 +1,6 @@
 class StoresController < ApplicationController
-  before_action :session_required
-  before_action :store_pundit, except: [:new, :create]
+  before_action :session_required, except: [:index]
+  # before_action :store_pundit, except: [:new, :create]
 
   def index
     @store_profiles = StoreProfile.all

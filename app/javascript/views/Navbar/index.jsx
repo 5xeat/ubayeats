@@ -43,10 +43,10 @@ function Navbar({user}){
       <li className="logo" onClick={() => handleRouteClick("/")}>
         <img src={require("../../images/logo/logo-white.png")} alt=""/>
       </li>
-        <Search user={user}/>
-        <div className={sideBar ? 'list list-down' : 'list list-up'}>
-          <NavbarList user={user} handleRouteClick={handleRouteClick}/>
-        </div>
+      <Search user={user}/>
+      <div className={sideBar ? 'list list-down' : 'list list-up'}>
+        <NavbarList user={user} handleRouteClick={handleRouteClick}/>
+      </div>
     </ul>
   );
 };
