@@ -28,10 +28,13 @@ function Home(){
   );
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(
-    <Home />,
-    document.querySelector(".home.index #content")
-  );
+document.addEventListener('turbolinks:load', () => {
+  const root = document.querySelector(".home.index #content")
+  if (root){
+    ReactDOM.render(
+      <Home />,
+      root
+    )
+  }
 });
 
