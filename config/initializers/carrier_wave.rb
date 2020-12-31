@@ -14,3 +14,4 @@ CarrierWave.configure do |config|
   config.fog_directory  = 'name_of_bucket'  #required
   config.fog_public     = false  #optional, defaults to true
 end
+
