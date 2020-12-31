@@ -1,8 +1,14 @@
 class StoresController < ApplicationController
   before_action :session_required
-  before_action :store_pundit, except: [:new, :create]
+  before_action :store_pundit, except: [:new, :create, :delicacy]
 
   def index
+  end
+
+  def delicacy
+    user = User.find_by!(id: params[:id])
+    @store_profile = user.store_profile
+    @products = user.products
   end
   
   def new
