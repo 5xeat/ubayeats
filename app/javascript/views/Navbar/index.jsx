@@ -4,6 +4,9 @@ import Rails from '@rails/ujs'
 
 import "./navbar.scss";
 
+// components
+import NavbarList from "../../components/navbar/navbar_list.jsx"
+
 function Navbar({user}){
   console.log(user);
 
@@ -27,90 +30,41 @@ function Navbar({user}){
       return
     }
 
-    window.location.href = route
+    Turbolinks.visit(route)
   }
 
   return (
     <ul className="nav">
       <li className="bars" onClick={sidebar}>
         {
-          sideBar ? <i class="fas fa-times"></i> : <i className="fas fa-bars"></i>
+          sideBar ? <i className="fas fa-times"></i> : <i className="fas fa-bars"></i>
         }
       </li>
       <li className="logo" onClick={() => handleRouteClick("/")}>
         <img src={require("../../images/logo/logo-white.png")} alt=""/>
       </li>
-      <div className="flex">
         { user === null ||
           <div className="search">
+            <i className="fas fa-search search-icon"></i>
             <input className="search-input" type="text" placeholder={user.name + "，今天想吃什麼？"}>
-              
             </input>
           </div>
         }
         { user === null &&
           <div className="search">
+            <i className="fas fa-search search-icon"></i>
             <input className="search-input" type="text" placeholder="今天想吃什麼？">
-              
             </input>
           </div>
         }
         <div className={sideBar ? 'list list-down' : 'list list-up'}>
-          { user === null ||
-            <li
-              className="list-item"
-              onClick={() => handleRouteClick("/drivers/new")}
-            >
-              成為外送員
-            </li>
-          }
-          { user === null ||
-            <li
-              className="list-item"
-              onClick={() => handleRouteClick("/stores/new")}
-            >
-              開店
-            </li>
-          }
-          { user === null ||
-            <li
-              className="list-item selected"
-              onClick={() => handleRouteClick("/users/edit")}
-            >
-              會員資料
-            </li>
-          }
-          { user === null ||
-            <li
-              className="list-item"
-              onClick={() => handleRouteClick("/users/sign_out")}
-            >
-              登出
-            </li>
-          }
-          { user === null &&
-            <li
-              className="list-item"
-              onClick={() => handleRouteClick("/users/sign_in")}
-            >
-              登入
-            </li>
-          }
-          { user === null &&
-            <li
-              className="list-item selected"
-              onClick={() => handleRouteClick("/users/sign_up")}
-            >
-              註冊
-            </li>
-          }
+          <NavbarList user={user} handleRouteClick={handleRouteClick}/>
         </div>
-      </div>
     </ul>
   );
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('turbolinks:load', () => {
   const node = document.getElementById('navbar')
   const data = JSON.parse(node.getAttribute('data'))
   console.log(data);
