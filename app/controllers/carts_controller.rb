@@ -26,7 +26,7 @@ class CartsController < ApplicationController
         trade_no = "UB#{Time.zone.now.to_i}"
         body = {
             "amount": 100,
-            "confirmUrl":"http://localhost:3000/stores/confirm",
+            "confirmUrl":"http://localhost:3000/carts/confirm",
             "productName":"產品",
             "orderId": trade_no,
             "currency": "TWD"
@@ -51,5 +51,6 @@ class CartsController < ApplicationController
     res = Net::HTTP.post(url, body.to_json, headers)
     p res.body
     render html: res.body.to_s
+    # redirect_to 
     end
 end
