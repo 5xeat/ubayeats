@@ -1,10 +1,10 @@
 <h1>您的購物車</h1>
 
-<%= render "carts/cart" %>
+<%= render "carts/cart", cart: current_cart%>
 
-<%= link_to '您的訂單','#'%>
+<%= link_to '您的訂單',carts_path %>
 
-<%= link_to '新增餐點', '#'%>
+<%= link_to '加餐點', stores_products_path %>
 <%= link_to '結帳' , checkout_carts_path %>
 
 <%= link_to '清空購物車', carts_path, method: 'delete'%>
