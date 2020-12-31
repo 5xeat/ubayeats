@@ -34,6 +34,16 @@
     height: 40px;
     @apply relative;
     @apply mx-2;
+    .search-icon {
+      @apply font-semibold;
+      @apply text-lg;
+      @apply text-gray-900;
+      font-family: "Font Awesome 5 Free"; 
+      @apply absolute;
+      left: 12px;
+      top: 5px;
+      @apply cursor-pointer;
+    }  
     .search-input {
       @apply bg-white;
       @apply rounded-full;
@@ -46,16 +56,6 @@
     .search-input:focus {
       @apply outline-none;
     }
-  }
-  .search::before {
-    @apply font-semibold;
-    @apply text-lg;
-    @apply text-gray-900;
-    font-family: "Font Awesome 5 Free"; 
-    content: "\f002";
-    @apply absolute;
-    left: 12px;
-    top: 5px;
   }
   .list-up {
     top: -280px;
