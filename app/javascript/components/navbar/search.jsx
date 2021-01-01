@@ -63,6 +63,20 @@ function Search({user}){
 
   let selectedSuggestionsIndex = -1
 
+  const atKeyPress = (e) => {
+    const input = document.querySelector('.search-input')
+    const result_list = document.querySelector('.result-list')
+    if (e.key === 'Enter'){
+      if (selectedSuggestionsIndex >= 0){
+        const keyword = document.querySelector('.result.selected').textContent
+        input.value = keyword
+        result_list.classList.add('hidden')
+        selectedSuggestionsIndex = -1
+        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+      }
+    }
+  }
+
   const atKeyUp = (e) => {
     const input = document.querySelector('.search-input')
     const inputValue = e.target.value
@@ -89,21 +103,6 @@ function Search({user}){
       }
       if (result_list.children.length > 0){
         result_list.children[selectedSuggestionsIndex].classList.add('selected')
-      }
-      return
-    }
-
-    if (e.key === "Enter" ){
-      if (document.querySelector('.result.selected')){
-        if (selectedSuggestionsIndex >= 0){
-          input.value = document.querySelector('.result.selected').textContent
-          result_list.classList.add('hidden')
-          selectedSuggestionsIndex = -1
-        }
-        return
-      } else {
-        const keyword = inputValue
-        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
       }
       return
     }
@@ -150,6 +149,7 @@ function Search({user}){
         type="text" 
         placeholder={user === null ? "今天想吃什麼？" : user.name + "，今天想吃什麼？"}
         onKeyUp={atKeyUp}
+        onKeyPress={atKeyPress}
         />
       <div className="result-list" />
     </div>
