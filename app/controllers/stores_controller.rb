@@ -22,7 +22,7 @@ class StoresController < ApplicationController
 
   def search
     @keyword = params[:keyword]
-    @stores = StoreProfile.where("lower(store_name) LIKE ?", "%#{@keyword.downcase}%")
+    @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
   end
 
   private
