@@ -16,6 +16,18 @@ Rails.application.routes.draw do
       get :index
     end
   end
+  resources :orders
+  resource :carts do
+    get :checkout
+    collection do
+      post :pay
+      get :confirm
+    end
+  end
+  # , only: [:show, :destroy] do
+  #   post ':add_item/:id',aciton: 'add_item' 
+
+
 
   resources :rooms
   resources :messages
