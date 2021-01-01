@@ -1,0 +1,8 @@
+<h1>購物車</h1>
+<%= render "carts/cart" %>
+
+
+<%= link_to '繼續購買', '#'%>
+<%= link_to '結帳' , checkout_carts_path %>
+
+<%= link_to '清空購物車', carts_path, method: 'delete'%>
