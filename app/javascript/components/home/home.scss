@@ -35,54 +35,62 @@
   @apply grid-cols-1;
   @apply md:grid-cols-3;
   @apply gap-4;
-    .card {
-      cursor: pointer;
-      @apply relative;
-      .heart {
-        @apply text-red-500;
+  .card {
+    cursor: pointer;
+    @apply relative;
+    @apply max-h-60;
+    .heart {
+      @apply text-red-500;
+      @apply text-lg;
+      @apply absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .image {
+      @apply w-full;
+      @apply h-2/4;
+      @apply overflow-hidden;
+      @apply bg-gray-500;
+      img {
+        @apply w-full;
+      }
+    }
+    .text{
+      @apply p-3;
+      @apply grid;
+      @apply  grid-rows-2;
+      @apply  grid-flow-col;
+      color: black;
+      .title {
+        @apply row-span-1;
+        @apply col-span-5;
         @apply text-lg;
-        @apply absolute;
-        top: 10px;
-        right: 10px;
+        @apply font-medium;
       }
+      .description {
+        @apply row-span-1;
+        @apply col-span-5;
+        @apply text-sm;
+        @apply font-normal;
+      }
+      .star {
+        @apply row-span-1;
+        @apply col-span-1;
+        @apply text-right;
+        @apply text-yellow-300;
+        @apply text-lg;
+      }
+    }
+    &:hover{
+      @apply transform;
+      @apply scale-105;
+      @apply shadow-md;
+      @apply transition;
+      @apply duration-500;
+      @apply rounded-md;
       .image {
-        width: 100%;
-        img {
-          @apply w-full;
-        }
+        @apply rounded-t-md;
       }
-      .text{
-        @apply p-3;
-        @apply grid;
-        @apply  grid-rows-2;
-        @apply  grid-flow-col;
-        color: black;
-        .title {
-          @apply row-span-1;
-          @apply col-span-5;
-          @apply text-lg;
-          @apply font-medium;
-        }
-        .description {
-          @apply row-span-1;
-          @apply col-span-5;
-          @apply text-sm;
-          @apply font-normal;
-        }
-        .star {
-          @apply row-span-1;
-          @apply col-span-1;
-          @apply text-right;
-          @apply text-yellow-300;
-          @apply text-lg;
-        }
-      }
-  }
-  .card:hover{
-    @apply transform;
-    @apply scale-105;
-    @apply shadow-md;
-    @apply transition;
-    @apply  duration-500;
+    }  
   }
 }

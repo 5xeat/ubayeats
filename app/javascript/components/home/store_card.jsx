@@ -8,7 +8,7 @@ function StoreCard({name, image, description}){
           <i className="far fa-heart"></i>
         </div>
         <div className="image">
-          <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt=""/>
+          <img src={image.url} alt=""/>
         </div>
         <div className="text">
           <p className="title">{name}</p>

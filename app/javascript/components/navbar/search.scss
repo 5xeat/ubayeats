@@ -41,10 +41,13 @@
       @apply px-5;
       @apply py-2;
       @apply cursor-pointer;
-      &:hover {
+      &:hover, &.selected {
         @apply bg-red-500;
         @apply text-white;
       }
+    }
+    &.hidden {
+      display: none;
     }
   }
 }

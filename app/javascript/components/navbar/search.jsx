@@ -61,14 +61,52 @@ function Search({user}){
     })
   }, [])
 
-  const atChange = (e) => {
-    const input = e.target.value
+  let selectedSuggestionsIndex = -1
+
+  const atKeyUp = (e) => {
+    const input = document.querySelector('.search-input')
+    const inputValue = e.target.value
     const result_list = document.querySelector('.result-list')
+
+    if (e.key === "ArrowDown" ){
+      selectedSuggestionsIndex = (selectedSuggestionsIndex < result_list.children.length - 1) ? selectedSuggestionsIndex + 1 : selectedSuggestionsIndex
+
+      console.log(selectedSuggestionsIndex);
+      if (selectedSuggestionsIndex > 0){
+        result_list.children[selectedSuggestionsIndex - 1].classList.remove('selected')
+      }
+      if (result_list.children.length > 0){
+        result_list.children[selectedSuggestionsIndex].classList.add('selected')
+      }
+      return
+    }
+
+    if (e.key === "ArrowUp" ){
+      selectedSuggestionsIndex = (selectedSuggestionsIndex > 0 ) ? selectedSuggestionsIndex - 1 : 0
+
+      console.log(selectedSuggestionsIndex);
+      if (selectedSuggestionsIndex >= 0){
+        result_list.children[selectedSuggestionsIndex + 1].classList.remove('selected')
+      }
+      if (result_list.children.length > 0){
+        result_list.children[selectedSuggestionsIndex].classList.add('selected')
+      }
+      return
+    }
+
+    if (e.key === "Enter" ){
+      if (selectedSuggestionsIndex >= 0){
+        input.value = document.querySelector('.result.selected').textContent
+        result_list.classList.add('hidden')
+        selectedSuggestionsIndex = -1
+      }
+      return
+    }
   
     result_list.innerHTML = ''
     const suggestions = data.filter((store) => {
       return (
-        store.name.includes(input)
+        store.name.toLowerCase().includes(inputValue.toLowerCase())
       )
     })
     suggestions.forEach((suggestion) => {
@@ -76,11 +114,15 @@ function Search({user}){
       result.classList.add('result')
       result.textContent = suggestion.name
       result_list.appendChild(result)
+      result.addEventListener('click', (e) => {
+        input.value = e.target.textContent
+        result_list.classList.add('hidden')
+      })
     })
-    if (input === ''){
+    if (inputValue === ''){
       result_list.innerHTML = ''
     }
-  }  
+  }
 
   return(
     <div className="search">
@@ -89,7 +131,7 @@ function Search({user}){
         className="search-input" 
         type="text" 
         placeholder={user === null ? "今天想吃什麼？" : user.name + "，今天想吃什麼？"}
-        onChange={atChange}
+        onKeyUp={atKeyUp}
         />
       <div className="result-list" />
     </div>

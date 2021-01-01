@@ -56,6 +56,7 @@ function StoreCardList(){
       type: "GET",
       success: (resp) => {
         const newData = resp.stores
+        console.log(newData);
         setData(newData)
       },
       error: function(err) {
