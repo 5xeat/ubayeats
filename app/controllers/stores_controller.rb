@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_action :session_required, except: [:index]
+  before_action :session_required, only: [:new, :create]
   # before_action :store_pundit, except: [:new, :create]
 
   def index
@@ -20,6 +20,10 @@ class StoresController < ApplicationController
     end
   end
 
+  def search
+    @keyword = params[:keyword]
+    @stores = StoreProfile.where("lower(store_name) LIKE ?", "%#{@keyword.downcase}%")
+  end
 
   private
   def params_store

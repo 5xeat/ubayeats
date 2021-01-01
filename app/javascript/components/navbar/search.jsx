@@ -67,11 +67,11 @@ function Search({user}){
     const input = document.querySelector('.search-input')
     const inputValue = e.target.value
     const result_list = document.querySelector('.result-list')
+    result_list.classList.remove('hidden')
 
     if (e.key === "ArrowDown" ){
       selectedSuggestionsIndex = (selectedSuggestionsIndex < result_list.children.length - 1) ? selectedSuggestionsIndex + 1 : selectedSuggestionsIndex
 
-      console.log(selectedSuggestionsIndex);
       if (selectedSuggestionsIndex > 0){
         result_list.children[selectedSuggestionsIndex - 1].classList.remove('selected')
       }
@@ -84,7 +84,6 @@ function Search({user}){
     if (e.key === "ArrowUp" ){
       selectedSuggestionsIndex = (selectedSuggestionsIndex > 0 ) ? selectedSuggestionsIndex - 1 : 0
 
-      console.log(selectedSuggestionsIndex);
       if (selectedSuggestionsIndex >= 0){
         result_list.children[selectedSuggestionsIndex + 1].classList.remove('selected')
       }
@@ -95,10 +94,16 @@ function Search({user}){
     }
 
     if (e.key === "Enter" ){
-      if (selectedSuggestionsIndex >= 0){
-        input.value = document.querySelector('.result.selected').textContent
-        result_list.classList.add('hidden')
-        selectedSuggestionsIndex = -1
+      if (document.querySelector('.result.selected')){
+        if (selectedSuggestionsIndex >= 0){
+          input.value = document.querySelector('.result.selected').textContent
+          result_list.classList.add('hidden')
+          selectedSuggestionsIndex = -1
+        }
+        return
+      } else {
+        const keyword = inputValue
+        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
       }
       return
     }
@@ -115,8 +120,21 @@ function Search({user}){
       result.textContent = suggestion.name
       result_list.appendChild(result)
       result.addEventListener('click', (e) => {
-        input.value = e.target.textContent
+        const keyword = e.target.textContent
+        input.value = keyword
         result_list.classList.add('hidden')
+        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+        // Rails.ajax({
+        //   url: "/stores/search",
+        //   type: "GET",
+        //   data: new URLSearchParams(`?keyword=${keyword}`),
+        //   success: (resp) => {
+        //     Turbolinks.visit("/stores/search")
+        //   },
+        //   error: function(err) {
+        //     console.log(err)
+        //   }
+        // })
       })
     })
     if (inputValue === ''){

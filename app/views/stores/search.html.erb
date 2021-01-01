@@ -1,0 +1,5 @@
+<h1>『<%= @keyword %>』搜尋結果：</h1>
+
+<% @stores.each do |store| %>
+  <%= store.store_name %>
+<% end %>
