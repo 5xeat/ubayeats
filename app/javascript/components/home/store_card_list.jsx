@@ -7,45 +7,6 @@ import "./home.scss";
 import StoreCard from './store_card.jsx'
 import { useState } from 'react/cjs/react.development';
 
-// const data = [
-//   {
-//     id: 1,
-//     title: "天仁茗茶",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 2,
-//     title: "五十嵐",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 3,
-//     title: "麻古茶坊",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 4,
-//     title: "可不可熟成紅茶",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 5,
-//     title: "麻古茶坊",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 6,
-//     title: "可不可熟成紅茶",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-// ];
-
 function StoreCardList(){
 
   const [data, setData] = useState([])

@@ -2,48 +2,6 @@ import React, {useState, useEffect} from "react";
 import Rails from '@rails/ujs';
 import "./search.scss";
 
-
-// const data = [
-//   {
-//     id: 1,
-//     title: "天仁茗茶",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 2,
-//     title: "五十嵐",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 3,
-//     title: "麻古茶坊",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 4,
-//     title: "可不可熟成紅茶",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 5,
-//     title: "萬波",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-//   {
-//     id: 6,
-//     title: "Coco",
-//     description: "珍奶好喝！",
-//     image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-//   },
-// ]
-
-
-
 function Search({user}){
   const [data, setData] = useState([])
 
@@ -66,14 +24,16 @@ function Search({user}){
   const atKeyPress = (e) => {
     const input = document.querySelector('.search-input')
     const result_list = document.querySelector('.result-list')
+    let keyword = input.value
     if (e.key === 'Enter'){
       if (selectedSuggestionsIndex >= 0){
-        const keyword = document.querySelector('.result.selected').textContent
+        keyword = document.querySelector('.result.selected').textContent
         input.value = keyword
         result_list.classList.add('hidden')
         selectedSuggestionsIndex = -1
         Turbolinks.visit(`/stores/search?keyword=${keyword}`)
       }
+      Turbolinks.visit(`/stores/search?keyword=${keyword}`)
     }
   }
 
