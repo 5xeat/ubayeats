@@ -10,6 +10,10 @@ class StoresController < ApplicationController
   end
 
   def create
+    p "-----------------------"
+    p params["myLat"]
+    p params["myLng"]
+    p "-----------------------"
     @store_profile = current_user.create_store_profile(params_store)
     if @store_profile.save
       current_user.become_store!
