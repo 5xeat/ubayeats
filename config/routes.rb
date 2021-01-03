@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  root 'home#index'
+
   devise_for :users, controllers: { 
     omniauth_callbacks: "users/omniauth_callbacks",
     registrations: "users/registrations",
-    sessions: "users/sessions" 
+    sessions: "users/sessions"
   }
-  root 'home#index'
+
+  devise_scope :user do
+    post "/unique_email", to: "users/registrations#unique_email?"
+  end
   
   resource :stores do 
     resource :orders, only: [:new] do
