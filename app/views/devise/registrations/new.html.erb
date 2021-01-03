@@ -7,13 +7,19 @@
     <div class="form-item">
       <%= f.label :email, "電子信箱" %><br />
       <%= f.email_field :email, placeholder: 'xxxxx@example.com', autofocus: true, autocomplete: "email" %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+      <i class="fas fa-check-circle"></i>
     </div>
   
     <div class="form-item">
       <%= f.label :password, "密碼" %>
       <%= f.password_field :password,
-          placeholder: "請輸入6個英數混合字元", 
+          placeholder: "請輸入至少6個英數字元", 
           autocomplete: "new-password" %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+      <i class="fas fa-check-circle"></i>
     </div>
   
     <div class="form-item">
@@ -21,15 +27,21 @@
       <%= f.password_field :password_confirmation,
           placeholder: "請再次輸入密碼", 
           autocomplete: "new-password" %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+      <i class="fas fa-check-circle"></i>    
     </div>
   
     <div class="form-item">
       <%= f.label :name, "暱稱" %><br />
       <%= f.text_field :name, placeholder: "請輸入使用者暱稱", autocomplete: "name" %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+      <i class="fas fa-check-circle"></i>
     </div>
   
     <div class="actions">
-      <%= f.submit "註冊", class:"btn-blue", class: 'btn btn-primary'  %>
+      <%= f.submit "註冊", class:"btn btn-primary btn-submit"  %>
     </div>
   
     <div class="flex">

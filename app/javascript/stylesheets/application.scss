@@ -31,6 +31,61 @@
   @apply transition;
   @apply duration-300;
 }
+.sessions.new,
+.registrations.new {
+  .container {
+    .new_user {
+      .form-item {
+        .fa-exclamation-circle {
+          @apply hidden;
+        }
+        .fa-check-circle {
+          @apply hidden;
+        }
+        .error-message {
+          @apply hidden;
+        }
+      }
+      .form-item.error{
+        @apply relative;
+        input {
+          @apply border-red-500;
+          @apply border-4;
+          @apply border-solid;
+        }
+        .fa-exclamation-circle {
+          @apply text-red-500;
+          @apply inline-block;
+          @apply absolute;
+          @apply text-2xl;
+          right: 20px;
+          bottom: 25px;
+        }
+        .error-message {
+          @apply block;
+          @apply text-red-500;
+          @apply text-sm;
+        }
+      }
+      .form-item.correct{
+        @apply relative;
+        input {
+          @apply border-green-500;
+          @apply border-4;
+          @apply border-solid;
+        }
+        .fa-check-circle {
+          @apply text-green-500;
+          @apply inline-block;
+          @apply absolute;
+          @apply text-2xl;
+          right: 20px;
+          bottom: 5px;
+        }
+      }
+    }
+  }
+}
 
 .sessions.new,
 .registrations.new {
