@@ -11,15 +11,19 @@ class StoresController < ApplicationController
 
   def create
     p "-----------------------"
+    p params
     p params["myLat"]
     p params["myLng"]
+    p params["myLatLng"]
     p "-----------------------"
     @store_profile = current_user.create_store_profile(params_store)
     if @store_profile.save
+      render json: { data: myLatLng }
       current_user.become_store!
       redirect_to root_path, notice: '成為合作店家'
     else
       render :new
+      render json: { message: error_message }, status: 500
     end
   end
 

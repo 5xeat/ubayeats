@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
-  var myLat;
-  var myLng;
+  let myLat;
+  let myLng;
+  let myLatLng;
   document.querySelector('input[type="submit"]').addEventListener('click', function(e){
     e.preventDefault();
     const geocoder = new google.maps.Geocoder();
@@ -10,8 +11,9 @@ document.addEventListener('DOMContentLoaded', function(){
       const address = document.getElementById("store_profile_store_address").value;
       geocoder.geocode({ address: address }, (results, status) => {
         if (status === "OK") {
-          var loc = JSON.stringify(results[0].geometry.location)
+          let loc = JSON.stringify(results[0].geometry.location)
           console.log(JSON.parse(loc));
+          myLatLng = JSON.parse(loc)
           myLat = JSON.parse(loc).lat
           myLng = JSON.parse(loc).lng
         } else {
@@ -27,11 +29,14 @@ document.addEventListener('DOMContentLoaded', function(){
     ax.defaults.headers.common['X-CSRF-TOKEN'] = token
     const userId = document.querySelector('#id').dataset.id
     console.log(userId);
+    document.querySelector("#store_profile_store_id_Certificate").value
+    document.querySelector("#store_profile_store_id_Certificate").value
 
     ax({
       method: 'post',
       url: '/stores',
       data: {
+        myLatLng: myLatLng,
         myLat: myLat,
         myLng: myLng
       }
