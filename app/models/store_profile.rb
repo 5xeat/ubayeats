@@ -1,6 +1,7 @@
 class StoreProfile < ApplicationRecord
   # association
   belongs_to :user
+  has_many :orders
 
   # upload
   mount_uploader :store_certificate, RegistrationUploader
