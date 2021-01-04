@@ -1,9 +1,9 @@
 import React from 'react'
 import "./home.scss";
 
-function StoreCard({store_name, store_photo, description}){
+function StoreCard({store_name, store_photo, description, id, onClick}){
   return(
-      <div className="card">
+      <div className="card" onClick={()=>onClick(id)}>
         <div className="heart">
           <i className="far fa-heart"></i>
         </div>
