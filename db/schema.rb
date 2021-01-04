@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2021_01_04_051629) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
     t.string "state", default: "unavailable"
+    t.string "picture"
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
     t.index ["user_id"], name: "index_products_on_user_id"
   end

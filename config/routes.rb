@@ -48,6 +48,9 @@ Rails.application.routes.draw do
   end
 
   resource :stores, only: [:show, :edit, :update] do
+    collection do
+      get :delicacy
+    end
     resources :products, shallow: true, only: [:show, :new, :create, :edit, :update, :destroy] do
       collection do
         get :index
