@@ -6,8 +6,13 @@
 }
 .container {
   @apply px-10;
-  @apply pt-10;
+  @apply pt-5;
   @apply mx-auto;
+}
+.notice,
+.alert {
+  @apply text-center;
+  @apply text-red-500;
 }
 
 .btn {
@@ -23,11 +28,95 @@
     @apply bg-red-500;;
     @apply text-white;
     @apply rounded-lg;
+    &:hover {
+      @apply bg-gray-700;
+      @apply text-white;
+      @apply transition;
+      @apply duration-300;
+    }
   }
 }
-.btn-primary:hover {
-  @apply bg-gray-700;
-  @apply text-white;
-  @apply transition;
-  @apply duration-300;
+
+a {
+  @apply underline;
+  @apply text-red-500;
+} 
+
+.form-item {
+  @apply mb-5;
+  label {
+    @apply text-xl;
+    @apply font-black;  
+  }
+  input {
+    @apply py-2;
+    @apply px-4;
+    @apply w-full;
+    @apply rounded-lg;
+    @apply shadow-inner;
+    @apply border-2;
+    @apply border-double;
+    @apply border-gray-900;
+  }
+  input:focus {
+    @apply outline-none;
+    @apply bg-gray-900;
+    @apply text-white;
+  }
+  select {
+    @apply py-2;
+    @apply px-4;
+    @apply w-full;
+    @apply rounded-lg;
+    @apply shadow-inner;
+    @apply border-2;
+    @apply border-double;
+    @apply border-gray-900;
+  }
+  .fa-exclamation-circle {
+    @apply hidden;
+  }
+  .fa-check-circle {
+    @apply hidden;
+  }
+  .error-message {
+    @apply hidden;
+  }
+}
+.form-item.error{
+  @apply relative;
+  input {
+    @apply border-red-500;
+    @apply border-4;
+    @apply border-solid;
+  }
+  .fa-exclamation-circle {
+    @apply text-red-500;
+    @apply inline-block;
+    @apply absolute;
+    @apply text-2xl;
+    right: 20px;
+    bottom: 25px;
+  }
+  .error-message {
+    @apply block;
+    @apply text-red-500;
+    @apply text-sm;
+  }
+}
+.form-item.correct{
+  @apply relative;
+  input {
+    @apply border-green-500;
+    @apply border-4;
+    @apply border-solid;
+  }
+  .fa-check-circle {
+    @apply text-green-500;
+    @apply inline-block;
+    @apply absolute;
+    @apply text-2xl;
+    right: 20px;
+    bottom: 5px;
+  }
 }

@@ -27,6 +27,6 @@ class DriversController < ApplicationController
   end
 
   def driver_pundit
-    authorize @current_user, :delivery
+    authorize current_user, :delivery
   end
 end

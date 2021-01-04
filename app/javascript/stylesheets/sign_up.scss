@@ -14,7 +14,7 @@
         @apply w-full;
       }
     }
-    h2 {
+    h1 {
       @apply text-center;
       @apply text-4xl;
       @apply font-black;
@@ -22,28 +22,6 @@
     }
     .new_user {
       @apply mx-auto;
-      .form-item{
-        @apply mb-5;
-        label {
-          @apply text-xl;
-          @apply font-black;  
-        }
-        input {
-          @apply py-2;
-          @apply px-4;
-          @apply w-full;
-          @apply rounded-lg;
-          @apply shadow-inner;
-          @apply border-2;
-          @apply border-double;
-          @apply border-gray-900;
-        }
-        input:focus {
-          @apply outline-none;
-          @apply bg-gray-900;
-          @apply text-white;
-        }
-      }
       .remember-me {
         @apply flex;
         @apply align-middle;
@@ -88,11 +66,6 @@
       @apply text-white;
       @apply transition;
       @apply duration-300;
-    }
-
-    a {
-      @apply underline;
-      @apply text-red-500;
-    }    
+    }   
   }
 }
