@@ -68,7 +68,7 @@ document.addEventListener('turbolinks:load', () => {
       if (licenseValue === ''){
         setErrorFor(license, "此欄位不得空白")
       } else {
-        setSuccessFor(nlicenseame)
+        setSuccessFor(license)
       }
     }
 
