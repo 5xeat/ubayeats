@@ -7,7 +7,6 @@ class CartsController < ApplicationController
         redirect_to root_path, notice: '已加入購物車'
     end 
 
-
     def show
     end
 
@@ -35,10 +34,13 @@ class CartsController < ApplicationController
 # 金流    
     def pay
         trade_no = "UB#{Time.zone.now.to_i}"
+        product_names = current_cart.product_names
+        byebug
         body = {
+            
             "amount":  current_cart.total_price,
             "confirmUrl":"http://localhost:3000/carts/confirm",
-            "productName":"產品",
+            "productName": product_names,
             "orderId": trade_no,
             "currency": "TWD"
         }

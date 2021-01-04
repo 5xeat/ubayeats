@@ -26,9 +26,18 @@ class Cart
 
   def serialize
     all_items = items.map { |item|
-      { "item_id" => item.item_id, "quantity" => item.quantity }
-    }
+      { "item_id" => item.item_id, 
+        "quantity" => item.quantity, 
+        "product_name" => item.product_name,
+        "product_price" => item.product_price,
+      
+      } }
     { "items" => all_items }
+  end
+
+  def product_names
+    @items.map(&:product_name).join(', ')
+    @items.map { |item| item.product_name }.join(', ')
   end
 
   def self.from_hash(hash)

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
   include Pundit
+  include CartsHelper
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def session_required
