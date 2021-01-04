@@ -13,11 +13,10 @@ function StoreCardList(){
 
   useEffect(() => {
     Rails.ajax({
-      url: "/stores.json",
+      url: "/stores/recommand.json",
       type: "GET",
       success: (resp) => {
-        const newData = resp.stores
-        setData(newData)
+        setData(resp)
       },
       error: function(err) {
         console.log(err)

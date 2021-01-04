@@ -51,6 +51,9 @@ Rails.application.routes.draw do
     collection do
       get :delicacy
     end
+    member do
+      get :recommand
+    end
     resources :products, shallow: true, only: [:show, :new, :create, :edit, :update, :destroy] do
       collection do
         get :index
