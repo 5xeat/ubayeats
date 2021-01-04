@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 2020_12_30_084126) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 2020_12_30_084126) do
     t.index ["user_id"], name: "index_driver_profiles_on_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.integer "quantity"
@@ -42,18 +52,11 @@ ActiveRecord::Schema.define(version: 2020_12_30_084126) do
     t.string "username"
     t.string "tel"
     t.string "address"
+    t.string "state"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
-  create_table "messages", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id", null: false
-    t.bigint "room_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["room_id"], name: "index_messages_on_room_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -77,15 +80,14 @@ ActiveRecord::Schema.define(version: 2020_12_30_084126) do
   create_table "store_profiles", force: :cascade do |t|
     t.string "store_id_Certificate"
     t.string "store_id_list"
+    t.string "store_name"
+    t.string "store_type"
     t.string "store_mail"
     t.string "store_address"
     t.string "store_phone"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "avatar"
-    t.string "store_name"
-    t.string "store_type"
     t.index ["user_id"], name: "index_store_profiles_on_user_id"
   end
 
@@ -108,11 +110,11 @@ ActiveRecord::Schema.define(version: 2020_12_30_084126) do
   end
 
   add_foreign_key "driver_profiles", "users"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
-  add_foreign_key "messages", "rooms"
-  add_foreign_key "messages", "users"
   add_foreign_key "products", "users"
   add_foreign_key "store_profiles", "users"
 end

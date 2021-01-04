@@ -21,40 +21,12 @@
   .logo {
     @apply pl-20;
     @apply p-0;
-    @apply m-0;
+    @apply mr-2;
     @apply flex-none;
     height: 60px;
     @apply cursor-pointer;
     img {
       @apply h-full
-    }
-  }
-  .search {
-    @apply flex-grow;
-    height: 40px;
-    @apply relative;
-    @apply mx-2;
-    .search-icon {
-      @apply font-semibold;
-      @apply text-lg;
-      @apply text-gray-900;
-      font-family: "Font Awesome 5 Free"; 
-      @apply absolute;
-      left: 12px;
-      top: 5px;
-      @apply cursor-pointer;
-    }  
-    .search-input {
-      @apply bg-white;
-      @apply rounded-full;
-      @apply py-3;
-      @apply pr-6;
-      @apply pl-10;
-      @apply h-full;
-      @apply w-full;
-    }
-    .search-input:focus {
-      @apply outline-none;
     }
   }
   .list-up {
@@ -74,6 +46,10 @@
     @apply md:h-auto;
     @apply md:static;
     @apply md:flex;
+    .flex {
+      @apply flex-col;
+      @apply md:flex-row;
+    }
     &-text {
       @apply text-white;
       @apply font-medium;
