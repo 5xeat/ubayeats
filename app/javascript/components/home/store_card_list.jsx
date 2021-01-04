@@ -5,7 +5,6 @@ import "./home.scss";
 
 // components
 import StoreCard from './store_card.jsx'
-import { useState } from 'react/cjs/react.development';
 
 function StoreCardList(){
 
