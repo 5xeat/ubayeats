@@ -4,13 +4,13 @@
   <%= form_for(@store_profile, url:stores_path, method:'post') do |form| %>
   
     <div class="form-item-upload">
-      <%= form.label :store_id_Certificate, '營業登記證' %>
-      <%= form.file_field :store_id_Certificate %>
+      <%= form.label :store_certificate, '營業登記證' %>
+      <%= form.file_field :store_certificate %>
     </div>
   
     <div class="form-item-upload">
-      <%= form.label :store_id_list, '餐點照片' %>
-      <%= form.file_field :store_id_list %>
+      <%= form.label :store_photo, '餐點照片' %>
+      <%= form.file_field :store_photo %>
     </div>
   
     <div class="form-item">
