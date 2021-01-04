@@ -63,6 +63,16 @@ a {
     @apply bg-gray-900;
     @apply text-white;
   }
+  select {
+    @apply py-2;
+    @apply px-4;
+    @apply w-full;
+    @apply rounded-lg;
+    @apply shadow-inner;
+    @apply border-2;
+    @apply border-double;
+    @apply border-gray-900;
+  }
   .fa-exclamation-circle {
     @apply hidden;
   }

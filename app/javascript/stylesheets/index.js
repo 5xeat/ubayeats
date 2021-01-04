@@ -1,4 +1,5 @@
 import './application.scss'
-import './registrations#new.scss'
-import './sessions#new.scss'
-import './stores#search.scss'
+import './sign_up.scss'
+import './login.scss'
+import './search.scss'
+import './store_sign_up.scss'

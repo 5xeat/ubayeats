@@ -10,28 +10,7 @@ document.addEventListener('turbolinks:load', () => {
     const name = form.querySelector('#user_name')
   
     email.addEventListener('keyup', (e) => {
-      if (email.value === ''){
-        setErrorFor(email, "此欄位不得空白")
-      } else if (!isEmail(email.value)){
-        setErrorFor(email, "信箱格式不正確")
-      } else {
-        Rails.ajax({
-          url: '/unique_email',
-          type: 'post',
-          data: new URLSearchParams(`?email=${email.value}`),
-          success: (resp) => {
-            if (resp === 'OK'){
-              setSuccessFor(email)
-            } else {
-              setErrorFor(email, "此信箱已有人使用")
-            }
-          },
-          error: function(err) {
-            console.log('err')
-            console.log(err)
-          }
-        })
-      }
+      checkEmail()
     })
   
     email.addEventListener('focusout', () => {
@@ -69,11 +48,25 @@ document.addEventListener('turbolinks:load', () => {
     function checkEmail(){
       const emailValue = email.value.trim()
       if (emailValue === ''){
-        setErrorFor(email, "信箱欄位不得空白")
+        setErrorFor(email, "此欄位不得空白")
       } else if (!isEmail(emailValue)){
         setErrorFor(email, "信箱格式不正確")
       } else {
-        setSuccessFor(email)
+        Rails.ajax({
+          url: '/unique_email',
+          type: 'post',
+          data: new URLSearchParams(`?email=${emailValue}`),
+          success: (resp) => {
+            if (resp === 'OK'){
+              setSuccessFor(email)
+            } else {
+              setErrorFor(email, "此信箱已有人使用")
+            }
+          },
+          error: function(err) {
+            console.log(err)
+          }
+        })
       }
     }
   

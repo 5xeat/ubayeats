@@ -1,0 +1,28 @@
+.stores.new {
+  @apply bg-yellow-50;
+  .container {
+    @apply mx-auto;
+    @apply px-5;
+    @apply md:px-40;
+    @apply lg:px-96;
+    h1 {
+      @apply text-center;
+      @apply text-4xl;
+      @apply font-black;
+      @apply mb-5;
+    }    
+    .form-item-upload {
+      @apply mb-5;
+      label {
+        @apply text-xl;
+        @apply font-black;  
+      }
+      input {
+        @apply w-full;
+      }
+    }
+    .btn {
+      @apply w-full;
+    }
+  }
+}

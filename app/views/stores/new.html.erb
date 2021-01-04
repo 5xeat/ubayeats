@@ -1,45 +1,42 @@
-<h1>註冊合作店家</h1>
-<p>成為我們的合作夥伴 分享美食，提高收入</p>
-<p> 您好，我們是5Bayeats!
-請依照您的商店類型，選擇相對應的欄位資訊。
-商店類型：
-餐廳、飲料店，請選擇【餐廳店家】</p>
-
-<%= form_for(@store_profile, url:stores_path, method:'post') do |form| %>
-
-  <div>
-    <%= form.label :store_id_Certificate, '營業登記證' %>
-    <%= form.file_field :store_id_Certificate %>
-  </div>
-
-  <div>
-    <%= form.label :store_id_list, '菜單' %>
-    <%= form.file_field :store_id_list %>
-  </div>
-
-  <div>
-    <%= form.label :store_name, '店家名稱' %>
-    <%= form.text_field :store_name %>
-  </div>
-
-
-  <div>
-    <%= form.label :store_type, '店家種類' %>
-    <%= form.text_field :store_type %>
-  </div>
-
-  <div>
-    <%= form.label :store_address, '店家地址' %>
-    <%= form.text_field :store_address %>
-  </div>
+<div class="container">
+  <h1>註冊合作店家</h1>
+  <p>成為我們的合作夥伴 分享美食，提高收入</p>  
+  <%= form_for(@store_profile, url:stores_path, method:'post') do |form| %>
   
-  <div>
-    <%= form.label :store_phone, '店家電話' %>
-    <%= form.text_field :store_phone %>
-  </div>
+    <div class="form-item-upload">
+      <%= form.label :store_id_Certificate, '營業登記證' %>
+      <%= form.file_field :store_id_Certificate %>
+    </div>
   
-  <div>
-    <%= form.submit '註冊' %>
-  </div>
-
-<% end %>
+    <div class="form-item-upload">
+      <%= form.label :store_id_list, '餐點照片' %>
+      <%= form.file_field :store_id_list %>
+    </div>
+  
+    <div class="form-item">
+      <%= form.label :store_name, '店家名稱' %>
+      <%= form.text_field :store_name %>
+    </div>
+  
+  
+    <di class="form-item">
+      <%= form.label :store_type, '店家種類' %>
+      <%= form.select(:store_type, options_for_select([['日式', 1], ['韓式', 2], ['飲料', 3], ['甜點', 4], ['蔬食', 5], ['速食', 6]])) %>
+    </di>
+  
+    <div class="form-item">
+      <%= form.label :store_address, '店家地址' %>
+      <%= form.text_field :store_address %>
+    </div>
+    
+    <div class="form-item">
+      <%= form.label :store_phone, '店家電話' %>
+      <%= form.text_field :store_phone %>
+    </div>
+    
+    <div class="actions">
+      <%= form.submit '註冊', class:"btn btn-primary btn-submit" %>
+    </div>
+  
+  <% end %>
+</div>
