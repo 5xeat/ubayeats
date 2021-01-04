@@ -1,9 +1,9 @@
 import React from 'react'
 import "./home.scss";
 
-function CategoryCard({title, image}){
+function CategoryCard({title, image, onClick}){
   return(
-      <div className="card">
+      <div className="card" onClick={()=>onClick(title)}>
         <div className="image">
           <img src={image} alt=""/>
         </div>
