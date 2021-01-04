@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :index
+      get :search
     end
   end
   resources :orders
@@ -30,6 +31,8 @@ Rails.application.routes.draw do
 
 
 
+  resources :rooms
+  resources :messages
   resource :drivers do
     get :index
   end

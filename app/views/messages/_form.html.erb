@@ -1,0 +1,5 @@
+<%= form_with(model: message, local: true) do |form| %>
+  <%= form.hidden_field :room_id, value: room.id %>
+  <%= form.text_field :content, placeholder: '請輸入內容...' %>
+  <%= form.submit '送出', class:'message-btn' %>
+<% end %>

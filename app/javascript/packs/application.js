@@ -18,6 +18,8 @@ import "@fortawesome/fontawesome-free/css/all.css"
 
 import "../views"
 
+import '../rooms/room.scss'
+
 
 
 
