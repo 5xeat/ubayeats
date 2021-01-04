@@ -1,6 +1,7 @@
-class DriversController < ApplicationController
+class DriverProfilesController < ApplicationController
   before_action :session_required
   before_action :driver_pundit, except: [:new, :create]
+  before_action :set_driver, only: [:edit, :update]
 
   def index
   end
@@ -19,6 +20,17 @@ class DriversController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @driver_profile.save
+      redirect_to root_path, notice: '成功編輯資料'
+    else
+      render :edit
+    end
+  end
+
 
 
   private
@@ -28,5 +40,9 @@ class DriversController < ApplicationController
 
   def driver_pundit
     authorize current_user, :delivery
+  end
+
+  def set_driver
+    @driver_profile = current_user.driver_profile
   end
 end
