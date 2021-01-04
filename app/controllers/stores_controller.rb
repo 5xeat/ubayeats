@@ -31,6 +31,11 @@ class StoresController < ApplicationController
   end
 
   def update
+    if @store_profile.save
+      redirect_to root_path, notice: '編輯成功'
+    else
+      render :edit
+    end
   end
 
   def search
