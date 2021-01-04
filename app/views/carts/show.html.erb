@@ -1,10 +1,14 @@
+
 <h1>您的購物車</h1>
 
 <%= render "carts/cart", cart: current_cart%>
 
-<%= link_to '您的訂單',carts_path %>
+ <button class="empty-cart-btn btn btn-lg btn-success"><i class="fas"><%= link_to '您的訂單',carts_path %></button>
 
-<%= link_to '加餐點', stores_products_path %>
-<%= link_to '結帳' , checkout_carts_path %>
+<button class="empty-cart-btn btn btn-lg btn-success"><%= link_to '加餐點', stores_products_path %></button>
+<button class="empty-cart-btn btn btn-lg btn-success"><%= link_to '結帳' , checkout_carts_path %></button>
 
-<%= link_to '清空購物車', carts_path, method: 'delete'%>
+<button class="empty-cart-btn btn btn-lg btn-success"><%= link_to '清空購物車', carts_path, method: 'delete'%></button>
+
+
+  
