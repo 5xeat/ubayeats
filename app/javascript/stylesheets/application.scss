@@ -6,8 +6,13 @@
 }
 .container {
   @apply px-10;
-  @apply pt-10;
+  @apply pt-5;
   @apply mx-auto;
+}
+.notice,
+.alert {
+  @apply text-center;
+  @apply text-red-500;
 }
 
 .btn {

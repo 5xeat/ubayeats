@@ -1,1 +1,1 @@
-import './registrations'
+import './sign_up'
