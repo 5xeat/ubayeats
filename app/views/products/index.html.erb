@@ -2,13 +2,33 @@
 <%= link_to "新增產品", new_stores_product_path %> 
 <% @products.each do |product| %>
 <ul>
-  <li><%= link_to product.name, product_path(product) %></li>
+  <li><%= product.name %></li>
+  <li><%= product.picture %></li>
+  <li><%= product.price %></li>
+  <li><%= product.description %></li>
+  <li><%= link_to '編輯', edit_product_path(product) %></li>
+  <li><%= link_to '刪除', product_path(product), method: 'delete', data: { confirm: '確定要刪除嗎?'}  %></li>
+  <% if check_product_state?(product) %>
+    <li><%= link_to '上架', toggle_publish_product_path(product), method: 'patch' %></li>
+  <% else %>
+    <li><%= link_to '下架', toggle_publish_product_path(product), method: 'patch'  %></li>
+  <% end %>
 </ul>
 <% end %>
 
 <h1>已下架商品</h1>
 <% @productsUnavailable.each do |product| %>
   <ul>
-    <li><%= link_to product.name, product_path(product) %></li>
+    <li><%= product.name %></li>
+    <li><%= product.picture %></li>
+    <li><%= product.price %></li>
+    <li><%= product.description %></li>
+    <li><%= link_to '編輯', edit_product_path(product) %></li>
+    <li><%= link_to '刪除', product_path(product), method: 'delete', data: { confirm: '確定要刪除嗎?'}  %></li>
+    <% if check_product_state?(product) %>
+    <li><%= link_to '上架', toggle_publish_product_path(product), method: 'patch' %></li>
+  <% else %>
+    <li><%= link_to '下架', toggle_publish_product_path(product), method: 'patch'  %></li>
+  <% end %>
   </ul>
 <% end %>
