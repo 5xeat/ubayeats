@@ -1,7 +1,7 @@
 body{
     background:black;
     }
-  .container{
+  .order-pot{
     position:relative;
     width:800px;
     height:300px;
@@ -11,7 +11,7 @@ body{
     justify-content:space-around;
     padding-top:9em;
   }
-  .s1,.s2,.s3{
+  .s2{
     width:192px;
     height:192px;
     border-radius:100%;

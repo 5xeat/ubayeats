@@ -21,26 +21,15 @@ class CartsController < ApplicationController
     end
 
 
-
-
-
-
-
-
-
-
-
-
 # 金流    
     def pay
         trade_no = "UB#{Time.zone.now.to_i}"
-        product_names = current_cart.product_names
-        byebug
+        # product_names = current_cart.product_names
+        
         body = {
-            
-            "amount":  current_cart.total_price,
+            "amount":  "100",
             "confirmUrl":"http://localhost:3000/carts/confirm",
-            "productName": product_names,
+            "productName": "ubayeats",
             "orderId": trade_no,
             "currency": "TWD"
         }
@@ -55,7 +44,9 @@ class CartsController < ApplicationController
     def confirm
     url = URI("http://sandbox-api-pay.line.me/v2/payments/#{params[:transactionId]}/confirm")
     body = {
-    "amount": current_cart.total_price,
+    "amount": "100",
+
+    # current_cart.total_price
     "currency": "TWD"
     }
     headers = {"X-LINE-ChannelId" => "1655372973",
