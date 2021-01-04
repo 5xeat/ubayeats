@@ -36,6 +36,12 @@ Rails.application.routes.draw do
     get :index
   end
 
+  resources :stores, only: [] do
+    member do
+      get :delicacy
+    end
+  end
+
   resource :stores, only: [:show, :edit, :update] do
     collection do
       get :delicacy
