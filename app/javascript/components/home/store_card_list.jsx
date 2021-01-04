@@ -1,11 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import Rails from '@rails/ujs'
 
 import "./home.scss";
 
 // components
 import StoreCard from './store_card.jsx'
-import { useState } from 'react/cjs/react.development';
 
 function StoreCardList(){
 
