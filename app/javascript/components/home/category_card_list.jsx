@@ -7,12 +7,12 @@ import CategoryCard from './category_card.jsx'
 const data = [
   {
     id: 1,
-    title: "日式料理",
+    title: "日式",
     image: "https://www.flaticon.com/svg/static/icons/svg/2921/2921811.svg",
   },
   {
     id: 2,
-    title: "韓式料理",
+    title: "韓式",
     image: "https://www.flaticon.com/svg/static/icons/svg/2511/2511138.svg",
   },
   {
@@ -38,6 +38,11 @@ const data = [
   },
 ];
 
+const atClick = (item) => {
+  const keyword = item
+  Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+}
+
 function CategoryCardList(){
   return(
     <div className="category-card-list">
@@ -47,6 +52,7 @@ function CategoryCardList(){
             <CategoryCard 
               {...item}
               key={item.id}
+              onClick={atClick}
             />
           )
         })
