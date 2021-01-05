@@ -20,10 +20,9 @@
       data: current_user.to_json do %>
     <% end %>
     <div id="navbar_component"></div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
     <div id="content">
+      <%= render "shared/flash" if notice || alert %>
       <%= yield %>
     </div>
   </body>

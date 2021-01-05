@@ -1,0 +1,43 @@
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.rails-default-error-page{
+  background-color: rgba(255, 251, 235, 1);
+}
+.rails-default-error-page > .dialog{
+  padding: 50px 100px;
+}
+.rails-default-error-page > .dialog > .image{
+  max-width: 400px;
+  margin: 50px auto 0;
+}
+.image img{
+  width: 100%;
+}
+.text {
+  margin: 20px auto 0;
+  text-align: center;
+}
+.text h1{
+  font-size: 50px;
+}
+.back-btn{
+  max-width: 200px;
+  background-color: rgba(17, 24, 39, 1);
+  margin: 20px auto 0;
+  padding: 5px 0;
+  border-radius: 5px;
+}
+.back-btn:hover{
+  background-color: rgba(239, 68, 68, 1);
+}
+.text a{
+  text-decoration: none;
+  color: white;
+}
+.text p{
+  font-size: 20px;
+}

@@ -1,21 +1,16 @@
 Rails.application.routes.draw do
+  root 'home#index'
+
   devise_for :users, controllers: { 
     omniauth_callbacks: "users/omniauth_callbacks",
     registrations: "users/registrations",
-    sessions: "users/sessions" 
+    sessions: "users/sessions"
   }
-  root 'home#index'
-  
-  resource :stores do 
-    resource :orders, only: [:new] do
-      get :preparing
-      get :delivering
-      get :record
-    end
-    collection do
-      get :index
-    end
+
+  devise_scope :user do
+    post "/unique_email", to: "users/registrations#unique_email?"
   end
+  
   resources :orders
   resource :carts do
     get :checkout
@@ -31,11 +26,27 @@ Rails.application.routes.draw do
 
   resources :rooms
   resources :messages
-  resource :drivers do
+  resource :driver_profiles, path: '/drivers', only: [:new, :create, :edit, :update] do
     get :index
   end
 
-  resource :stores, only: [:show, :edit, :update] do
+  resources :stores, only: [] do
+    member do
+      get :delicacy
+    end
+  end
+
+  resource :stores do
+    collection do
+      get :recommand
+      get :index
+      get :search
+    end
+    resource :orders, only: [:new] do
+      get :preparing
+      get :delivering
+      get :record
+    end
     resources :products, shallow: true, only: [:show, :new, :create, :edit, :update, :destroy] do
       collection do
         get :index

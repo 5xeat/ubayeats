@@ -1,0 +1,25 @@
+<div class="container">
+  <p class="text-xl">『<%= @keyword %>』搜尋結果：</p>
+  
+  <div class="store-card-list">
+    <% @stores.each do |store| %>
+      <%= link_to(delicacy_store_path(store)) do %>
+        <div class="card">
+          <div class="heart">
+            <i class="far fa-heart"></i>
+          </div>
+          <div class="image">
+            <img src=<%= store.store_photo %> alt="店家照片">
+          </div>
+          <div class="text">
+            <p class="title"><%= store.store_name %></p>
+            <p class="description"><%= store.store_type %></p>
+            <div class="star">
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

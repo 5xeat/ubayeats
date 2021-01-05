@@ -6,9 +6,9 @@ import "./navbar.scss";
 
 // components
 import NavbarList from "../../components/navbar/navbar_list.jsx"
+import Search from "../../components/navbar/search.jsx"
 
 function Navbar({user}){
-  console.log(user);
 
   const [sideBar, setSideBar] = useState(false)
   const sidebar = () => {
@@ -43,23 +43,10 @@ function Navbar({user}){
       <li className="logo" onClick={() => handleRouteClick("/")}>
         <img src={require("../../images/logo/logo-white.png")} alt=""/>
       </li>
-        { user === null ||
-          <div className="search">
-            <i className="fas fa-search search-icon"></i>
-            <input className="search-input" type="text" placeholder={user.name + "，今天想吃什麼？"}>
-            </input>
-          </div>
-        }
-        { user === null &&
-          <div className="search">
-            <i className="fas fa-search search-icon"></i>
-            <input className="search-input" type="text" placeholder="今天想吃什麼？">
-            </input>
-          </div>
-        }
-        <div className={sideBar ? 'list list-down' : 'list list-up'}>
-          <NavbarList user={user} handleRouteClick={handleRouteClick}/>
-        </div>
+      <Search user={user}/>
+      <div className={sideBar ? 'list list-down' : 'list list-up'}>
+        <NavbarList user={user} handleRouteClick={handleRouteClick}/>
+      </div>
     </ul>
   );
 };
@@ -67,7 +54,6 @@ function Navbar({user}){
 document.addEventListener('turbolinks:load', () => {
   const node = document.getElementById('navbar')
   const data = JSON.parse(node.getAttribute('data'))
-  console.log(data);
 
   ReactDOM.render(
     <Navbar user={data}/>,
