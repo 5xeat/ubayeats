@@ -1,6 +1,7 @@
 .chat-room{
   height: 100vh;
   overflow-y: scroll;
+  position: relative;
   .message{
     min-height: 59px;
     margin-bottom: 2px;
@@ -32,13 +33,21 @@
     bottom: 0;
     padding: 20px;
     width: 100%;
+    #new_message{
+      display: flex;
+    }
+    #message-btn{
+      width: 50px;
+      background-color: #007bff;
+      color: white;
+    }
+    #message_content{
+      width: 100%;
+    }
     input[type=text]{
       height: 45px;
       font-size: 18px;
       padding: 8px;
-      .message-btn{
-        
-      }
     }
   }
 }
