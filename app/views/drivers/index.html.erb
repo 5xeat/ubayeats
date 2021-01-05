@@ -3,22 +3,23 @@
   <head>
     <style>
       #map {
-        height: 500px;
-        width: 500px;
+        height: calc(100vh - 70px);
+        width: 100%;
       }
     </style>
   </head>
   <body>
-    <!-- <iframe
-      width="600"
-      height="450"
-      frameborder="0" style="border:0"
-      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBL-80hWXX74wWTTTjPIc3uNz_uUH5Wd-w&q=Space+Needle,Seattle+WA" allowfullscreen>
-    </iframe>  -->
     <div id="map"></div>
     <script>
-      var map, marker, lat, lng;
+      let map, marker, lat, lng;
       function initMap() {
+        const icon = {
+          url: 'https://i.imgur.com/YmjSZCB.png',
+          scaledSize: new google.maps.Size(80, 80),
+          origin: new google.maps.Point(0,0),
+          anchor: new google.maps.Point(0, 0)
+        };
+
         navigator.geolocation.watchPosition((position) => {
           console.log(position.coords);
           lat = position.coords.latitude;
@@ -31,7 +32,9 @@
           });
           marker = new google.maps.Marker({
               position: { lat: lat, lng: lng },
-              map: map
+              map: map,
+              animation: google.maps.Animation.BOUNCE,
+              icon: icon
           });
         });
       }
