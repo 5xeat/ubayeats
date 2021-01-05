@@ -12,27 +12,30 @@ function StoreCardList(){
 
   useEffect(() => {
     Rails.ajax({
-      url: "/stores.json",
+      url: "/stores/recommand.json",
       type: "GET",
       success: (resp) => {
-        const newData = resp.stores
-        setData(newData)
+        setData(resp)
       },
       error: function(err) {
         console.log(err)
       }
     })
-  }, [])
-  
+  }, [])  
 
+  const atClick = (store) => {
+    Turbolinks.visit(`/stores/${store}/delicacy`)
+  }
+  
   return(
     <div className="store-card-list">
       {
-        data.map((item) => {
+        data.map((store) => {
           return(
             <StoreCard 
-              {...item}
-              key={item.id}
+              {...store}
+              key={store.id}
+              onClick={atClick}
             />
           )
         })

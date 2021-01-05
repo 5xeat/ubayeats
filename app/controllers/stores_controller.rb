@@ -1,10 +1,9 @@
 class StoresController < ApplicationController
   before_action :session_required, only: [:new, :create]
-  before_action :set_store, only: [:edit, :update]
-  # before_action :store_pundit, except: [:new, :create]
+  before_action :set_store, only: [:index, :edit, :update]
+  before_action :store_pundit, only: [:index, :edit, :update]
 
   def index
-    @store_profiles = StoreProfile.all
   end
 
   def delicacy
@@ -41,6 +40,11 @@ class StoresController < ApplicationController
   def search
     @keyword = params[:keyword]
     @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+  end
+
+  def recommand
+    @store_profiles = StoreProfile.all
+    render json: @store_profiles
   end
 
   private
