@@ -3,7 +3,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8-ftXcq0f3Oc9CJB0TNnPly3
 defer
 ></script>
 <div id="id" data-id = <%= current_user.id %>>
-<h1>註冊合作店家</h1>
+<h1>註冊合作店家</h1> 
 <p>成為我們的合作夥伴 分享美食，提高收入</p>
 <p> 您好，我們是5Bayeats!
 請依照您的商店類型，選擇相對應的欄位資訊。
@@ -42,9 +42,14 @@ defer
     <%= form.label :store_phone, '店家電話' %>
     <%= form.text_field :store_phone %>
   </div>
+
+  <div style="background:#f50;height:30px;width:100%">
+    <%= form.hidden_field :latitude, id: 'latitude' %>
+    <%= form.hidden_field :longitude, id: 'longitude' %>
+  </div>
   
   <div>
-    <%= form.submit '註冊' %>
+    <%= form.submit '註冊', disabled: false %>
   </div>
 
 <% end %>

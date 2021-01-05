@@ -10,27 +10,22 @@ class StoresController < ApplicationController
   end
 
   def create
-    p "-----------------------"
-    p params
-    p params["myLat"]
-    p params["myLng"]
-    p params["myLatLng"]
-    p "-----------------------"
-    @store_profile = current_user.create_store_profile(params_store)
+     @store_profile = current_user.build_store_profile(params_store)
     if @store_profile.save
-      render json: { data: myLatLng }
       current_user.become_store!
       redirect_to root_path, notice: '成為合作店家'
     else
       render :new
-      render json: { message: error_message }, status: 500
     end
   end
 
 
   private
   def params_store
-    params.require(:store_profile).permit(:store_id_Certificate, :store_id_list, :store_name, :store_type, :store_mail, :store_address, :store_phone )
+    params.require(:store_profile).permit(:store_id_Certificate, :store_id_list, :store_name, :store_type, :store_mail, :store_address, :store_phone, :latitude, :longitude).tap do |sp|
+      # sp[:latitude] = sp[:latitude].to_f
+      # sp[:longitude] = sp[:longitude].to_f
+    end
   end
 
   def store_pundit
