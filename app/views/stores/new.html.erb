@@ -35,7 +35,7 @@
   
     <di class="form-item">
       <%= form.label :store_type, '店家種類' %>
-      <%= form.select(:store_type, options_for_select([['日式', 1], ['韓式', 2], ['飲料', 3], ['甜點', 4], ['蔬食', 5], ['速食', 6]])) %>
+      <%= form.select(:store_type, options_for_select([["日式", "日式"], ["韓式", "韓式"], ["飲料", "飲料"], ["甜點", "甜點"], ["蔬食", "蔬食"], ["速食", "速食"]])) %>
       <div class="error-message"></div>
       <i class="fas fa-exclamation-circle"></i>
     </di>
