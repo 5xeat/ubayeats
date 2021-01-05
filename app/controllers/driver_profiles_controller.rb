@@ -24,7 +24,7 @@ class DriverProfilesController < ApplicationController
   end
 
   def update
-    if @driver_profile.save
+    if @driver_profile.update(params_driver)
       redirect_to root_path, notice: '成功編輯資料'
     else
       render :edit

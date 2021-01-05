@@ -7,9 +7,9 @@
   </ul>
   <% end %>
 
-  <h1>編輯合作店家</h1>
-
-  <%= form_for(@store_profile, url:stores_path, method:'post') do |form| %>
+  <h1>註冊合作店家</h1>
+  <p>成為我們的合作夥伴 分享美食，提高收入</p>  
+  <%= form_for(@store_profile) do |form| %>
   
     <div class="form-item-upload">
       <%= form.label :store_certificate, '營業登記證' %>
@@ -35,7 +35,7 @@
   
     <di class="form-item">
       <%= form.label :store_type, '店家種類' %>
-      <%= form.select(:store_type, options_for_select([['日式', 1], ['韓式', 2], ['飲料', 3], ['甜點', 4], ['蔬食', 5], ['速食', 6]])) %>
+      <%= form.select(:store_type, options_for_select(['日式', '韓式', '飲料',  '甜點', '蔬食', '速食'])) %>
       <div class="error-message"></div>
       <i class="fas fa-exclamation-circle"></i>
     </di>
@@ -62,7 +62,7 @@
     </div>
     
     <div class="actions">
-      <%= form.submit '更新', class:"btn btn-primary btn-submit" %>
+      <%= form.submit '註冊', class:"btn btn-primary btn-submit" %>
     </div>
   
   <% end %>
