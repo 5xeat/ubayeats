@@ -7,11 +7,10 @@ function Search({user}){
 
   useEffect(() => {
     Rails.ajax({
-      url: "/stores.json",
+      url: "/stores/recommand.json",
       type: "GET",
       success: (resp) => {
-        const newData = resp.stores
-        setData(newData)
+        setData(resp)
       },
       error: function(err) {
         console.log(err)
@@ -70,30 +69,19 @@ function Search({user}){
     result_list.innerHTML = ''
     const suggestions = data.filter((store) => {
       return (
-        store.name.toLowerCase().includes(inputValue.toLowerCase())
+        store.store_name.toLowerCase().includes(inputValue.toLowerCase())
       )
     })
     suggestions.forEach((suggestion) => {
       const result = document.createElement('div')
       result.classList.add('result')
-      result.textContent = suggestion.name
+      result.textContent = suggestion.store_name
       result_list.appendChild(result)
       result.addEventListener('click', (e) => {
         const keyword = e.target.textContent
         input.value = keyword
         result_list.classList.add('hidden')
         Turbolinks.visit(`/stores/search?keyword=${keyword}`)
-        // Rails.ajax({
-        //   url: "/stores/search",
-        //   type: "GET",
-        //   data: new URLSearchParams(`?keyword=${keyword}`),
-        //   success: (resp) => {
-        //     Turbolinks.visit("/stores/search")
-        //   },
-        //   error: function(err) {
-        //     console.log(err)
-        //   }
-        // })
       })
     })
     if (inputValue === ''){
