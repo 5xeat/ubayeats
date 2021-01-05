@@ -23,11 +23,13 @@ document.addEventListener('turbolinks:load', () => {
         console.log(data)
         const user_element = document.getElementById('user-id');
         const user_id = Number(user_element.getAttribute('data-user-id'));
+        const content = document.getElementById('message_content');
     
         let html;
     
         if (user_id === data.message.user_id){
           html = data.mine
+          content.value = ''
         } else {
           html = data.theirs
         }

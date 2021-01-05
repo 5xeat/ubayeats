@@ -1,7 +1,11 @@
 .chat-room{
-  height: 100vh;
+  height: 575px;
   overflow-y: scroll;
   position: relative;
+  #messages{
+    height: 475px;
+    overflow: auto;
+  }
   .message{
     min-height: 59px;
     margin-bottom: 2px;
@@ -50,4 +54,8 @@
       padding: 8px;
     }
   }
+}
+
+.rooms{
+  height: 575px;
 }

@@ -10,8 +10,10 @@
           <%= render 'messages/message', message: message %>
         <% end %>
       </div>
-      <div class="chat-box">
-        <%= render 'messages/form', message: Message.new, room: @room %>
+      <div>
+        <div class="chat-box">
+          <%= render 'messages/form', message: Message.new, room: @room %>
+        </div>
       </div>
     </div>
   <% end %>
