@@ -1,12 +1,18 @@
 class CartsController < ApplicationController
 
-    def carts
-        product = Product.find(params[:id])
+    def add_item
+      
+        product = Product.find(params[:product_id])
+        # 加車
+        current_cart.add_item(product[:id])
+        session[:cart1111] = current_cart.serialize
+        redirect_to delicacy_store_path, notice: '已加入購物車'
+        
+        # render json: { status: 'ok'}
+    end
 
-        cart = Cart.new
-        cart.add_item(product.id)
-        redirect_to root_path, notice: '已加入購物車'
-    end 
+    def index
+    end
 
 
     def show

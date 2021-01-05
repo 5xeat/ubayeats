@@ -8,6 +8,7 @@ class StoresController < ApplicationController
 
   def delicacy
     user = User.find_by!(id: params[:id])
+   
     @store_profile = user.store_profile
     @products = user.products
   end

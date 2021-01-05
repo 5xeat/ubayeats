@@ -8,20 +8,19 @@
     </tr>
   </thead>
   <tbody>
-    <%# <% cart.items.
-    ach do |item| %>
+    <% current_cart.items.each do |item| %>
     <tr>
-      <%# <td><%= item.product.title %></td> 
-      <%# <td><%= item.quantity %></td> 
-      <%# <td><%= item.product.price %></td> 
-      <%# <td><%= item.total_price %></td> 
+       <td><%= item.product.name %></td> 
+       <td><%= item.quantity %></td> 
+       <td><%= item.product.price %></td> 
+       <%# <td><%= item.total_price</td>   %>
     </tr>
-    <%# <% end %>  
+    <% end %>  
   </tbody>
   <tfoot>
     <tr>
       <td colspan="3">總價</td>
-      <%# <td><%= cart.total_price %></td> 
+      <td><%= current_cart.total_price %></td> 
     </tr>
   </tfoot>
 </table>

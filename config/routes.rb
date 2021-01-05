@@ -12,16 +12,15 @@ Rails.application.routes.draw do
   end
   
   resources :orders
-  resource :carts do
+
+  resource :carts do 
+    post 'add_item/:id', action: 'add_item', as: 'add_item'
     get :checkout
     collection do
       post :pay
       get :confirm
     end
   end
-  # , only: [:show, :destroy] do
-  #   post ':add_item/:id',aciton: 'add_item' 
-
 
 
   resources :rooms
