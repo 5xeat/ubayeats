@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   resources :rooms
   resources :messages
-  resource :drivers do
+  resource :driver_profiles, path: '/drivers', only: [:new, :create, :edit, :update] do
     get :index
   end
 

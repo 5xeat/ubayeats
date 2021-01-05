@@ -7,9 +7,8 @@ class StoresController < ApplicationController
   end
 
   def delicacy
-    user = User.find_by!(id: params[:id])
-    @store_profile = user.store_profile
-    @products = user.products
+    @store_profile = StoreProfile.find_by!(id: params[:id])
+    @products = @store_profile.products
   end
   
   def new
@@ -30,6 +29,11 @@ class StoresController < ApplicationController
   end
 
   def update
+    if @store_profile.save
+      redirect_to root_path, notice: '編輯成功'
+    else
+      render :edit
+    end
   end
 
   def search
