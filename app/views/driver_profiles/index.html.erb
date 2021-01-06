@@ -76,12 +76,6 @@
         }
       };
 
-      // 使用者定位
-      navigator.geolocation.watchPosition((position) => {
-        console.log('watchPosition')
-        map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-      });
-
       navigator.geolocation.getCurrentPosition((position) => {
         console.log('getCurrentPosition')
         lat = position.coords.latitude;
@@ -134,36 +128,58 @@
             travelMode: 'DRIVING'
           };
 
-          // 導航按鈕
-          const navigationBtn = document.querySelector('.main .navigation')
-          const stepsList = document.querySelector('.steps-list')
-          if (navigationBtn !== null){
-            navigationBtn.remove();
-            stepsList.innerHTML = '';
+          // 接單按鈕
+          const deliveryBtn = document.querySelector('.delivery')
+          if (deliveryBtn !== null){
+            deliveryBtn.remove();
           };
-          const navigation = document.createElement('a');
-          navigation.classList.add('btn');
-          navigation.classList.add('navigation');
-          navigation.innerText = '開啟google map';
-          navigation.onclick = function(e){
-            window.open(
-              `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving`,
-              '_blank'
-            );
-          }
-          document.querySelector('.main').appendChild(navigation)
+
+          const delivery = document.createElement('div');
+          delivery.classList.add('btn')
+          delivery.classList.add('delivery')
+          delivery.innerText = '接單'
+
+          document.querySelector('.main').appendChild(delivery)
 
           // 繪製路線
           directionsService.route(request, function (result, status) {
             if (status == 'OK') {
               const leg = result.routes[0].legs[0];
               console.log(leg.steps);
-              leg.steps.map((step) => {
+              delivery.onclick = function(){
+                leg.steps.map((step) => {
                 const steps = document.createElement('div')
                 steps.classList.add('steps')
                 steps.innerHTML = `<p>${step.instructions}</p>`
                 document.querySelector('.steps-list').appendChild(steps)
-              })
+                })
+
+                // 導航按鈕
+                const navigationBtn = document.querySelector('.main .navigation')
+                const stepsList = document.querySelector('.steps-list')
+                if (navigationBtn !== null){
+                  navigationBtn.remove();
+                  stepsList.innerHTML = '';
+                };
+
+                const navigation = document.createElement('a');
+                navigation.classList.add('btn');
+                navigation.classList.add('navigation');
+                navigation.innerText = '開啟google map';
+                navigation.onclick = function(e){
+                  window.open(
+                    `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving&dir_action=navigate`,
+                    '_blank'
+                  );
+                }
+                document.querySelector('.main').appendChild(navigation)
+
+                // 使用者定位
+                navigator.geolocation.watchPosition((position) => {
+                  console.log('watchPosition')
+                  map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                });
+              }
               function makeMarker(step, icon, map, position) {
                 let animation = (position === 'start') ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP;
                 const directionMarker = new google.maps.Marker({
