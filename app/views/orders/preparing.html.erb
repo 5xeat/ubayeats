@@ -1,3 +1,14 @@
 <h1>準備中訂單</h1>
 
-<%= link_to '已交給外送員', delivering_stores_orders_path %>
+
+<%= form_for(@order, url: update_state_orders_path, method:'post') do |form|%>
+
+  <% @recieving_orders.each do %>
+    <%= @recieving_orders.username %>
+    <%= @recieving_orders.tel %>
+    <%= @recieving_orders.address %>
+  <% end %>
+  
+
+  <%= form.submit '完成訂單' %>
+<% end %>

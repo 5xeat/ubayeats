@@ -1,0 +1,10 @@
+<h1><%= current_user.store_profile.store_name %>的新訂單</h1>
+
+<% @recieving_orders.each do |recieving_order| %>
+  <%= form_for(recieving_order)  do |form| %>
+    <%= form.label :username %>
+    <%= form.text_field :username, value: recieving_order.username, readonly: true, disabled: true  %>
+    <%= form.submit '按我'%>
+  <% end %>
+<% end %>
+
