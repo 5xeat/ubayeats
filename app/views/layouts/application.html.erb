@@ -14,7 +14,7 @@
     
   </head>
 
-  <body class="<%= controller_name %> <%= action_name%>">
+  <body class="<%= controller_name %> <%= action_name%> relative">
     <%= content_tag :div,
       id: "navbar",
       data: current_user.to_json do %>
@@ -26,7 +26,7 @@
       <%= render "shared/flash" if notice || alert %>
     </div>
 
-    <div class="carts absolute bottom-0 right-0">
+    <div class="carts fixed bottom-0 right-0">
         <%= link_to carts_path do %>
         <i class=" fas fa-shopping-cart text-5xl"> </i>
         (<%= current_cart.items.count %>/<%= current_cart.total_price %>)
