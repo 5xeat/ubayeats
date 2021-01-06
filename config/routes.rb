@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
   
   resources :orders
+
   resource :carts do
     get :checkout
     collection do
@@ -19,39 +20,34 @@ Rails.application.routes.draw do
       get :confirm
     end
   end
-  # , only: [:show, :destroy] do
-  #   post ':add_item/:id',aciton: 'add_item' 
 
   resources :rooms
   resources :messages
+
   resource :driver_profiles, path: '/drivers', only: [:new, :create, :edit, :update] do
     get :index
   end
 
-  resources :stores, only: [] do
+  resource :store_profiles, path: '/stores'
+
+  resources :store_profiles, as: 'stores', path: '/stores', only: [] do
     member do
       get :delicacy
     end
-  end
-
-  resource :stores do
     collection do
       get :recommand
-      get :index
       get :search
-    end
-    resource :orders, only: [:new] do
-      get :preparing
-      get :delivering
-      get :record
-    end
-    resources :products, shallow: true, only: [:show, :new, :create, :edit, :update, :destroy] do
-      collection do
-        get :index
+      resource :orders, only: [:new] do
+        get :preparing
+        get :delivering
+        get :record
       end
-      member do
-        patch :toggle_publish
+      resources :products, shallow: true do
+        member do
+          patch :toggle_publish
+        end
       end
     end
   end
+
 end

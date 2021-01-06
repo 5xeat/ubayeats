@@ -1,6 +1,11 @@
 .chat-room{
-  height: 100vh;
+  height: 575px;
   overflow-y: scroll;
+  position: relative;
+  #messages{
+    height: 475px;
+    overflow: auto;
+  }
   .message{
     min-height: 59px;
     margin-bottom: 2px;
@@ -32,13 +37,25 @@
     bottom: 0;
     padding: 20px;
     width: 100%;
+    #new_message{
+      display: flex;
+    }
+    #message-btn{
+      width: 50px;
+      background-color: #007bff;
+      color: white;
+    }
+    #message_content{
+      width: 100%;
+    }
     input[type=text]{
       height: 45px;
       font-size: 18px;
       padding: 8px;
-      .message-btn{
-        
-      }
     }
   }
+}
+
+.rooms{
+  height: 575px;
 }

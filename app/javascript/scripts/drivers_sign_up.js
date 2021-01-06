@@ -1,5 +1,5 @@
 document.addEventListener('turbolinks:load', () => {
-  if (document.querySelector('.drivers.new')){
+  if (document.querySelector('.driver_profiles.new')){
     const form = document.querySelector('.new_driver_profile')
     const submitBtn = form.querySelector('.btn-submit')
     const idFront = form.querySelector('#driver_profile_taiwan_id_front')
