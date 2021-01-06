@@ -34,6 +34,7 @@ gem 'rails-i18n', '~> 6.0'
 gem 'omniauth', '~> 1.9', '>= 1.9.1'
 gem 'omniauth-google-oauth2', '~> 0.8.1'
 gem 'figaro', '~> 1.2'
+gem 'fog-aws', '~> 3.7'
 
 gem 'aasm', '~> 5.1', '>= 5.1.1'
 gem 'carrierwave', '~> 2.1'

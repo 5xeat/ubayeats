@@ -70,14 +70,14 @@ ActiveRecord::Schema.define(version: 2021_01_06_032639) do
     t.string "name"
     t.integer "price"
     t.string "description"
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
     t.string "state", default: "unavailable"
     t.string "picture"
+    t.bigint "store_profile_id"
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
-    t.index ["user_id"], name: "index_products_on_user_id"
+    t.index ["store_profile_id"], name: "index_products_on_store_profile_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -125,6 +125,5 @@ ActiveRecord::Schema.define(version: 2021_01_06_032639) do
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "store_profiles"
   add_foreign_key "orders", "users"
-  add_foreign_key "products", "users"
   add_foreign_key "store_profiles", "users"
 end

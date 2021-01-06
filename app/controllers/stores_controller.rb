@@ -1,16 +1,14 @@
 class StoresController < ApplicationController
   before_action :session_required, only: [:new, :create]
-  before_action :set_store, only: [:edit, :update]
-  # before_action :store_pundit, except: [:new, :create]
+  before_action :set_store, only: [:index, :edit, :update]
+  before_action :store_pundit, only: [:index, :edit, :update]
 
   def index
-    @store_profiles = StoreProfile.all
   end
 
   def delicacy
-    user = User.find_by!(id: params[:id])
-    @store_profile = user.store_profile
-    @products = user.products
+    @store_profile = StoreProfile.find_by!(id: params[:id])
+    @products = @store_profile.products
   end
   
   def new
@@ -31,11 +29,21 @@ class StoresController < ApplicationController
   end
 
   def update
+    if @store_profile.save
+      redirect_to root_path, notice: '編輯成功'
+    else
+      render :edit
+    end
   end
 
   def search
     @keyword = params[:keyword]
     @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+  end
+
+  def recommand
+    @store_profiles = StoreProfile.all
+    render json: @store_profiles
   end
 
   private

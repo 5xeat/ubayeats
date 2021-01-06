@@ -1,7 +1,11 @@
 class StoreProfile < ApplicationRecord
   # association
   belongs_to :user
+<<<<<<< HEAD
   has_many :orders
+=======
+  has_many :products
+>>>>>>> develop
 
   # upload
   mount_uploader :store_certificate, RegistrationUploader
