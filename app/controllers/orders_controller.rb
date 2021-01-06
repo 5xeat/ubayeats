@@ -5,12 +5,17 @@ class OrdersController < ApplicationController
   def new
   end
 
-  def update_state
-    # @order = Order.find_by(params[user: :id])
-  end
-
+  
   def recieving
     @recieving_orders = @orders.where(state: 'paid')
+  end
+  
+  def update_state
+    @order = Order.find_by(tel: params[:order][:tel])
+    @order.confirm! if @order.paid?
+    @order.conplete! if @order.preparing?
+    @order.go! if @order.completed?
+    @order.arrive! if @order.delivering?
   end
 
   def preparing
