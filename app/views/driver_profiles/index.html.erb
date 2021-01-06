@@ -13,28 +13,31 @@
     </style>
   </head>
   <body>
-    <%= link_to '編輯外送員資料', edit_driver_profiles_path, class: 'nav-link' %>
-    <div class="destination">
-      <input
-        id="destination-input"
-        class="controls"
-        type="text"
-        placeholder="輸入店家..."
-      />
-      <button class="btn calc-btn">計算</button>
-    </div>
-    <div class="info">
-      <p class="distance"></p>
-      <p class="time"></p>
+    <div class="flex">
+      <%= link_to '編輯外送員資料', edit_driver_profiles_path, class: 'nav-link' %>
+      <div class="destination">
+        <input
+          id="destination-input"
+          class="controls"
+          type="text"
+          placeholder="輸入店家..."
+        />
+        <button class="btn calc-btn">計算</button>
+      </div>
+      <div class="info flex">
+        <p class="distance"></p>
+        <p class="time"></p>
+      </div>
     </div>
 
     <div id="map"></div>
   </body>
   <script>
     
-    let map, marker, lat, lng;
-    function initMap() {
+    let map, marker, lat, lng, place, directionMarkers;
+    directionMarkers =[];
 
+    function initMap() {
       // 載入路線服務與路線顯示圖層
       let directionsService = new google.maps.DirectionsService();
       let directionsDisplay = new google.maps.DirectionsRenderer({polylineOptions:{strokeColor:"#EF4444",strokeWeight:5}, suppressMarkers: true});
@@ -72,14 +75,17 @@
             icon: icons.start
         });
 
+        if (place !== undefined){
+          directionMap()
+        }
+
         const btn = document.querySelector(".calc-btn")
         const destinationInput = document.getElementById("destination-input");
         const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
         btn.addEventListener("click", (e) => {
           if (destinationInput.value !== ""){
-
             // 取得終點位置的placeID
-            const place = destinationAutocomplete.getPlace();
+            place = destinationAutocomplete.getPlace();
 
             // 放置路線圖層
             directionsDisplay.setMap(map);
@@ -93,51 +99,76 @@
               avoidTolls: true,
               travelMode: 'DRIVING'
             };
-
-            // 繪製路線
-            directionsService.route(request, function (result, status) {
-              if (status == 'OK') {
-                const leg = result.routes[0].legs[0];
-                function makeMarker(step, icon, map) {
-                  new google.maps.Marker({
-                    position: step,
-                    map: map,
-                    icon: icon
-                  })
-                };
-                makeMarker(leg.start_location, icons.start, map);
-                makeMarker(leg.end_location, icons.end, map);
-                directionsDisplay.setDirections(result);
-              } else {
-                console.log(status);
-              }
-            });
-
-            // 計算路程時間距離
-            const service = new google.maps.DistanceMatrixService();
-            service.getDistanceMatrix(
-              {
-                origins: [{ lat: lat, lng: lng }],
-                destinations: [{placeId: place.place_id}],
-                travelMode: google.maps.TravelMode.DRIVING,
-                unitSystem: google.maps.UnitSystem.METRIC,
-                avoidHighways: true,
-                avoidTolls: true,
-              },
-              (response, status) => {
-                if (status !== "OK") {
-                  console.log(status);
-                } else {
-                  const distance = response.rows[0].elements[0].distance.text;
-                  const time = response.rows[0].elements[0].duration.text;
-                  document.querySelector('.distance').innerText = distance;
-                  document.querySelector('.time').innerText = time;
-                }
-              }
-            )
+            directionMap()
           }
-        })      
+        })
+
+        function directionMap(){
+
+          // 放置路線圖層
+          directionsDisplay.setMap(map);
+
+          // 路線相關設定
+          let request = {
+            origin: { lat: lat, lng: lng },
+            destination: { placeId: place.place_id },
+            avoidFerries: true,
+            avoidHighways: true,
+            avoidTolls: true,
+            travelMode: 'DRIVING'
+          };
+
+          // 繪製路線
+          directionsService.route(request, function (result, status) {
+            if (status == 'OK') {
+              const leg = result.routes[0].legs[0];
+              function makeMarker(step, icon, map, position) {
+                let animation = (position === 'start') ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP;
+                const directionMarker = new google.maps.Marker({
+                  position: step,
+                  map: map,
+                  icon: icon,
+                  animation: animation
+                })
+                directionMarkers.push(directionMarker)
+              };
+              for (let i = 0; i < directionMarkers.length; i++) {
+                (directionMarkers[i].setMap(null));
+              }
+              directionMarkers =[]
+              makeMarker(leg.start_location, icons.start, map, 'start');
+              makeMarker(leg.end_location, icons.end, map, 'end');
+              marker.setMap(null);
+              directionsDisplay.setDirections(result);
+            } else {
+              console.log(status);
+            }
+          });
+
+          // 計算路程時間距離
+          const service = new google.maps.DistanceMatrixService();
+          service.getDistanceMatrix(
+            {
+              origins: [{ lat: lat, lng: lng }],
+              destinations: [{placeId: place.place_id}],
+              travelMode: google.maps.TravelMode.DRIVING,
+              unitSystem: google.maps.UnitSystem.METRIC,
+              avoidHighways: true,
+              avoidTolls: true,
+            },
+            (response, status) => {
+              if (status !== "OK") {
+                console.log(status);
+              } else {
+                const distance = response.rows[0].elements[0].distance.text;
+                const time = response.rows[0].elements[0].duration.text;
+                document.querySelector('.distance').innerText = distance;
+                document.querySelector('.time').innerText = time;
+              }
+            }
+          )
+        }    
       });
-    }    
+    }
   </script>
 </html>
