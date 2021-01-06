@@ -16,12 +16,14 @@ document.addEventListener('turbolinks:load', function(){
   }
 
   document.querySelector('#new_store_profile').addEventListener('submit', function(e) {
+    console.log('submit enter')
     if (!canSubmit) {
       e.preventDefault()
       delayOpenSubmit()
 
       const address = document.getElementById("store_profile_store_address").value;
       if (address.length === 0) {
+        console.log('no address')
         return false
       }
 
@@ -44,6 +46,7 @@ document.addEventListener('turbolinks:load', function(){
 
         canSubmit = true
         // document.querySelector('input[type="submit"]').removeAttribute('disabled')
+        Rails.enableElement(document.querySelector('input[type="submit"]'))
         document.querySelector('#new_store_profile').submit()
       })
     } else {

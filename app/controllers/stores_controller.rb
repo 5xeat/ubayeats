@@ -16,6 +16,7 @@ class StoresController < ApplicationController
   end
 
   def create
+    byebug
      @store_profile = current_user.build_store_profile(params_store)
     if @store_profile.save
       current_user.become_store!
@@ -48,7 +49,7 @@ class StoresController < ApplicationController
 
   private
   def params_store
-    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account)
+    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account, :latitude, :longitude)
 
   end
 

@@ -94,10 +94,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_060904) do
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "latitude"
     t.decimal "longitude"
-<<<<<<< HEAD
-=======
     t.string "account"
->>>>>>> develop
     t.index ["user_id"], name: "index_store_profiles_on_user_id"
   end
 
