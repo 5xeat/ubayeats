@@ -1,8 +1,14 @@
 class StoresController < ApplicationController
-  before_action :session_required
-  before_action :store_pundit, except: [:new, :create]
+  before_action :session_required, only: [:new, :create]
+  before_action :set_store, only: [:index, :edit, :update]
+  before_action :store_pundit, only: [:index, :edit, :update]
 
   def index
+  end
+
+  def delicacy
+    @store_profile = StoreProfile.find_by!(id: params[:id])
+    @products = @store_profile.products
   end
   
   def new
@@ -19,17 +25,39 @@ class StoresController < ApplicationController
     end
   end
 
+  def edit
+  end
 
-  private
-  def params_store
-    params.require(:store_profile).permit(:store_id_Certificate, :store_id_list, :store_name, :store_type, :store_mail, :store_address, :store_phone, :latitude, :longitude).tap do |sp|
-      # sp[:latitude] = sp[:latitude].to_f
-      # sp[:longitude] = sp[:longitude].to_f
+  def update
+    if @store_profile.save
+      redirect_to root_path, notice: '編輯成功'
+    else
+      render :edit
     end
   end
 
+  def search
+    @keyword = params[:keyword]
+    @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+  end
+
+  def recommand
+    @store_profiles = StoreProfile.all
+    render json: @store_profiles
+  end
+
+  private
+  def params_store
+    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account)
+
+  end
+
   def store_pundit
-    authorize @current_user, :start_business
+    authorize current_user, :start_business
+  end
+
+  def set_store
+    @store_profile = current_user.store_profile
   end
          
 end

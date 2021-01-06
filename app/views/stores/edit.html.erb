@@ -1,0 +1,69 @@
+<div class="container">
+  <% if @store_profile.errors.any? %>
+  <ul>
+    <% @store_profile.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <h1>編輯合作店家</h1>
+
+  <%= form_for(@store_profile, url:stores_path, method:'post') do |form| %>
+  
+    <div class="form-item-upload">
+      <%= form.label :store_certificate, '營業登記證' %>
+      <%= form.file_field :store_certificate %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+  
+    <div class="form-item-upload">
+      <%= form.label :store_photo, '餐點照片' %>
+      <%= form.file_field :store_photo %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+  
+    <div class="form-item">
+      <%= form.label :store_name, '店家名稱' %>
+      <%= form.text_field :store_name %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+  
+  
+    <di class="form-item">
+      <%= form.label :store_type, '店家種類' %>
+      <%= form.select(:store_type, options_for_select([['日式', 1], ['韓式', 2], ['飲料', 3], ['甜點', 4], ['蔬食', 5], ['速食', 6]])) %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+    </di>
+  
+    <div class="form-item">
+      <%= form.label :store_address, '店家地址' %>
+      <%= form.text_field :store_address %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+    
+    <div class="form-item">
+      <%= form.label :store_phone, '店家電話' %>
+      <%= form.text_field :store_phone %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+
+    <div class="form-item">
+      <%= form.label :account, '帳戶' %>
+      <%= form.text_field :account %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+    
+    <div class="actions">
+      <%= form.submit '更新', class:"btn btn-primary btn-submit" %>
+    </div>
+  
+  <% end %>
+</div>

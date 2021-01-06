@@ -21,6 +21,8 @@ import "../views"
 
 import '../rooms/room.scss'
 
+import '../scripts'
+
 
 
 

@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_01_02_233433) do
+=======
+ActiveRecord::Schema.define(version: 2021_01_05_060904) do
+>>>>>>> develop
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,14 +66,14 @@ ActiveRecord::Schema.define(version: 2021_01_02_233433) do
     t.string "name"
     t.integer "price"
     t.string "description"
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
     t.string "state", default: "unavailable"
     t.string "picture"
+    t.bigint "store_profile_id"
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
-    t.index ["user_id"], name: "index_products_on_user_id"
+    t.index ["store_profile_id"], name: "index_products_on_store_profile_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -78,8 +82,8 @@ ActiveRecord::Schema.define(version: 2021_01_02_233433) do
   end
 
   create_table "store_profiles", force: :cascade do |t|
-    t.string "store_id_Certificate"
-    t.string "store_id_list"
+    t.string "store_certificate"
+    t.string "store_photo"
     t.string "store_name"
     t.string "store_type"
     t.string "store_mail"
@@ -90,6 +94,10 @@ ActiveRecord::Schema.define(version: 2021_01_02_233433) do
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "latitude"
     t.decimal "longitude"
+<<<<<<< HEAD
+=======
+    t.string "account"
+>>>>>>> develop
     t.index ["user_id"], name: "index_store_profiles_on_user_id"
   end
 
@@ -117,6 +125,9 @@ ActiveRecord::Schema.define(version: 2021_01_02_233433) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+<<<<<<< HEAD
   add_foreign_key "products", "users"
+=======
+>>>>>>> develop
   add_foreign_key "store_profiles", "users"
 end
