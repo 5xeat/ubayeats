@@ -4,9 +4,10 @@ class Order < ApplicationRecord
   has_many :order_items
 
   include AASM
-  aasm column: :payment_status, no_direct_assignment: true do
+
+  aasm column: :state, no_direct_assignment: true do
     state :unpaid, initial: true
-    state :paid, :canceled
+    state :paid, :canceled, :preparing, :completed, :delivering, :arrived
     
     event :pay do
       transitions from: :unpaid, to: :paid
@@ -15,27 +16,17 @@ class Order < ApplicationRecord
     event :close do
       transitions from: :unpaid, to: :canceled
     end
-  end
 
-  aasm column: :state, no_direct_assignment: true do
-    state :accepted, initial: true
-    state :preparing, :completed
-    
     event :confirm do
-      transitions from: :accepted, to: :preparing
+      transitions from: :paid, to: :preparing
     end
 
     event :conplete do
       transitions from: :preparing, to: :completed
     end
-  end
 
-  aasm column: :delivering, no_direct_assignment: true do
-    state :accepted, initial: true
-    state :delivering, :arrived
-    
     event :go do
-      transitions from: :accepted, to: :delivering
+      transitions from: :completed, to: :delivering
     end
 
     event :arrive do
