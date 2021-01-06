@@ -1,5 +1,5 @@
-<%= form_with(model: message, local: true) do |form| %>
+<%= form_for(message, remote: true, class:'message-content') do |form| %>
   <%= form.hidden_field :room_id, value: room.id %>
-  <%= form.text_field :content, placeholder: '請輸入內容...' %>
-  <%= form.submit '送出', class:'message-btn' %>
+  <%= form.text_field :content, placeholder: '請輸入內容...', id: 'message_content' %>
+  <%= form.submit '送出', id:'message-btn' %>
 <% end %>
