@@ -4,20 +4,20 @@ class OrdersController < ApplicationController
 
   # 店家的aciton
   def new
-    @order = Order.new #(購物車params)
+    # @order = Order.new #(購物車params)
   end
 
   def create
-    @order = Order.new
-    @order.pay!
+    # @order = Order.new
+    # @order.pay!
   end
 
   def preparing
-    order.pay! if "店家在新訂單頁面按下確認鍵"
+    # order.confirm! if "店家在新訂單頁面按下確認鍵"
   end
 
   def delivering
-    order.prepared! if 
+    # order.prepared! if 
   end
 
   def record
