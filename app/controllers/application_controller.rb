@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
+  include CartsHelper
   include Pundit
+ 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
