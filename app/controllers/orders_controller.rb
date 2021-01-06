@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   def index
   end
 
-  # 店家的aciton
+
   def new
     # @order = Order.new #(購物車params)
   end
