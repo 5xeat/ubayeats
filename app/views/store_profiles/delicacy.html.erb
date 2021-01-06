@@ -1,20 +1,45 @@
 <div>
   <div><img src=<%= @store_profile.store_photo %> alt="店家照片"/></div>
-  <h1><%= @store_profile.store_name %></h1>
-  <div><%= @store_profile.store_type %></div>
-  <div><%= @store_profile.store_address %></div>
+  <h1>店家名稱<%= @store_profile.store_name %></h1>
+  <div>店家種類<%= @store_profile.store_type %></div>
+  <div>店家地址<%= @store_profile.store_address %></div>
 </div>
 <br>
 
 <% @products.each do |product| %>
-<div>
-  <div><%= product.name %></div>
-  <!-- <div>少產品圖片，等fix/product merge後補上</div> -->
-  <div><%= product.price %></div>
-  <div><%= product.description %></div>
-  <div><%= link_to "加入購物車", "#" %></div>
-</div>
-<br>
+  <div data-controller="addproduct">
+    <div>名稱<%= product.name %></div>
+    <!-- <div>少產品圖片，等fix/product merge後補上</div> -->
+    <div>價錢<%= product.price %></div>
+    <div>描述<%= product.description %></div>
+    <%# 購物車 %>
+    <select data-addproduct-targer="number">
+        <option>請選擇</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+    </select>
+    <button data-aciton="click->addproduct#addtocart">加到購物車</button>
+  </div>
+
+
+  <%= link_to '加到購物車',add_item_carts_path( @store_profile, {product_id: product}),method: 'post' %>
 <% end %>
 
+<li><%= link_to 'cart_path' do %>
+<i class="fas fa-shopping-cart">
+(<%= current_cart.items.count%>/<%= current_cart.total_price %>)
+
+</i>
+<% end %>
+</li>
+
+
+
 <%= link_to "返回上一頁", :back %>
+
+
+
