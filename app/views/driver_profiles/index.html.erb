@@ -10,6 +10,18 @@
         height: calc(100vh - 100px);
         width: 100%;
       }
+      .steps-list {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+      }
+      .steps {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: rgb(10, 6, 46);
+        margin-bottom: 10px;
+        padding: 5px 10px;
+      }
     </style>
   </head>
   <body>
@@ -29,6 +41,8 @@
         <p class="time"></p>
       </div>
     </div>
+
+    <div class="steps-list"></div>
 
     <div id="map"></div>
   </body>
@@ -122,14 +136,15 @@
 
           // 導航按鈕
           const navigationBtn = document.querySelector('.main .navigation')
+          const stepsList = document.querySelector('.steps-list')
           if (navigationBtn !== null){
-            navigationBtn.remove()
-          }
+            navigationBtn.remove();
+            stepsList.innerHTML = '';
+          };
           const navigation = document.createElement('a');
           navigation.classList.add('btn');
           navigation.classList.add('navigation');
-          navigation.innerText = '導航';
-          console.log(place.place_id)
+          navigation.innerText = '開啟google map';
           navigation.onclick = function(e){
             window.open(
               `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving`,
@@ -142,6 +157,13 @@
           directionsService.route(request, function (result, status) {
             if (status == 'OK') {
               const leg = result.routes[0].legs[0];
+              console.log(leg.steps);
+              leg.steps.map((step) => {
+                const steps = document.createElement('div')
+                steps.classList.add('steps')
+                steps.innerHTML = `<p>${step.instructions}</p>`
+                document.querySelector('.steps-list').appendChild(steps)
+              })
               function makeMarker(step, icon, map, position) {
                 let animation = (position === 'start') ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP;
                 const directionMarker = new google.maps.Marker({
