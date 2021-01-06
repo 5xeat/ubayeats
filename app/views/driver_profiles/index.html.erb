@@ -13,8 +13,8 @@
     </style>
   </head>
   <body>
-    <div class="flex">
-      <%= link_to '編輯外送員資料', edit_driver_profiles_path, class: 'nav-link' %>
+    <div class="flex main">
+      <%= link_to '編輯外送員資料', edit_driver_profiles_path, class: 'btn' %>
       <div class="destination">
         <input
           id="destination-input"
@@ -51,22 +51,37 @@
           anchor: new google.maps.Point(0, 0)
         },
         end: {
-          url: 'https://www.flaticon.com/svg/static/icons/svg/610/610365.svg',
-          scaledSize: new google.maps.Size(20, 20),
-          origin: new google.maps.Point(0,0),
-          anchor: new google.maps.Point(0, 0)
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          fillColor: 'white',
+          strokeColor: 'white'
+          // url: 'https://www.flaticon.com/svg/static/icons/svg/610/610365.svg',
+          // scaledSize: new google.maps.Size(20, 20),
+          // origin: new google.maps.Point(0,0),
+          // anchor: new google.maps.Point(0, 0)
         }
       };
 
       // 使用者定位
       navigator.geolocation.watchPosition((position) => {
+        console.log('watchPosition')
+        map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+      });
+
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log('getCurrentPosition')
         lat = position.coords.latitude;
         lng = position.coords.longitude;
+
         // 初始化地圖
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 18,
             center: { lat: lat, lng: lng },
-            mapId: 'c57b36ae7dbc5a40'
+            mapId: 'c57b36ae7dbc5a40',
+            mapTypeControl: false,
+            streetViewControl: false,
+            zoomControl: false,
+            fullscreenControl: false
         });
         marker = new google.maps.Marker({
             position: { lat: lat, lng: lng },
@@ -86,19 +101,6 @@
           if (destinationInput.value !== ""){
             // 取得終點位置的placeID
             place = destinationAutocomplete.getPlace();
-
-            // 放置路線圖層
-            directionsDisplay.setMap(map);
-
-            // 路線相關設定
-            let request = {
-              origin: { lat: lat, lng: lng },
-              destination: { placeId: place.place_id },
-              avoidFerries: true,
-              avoidHighways: true,
-              avoidTolls: true,
-              travelMode: 'DRIVING'
-            };
             directionMap()
           }
         })
@@ -117,6 +119,24 @@
             avoidTolls: true,
             travelMode: 'DRIVING'
           };
+
+          // 導航按鈕
+          const navigationBtn = document.querySelector('.main .navigation')
+          if (navigationBtn !== null){
+            navigationBtn.remove()
+          }
+          const navigation = document.createElement('a');
+          navigation.classList.add('btn');
+          navigation.classList.add('navigation');
+          navigation.innerText = '導航';
+          console.log(place.place_id)
+          navigation.onclick = function(e){
+            window.open(
+              `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving`,
+              '_blank'
+            );
+          }
+          document.querySelector('.main').appendChild(navigation)
 
           // 繪製路線
           directionsService.route(request, function (result, status) {
@@ -137,7 +157,7 @@
               }
               directionMarkers =[]
               makeMarker(leg.start_location, icons.start, map, 'start');
-              makeMarker(leg.end_location, icons.end, map, 'end');
+              makeMarker(leg.end_location, null, map, 'end');
               marker.setMap(null);
               directionsDisplay.setDirections(result);
             } else {
@@ -168,7 +188,7 @@
             }
           )
         }    
-      });
+      })
     }
   </script>
 </html>
