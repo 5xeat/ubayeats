@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = current_user.products.new(params_product)
+    @product = current_user.store_profile.products.new(params_product)
     
     if @product.save
       redirect_to stores_products_path, notice: "新增產品成功"
@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
   end
 
   def find_current_user_product
-    @product = current_user.products.find_by!(id: params[:id])
+    @product = current_user.store_profile.products.find_by!(id: params[:id])
   end
 
   def find_user_id

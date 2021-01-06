@@ -1,9 +1,9 @@
-class StoresController < ApplicationController
+class StoreProfilesController < ApplicationController
   before_action :session_required, only: [:new, :create]
-  before_action :set_store, only: [:index, :edit, :update]
-  before_action :store_pundit, only: [:index, :edit, :update]
+  before_action :set_store, only: [:show, :edit, :update]
+  before_action :store_pundit, only: [:show, :edit, :update]
 
-  def index
+  def show
   end
 
   def delicacy
@@ -29,7 +29,7 @@ class StoresController < ApplicationController
   end
 
   def update
-    if @store_profile.save
+    if @store_profile.update(params_store)
       redirect_to root_path, notice: '編輯成功'
     else
       render :edit
