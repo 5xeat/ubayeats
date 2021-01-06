@@ -37,8 +37,7 @@ class Order < ApplicationRecord
 
 
   private
-  def pay_after
-    byebug
-    redirect_to root_path
-  end
+  # def pay_after
+  #   redirect_to root_path
+  # end
 end

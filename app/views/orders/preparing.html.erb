@@ -1,14 +1,3 @@
-<h1>準備中訂單</h1>
+<h1><%= current_user.store_profile.store_name %>的準備中訂單</h1>
 
-
-<%= form_for(@order, url: update_state_orders_path, method:'post') do |form|%>
-
-  <% @recieving_orders.each do %>
-    <%= @recieving_orders.username %>
-    <%= @recieving_orders.tel %>
-    <%= @recieving_orders.address %>
-  <% end %>
-  
-
-  <%= form.submit '完成訂單' %>
-<% end %>
+<%= render 'form', recieving_orders: @recieving_orders %>

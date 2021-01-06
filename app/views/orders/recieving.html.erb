@@ -1,24 +1,3 @@
 <h1><%= current_user.store_profile.store_name %>的新訂單</h1>
 
-<% @recieving_orders.each do |recieving_order| %>
-  <%= form_for(recieving_order, url: update_state_orders_path, method: 'post')  do |form| %>
-
-    <%= form.label :username %>
-    <%= form.text_field :username, value: recieving_order.username, readonly: true %>
-
-    <%= form.label :tel %>
-    <%= form.text_field :tel, value: recieving_order.tel, readonly: true %>
-
-    <%= form.label :address %>
-    <%= form.text_field :address, value: recieving_order.address, readonly: true %>
-
-    <p><%= recieving_order.state %></p>
-
-    <%= form.submit '按我'%>
-
-  <% end %>
-<% end %>
-
-
-
-
+<%= render 'form', recieving_orders: @recieving_orders %>

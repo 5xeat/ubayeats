@@ -13,13 +13,12 @@ class OrdersController < ApplicationController
   def update_state
     @order = Order.find_by(tel: params[:order][:tel])
     @order.confirm! if @order.paid?
-    @order.conplete! if @order.preparing?
-    @order.go! if @order.completed?
-    @order.arrive! if @order.delivering?
+    # @order.conplete! if @order.preparing?
+    # @order.go! if @order.completed?
+    # @order.arrive! if @order.delivering?
   end
 
   def preparing
-    # order.confirm! if "店家在新訂單頁面按下確認鍵"
     @recieving_orders = @orders.where(state: 'preparing')
   end
 
