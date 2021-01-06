@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:edit, :destroy]
+  before_action :find_product, only: [:show, :edit, :destroy]
   before_action :find_current_user_product, only: [:update, :toggle_publish]
   before_action :session_required
 
@@ -9,12 +9,16 @@ class ProductsController < ApplicationController
     @productsUnavailable = Product.unavailable.order(id: :desc)
   end
 
+  def show
+    @user = @product.user
+  end
+
   def new
     @product = Product.new
   end
 
   def create
-    @product = current_user.store_profile.products.new(params_product)
+    @product = current_user.products.new(params_product)
     
     if @product.save
       redirect_to stores_products_path, notice: "新增產品成功"
@@ -43,10 +47,10 @@ class ProductsController < ApplicationController
     authorize @product, :publish?
     if @product.may_publish?
       @product.publish!
-      redirect_to stores_products_path, notice: '商品已上架'
+      redirect_to product_path(@product), notice: '商品已上架'
     elsif @product.may_delist?
       @product.delist!
-      redirect_to stores_products_path, notice: '商品已下架'
+      redirect_to product_path(@product), notice: '商品已下架'
     end
   end
 
@@ -60,7 +64,7 @@ class ProductsController < ApplicationController
   end
 
   def find_current_user_product
-    @product = current_user.store_profile.products.find_by!(id: params[:id])
+    @product = current_user.products.find_by!(id: params[:id])
   end
 
   def find_user_id

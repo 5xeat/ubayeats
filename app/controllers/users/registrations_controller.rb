@@ -42,15 +42,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
-  def unique_email?
-    input = params[:email]
-    if User.find_by(email: input) == nil
-      render plain: "OK"
-    else
-      render plain: "repeat"
-    end
-  end
-
   protected
 
   # If you have extra params to permit, append them to the sanitizer.

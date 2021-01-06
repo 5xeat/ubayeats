@@ -9,13 +9,17 @@ require("@rails/activestorage").start()
 require("channels")
 require("scripts")
 
+// import "../index"
 import "../images"
+
 import "../stylesheets"
 import "tailwindcss/tailwind.css"
-import "@fortawesome/fontawesome-free/css/all.css"
-import "../views"
-import '../rooms/room.scss'
 
+import "@fortawesome/fontawesome-free/css/all.css"
+
+import "../views"
+
+import '../rooms/room.scss'
 
 
 
@@ -26,5 +30,3 @@ import '../rooms/room.scss'
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
-import "controllers"

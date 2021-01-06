@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   acts_as_paranoid
-  belongs_to :store_profile
+  belongs_to :user
   include AASM
 
   # scope :available, -> { where('available = true') }

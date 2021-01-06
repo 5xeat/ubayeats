@@ -1,17 +1,17 @@
 import React from 'react'
 import "./home.scss";
 
-function StoreCard({store_name, store_photo, description, id, onClick}){
+function StoreCard({title, image, description}){
   return(
-      <div className="card" onClick={()=>onClick(id)}>
+      <div className="card">
         <div className="heart">
           <i className="far fa-heart"></i>
         </div>
         <div className="image">
-          <img src={store_photo.url} alt=""/>
+          <img src={image} alt=""/>
         </div>
         <div className="text">
-          <p className="title">{store_name}</p>
+          <p className="title">{title}</p>
           <p className="description">{description}</p>
           <div className="star">
             <i className="fas fa-star"></i>

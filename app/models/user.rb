@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include AASM
+  has_many :products
   has_many :orders
   has_many :messages
   has_many :rooms, through: :messages
@@ -35,5 +36,8 @@ class User < ApplicationRecord
 
     # event :store do
     #   transitions from: :driver, to: :store
+
+   
+
   end
 end

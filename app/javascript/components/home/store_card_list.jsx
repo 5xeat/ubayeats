@@ -1,41 +1,57 @@
-import React, {useState, useEffect} from "react";
-import Rails from '@rails/ujs'
-
+import React from 'react'
 import "./home.scss";
 
 // components
 import StoreCard from './store_card.jsx'
 
+const data = [
+  {
+    id: 1,
+    title: "天仁茗茶",
+    description: "珍奶好喝！",
+    image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+  },
+  {
+    id: 2,
+    title: "五十嵐",
+    description: "珍奶好喝！",
+    image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+  },
+  {
+    id: 3,
+    title: "麻古茶坊",
+    description: "珍奶好喝！",
+    image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+  },
+  {
+    id: 4,
+    title: "可不可熟成紅茶",
+    description: "珍奶好喝！",
+    image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+  },
+  {
+    id: 5,
+    title: "麻古茶坊",
+    description: "珍奶好喝！",
+    image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+  },
+  {
+    id: 6,
+    title: "可不可熟成紅茶",
+    description: "珍奶好喝！",
+    image: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+  },
+];
+
 function StoreCardList(){
-
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-    Rails.ajax({
-      url: "/stores/recommand.json",
-      type: "GET",
-      success: (resp) => {
-        setData(resp)
-      },
-      error: function(err) {
-        console.log(err)
-      }
-    })
-  }, [])  
-
-  const atClick = (store) => {
-    Turbolinks.visit(`/stores/${store}/delicacy`)
-  }
-  
   return(
     <div className="store-card-list">
       {
-        data.map((store) => {
+        data.map((item) => {
           return(
             <StoreCard 
-              {...store}
-              key={store.id}
-              onClick={atClick}
+              {...item}
+              key={item.id}
             />
           )
         })

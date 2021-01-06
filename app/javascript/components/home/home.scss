@@ -1,57 +1,52 @@
-.home.index{
-  .category-card-list {
-    @apply grid;
-    @apply grid-cols-2;
-    @apply md:grid-cols-6;
-    @apply gap-4;
-    .card {
-      @apply text-center;
-      @apply border-0;
-      cursor: pointer;
-      .image {
-        @apply mx-auto;
-        width: 35%;
-        img {
-          @apply w-full;
-        }
-      }
-      p {
-        @apply text-lg;
-        @apply font-normal;
-        @apply pt-3;
+.category-card-list {
+  @apply grid;
+  @apply grid-cols-2;
+  @apply md:grid-cols-6;
+  @apply gap-4;
+  .card {
+    @apply text-center;
+    @apply border-0;
+    cursor: pointer;
+    .image {
+      @apply mx-auto;
+      width: 35%;
+      img {
+        @apply w-full;
       }
     }
-    .card:hover{
-      .image {
-        @apply transform;
-        @apply  scale-110;
-        @apply transition;
-        @apply  duration-500;
-      }
+    p {
+      @apply text-lg;
+      @apply font-normal;
+      @apply pt-3;
     }
   }
+  .card:hover{
+    .image {
+      @apply transform;
+      @apply  scale-110;
+      @apply transition;
+      @apply  duration-500;
+    }
+  }
+}
 
-  .store-card-list {
-    @apply grid;
-    @apply grid-cols-1;
-    @apply md:grid-cols-3;
-    @apply gap-4;
+.store-card-list {
+  @apply grid;
+  @apply grid-cols-1;
+  @apply md:grid-cols-3;
+  @apply gap-4;
     .card {
-      @apply cursor-pointer;
+      cursor: pointer;
       @apply relative;
-      @apply max-h-60;
       .heart {
         @apply text-red-500;
         @apply text-lg;
         @apply absolute;
-        bottom: 10px;
+        top: 10px;
         right: 10px;
       }
       .image {
-        @apply w-full;
-        @apply h-2/4;
-        @apply overflow-hidden;
-        @apply bg-gray-500;
+        width: 100%;
         img {
           @apply w-full;
         }
@@ -82,17 +77,12 @@
           @apply text-lg;
         }
       }
-      &:hover{
-        @apply transform;
-        @apply scale-105;
-        @apply shadow-md;
-        @apply transition;
-        @apply duration-500;
-        @apply rounded-md;
-        .image {
-          @apply rounded-t-md;
-        }
-      }  
-    }
+  }
+  .card:hover{
+    @apply transform;
+    @apply scale-105;
+    @apply shadow-md;
+    @apply transition;
+    @apply  duration-500;
   }
 }
