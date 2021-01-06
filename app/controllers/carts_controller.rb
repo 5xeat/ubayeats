@@ -29,9 +29,10 @@ class CartsController < ApplicationController
     end
 
     def pay
+        
         trade_no = "UB#{Time.zone.now.to_i}"
         body = {
-            "amount": 100,
+            "amount": current_cart.total_price,
             "confirmUrl":"http://localhost:3000/stores/confirm",
             "productName":"產品",
             "orderId": trade_no,
@@ -48,7 +49,7 @@ class CartsController < ApplicationController
     def confirm
     url = URI("http://sandbox-api-pay.line.me/v2/payments/#{params[:transactionId]}/confirm")
     body = {
-    "amount": 100,
+    "amount": current_cart.total_price,
     "currency": "TWD"
     }
     headers = {"X-LINE-ChannelId" => "1655372973",
