@@ -52,6 +52,8 @@ document.addEventListener('turbolinks:load', function(){
       return true
     }
   })
+// ------------------------------------------------------------
+// ------------------------------------------------------------
 
   // document.querySelector('input[type="submit"]').addEventListener('submit', function(e){
   //   e.preventDefault();
@@ -114,6 +116,8 @@ document.addEventListener('turbolinks:load', function(){
   //       }
   //     });
   //   }
+
+
     // let [maLatLng, myLat, myLng] = geocodeAddress(geocoder) 
 
     // const ax = require('axios')
