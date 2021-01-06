@@ -114,6 +114,28 @@
         })
 
         function directionMap(){
+          // 計算路程時間距離
+          const service = new google.maps.DistanceMatrixService();
+          service.getDistanceMatrix(
+            {
+              origins: [{ lat: lat, lng: lng }],
+              destinations: [{placeId: place.place_id}],
+              travelMode: google.maps.TravelMode.DRIVING,
+              unitSystem: google.maps.UnitSystem.METRIC,
+              avoidHighways: true,
+              avoidTolls: true,
+            },
+            (response, status) => {
+              if (status !== "OK") {
+                console.log(status);
+              } else {
+                const distance = response.rows[0].elements[0].distance.text;
+                const time = response.rows[0].elements[0].duration.text;
+                document.querySelector('.distance').innerText = distance;
+                document.querySelector('.time').innerText = time;
+              }
+            }
+          )
 
           // 放置路線圖層
           directionsDisplay.setMap(map);
@@ -128,25 +150,44 @@
             travelMode: 'DRIVING'
           };
 
-          // 接單按鈕
-          const deliveryBtn = document.querySelector('.delivery')
-          if (deliveryBtn !== null){
-            deliveryBtn.remove();
-          };
-
-          const delivery = document.createElement('div');
-          delivery.classList.add('btn')
-          delivery.classList.add('delivery')
-          delivery.innerText = '接單'
-
-          document.querySelector('.main').appendChild(delivery)
-
           // 繪製路線
           directionsService.route(request, function (result, status) {
             if (status == 'OK') {
-              const leg = result.routes[0].legs[0];
-              console.log(leg.steps);
+              let leg = result.routes[0].legs[0];
+              
+              // 接單按鈕
+              const deliveryBtn = document.querySelector('.delivery')
+              if (deliveryBtn !== null){
+                deliveryBtn.remove();
+                StartMarker.setMap(null);
+                EndMarker.setMap(null);
+              };
+
+              const delivery = document.createElement('div');
+              delivery.classList.add('btn')
+              delivery.classList.add('delivery')
+              delivery.innerText = '接單'
+
+              document.querySelector('.main').appendChild(delivery)
+
+              // 導航起終點標記
+              marker.setMap(null);
+              const StartMarker = new google.maps.Marker({
+                position: leg.start_location,
+                map: map,
+                icon: icons.start,
+                animation: google.maps.Animation.BOUNCE
+              })
+              const EndMarker = new google.maps.Marker({
+                position: leg.end_location,
+                map: map,
+                animation: google.maps.Animation.DROP
+              })
+              
+              directionsDisplay.setDirections(result);
+
               delivery.onclick = function(){
+                delivery.remove();
                 leg.steps.map((step) => {
                 const steps = document.createElement('div')
                 steps.classList.add('steps')
@@ -177,54 +218,43 @@
                 // 使用者定位
                 navigator.geolocation.watchPosition((position) => {
                   console.log('watchPosition')
-                  map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                  lat = position.coords.latitude
+                  lng = position.coords.longitude
+                  console.log(lat, lng)
+
+                  request = {
+                    origin: { lat: lat, lng: lng },
+                    destination: { placeId: place.place_id },
+                    avoidFerries: true,
+                    avoidHighways: true,
+                    avoidTolls: true,
+                    travelMode: 'DRIVING'
+                  };
+
+                  directionsService.route(request, function (result, status){
+                    console.log('renderRoute')
+                    if (status == 'OK') {
+                      leg = result.routes[0].legs[0];
+                      const newLatlng = new google.maps.LatLng(lat, lng)
+                      StartMarker.setPosition(newLatlng);
+                      directionsDisplay.setDirections(result);
+                      stepsList.innerHTML = '';
+                      leg.steps.map((step) => {
+                        const steps = document.createElement('div')
+                          steps.classList.add('steps')
+                          steps.innerHTML = `<p>${step.instructions}</p>`
+                          document.querySelector('.steps-list').appendChild(steps)
+                      })
+                    } else {
+                      console.log(status);
+                    }
+                  })
                 });
               }
-              function makeMarker(step, icon, map, position) {
-                let animation = (position === 'start') ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP;
-                const directionMarker = new google.maps.Marker({
-                  position: step,
-                  map: map,
-                  icon: icon,
-                  animation: animation
-                })
-                directionMarkers.push(directionMarker)
-              };
-              for (let i = 0; i < directionMarkers.length; i++) {
-                (directionMarkers[i].setMap(null));
-              }
-              directionMarkers =[]
-              makeMarker(leg.start_location, icons.start, map, 'start');
-              makeMarker(leg.end_location, null, map, 'end');
-              marker.setMap(null);
-              directionsDisplay.setDirections(result);
             } else {
               console.log(status);
             }
           });
-
-          // 計算路程時間距離
-          const service = new google.maps.DistanceMatrixService();
-          service.getDistanceMatrix(
-            {
-              origins: [{ lat: lat, lng: lng }],
-              destinations: [{placeId: place.place_id}],
-              travelMode: google.maps.TravelMode.DRIVING,
-              unitSystem: google.maps.UnitSystem.METRIC,
-              avoidHighways: true,
-              avoidTolls: true,
-            },
-            (response, status) => {
-              if (status !== "OK") {
-                console.log(status);
-              } else {
-                const distance = response.rows[0].elements[0].distance.text;
-                const time = response.rows[0].elements[0].duration.text;
-                document.querySelector('.distance').innerText = distance;
-                document.querySelector('.time').innerText = time;
-              }
-            }
-          )
         }    
       })
     }
