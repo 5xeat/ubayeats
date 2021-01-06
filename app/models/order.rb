@@ -11,6 +11,7 @@ class Order < ApplicationRecord
     
     event :pay do
       transitions from: :unpaid, to: :paid
+      # after_transaction :pay_after
     end
 
     event :close do
@@ -32,5 +33,10 @@ class Order < ApplicationRecord
     event :arrive do
       transitions from: :delivering, to: :arrived
     end
+  end
+
+  private
+  def pay_after
+    redirect_to root_path
   end
 end

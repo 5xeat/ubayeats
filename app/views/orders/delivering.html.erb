@@ -1,3 +1,5 @@
-<h1>運送中訂單</h1>
+<h1><%= current_user.store_profile.store_name %>的運送中訂單</h1>
+
+<%= render 'form', recieving_orders: @recieving_orders %>
 
 # 由外送員按下確認後，將該筆訂單轉至訂單記錄
