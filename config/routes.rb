@@ -20,8 +20,6 @@ Rails.application.routes.draw do
       get :confirm
     end
   end
-  # , only: [:show, :destroy] do
-  #   post ':add_item/:id',aciton: 'add_item' 
 
   resources :rooms
   resources :messages
