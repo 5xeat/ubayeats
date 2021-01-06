@@ -20,10 +20,17 @@
       data: current_user.to_json do %>
     <% end %>
     <div id="navbar_component"></div>
-
+      <%= yield %>
+    </div>
     <div id="content">
       <%= render "shared/flash" if notice || alert %>
-      <%= yield %>
+    </div>
+
+    <div class="carts absolute bottom-0 right-0">
+        <%= link_to carts_path do %>
+        <i class=" fas fa-shopping-cart text-5xl"> </i>
+        (<%= current_cart.items.count %>/<%= current_cart.total_price %>)
+        <% end %>
     </div>
   </body>
 </html>
