@@ -8,13 +8,13 @@ class StoreProfile < ApplicationRecord
   mount_uploader :store_photo, RegistrationUploader
 
   # validations
-  # validates :store_certificate, presence: true
-  # validates :store_photo, presence: true
-  # validates :store_name, presence: true
-  # validates :store_type, presence: true
-  # validates :store_address, presence: true
-  # validates :store_phone, presence: true
-  # validates :account, presence: true
+  validates :store_certificate, presence: true
+  validates :store_photo, presence: true
+  validates :store_name, presence: true
+  validates :store_type, presence: true
+  validates :store_address, presence: true
+  validates :store_phone, presence: true
+  validates :account, presence: true
   
 
 end

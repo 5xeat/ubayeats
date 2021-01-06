@@ -16,7 +16,6 @@ class StoresController < ApplicationController
   end
 
   def create
-    byebug
      @store_profile = current_user.build_store_profile(params_store)
     if @store_profile.save
       current_user.become_store!

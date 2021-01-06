@@ -1,7 +1,4 @@
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8-ftXcq0f3Oc9CJB0TNnPly3gPcFU66Y&v=3&callback=initMap&libraries=&v=weekly"
-defer
-></script>
+<%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{ENV['google_api_key']}&callback=initMap&libraries=&v=weekly" %>
 
 <div class="container">
   <% if @store_profile.errors.any? %>
@@ -66,7 +63,7 @@ defer
       <i class="fas fa-exclamation-circle"></i>
     </div>
 
-    <div style="background:#f50;height:30px;width:100%">
+    <div>
       <%= form.hidden_field :latitude, value: '', id: 'latitude' %>
       <%= form.hidden_field :longitude, value: '', id: 'longitude' %>
     </div>
@@ -74,8 +71,6 @@ defer
     <div class="actions">
       <%= form.submit '註冊', class:"btn btn-primary btn-submit", disabled: false %>
     </div>
-
-  
   
   <% end %>
 </div>
