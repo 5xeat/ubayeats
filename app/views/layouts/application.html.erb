@@ -26,10 +26,10 @@
       <%= render "shared/flash" if notice || alert %>
     </div>
 
-    <div class="carts fixed bottom-0 right-0">
+    <div class="carts fixed bottom-0 right-0 " data-controller="cart" data-action="addToCart@window->cart#update">
         <%= link_to carts_path do %>
-        <i class=" fas fa-shopping-cart text-5xl"> </i>
-        (<%= current_cart.items.count %>/<%= current_cart.total_price %>)
+        <i class="fas fa-shopping-cart text-5xl"> </i>
+        (<span data-cart-target="detail"><%= current_cart.items.count %>/<%= current_cart.total_price %></span>)
         <% end %>
     </div>
   </body>

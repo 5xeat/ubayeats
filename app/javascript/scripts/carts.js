@@ -12,7 +12,7 @@ document.addEventListener('turbolinks:load',()=>{
 function setQuantity(e){
     console.log('hi')
 }
-
+// 刪除
 function setRemoveItemBtn(e){
     const row =  e.currentTarget.parentElement.parentElement.parentElement
     console.log(row)
@@ -34,15 +34,15 @@ function setRemoveItemBtn(e){
     // updateCart()
 }
 
-function updateCart(){
-    const cartItems = document.querySelectorAll('.cart .cart-item')
+// function updateCart(){
+//     const cartItems = document.querySelectorAll('.cart .cart-item')
 
-    let total = 0
-    cartItems.forEach(item => {
-        const quantity = item.querySelector('.quantity').value
-        const price = item.querySelector('.price').innerText
-        total += (quantity * price)
-    })
+//     let total = 0
+//     cartItems.forEach(item => {
+//         const quantity = item.querySelector('.quantity').value
+//         const price = item.querySelector('.price').innerText
+//         total += (quantity * price)
+//     })
 
-    document.querySelector('.total-price').innerText = total
-}
+//     document.querySelector('.total-price').innerText = total
+// }

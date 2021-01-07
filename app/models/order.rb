@@ -2,7 +2,10 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :store_profile
   has_many :order_items
-
+  # 結帳 validations
+  validates :username, presence: true
+  validates :tel, presence: true
+  validates :address, presence: true
   include AASM
   aasm column: :payment_status, no_direct_assignment: true do
     state :unpaid, initial: true

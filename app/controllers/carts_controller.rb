@@ -1,19 +1,19 @@
 class CartsController < ApplicationController
 
     def add_item
-      
-        product = Product.find(params[:product_id])
+        product = Product.find(params[:id])
         # 加車
         current_cart.add_item(product[:id])
         session[:cart1111] = current_cart.serialize
-        redirect_to delicacy_store_path, notice: '已加入購物車'
         
-        # render json: { status: 'ok'}
+        render json: {
+            count: current_cart.items.count,
+            total_price: current_cart.total_price
+          }
     end
 
     def index
     end
-
 
     def show
     end
@@ -23,22 +23,24 @@ class CartsController < ApplicationController
         # 回首頁
         redirect_to root_path, notice:'購物車清空'
     end
-
-    def remove_item
-        p '---------'
-        p params
-        p '----------'
+    # remove cart item
+    def remove_item  
         filter_res = session[:cart1111]["items"].filter {|item| item["item_id"] != params[:id].to_i}
         session[:cart1111] = { 'items' => filter_res}
         redirect_to carts_path, notice: '已刪除商品'
     end
+
+# def add_to_cart
+#     current_cart.add_item(@item.id)
+#     seesion[:cart1111] = current_cart.to_hash
+#     render json { items_count: current_cart.items.count}
+# end
 
     def checkout
         @order = Order.new
     end
 
     def pay
-        
         trade_no = "UB#{Time.zone.now.to_i}"
         body = {
             "amount": current_cart.total_price,
@@ -48,8 +50,8 @@ class CartsController < ApplicationController
             "currency": "TWD"
         }
         headers = {"X-LINE-ChannelId" => "1655372973",
-                "X-LINE-ChannelSecret" => "4b8fd784c0759f04f6cf730bf7d68dda",
-                "Content-Type" => "application/json; charest=UTF-8"}
+                   "X-LINE-ChannelSecret" => "4b8fd784c0759f04f6cf730bf7d68dda",
+                   "Content-Type" => "application/json; charest=UTF-8"}
         res = Net::HTTP.post(URI('https://sandbox-api-pay.line.me/v2/payments/request'), body.to_json, headers)
         get_url = JSON.parse(res.body)
         redirect_to get_url['info']['paymentUrl']['web']
@@ -62,8 +64,8 @@ class CartsController < ApplicationController
     "currency": "TWD"
     }
     headers = {"X-LINE-ChannelId" => "1655372973",
-        "X-LINE-ChannelSecret" => "4b8fd784c0759f04f6cf730bf7d68dda",
-        "Content-Type" => "application/json; charest=UTF-8"}
+               "X-LINE-ChannelSecret" => "4b8fd784c0759f04f6cf730bf7d68dda",
+               "Content-Type" => "application/json; charest=UTF-8"}
     res = Net::HTTP.post(url, body.to_json, headers)
     p res.body
     render html: res.body.to_s
