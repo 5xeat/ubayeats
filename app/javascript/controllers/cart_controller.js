@@ -6,7 +6,6 @@ export default class extends Controller {
   connect() {
     console.log(this.detailTarget)
   }
-
   update(e){
     e.preventDefault()
     const {count, total_price} = e.detail

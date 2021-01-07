@@ -27,7 +27,6 @@
             <button class="fill-current text-gray-600 w-3" viewBox="0 0 448 512" data-action="slideshow#previous">
             <i class="fas fa-minus"></i>
             </button>
-           
             <input class="mx-2 border text-center w-8" type="text" value="1">
             <button class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
             <i class="fas fa-plus"></i>
@@ -39,20 +38,17 @@
         <button class="cartItemCount"> 
          <div  data-controller="pricing" 
         data-action='click->pricing#addToCart' data-pricing-id=<%= product.id %>>
-        加到購物車
+        加到購物車<i class="fas fa-cart-plus"></i>
         </button>
     <% end %>  
     </div>
   </tbody>
   </table>  
-
-
   <li><%= link_to 'cart_path' do %>
   <i class="fas fa-shopping-cart">
   (<%= current_cart.items.count%>/<%= current_cart.total_price %>)
   </i>
   <% end %>
   </li>
-
   <%= link_to "返回上一頁", :back %>
 </div>
