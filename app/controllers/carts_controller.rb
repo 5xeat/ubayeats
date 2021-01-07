@@ -75,7 +75,9 @@ class CartsController < ApplicationController
   
       redirect_to root_path, notice: '付款已完成'
       p '付款已完成'
-    else
+		else
+			order = current_user.orders.find_by(num: order_id)
+      order.close!(transaction_id: transaction_id)
       redirect_to root_path, notice: '付款發生錯誤'
       p '付款發生錯誤'
     end
