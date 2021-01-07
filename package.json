@@ -6,6 +6,7 @@
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "@googlemaps/js-api-loader": "^1.11.1",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
