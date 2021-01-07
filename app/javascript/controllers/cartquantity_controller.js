@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
 
 export default class extends Controller {
-    static targets = ["cartquantity"]
+    static targets = ["cartquantity","quantity"]
     static values = { index: Number }
 
     connect() {
@@ -13,23 +13,24 @@ export default class extends Controller {
   //   this.indexValue = parseInt(this.element.getAttribute(this.index))
   //   this.quantitySlide()
   // }
-
   // 加購物車
   next(e) {
-    e.preventDefault()
-    console.log('add')
+    // e.preventDefault()
+    // console.log(this.indexValue)
     this.indexValue += 1
-    this.quantitySlide()
+    console.log(e.currentTarget.previousSibling.previousSibling.value)
+    e.currentTarget.previousSibling.previousSibling.value = this.indexValue
+    // this.quantitySlide()
     
   }
 // 減購物車
   previous(e) {
       console.log('xxx')
-      if indexValue < 1
-      else
-      this.indexValue -= 1
-    this.quantitySlide()
-    end
+    //   if indexValue < 1
+    //   else
+    //   this.indexValue -= 1
+    // this.quantitySlide()
+    // end
   }
 
   quantitySlide() {  
@@ -37,6 +38,12 @@ export default class extends Controller {
       element.hidden = (index != this.index)
     })
   }
+
+  // quntity(){
+  //   this.quantityTargets.forEach((
+
+  //   ))
+  // }
 
  
     value(e) {
