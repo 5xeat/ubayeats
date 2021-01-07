@@ -8,7 +8,6 @@ export default class extends Controller {
   }
 
   update(e){
-    console.log('hi')
     e.preventDefault()
     const {count, total_price} = e.detail
     // console.log(this.detailTarget)
