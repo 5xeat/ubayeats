@@ -22,6 +22,9 @@
         margin-bottom: 10px;
         padding: 5px 10px;
       }
+      .hidden {
+        display:none
+      }
     </style>
   </head>
   <body>
@@ -41,8 +44,6 @@
         <p class="time"></p>
       </div>
     </div>
-
-    <div class="steps-list"></div>
 
     <div id="map"></div>
   </body>
@@ -96,34 +97,13 @@
 
           delivery.onclick = function(){
             delivery.remove();
-
             // 導航按鈕
-            const navigationBtn = document.querySelector('.main .navigation')
+            const googleBtn = document.querySelector('.google')
             const stepsList = document.querySelector('.steps-list')
-            if (navigationBtn !== null){
-              navigationBtn.remove();
-              stepsList.innerHTML = '';
+            if (googleBtn){
+              googleBtn.classList.remove('hidden');
+              stepsList.classList.remove('hidden');
             };
-
-            leg.steps.map((step) => {
-            const steps = document.createElement('div')
-            steps.classList.add('steps')
-            steps.innerHTML = `<p>${step.instructions}</p>`
-            document.querySelector('.steps-list').appendChild(steps)
-            })
-
-            const googleBtn = document.createElement('a');
-            googleBtn.classList.add('btn');
-            googleBtn.classList.add('navigation');
-            googleBtn.innerText = '開啟google map';
-            googleBtn.onclick = function(e){
-              window.open(
-                `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving&dir_action=navigate`,
-                '_blank'
-              );
-            }
-
-            document.querySelector('.main').appendChild(googleBtn)
           }
           document.querySelector('.main').appendChild(delivery)
         }
@@ -241,7 +221,53 @@
                 animation: google.maps.Animation.DROP
               })
             }
-          
+
+            let googleBtn = document.querySelector('.google')
+            let stepsList = document.querySelector('.steps-list')
+            if (googleBtn){
+              stepsList.innerHTML = '';
+              leg.steps.map((step) => {
+                const steps = document.createElement('div')
+                steps.classList.add('steps')
+                steps.innerHTML = `<p>${step.instructions}</p>`
+                document.querySelector('.steps-list').appendChild(steps)
+              })
+
+              googleBtn.onclick = function(e){
+                window.open(
+                  `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving&dir_action=navigate`,
+                  '_blank'
+                );
+              }
+            } else {
+              // 路線指示
+              stepsList = document.createElement('div')
+              stepsList.classList.add('steps-list')
+              document.querySelector('#map').insertAdjacentElement('beforebegin', stepsList)
+
+              leg.steps.map((step) => {
+                const steps = document.createElement('div')
+                steps.classList.add('steps')
+                steps.innerHTML = `<p>${step.instructions}</p>`
+                document.querySelector('.steps-list').classList.add('hidden')
+                document.querySelector('.steps-list').appendChild(steps)
+              })
+
+              // google按鈕
+              googleBtn = document.createElement('a');
+              googleBtn.classList.add('btn');
+              googleBtn.classList.add('google');
+              googleBtn.classList.add('hidden');
+              googleBtn.innerText = '開啟google map';
+              googleBtn.onclick = function(e){
+                window.open(
+                  `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving&dir_action=navigate`,
+                  '_blank'
+                );
+              }
+              document.querySelector('.main').appendChild(googleBtn)
+            }
+
             directionsDisplay.setDirections(result);
           } else {
             console.log(status);
