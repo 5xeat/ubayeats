@@ -21,7 +21,7 @@ class User < ApplicationRecord
     end
   end
 
-  aasm(column: 'role', no_direct_assignment: false) do 
+  aasm(column: 'role', no_direct_assignment: true) do 
     state :user, initial: true
     state :driver, :store
 
