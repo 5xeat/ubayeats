@@ -23,6 +23,8 @@ class CartsController < ApplicationController
         # 回首頁
         redirect_to root_path, notice:'購物車清空'
     end
+
+    
     # remove cart item
     def remove_item  
         filter_res = session[:cart1111]["items"].filter {|item| item["item_id"] != params[:id].to_i}
