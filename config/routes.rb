@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   
   resources :orders do 
     collection do
-      post :update_state
+      post :recieving_update
+      post :preparing_update
+      post :delivering_update
+      post :record_update
       get :recieving
       get :preparing
       get :delivering

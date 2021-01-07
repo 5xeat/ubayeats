@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
+  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update]
 
   def new
   end
@@ -8,24 +9,36 @@ class OrdersController < ApplicationController
     @recieving_orders = @orders.where(state: 'paid')
   end
 
-  def update_state
-    @order = Order.find_by(tel: params[:order][:tel])
+  def recieving_update
     @order.confirm! if @order.paid?
-    # @order.conplete! if @order.preparing?
-    # @order.go! if @order.completed?
-    # @order.arrive! if @order.delivering?
+    redirect_to recieving_orders_path, notice:'有新訂單已準備'
   end
 
   def preparing
     @recieving_orders = @orders.where(state: 'preparing')
   end
 
+  def preparing_update
+    @order.conplete! if @order.preparing?
+    redirect_to preparing_orders_path, notice:'有訂單已完成'
+  end
+
   def delivering
-    @recieving_orders = @orders.where(state: delivering)
+    @recieving_orders = @orders.where(state: 'delivering')
+  end
+
+  def delivering_update
+    @order.go! if @order.delivering?
+    redirect_to delivering_orders_path, notice:'有訂單外送中'
   end
 
   def record
     @recieving_orders = @orders.where(state: 'completed')
+  end
+
+  def record_update
+    @order.arrive! if @order.completed?
+    redirect_to record_orders_path, notice:'訂單送達，辛苦了'
   end
 
   private
@@ -35,5 +48,9 @@ class OrdersController < ApplicationController
 
   def set_orders
     @orders = current_user.store_profile.orders.all
+  end
+
+  def find_order
+    @order = Order.find_by(tel: params[:order][:tel])
   end
 end

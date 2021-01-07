@@ -1,6 +1,3 @@
-<% recieving_orders.each do |recieving_order| %>
-  <%= form_for(recieving_order, url: update_state_orders_path, method: 'post')  do |form| %>
-
     <%= form.label :username %>
     <%= form.text_field :username, value: recieving_order.username, readonly: true %>
 
@@ -13,5 +10,3 @@
     <p><%= recieving_order.state %></p>
 
     <%= form.submit '按我'%>
-  <% end %>
-<% end %>

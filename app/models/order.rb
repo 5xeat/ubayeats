@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 
   aasm column: :state, no_direct_assignment: true do
     state :unpaid, initial: true
-    state :paid, :canceled, :preparing, :completed, :delivering, :arrived
+    state :canceled, :paid, :preparing, :delivering, :completed, :arrived
     
     event :pay do
       transitions from: :unpaid, to: :paid
@@ -23,15 +23,15 @@ class Order < ApplicationRecord
     end
 
     event :conplete do
-      transitions from: :preparing, to: :completed
+      transitions from: :preparing, to: :delivering
     end
 
     event :go do
-      transitions from: :completed, to: :delivering
+      transitions from: :delivering, to: :completed
     end
 
     event :arrive do
-      transitions from: :delivering, to: :arrived
+      transitions from: :completed, to: :arrived
     end
   end
 
