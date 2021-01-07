@@ -11,7 +11,18 @@ Rails.application.routes.draw do
     post "/unique_email", to: "users/registrations#unique_email?"
   end
   
-  resources :orders
+  resources :orders do 
+    collection do
+      post :recieving_update
+      post :preparing_update
+      post :delivering_update
+      post :record_update
+      get :recieving
+      get :preparing
+      get :delivering
+      get :record
+    end
+  end
 
   resource :carts do 
     post 'add_item/:id', action: 'add_item', as: 'add_item'
@@ -38,11 +49,6 @@ Rails.application.routes.draw do
     collection do
       get :recommand
       get :search
-      resource :orders, only: [:new] do
-        get :preparing
-        get :delivering
-        get :record
-      end
       resources :products, shallow: true do
         member do
           patch :toggle_publish
@@ -50,5 +56,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
 end
