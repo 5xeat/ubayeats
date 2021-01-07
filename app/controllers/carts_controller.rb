@@ -29,13 +29,19 @@ class CartsController < ApplicationController
     end
 
     def pay
+        @order = current_user.orders.new(order_params)
+        current_cart.items.each do |item|
+        @order.order_items << OrderItem.new(product: item.product, quantity: item.quantity)
+        end
+        @order.store_profile_id = @order.order_items.first.product.store_profile_id
+        @order.save
         
         trade_no = "UB#{Time.zone.now.to_i}"
         body = {
             "amount": current_cart.total_price,
-            "confirmUrl":"http://localhost:3000/stores/confirm",
+            "confirmUrl":"http://localhost:5000/carts/confirm",
             "productName":"產品",
-            "orderId": trade_no,
+            "orderId": @order.num,
             "currency": "TWD"
         }
         headers = {"X-LINE-ChannelId" => "1655372973",
@@ -57,6 +63,30 @@ class CartsController < ApplicationController
         "Content-Type" => "application/json; charest=UTF-8"}
     res = Net::HTTP.post(url, body.to_json, headers)
     p res.body
-    render html: res.body.to_s
+    # render html: res.body.to_s
+    result = JSON.parse(res.body)
+    if result["returnCode"] == "0000"
+        order_id = result["info"]["orderId"]
+        transaction_id = result["info"]["transactionId"]
+  
+        # 1. 變更 order 狀態
+        order = current_user.orders.find_by(num: order_id)
+        order.pay!(transaction_id: transaction_id)
+  
+        # 2. 清空購物車
+        session[:cart1111] = nil
+  
+        redirect_to root_path, notice: '付款已完成'
+        p '付款已完成'
+      else
+        redirect_to root_path, notice: '付款發生錯誤'
+        p '付款發生錯誤'
+      end
+    
+    end
+    
+    private
+    def order_params
+        params.require(:order).permit(:username, :tel, :address, :state, :total_price, :responsibility)
     end
 end
