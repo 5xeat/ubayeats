@@ -48,8 +48,9 @@
   </body>
   <script>
     
-    let map, marker, lat, lng, place, directionMarkers;
+    let map, marker, lat, lng, place, directionMarkers, startMarker, endMarker, leg, request;
     directionMarkers =[];
+    const deliveryBtn = document.querySelector('.delivery');
 
     function initMap() {
       // 載入路線服務與路線顯示圖層
@@ -76,46 +77,113 @@
         }
       };
 
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log('getCurrentPosition')
+      const calcBtn = document.querySelector(".calc-btn")
+      const destinationInput = document.getElementById("destination-input");
+      const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
+      calcBtn.addEventListener("click", (e) => {
+        if (destinationInput.value !== ""){
+          // 取得終點位置的placeID
+          place = destinationAutocomplete.getPlace();
+          console.log('click calcBtn')
+          console.log(lat)
+          console.log(lng)
+          directionMap()
+
+          const delivery = document.createElement('div');
+          delivery.classList.add('btn')
+          delivery.classList.add('delivery')
+          delivery.innerText = '接單'
+
+          delivery.onclick = function(){
+            delivery.remove();
+
+            // 導航按鈕
+            const navigationBtn = document.querySelector('.main .navigation')
+            const stepsList = document.querySelector('.steps-list')
+            if (navigationBtn !== null){
+              navigationBtn.remove();
+              stepsList.innerHTML = '';
+            };
+
+            leg.steps.map((step) => {
+            const steps = document.createElement('div')
+            steps.classList.add('steps')
+            steps.innerHTML = `<p>${step.instructions}</p>`
+            document.querySelector('.steps-list').appendChild(steps)
+            })
+
+            const googleBtn = document.createElement('a');
+            googleBtn.classList.add('btn');
+            googleBtn.classList.add('navigation');
+            googleBtn.innerText = '開啟google map';
+            googleBtn.onclick = function(e){
+              window.open(
+                `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving&dir_action=navigate`,
+                '_blank'
+              );
+            }
+
+            document.querySelector('.main').appendChild(googleBtn)
+          }
+          document.querySelector('.main').appendChild(delivery)
+        }
+      })
+
+      navigator.geolocation.watchPosition((position) => {
+        console.log('watchPosition')
         lat = position.coords.latitude;
         lng = position.coords.longitude;
 
-        // 初始化地圖
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 18,
-            center: { lat: lat, lng: lng },
-            mapId: 'c57b36ae7dbc5a40',
-            mapTypeControl: false,
-            streetViewControl: false,
-            zoomControl: false,
-            fullscreenControl: false
-        });
-        marker = new google.maps.Marker({
+        if (map === undefined){
+          // 初始化地圖
+          map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 18,
+              center: { lat: lat, lng: lng },
+              mapId: 'c57b36ae7dbc5a40',
+              mapTypeControl: false,
+              streetViewControl: false,
+              zoomControl: false,
+              fullscreenControl: false
+          });
+
+          marker = new google.maps.Marker({
             position: { lat: lat, lng: lng },
             map: map,
             animation: google.maps.Animation.BOUNCE,
             icon: icons.start
-        });
+          });
+        } else {
+          marker.setPosition(new google.maps.LatLng(lat, lng));
+          if (place === undefined){
+            map.setCenter(new google.maps.LatLng(lat, lng))
+          } else {
+            console.log('rerender')
+            console.log(lat)
+            console.log(lng)
 
-        if (place !== undefined){
-          directionMap()
-        }
-
-        const btn = document.querySelector(".calc-btn")
-        const destinationInput = document.getElementById("destination-input");
-        const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
-        btn.addEventListener("click", (e) => {
-          if (destinationInput.value !== ""){
-            // 取得終點位置的placeID
-            place = destinationAutocomplete.getPlace();
             directionMap()
           }
-        })
+        }
+      })
 
-        function directionMap(){
-          // 計算路程時間距離
-          const service = new google.maps.DistanceMatrixService();
+      function directionMap(){
+        // 計算路程時間距離
+        const service = new google.maps.DistanceMatrixService();
+
+        // 放置路線圖層
+        directionsDisplay.setMap(map);
+
+        // 路線相關設定
+        if (request === undefined){
+          request = {
+            origin: { lat: lat, lng: lng },
+            destination: { placeId: place.place_id },
+            avoidFerries: true,
+            avoidHighways: true,
+            avoidTolls: true,
+            travelMode: 'DRIVING'
+          };
+
           service.getDistanceMatrix(
             {
               origins: [{ lat: lat, lng: lng }],
@@ -136,127 +204,50 @@
               }
             }
           )
+        } else {
+          request.origin = new google.maps.LatLng(lat, lng)
+          service.getDistanceMatrix(
+            {
+              origins: [new google.maps.LatLng(lat, lng)],
+              destinations: [{placeId: place.place_id}],
+              travelMode: google.maps.TravelMode.DRIVING,
+              unitSystem: google.maps.UnitSystem.METRIC,
+              avoidHighways: true,
+              avoidTolls: true,
+            },
+            (response, status) => {
+              if (status !== "OK") {
+                console.log(status);
+              } else {
+                const distance = response.rows[0].elements[0].distance.text;
+                const time = response.rows[0].elements[0].duration.text;
+                document.querySelector('.distance').innerText = distance;
+                document.querySelector('.time').innerText = time;
+              }
+            }
+          )
+        }
 
-          // 放置路線圖層
-          directionsDisplay.setMap(map);
-
-          // 路線相關設定
-          let request = {
-            origin: { lat: lat, lng: lng },
-            destination: { placeId: place.place_id },
-            avoidFerries: true,
-            avoidHighways: true,
-            avoidTolls: true,
-            travelMode: 'DRIVING'
-          };
-
-          // 繪製路線
-          directionsService.route(request, function (result, status) {
-            if (status == 'OK') {
-              let leg = result.routes[0].legs[0];
-              
-              // 接單按鈕
-              const deliveryBtn = document.querySelector('.delivery')
-              if (deliveryBtn !== null){
-                deliveryBtn.remove();
-                StartMarker.setMap(null);
-                EndMarker.setMap(null);
-              };
-
-              const delivery = document.createElement('div');
-              delivery.classList.add('btn')
-              delivery.classList.add('delivery')
-              delivery.innerText = '接單'
-
-              document.querySelector('.main').appendChild(delivery)
-
-              // 導航起終點標記
-              marker.setMap(null);
-              const StartMarker = new google.maps.Marker({
-                position: leg.start_location,
-                map: map,
-                icon: icons.start,
-                animation: google.maps.Animation.BOUNCE
-              })
-              const EndMarker = new google.maps.Marker({
+        // 繪製路線
+        directionsService.route(request, function (result, status) {
+          if (status == 'OK') {
+            leg = result.routes[0].legs[0];
+            
+            // 導航終點標記
+            if (endMarker === undefined){
+              endMarker = new google.maps.Marker({
                 position: leg.end_location,
                 map: map,
                 animation: google.maps.Animation.DROP
               })
-              
-              directionsDisplay.setDirections(result);
-
-              delivery.onclick = function(){
-                delivery.remove();
-                leg.steps.map((step) => {
-                const steps = document.createElement('div')
-                steps.classList.add('steps')
-                steps.innerHTML = `<p>${step.instructions}</p>`
-                document.querySelector('.steps-list').appendChild(steps)
-                })
-
-                // 導航按鈕
-                const navigationBtn = document.querySelector('.main .navigation')
-                const stepsList = document.querySelector('.steps-list')
-                if (navigationBtn !== null){
-                  navigationBtn.remove();
-                  stepsList.innerHTML = '';
-                };
-
-                const navigation = document.createElement('a');
-                navigation.classList.add('btn');
-                navigation.classList.add('navigation');
-                navigation.innerText = '開啟google map';
-                navigation.onclick = function(e){
-                  window.open(
-                    `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving&dir_action=navigate`,
-                    '_blank'
-                  );
-                }
-                document.querySelector('.main').appendChild(navigation)
-
-                // 使用者定位
-                navigator.geolocation.watchPosition((position) => {
-                  console.log('watchPosition')
-                  lat = position.coords.latitude
-                  lng = position.coords.longitude
-                  console.log(lat, lng)
-
-                  request = {
-                    origin: { lat: lat, lng: lng },
-                    destination: { placeId: place.place_id },
-                    avoidFerries: true,
-                    avoidHighways: true,
-                    avoidTolls: true,
-                    travelMode: 'DRIVING'
-                  };
-
-                  directionsService.route(request, function (result, status){
-                    console.log('renderRoute')
-                    if (status == 'OK') {
-                      leg = result.routes[0].legs[0];
-                      const newLatlng = new google.maps.LatLng(lat, lng)
-                      StartMarker.setPosition(newLatlng);
-                      directionsDisplay.setDirections(result);
-                      stepsList.innerHTML = '';
-                      leg.steps.map((step) => {
-                        const steps = document.createElement('div')
-                          steps.classList.add('steps')
-                          steps.innerHTML = `<p>${step.instructions}</p>`
-                          document.querySelector('.steps-list').appendChild(steps)
-                      })
-                    } else {
-                      console.log(status);
-                    }
-                  })
-                });
-              }
-            } else {
-              console.log(status);
             }
-          });
-        }    
-      })
+          
+            directionsDisplay.setDirections(result);
+          } else {
+            console.log(status);
+          }
+        });
+      }    
     }
   </script>
 </html>
