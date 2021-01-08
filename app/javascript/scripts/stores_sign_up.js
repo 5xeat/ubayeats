@@ -38,9 +38,9 @@ document.addEventListener('turbolinks:load', () => {
       checkAccount()
     })
   
-    submitBtn.addEventListener('click', (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault()
-      checkInputs()
+      return checkInputs()
     })
   
     function checkInputs(){
@@ -52,9 +52,7 @@ document.addEventListener('turbolinks:load', () => {
       checkPhone()
       checkAccount()
       
-      if (form.querySelector('.error') === null){
-        form.submit()
-      }
+      return (form.querySelector('.error') === null)
     }
   
     function checkCertificate(){
