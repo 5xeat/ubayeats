@@ -2,55 +2,41 @@ import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
 
 export default class extends Controller {
-    static targets = ["cartquantity","quantity"]
-    static values = { index: Number }
-
+    static targets = ["quantity","count","price","subtotal"]
+    static values = { index: Number}
     connect() {
         // console.log(this.indexValue)
       }
-
-  //   initialize() {   
-  //   this.indexValue = parseInt(this.element.getAttribute(this.index))
-  //   this.quantitySlide()
-  // }
   // 加購物車
+  
   next(e) {
-    // e.preventDefault()
     // console.log(this.indexValue)
     this.indexValue += 1
-    console.log(e.currentTarget.previousSibling.previousSibling.value)
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
-    // this.quantitySlide()
-    
+    const subprice =  this.priceTarget.innerText * this.indexValue
+    this.subtotalTarget.innerText = `${subprice}`
+
+    const totalprice =  this.priceTarget.innerText * this.indexValue
+    document.querySelector('.total').innerText = `${totalprice}`
   }
 // 減購物車
   previous(e) {
-      console.log('xxx')
-    //   if indexValue < 1
-    //   else
-    //   this.indexValue -= 1
-    // this.quantitySlide()
-    // end
-  }
+    this.indexValue -= 1
+    if (this.indexValue <= 0){
+      this.indexValue = 1;
+    }
+    e.target.parentNode.nextSibling.nextSibling.value = this.indexValue
 
-  quantitySlide() {  
-    this.cartquantityTargets.forEach((element, index) => {
-      element.hidden = (index != this.index)
-    })
-  }
+    const subprice =  this.priceTarget.innerText * this.indexValue
+    this.subtotalTarget.innerText = `${subprice}`
+    const totalprice =  this.priceTarget.innerText * this.indexValue
+    document.querySelector('.total').innerText = `${totalprice}`
+ }
+  
 
-  // quntity(){
-  //   this.quantityTargets.forEach((
 
-  //   ))
-  // }
 
- 
-    value(e) {
-    const {count} = e.cartquantity
-    this.detailTarget.innerText = `${count}`
-  }
-
+  
   // Rails.ajax({
   //   url: `/carts/add_item/${productId}`
   //   type:'post',

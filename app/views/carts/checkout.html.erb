@@ -1,5 +1,5 @@
 <h1>結帳</h1>
-<%= render "carts/cart", cart:curremt_cart %>
+<%= render "carts/cart", cart:current_cart %>
 
 <%= form_for(@order, url: pay_carts_path)  do |form| %>
   <div>
