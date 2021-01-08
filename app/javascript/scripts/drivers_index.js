@@ -3,6 +3,19 @@ import { Loader } from '@googlemaps/js-api-loader';
 document.addEventListener('turbolinks:load', () => {
   let rePosition, loader;
   if (document.querySelector('.driver_profiles.index')){
+    const onlineBtn = document.querySelector(".online-btn")
+    onlineBtn.addEventListener('click', (e) => {
+      e.preventDefault()
+      if (onlineBtn.innerText === "上線"){
+        onlineBtn.innerText = "下線"
+        document.querySelector('.status p').innerText = "等待新訂單..."
+      } else {
+        onlineBtn.innerText = "上線"
+        document.querySelector('.status p').innerText = "未上線"
+      }
+      document.querySelector('.destination').classList.toggle('hidden')
+    })
+
     if (loader === undefined) {
       console.log('hi');
       loader = new Loader({
@@ -19,7 +32,7 @@ document.addEventListener('turbolinks:load', () => {
         })
         .catch(e => {
           // do something
-        });  
+        });
     } else {
       googlemap()
     }
@@ -81,23 +94,24 @@ function googlemap(){
         stepsBtn.onclick = function(){
           stepsList.classList.remove('hidden');
         }
-        const takeBtn = document.createElement('div')
-        takeBtn.classList.add('take-btn')
-        takeBtn.classList.add('btn')
-        takeBtn.innerText = "已取餐"
-        takeBtn.onclick = function(){
+        const takenBtn = document.createElement('div')
+        takenBtn.classList.add('take-btn')
+        takenBtn.classList.add('btn')
+        takenBtn.innerText = "已取餐"
+        takenBtn.onclick = function(){
           googleBtn.remove()
-          takeBtn.remove()
+          takenBtn.remove()
           stepsBtn.remove()
           directionsDisplay.setMap(null);
           document.querySelector('.distance').innerText = ''
           document.querySelector('.time').innerText = ''
+          document.querySelector('.steps-list').remove()
           endMarker.setMap(null)
           place = undefined
         }
 
         document.querySelector('.btn-list').appendChild(stepsBtn)
-        document.querySelector('.btn-list').appendChild(takeBtn)
+        document.querySelector('.btn-list').appendChild(takenBtn)
         if (googleBtn){
           googleBtn.classList.remove('hidden');
         };

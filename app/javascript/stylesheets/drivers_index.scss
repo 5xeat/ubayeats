@@ -14,6 +14,15 @@
     }
     .info {
       @apply flex-none rounded-t bg-white relative;
+      .status {
+        @apply text-center mt-5;
+        p {
+          @apply font-medium text-2xl;
+        }
+        .btn {
+          @apply bg-red-500;
+        }
+      }
       .order {
         .text {
 
@@ -38,7 +47,7 @@
       }
     }
     .hidden {
-      display:none
+      @apply invisible;
     }
   }
 }
