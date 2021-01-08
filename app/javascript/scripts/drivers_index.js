@@ -63,7 +63,7 @@ function googlemap(){
       console.log(lat)
       console.log(lng)
       directionMap()
-
+      
       const delivery = document.createElement('div');
       delivery.classList.add('btn')
       delivery.classList.add('delivery')
@@ -76,16 +76,34 @@ function googlemap(){
         const stepsList = document.querySelector('.steps-list')
         const stepsBtn = document.createElement('div')
         stepsBtn.classList.add('steps-btn')
-        stepsBtn.innerHTML = '<i class="fas fa-route btn"></i>'
+        stepsBtn.classList.add('btn')
+        stepsBtn.innerHTML = '<i class="fas fa-route"></i> 路線指示'
         stepsBtn.onclick = function(){
           stepsList.classList.remove('hidden');
         }
+        const takeBtn = document.createElement('div')
+        takeBtn.classList.add('take-btn')
+        takeBtn.classList.add('btn')
+        takeBtn.innerText = "已取餐"
+        takeBtn.onclick = function(){
+          googleBtn.remove()
+          takeBtn.remove()
+          stepsBtn.remove()
+          directionsDisplay.setMap(null);
+          document.querySelector('.distance').innerText = ''
+          document.querySelector('.time').innerText = ''
+          endMarker.setMap(null)
+          place = undefined
+        }
+
         document.querySelector('.btn-list').appendChild(stepsBtn)
+        document.querySelector('.btn-list').appendChild(takeBtn)
         if (googleBtn){
           googleBtn.classList.remove('hidden');
         };
       }
       document.querySelector('.btn-list').appendChild(delivery)
+      destinationInput.value = ''
     }
   })
 
@@ -192,6 +210,7 @@ function googlemap(){
     directionsService.route(request, function (result, status) {
       if (status == 'OK') {
         leg = result.routes[0].legs[0];
+        console.log(leg.steps);
         
         // 導航終點標記
         if (endMarker === undefined){

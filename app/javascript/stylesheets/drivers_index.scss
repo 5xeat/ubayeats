@@ -22,7 +22,7 @@
           @apply flex;
         }
         .steps-list {
-          @apply absolute overflow-y-auto;
+          @apply absolute overflow-y-auto w-screen;
           height: 50px;
           top: -65px;
           left: 0;
