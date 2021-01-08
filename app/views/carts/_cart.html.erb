@@ -8,12 +8,13 @@
   <table>
     <tbody>
       <% current_cart.items.each do |item| %>
-        <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 " id=<%= item.item_id%> data-controller="cartquantity" data-cartquantity-index-value="1">
+        <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 " 
+              data-cartquantity-id="<%= item.item_id %>" data-controller="cartquantity" data-cartquantity-index-value="<%= item.quantity %>">
           <div class="cart flex w-2/5"> 
               <!-- product -->  
             <div class="cartItem flex flex-col justify-between ml-4 flex-grow">
               <span class="font-bold text-sm "><%= item.product.name %></span>      
-              <button class="remove-item-btn btn btn-lg btn-success"><i class="fas fa-trash"></i></button>
+              <button class="remove-item-btn btn-success  bg-red-500 hover:bg-red-600 px-5 py-2 text-white w-8/12 rounded-lg"><i class="fas fa-trash"></i></button>
             </div>
           </div>
           <div class="flex justify-center w-1/5">
@@ -23,24 +24,26 @@
               <i class="fas fa-minus"></i>
             </button>
             <%# +號 %>
-            <input class="quantity mx-2 border text-center w-8" value=1 data-cartquantity-target="count">
+            <input class="cart-item quantity mx-2 border text-center w-8" value="<%=item.quantity%>" data-cartquantity-target="count">
             <button class="cartbtn fill-current text-gray-600 w-3"   data-action="click->cartquantity#next">
               <i class="fas fa-plus"></i>
             </button>
           </div>
 
-          <span class="price text-center w-1/5 font-semibold text-sm" data-cartquantity-target="price">
+          <span class="cart-item price text-center w-1/5 font-semibold text-sm" data-cartquantity-target="price">
             <%= item.product.price %>
           </span>
           <span class="subtotal text-center w-1/5 font-semibold text-sm" data-cartquantity-target="subtotal">
             <%= item.item_total_price%>
           </span>
         </div>   
-      <% end %>
-      <span class="font-bold text-4xl border-2 border-blue-900">總價</span>
-      <span class="total text-center w-1/5 font-semibold text-sm">
-        <%= current_cart.total_price %>
-      </span>
+        <% end %>
+      
+        <span class="font-bold text-4xl border-2 border-blue-900">總價</span>
+        <span class="total text-center w-1/5 font-semibold text-sm">
+          <%= current_cart.total_price %>
+        </span>
+            
     </tbody>
   </table>
 </div>

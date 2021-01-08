@@ -7,7 +7,7 @@
    </div>
   <div class="flex mt-10 mb-5 ">
     <h3 class="font-semibold text-gray-600 text-lg uppercase w-2/5 ">商品</h3>
-    <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">數量</h3>
+    <%# <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">數量</h3> %>
     <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">價錢</h3> 
     <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">種類</h3>
   </div>
@@ -22,16 +22,7 @@
               <span class="font-bold text-sm "><%= product.name %></span>      
             </div>
           </div>
-          <%# + - 符號 %>
-          <div class="flex justify-center w-1/5"data-controller="cart">
-            <button class="fill-current text-gray-600 w-3" viewBox="0 0 448 512" data-action="slideshow#previous">
-            <i class="fas fa-minus"></i>
-            </button>
-            <input class="mx-2 border text-center w-8" type="text" value="1">
-            <button class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-            <i class="fas fa-plus"></i>
-            </button>
-          </div>
+         
           <span class="text-center w-1/5 font-semibold text-sm"><%= product.price %></span>
           <span class="text-center w-1/5 font-semibold text-sm"><%= product.description %></span>
         </div>  

@@ -5,12 +5,22 @@ class CartsController < ApplicationController
         # 加車
         current_cart.add_item(product[:id])
         session[:cart1111] = current_cart.serialize
-        
         render json: {
             count: current_cart.items.count,
             total_price: current_cart.total_price
           }
     end
+
+def minus_item
+    product = Product.find(params[:id])
+    # 加車
+    current_cart.add_item(product[:id],quantity= -1)
+    session[:cart1111] = current_cart.serialize
+    render json: {
+        count: current_cart.items.count,
+        total_price: current_cart.total_price
+      }
+end
 
     def index
     end
@@ -32,12 +42,6 @@ class CartsController < ApplicationController
         redirect_to carts_path, notice: '已刪除商品'
     end
 
-# def add_to_cart
-#     current_cart.add_item(@item.id)
-#     seesion[:cart1111] = current_cart.to_hash
-#     render json { items_count: current_cart.items.count}
-# end
-
     def checkout
         @order = Order.new
     end
@@ -47,7 +51,7 @@ class CartsController < ApplicationController
         body = {
             "amount": current_cart.total_price,
             "confirmUrl":"http://localhost:3000/stores/confirm",
-            "productName":"產品",
+            "productName":"Ubayeats",
             "orderId": trade_no,
             "currency": "TWD"
         }
