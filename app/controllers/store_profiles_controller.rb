@@ -8,14 +8,7 @@ class StoreProfilesController < ApplicationController
 
   def delicacy
     @store_profile = StoreProfile.find_by!(id: params[:id])
-    p '+++++++'
-    p @store_profile
-    p '+++++++'
-
     @products = @store_profile.products
-    p '-----'
-    p @products
-    p '-----'
   end
   
   def new
@@ -23,7 +16,7 @@ class StoreProfilesController < ApplicationController
   end
 
   def create
-    @store_profile = current_user.create_store_profile(params_store)
+     @store_profile = current_user.build_store_profile(params_store)
     if @store_profile.save
       current_user.become_store!
       redirect_to root_path, notice: '成為合作店家'
@@ -55,7 +48,8 @@ class StoreProfilesController < ApplicationController
 
   private
   def params_store
-    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account)
+    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account, :latitude, :longitude)
+
   end
 
   def store_pundit

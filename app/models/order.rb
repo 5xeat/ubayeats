@@ -7,42 +7,39 @@ class Order < ApplicationRecord
   validates :tel, presence: true
   validates :address, presence: true
   include AASM
-  aasm column: :payment_status, no_direct_assignment: true do
+
+  aasm column: :state, no_direct_assignment: true do
     state :unpaid, initial: true
-    state :paid, :canceled
+    state :canceled, :paid, :preparing, :delivering, :completed, :arrived
     
     event :pay do
       transitions from: :unpaid, to: :paid
+      # after_transaction :pay_after
     end
 
     event :close do
       transitions from: :unpaid, to: :canceled
     end
-  end
 
-  aasm column: :state, no_direct_assignment: true do
-    state :accepted, initial: true
-    state :preparing, :completed
-    
     event :confirm do
-      transitions from: :accepted, to: :preparing
+      transitions from: :paid, to: :preparing
     end
 
     event :conplete do
-      transitions from: :preparing, to: :completed
+      transitions from: :preparing, to: :delivering
     end
-  end
 
-  aasm column: :delivering, no_direct_assignment: true do
-    state :accepted, initial: true
-    state :delivering, :arrived
-    
     event :go do
-      transitions from: :accepted, to: :delivering
+      transitions from: :delivering, to: :completed
     end
 
     event :arrive do
-      transitions from: :delivering, to: :arrived
+      transitions from: :completed, to: :arrived
     end
+  end
+
+  private
+  def pay_after
+    redirect_to root_path
   end
 end

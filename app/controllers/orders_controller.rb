@@ -1,30 +1,56 @@
 class OrdersController < ApplicationController
-  def index
-  end
+  before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
+  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update]
 
-  # 店家的aciton
   def new
-    # @order = Order.new #(購物車params)
   end
 
-  def create
-    # @order = Order.new
-    # @order.pay!
+  def recieving
+    @recieving_orders = @orders.where(state: 'paid')
+  end
+
+  def recieving_update
+    @order.confirm! if @order.paid?
+    redirect_to recieving_orders_path, notice:'有新訂單已準備'
   end
 
   def preparing
-    # order.confirm! if "店家在新訂單頁面按下確認鍵"
+    @recieving_orders = @orders.where(state: 'preparing')
+  end
+
+  def preparing_update
+    @order.conplete! if @order.preparing?
+    redirect_to preparing_orders_path, notice:'有訂單已完成'
   end
 
   def delivering
-    # order.prepared! if 
+    @recieving_orders = @orders.where(state: 'delivering')
+  end
+
+  def delivering_update
+    @order.go! if @order.delivering?
+    redirect_to delivering_orders_path, notice:'有訂單外送中'
   end
 
   def record
+    @recieving_orders = @orders.where(state: 'completed')
+  end
+
+  def record_update
+    @order.arrive! if @order.completed?
+    redirect_to record_orders_path, notice:'訂單送達，辛苦了'
   end
 
   private
   def order_params
     params.require(:order).permit(:username, :tel, :address, :state, :total_price, :responsibility)
+  end
+
+  def set_orders
+    @orders = current_user.store_profile.orders.all
+  end
+
+  def find_order
+    @order = Order.find_by(tel: params[:order][:tel])
   end
 end

@@ -27,20 +27,16 @@ gem 'jbuilder', '~> 2.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
-
 gem 'devise', '~> 4.2'
 gem 'rails-i18n', '~> 6.0'
-
 gem 'omniauth', '~> 1.9', '>= 1.9.1'
 gem 'omniauth-google-oauth2', '~> 0.8.1'
 gem 'figaro', '~> 1.2'
 gem 'fog-aws', '~> 3.7'
-
 gem 'aasm', '~> 5.1', '>= 5.1.1'
 gem 'carrierwave', '~> 2.1'
 gem 'pundit', '~> 2.1'
 gem 'redis', '~> 4.2', '>= 4.2.5'
-
 gem 'paranoia', '~> 2.4', '>= 2.4.3'
 
 group :development, :test do
@@ -52,6 +48,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'hirb', '~> 0.7.3'
   gem 'foreman', '~> 0.87.2'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'

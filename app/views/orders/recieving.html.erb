@@ -1,0 +1,7 @@
+<h1><%= current_user.store_profile.store_name %>的新訂單</h1>
+
+<% @recieving_orders.each do |recieving_order| %>
+  <%= form_for(recieving_order, url: recieving_update_orders_path, method: 'post')  do |form| %>
+    <%= render 'form', form: form, recieving_order: recieving_order %>
+  <% end %>
+<% end %>
