@@ -1,3 +1,5 @@
+<%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{ENV['google_api_key']}&callback=initMap&libraries=&v=weekly" %>
+
 <div class="container">
   <% if @store_profile.errors.any? %>
   <ul>
@@ -33,12 +35,12 @@
     </div>
   
   
-    <di class="form-item">
+    <div class="form-item">
       <%= form.label :store_type, '店家種類' %>
       <%= form.select(:store_type, options_for_select(['日式', '韓式', '飲料',  '甜點', '蔬食', '速食'])) %>
       <div class="error-message"></div>
       <i class="fas fa-exclamation-circle"></i>
-    </di>
+    </div>
   
     <div class="form-item">
       <%= form.label :store_address, '店家地址' %>
@@ -60,9 +62,14 @@
       <div class="error-message"></div>
       <i class="fas fa-exclamation-circle"></i>
     </div>
+
+    <div>
+      <%= form.hidden_field :latitude, value: '', id: 'latitude' %>
+      <%= form.hidden_field :longitude, value: '', id: 'longitude' %>
+    </div>
     
     <div class="actions">
-      <%= form.submit '註冊', class:"btn btn-primary btn-submit" %>
+      <%= form.submit '註冊', class:"btn btn-primary btn-submit", disabled: false %>
     </div>
   
   <% end %>

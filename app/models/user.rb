@@ -35,8 +35,5 @@ class User < ApplicationRecord
 
     # event :store do
     #   transitions from: :driver, to: :store
-
-   
-
   end
 end

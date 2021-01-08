@@ -7,20 +7,15 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("scripts")
 
-// import "../index"
 import "../images"
-
 import "../stylesheets"
 import "tailwindcss/tailwind.css"
-
 import "@fortawesome/fontawesome-free/css/all.css"
-
 import "../views"
-
 import '../rooms/room.scss'
 
-import '../scripts'
 
 
 
