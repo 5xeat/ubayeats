@@ -1,5 +1,11 @@
 <h2>編輯用戶資料 <%= resource_name.to_s.humanize %></h2>
 
+<% if current_user.role == "driver" %>
+  <%= link_to '編輯外送員資料', edit_driver_profiles_path, class: 'btn' %>
+<% elsif curren_user.role == "store" %>
+  <%= link_to '編輯店家資料', edit_store_profiles_path, class: 'btn' %>
+<% end %>
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 

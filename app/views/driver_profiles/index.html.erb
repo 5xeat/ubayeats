@@ -1,5 +1,4 @@
-<div class="flex main">
-  <%= link_to '編輯外送員資料', edit_driver_profiles_path, class: 'btn' %>
+<div class="map-container">
   <div class="destination">
     <input
       id="destination-input"
@@ -9,10 +8,20 @@
     />
     <button class="btn calc-btn">計算</button>
   </div>
-  <div class="info flex">
-    <p class="distance"></p>
-    <p class="time"></p>
+  
+  <div class="map">
+    <div id="map"></div>
+  </div>
+  <div class="info">
+    <div class="status">
+      <p>目前狀態：未上線</p>
+    </div>
+    <div class="order">
+      <div class="text">
+        <p class="distance"></p>
+        <p class="time"></p>
+      </div>
+      <div class="btn-list"></div>
+    </div>
   </div>
 </div>
-
-<div id="map"></div>

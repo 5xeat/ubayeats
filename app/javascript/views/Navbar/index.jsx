@@ -33,6 +33,11 @@ function Navbar({user}){
     Turbolinks.visit(route)
   }
 
+  const atClick = (e) => {
+    console.log('e');
+    e.currentTarget.classList.add('searchClick')
+  }
+
   return (
     <ul className="nav">
       <li className="bars" onClick={sidebar}>
@@ -43,7 +48,7 @@ function Navbar({user}){
       <li className="logo" onClick={() => handleRouteClick("/")}>
         <img src={require("../../images/logo/logo-white.png")} alt=""/>
       </li>
-      <Search user={user}/>
+      <Search user={user} onClick={atClick}/>
       <div className={sideBar ? 'list list-down' : 'list list-up'}>
         <NavbarList user={user} handleRouteClick={handleRouteClick}/>
       </div>

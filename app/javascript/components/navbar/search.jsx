@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import Rails from '@rails/ujs';
 import "./search.scss";
 
-function Search({user}){
+function Search({user, onClick}){
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -90,7 +90,7 @@ function Search({user}){
   }
 
   return(
-    <div className="search">
+    <div className="search" onClick={onClick}>
       <i className="fas fa-search search-icon"></i>
       <input 
         className="search-input" 

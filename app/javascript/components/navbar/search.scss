@@ -1,9 +1,11 @@
 .search {
-  @apply flex-grow;
+  @apply md:flex-grow;
+  width: 40px;
   height: 40px;
-  @apply relative;
+  @apply absolute md:relative;
+  right: 40px;
   @apply z-10;
-  @apply mr-2;
+  @apply md:mr-2;
   .search-icon {
     @apply font-semibold;
     @apply text-lg;
@@ -50,4 +52,7 @@
       display: none;
     }
   }
+}
+.searchClick {
+  width: calc(100% - 80px);
 }
