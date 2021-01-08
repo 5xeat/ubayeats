@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>編輯<%= current_user.name %>的用戶資料 <%= resource_name.to_s.humanize %></h1>
+  <h1>編輯<%= current_user.name %>的用戶資料</h1>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
