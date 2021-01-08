@@ -1,0 +1,27 @@
+window.currentPos = {
+  latitude: null,
+  longitude: null
+}
+document.addEventListener('turbolinks:load', () => {
+  console.log('hihi');
+  geoFindMe()
+})
+
+function geoFindMe() {
+
+  function success(position) {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    window.currentPos = {latitude: latitude, longitude: longitude}
+  }
+  function error() {
+    status.textContent = '無法取得您的目前位置';
+  }
+
+  if(!navigator.geolocation) {
+    status.textContent = '您的瀏覽器不支援定位服務!';
+  } else {
+    status.textContent = 'Locating…';
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+}
