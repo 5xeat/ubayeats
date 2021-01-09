@@ -1,3 +1,5 @@
+<%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{ENV['google_api_key']}&map_ids=c57b36ae7dbc5a40&callback=initMap&libraries=places&v=beta", async: true, defer: true %>
+
 <div class="map-container">
   <div class="destination hidden">
     <input

@@ -1,7 +1,6 @@
 document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('.store_profiles.new')){
     const form = document.querySelector('.new_store_profile')
-    const submitBtn = form.querySelector('.btn-submit')
     const certificate = form.querySelector('#store_profile_store_certificate')
     const photo = form.querySelector('#store_profile_store_photo')
     const name = form.querySelector('#store_profile_store_name')
