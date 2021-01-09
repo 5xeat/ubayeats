@@ -6,9 +6,9 @@
      <h2 class="font-semibold text-2xl"><%= @store_profile.store_address %></h2>
    </div>
   <div class="flex mt-10 mb-5 ">
-    <h3 class="font-semibold text-gray-600 text-lg uppercase w-2/5 ">商品</h3>
+    <h3 class="font-semibold text-gray-600 text-xl uppercase w-2/5 ">商品</h3>
     <%# <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">數量</h3> %>
-    <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">價錢</h3> 
+    <h3 class="font-semibold text-center text-gray-600 text-xl uppercase w-1/5 text-center">價錢</h3> 
     <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">種類</h3>
   </div>
   <table>
@@ -19,12 +19,12 @@
           <div class="flex w-2/5"> 
           <!-- product -->  
             <div class="flex flex-col justify-between ml-4 flex-grow">
-              <span class="font-bold text-sm "><%= product.name %></span>      
+              <span class="font-bold text-lg "><%= product.name %></span>      
             </div>
           </div>
          
-          <span class="text-center w-1/5 font-semibold text-sm"><%= product.price %></span>
-          <span class="text-center w-1/5 font-semibold text-sm"><%= product.description %></span>
+          <span class="text-center w-1/5 font-semibold text-lg"><%= product.price %></span>
+          <span class="text-center w-1/5 font-semibold text-lg"><%= product.description %></span>
         </div>  
         <button class="cartItemCount"> 
          <div  data-controller="pricing" 
@@ -35,11 +35,14 @@
     </div>
   </tbody>
   </table>  
-  <li><%= link_to 'cart_path' do %>
-  <i class="fas fa-shopping-cart">
-  (<%= current_cart.items.count%>/<%= current_cart.total_price %>)
-  </i>
-  <% end %>
-  </li>
+  <%# <li><%= link_to 'cart_path' do %>
+  <%# <i class="fas fa-shopping-cart"> %>
+  <%# (<%= current_cart.items.count%>
+<%# <%= current_cart.total_price)  %> 
+  <%# </i> %>
+  <%# <% end %>  
+  <%# </li> %>
+  <button class="hover:bg-yellow-200 px-5 py-2 text-3xl text-white uppercase rounded border-4 border-blue-900">
   <%= link_to "返回上一頁", :back %>
+  </button>
 </div>
