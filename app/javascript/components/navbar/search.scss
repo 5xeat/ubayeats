@@ -1,8 +1,5 @@
 .search {
-  @apply absolute z-10 md:relative md:flex-grow md:mr-2;
-  width: 40px;
-  height: 40px;
-  right: 40px;
+  @apply z-10 relative flex-grow mr-2;
   .search-icon {
     @apply absolute cursor-pointer font-semibold text-lg text-gray-900;
     font-family: "Font Awesome 5 Free"; 
@@ -30,6 +27,7 @@
   }
 }
 .searchClick {
+  @apply absolute;
   width: calc(100% - 80px);
   &::after {
     @apply bg-gray-900 fixed top-0 left-0;

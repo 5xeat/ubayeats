@@ -34,16 +34,18 @@ function Navbar({user}){
   }
 
   const atClick = (e) => {
-    e.currentTarget.classList.add('searchClick')
-    const closeBtn = document.createElement('i')
-    closeBtn.classList.add('fas')
-    closeBtn.classList.add('fa-times')
-    closeBtn.classList.add('closeBtn')
-    closeBtn.onclick = () => {
-      document.querySelector('.searchClick').classList.remove('searchClick')
-      closeBtn.remove()
+    if (screen.width < 768){
+      e.currentTarget.classList.add('searchClick')
+      const closeBtn = document.createElement('i')
+      closeBtn.classList.add('fas')
+      closeBtn.classList.add('fa-times')
+      closeBtn.classList.add('closeBtn')
+      closeBtn.onclick = () => {
+        document.querySelector('.searchClick').classList.remove('searchClick')
+        closeBtn.remove()
+      }
+      e.currentTarget.insertAdjacentElement('afterbegin', closeBtn)
     }
-    e.currentTarget.insertAdjacentElement('afterbegin', closeBtn)
   }
 
   return (
