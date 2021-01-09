@@ -15,7 +15,6 @@ document.addEventListener('turbolinks:load', () => {
     })
 
     window.initMap = () => {
-      console.log('loader');
       let map, marker, lat, lng, place, endMarker, leg, request;
       
       // 載入路線服務與路線顯示圖層
@@ -238,9 +237,10 @@ document.addEventListener('turbolinks:load', () => {
   } else {
     document.querySelectorAll('script').forEach((script) => {
       if (script.src.includes('maps.googleapis.com')){
-        script.src = ''
+        script.remove()
       }
     })
+    window.initMap = () => {}
     navigator.geolocation.clearWatch(rePosition)
   }
 })

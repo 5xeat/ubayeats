@@ -10,8 +10,7 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    
+    <script src="//maps.googleapis.com/maps/api/js?key=<%=ENV['google_api_key']%>&map_ids=c57b36ae7dbc5a40&callback=initMap&libraries=places&v=beta" async defer></script>
   </head>
 
   <body class="<%= controller_name %> <%= action_name%>">
