@@ -45,9 +45,6 @@ document.addEventListener('turbolinks:load', () => {
         if (destinationInput.value !== ""){
           // 取得終點位置的placeID
           place = destinationAutocomplete.getPlace();
-          console.log('click calcBtn')
-          console.log(lat)
-          console.log(lng)
           directionMap()
           
           const delivery = document.createElement('div');
@@ -59,14 +56,6 @@ document.addEventListener('turbolinks:load', () => {
             delivery.remove();
             // 導航按鈕
             const googleBtn = document.querySelector('.google')
-            const stepsList = document.querySelector('.steps-list')
-            const stepsBtn = document.createElement('div')
-            stepsBtn.classList.add('steps-btn')
-            stepsBtn.classList.add('btn')
-            stepsBtn.innerHTML = '<i class="fas fa-route"></i> 路線指示'
-            stepsBtn.onclick = function(){
-              stepsList.classList.remove('hidden');
-            }
             const takenBtn = document.createElement('div')
             takenBtn.classList.add('take-btn')
             takenBtn.classList.add('btn')
@@ -74,18 +63,17 @@ document.addEventListener('turbolinks:load', () => {
             takenBtn.onclick = function(){
               googleBtn.remove()
               takenBtn.remove()
-              stepsBtn.remove()
               directionsDisplay.setMap(null);
               document.querySelector('.distance').innerText = ''
               document.querySelector('.time').innerText = ''
-              document.querySelector('.steps-list').remove()
+              document.querySelector('.steps').remove()
               endMarker.setMap(null)
               place = undefined
             }
     
-            document.querySelector('.btn-list').appendChild(stepsBtn)
             document.querySelector('.btn-list').appendChild(takenBtn)
             if (googleBtn){
+              document.querySelector('.steps').classList.remove('hidden');
               googleBtn.classList.remove('hidden');
             };
           }
@@ -197,7 +185,6 @@ document.addEventListener('turbolinks:load', () => {
         directionsService.route(request, function (result, status) {
           if (status == 'OK') {
             leg = result.routes[0].legs[0];
-            console.log(leg.steps);
             
             // 導航終點標記
             if (endMarker === undefined){
@@ -209,15 +196,8 @@ document.addEventListener('turbolinks:load', () => {
             }
     
             let googleBtn = document.querySelector('.google')
-            let stepsList = document.querySelector('.steps-list')
             if (googleBtn){
-              stepsList.innerHTML = '';
-              leg.steps.map((step) => {
-                const steps = document.createElement('div')
-                steps.classList.add('steps')
-                steps.innerHTML = `<p>${step.instructions}</p>`
-                document.querySelector('.steps-list').appendChild(steps)
-              })
+              document.querySelector('.steps').innerHTML = `<p>${leg.steps[0].instructions}</p>`
     
               googleBtn.onclick = function(){
                 window.open(
@@ -227,17 +207,11 @@ document.addEventListener('turbolinks:load', () => {
               }
             } else {
               // 路線指示
-              stepsList = document.createElement('div')
-              stepsList.classList.add('steps-list')
-              document.querySelector('.order').appendChild(stepsList)
-    
-              leg.steps.map((step) => {
-                const steps = document.createElement('div')
-                steps.classList.add('steps')
-                steps.innerHTML = `<p>${step.instructions}</p>`
-                document.querySelector('.steps-list').classList.add('hidden')
-                document.querySelector('.steps-list').appendChild(steps)
-              })
+              const steps = document.createElement('div')
+              steps.classList.add('steps')
+              steps.classList.add('hidden')
+              steps.innerHTML = `<p>${leg.steps[0].instructions}</p>`
+              document.querySelector('.info').insertAdjacentElement('beforebegin', steps)
     
               // google按鈕
               googleBtn = document.createElement('a');

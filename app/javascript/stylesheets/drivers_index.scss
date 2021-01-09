@@ -8,10 +8,17 @@
     }
     .map {
       @apply flex-grow w-full;
+      margin-bottom: -25px;
       #map {
         @apply  h-full w-full;
       }
     }
+    .steps {
+      @apply w-full z-10;
+      background-color: rgb(9, 95, 35);
+      color: rgb(255, 255, 255);
+      padding: 10px;
+    }  
     .info {
       @apply flex-none rounded-t bg-white relative;
       .status {
@@ -29,20 +36,6 @@
         }
         .btn-list {
           @apply flex;
-        }
-        .steps-list {
-          @apply absolute overflow-y-auto w-screen;
-          height: 50px;
-          top: -65px;
-          left: 0;
-          z-index: 100;
-          .steps {
-            @apply w-full;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: rgb(10, 6, 46);
-            margin-bottom: 10px;
-            padding: 5px 10px;
-          }  
         }
       }
     }
