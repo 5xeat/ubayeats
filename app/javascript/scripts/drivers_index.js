@@ -40,10 +40,10 @@ document.addEventListener('turbolinks:load', () => {
       const calcBtn = document.querySelector(".calc-btn")
       const destinationInput = document.getElementById("destination-input");
       const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
-      calcBtn.addEventListener("click", (e) => {
+      calcBtn.addEventListener("click", async (e) => {
         if (destinationInput.value !== ""){
           // 取得終點位置的placeID
-          place = destinationAutocomplete.getPlace();
+          place = await destinationAutocomplete.getPlace();
           directionMap()
           
           const delivery = document.createElement('div');
