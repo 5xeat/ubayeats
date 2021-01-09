@@ -235,11 +235,6 @@ document.addEventListener('turbolinks:load', () => {
       }    
     }
   } else {
-    document.querySelectorAll('script').forEach((script) => {
-      if (script.src.includes('maps.googleapis.com')){
-        script.remove()
-      }
-    })
     window.initMap = () => {}
     navigator.geolocation.clearWatch(rePosition)
   }

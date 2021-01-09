@@ -28,9 +28,11 @@ function Navbar({user}){
         }
       })
       return
+    } else if (route === "/drivers"){
+      window.location.href = route
+    } else {
+      Turbolinks.visit(route)
     }
-
-    Turbolinks.visit(route)
   }
 
   const atClick = (e) => {
