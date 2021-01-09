@@ -21,8 +21,9 @@
     <% end %>
     <div id="navbar_component"></div>
 
+    <%= render "shared/flash" if notice || alert %>
+
     <div id="content">
-      <%= render "shared/flash" if notice || alert %>
       <%= yield %>
     </div>
   </body>

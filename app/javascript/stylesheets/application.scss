@@ -9,10 +9,16 @@
   @apply pt-5;
   @apply mx-auto;
 }
-.notice,
-.alert {
-  @apply text-center;
-  @apply text-red-500;
+#flash {
+  @apply bg-white fixed z-10;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 80px;
+  .notice,
+  .alert {
+    @apply text-center;
+    @apply text-gray-900;
+  }
 }
 
 .btn {

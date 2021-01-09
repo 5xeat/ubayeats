@@ -262,6 +262,11 @@ document.addEventListener('turbolinks:load', () => {
       }    
     }
   } else {
+    document.querySelectorAll('script').forEach((script) => {
+      if (script.src.includes('maps.googleapis.com')){
+        script.src = ''
+      }
+    })
     navigator.geolocation.clearWatch(rePosition)
   }
 })
