@@ -36,7 +36,7 @@ document.addEventListener('turbolinks:load', () => {
     
         const messageContainer = document.getElementById('messages')
         messageContainer.innerHTML = messageContainer.innerHTML + html
-        // Called when there's incoming data on the websocket for this channel
+        document.querySelector('#messages').scrollTo(0,document.querySelector('#messages').scrollHeight)
       }
     });
   }
