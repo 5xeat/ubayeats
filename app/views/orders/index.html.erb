@@ -1,1 +1,39 @@
-<h1>我的訂單(消費者視角)</h1>
+<div class="container">
+  <h1>我的訂單(消費者視角)</h1>
+  
+  <div class="order-lists">
+    <table>
+      <thead>
+        <tr>
+          <th>訂單日期</th>
+          <th>訂單明細</th>
+          <th>收件地址</th>
+          <th>訂單狀態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              <td>
+                <%= StoreProfile.find(order.store_profile_id).store_name %>
+                <% order.order_items.each do |item| %>
+                  <%= Product.find(item.product_id).name %>
+                  <%= item.price %>
+                  <%= item.quantity %>
+                <% end %>
+              </td>
+              <td>
+                <%= order.address %>
+              </td>
+              <td>
+                <%= link_to((order), class: "btn") do %>
+                  <%= order.state %>
+                <% end %>
+              </td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

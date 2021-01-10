@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     post "/unique_email", to: "users/registrations#unique_email?"
+    get "/users/info", to: "users/registrations#info"
   end
   
   resources :orders do 

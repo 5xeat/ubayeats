@@ -1,8 +1,14 @@
 class OrdersController < ApplicationController
+  before_action :session_required
   before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
   before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update]
 
-  def new
+  def index
+    @orders = current_user.orders
+  end
+
+  def show
+    @order = Order.find(params[:id])
   end
 
   def recieving
