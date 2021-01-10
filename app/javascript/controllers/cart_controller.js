@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = ["detail"]
   static values = { index: Number }
   connect() {
-    console.log(this.detailTarget)
   }
   // total_price
   update(e){
