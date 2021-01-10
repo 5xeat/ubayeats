@@ -4,4 +4,4 @@ import './stores_sign_up'
 import './store'
 import './drivers_sign_up'
 import './carts'
-
+import './user_edit'

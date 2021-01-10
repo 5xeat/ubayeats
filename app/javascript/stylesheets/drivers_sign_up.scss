@@ -1,21 +1,14 @@
 .driver_profiles.new {
   @apply bg-yellow-50;
   .container {
-    @apply mx-auto;
-    @apply px-5;
-    @apply md:px-40;
-    @apply lg:px-96;
+    @apply mx-auto px-5 md:px-40 lg:px-96;
     h1 {
-      @apply text-center;
-      @apply text-4xl;
-      @apply font-black;
-      @apply mb-5;
+      @apply text-center text-4xl font-black mb-5;
     }    
     .form-item-upload {
       @apply mb-5;
       label {
-        @apply text-xl;
-        @apply font-black;  
+        @apply text-xl font-black;  
       }
       input {
         @apply w-full;
@@ -30,22 +23,15 @@
     .form-item-upload.error{
       @apply relative;
       input {
-        @apply border-red-500;
-        @apply border-4;
-        @apply border-solid;
+        @apply border-red-500 border-4 border-solid;
       }
       .fa-exclamation-circle {
-        @apply text-red-500;
-        @apply inline-block;
-        @apply absolute;
-        @apply text-2xl;
+        @apply text-red-500 inline-block absolute text-2xl;
         right: 20px;
         bottom: 25px;
       }
       .error-message {
-        @apply block;
-        @apply text-red-500;
-        @apply text-sm;
+        @apply block text-red-500 text-sm;
       }
     }  
     .btn {

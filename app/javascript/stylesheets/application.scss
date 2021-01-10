@@ -5,73 +5,40 @@
   margin-top: 70px;
 }
 .container {
-  @apply px-10;
-  @apply pt-5;
-  @apply mx-auto;
+  @apply px-10 pt-5 mx-auto;
 }
 .notice,
 .alert {
-  @apply text-center;
-  @apply text-red-500;
+  @apply text-center text-red-500;
 }
 
 .btn {
-  @apply px-4;
-  @apply py-3;
-  @apply bg-gray-700;
-  @apply text-white;
-  @apply rounded-lg;
-  @apply m-1;
-  @apply text-sm;
-  @apply cursor-pointer;
+  @apply px-4 py-3 bg-gray-700 text-white rounded-lg m-1 text-sm cursor-pointer text-center;
   &-primary {
-    @apply bg-red-500;;
-    @apply text-white;
-    @apply rounded-lg;
+    @apply bg-red-500 text-white rounded-lg;
     &:hover {
-      @apply bg-gray-700;
-      @apply text-white;
-      @apply transition;
-      @apply duration-300;
+      @apply bg-gray-700 text-white transition duration-300;
     }
   }
 }
 
 a {
-  @apply underline;
-  @apply text-red-500;
+  @apply underline text-red-500;
 } 
 
 .form-item {
   @apply mb-5;
   label {
-    @apply text-xl;
-    @apply font-black;  
+    @apply text-xl font-black;  
   }
   input {
-    @apply py-2;
-    @apply px-4;
-    @apply w-full;
-    @apply rounded-lg;
-    @apply shadow-inner;
-    @apply border-2;
-    @apply border-double;
-    @apply border-gray-900;
+    @apply py-2 px-4 w-full rounded-lg shadow-inner border-2 border-double border-gray-900;
   }
   input:focus {
-    @apply outline-none;
-    @apply bg-gray-900;
-    @apply text-white;
+    @apply outline-none bg-gray-900 text-white;
   }
   select {
-    @apply py-2;
-    @apply px-4;
-    @apply w-full;
-    @apply rounded-lg;
-    @apply shadow-inner;
-    @apply border-2;
-    @apply border-double;
-    @apply border-gray-900;
+    @apply py-2 px-4 w-full rounded-lg shadow-inner border-2 border-double border-gray-900;
   }
   .fa-exclamation-circle {
     @apply hidden;
@@ -86,36 +53,24 @@ a {
 .form-item.error{
   @apply relative;
   input {
-    @apply border-red-500;
-    @apply border-4;
-    @apply border-solid;
+    @apply border-red-500 border-4 border-solid;
   }
   .fa-exclamation-circle {
-    @apply text-red-500;
-    @apply inline-block;
-    @apply absolute;
-    @apply text-2xl;
+    @apply text-red-500 inline-block absolute text-2xl;
     right: 20px;
     bottom: 25px;
   }
   .error-message {
-    @apply block;
-    @apply text-red-500;
-    @apply text-sm;
+    @apply block text-red-500 text-sm;
   }
 }
 .form-item.correct{
   @apply relative;
   input {
-    @apply border-green-500;
-    @apply border-4;
-    @apply border-solid;
+    @apply border-green-500 border-4 border-solid;
   }
   .fa-check-circle {
-    @apply text-green-500;
-    @apply inline-block;
-    @apply absolute;
-    @apply text-2xl;
+    @apply text-green-500 inline-block absolute text-2xl;
     right: 20px;
     bottom: 5px;
   }

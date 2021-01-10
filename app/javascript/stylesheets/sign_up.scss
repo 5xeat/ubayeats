@@ -1,37 +1,24 @@
 .registrations.new {
   @apply bg-yellow-50;
   .container {
-    @apply mx-auto;
-    @apply px-5;
-    @apply md:px-40;
-    @apply lg:px-96;
+    @apply mx-auto px-5 md:px-40 lg:px-96;
     padding-top: 100px;
     .img {
-      @apply max-w-sm;
-      @apply mx-auto;
-      @apply mb-5;
+      @apply max-w-sm mx-auto mb-5;
       img {
         @apply w-full;
       }
     }
     h1 {
-      @apply text-center;
-      @apply text-4xl;
-      @apply font-black;
-      @apply mb-5;
+      @apply text-center text-4xl font-black mb-5;
     }
     .new_user {
       @apply mx-auto;
       .remember-me {
-        @apply flex;
-        @apply align-middle;
+        @apply flex align-middle;
         input[type="checkbox"] {
-          @apply w-5;
-          @apply h-5;
-          @apply cursor-pointer;
-          @apply mr-2;
+          @apply w-5 h-5 cursor-pointer mr-2;
         }        
-        
         label {
           @apply font-black;  
         }
@@ -41,31 +28,20 @@
       @apply w-full;
     }
     .btn-google {
-      @apply bg-gray-200;
-      @apply text-black;
-      @apply no-underline;
-      @apply text-sm;
-      @apply text-center;
+      @apply bg-gray-200 text-black no-underline text-sm text-center;
       span {
         @apply relative;
       }
       span::before {
         content: '';
-        @apply absolute;
-        @apply w-6;
-        @apply h-6;
-        @apply top-auto;
-        @apply bottom-auto;
+        @apply absolute w-6 h-6 top-auto bottom-auto;
         left: -60px;
         background-image: url('../images/google_icon.png');
         background-size: contain;
       }
     }
     .btn-google:hover {
-      @apply bg-gray-700;
-      @apply text-white;
-      @apply transition;
-      @apply duration-300;
+      @apply bg-gray-700 text-white transition duration-300;
     }   
   }
 }
