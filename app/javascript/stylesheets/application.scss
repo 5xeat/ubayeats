@@ -18,7 +18,8 @@
   .notice,
   .alert {
     @apply text-center text-gray-900;
- }
+  }
+}
   
 .btn {
   @apply px-4 py-3 bg-gray-700 text-white rounded-lg m-1 text-sm cursor-pointer text-center;
