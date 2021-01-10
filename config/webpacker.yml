@@ -48,8 +48,6 @@ default: &default
     - .gif
     - .jpeg
     - .jpg
-    - .less
-    - .module.less
 
 development:
   <<: *default

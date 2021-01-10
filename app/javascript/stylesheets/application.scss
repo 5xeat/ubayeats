@@ -1,17 +1,26 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
 #content{
-  margin-top: 70px;
+  padding-top: 70px;
 }
+
 .container {
   @apply px-10 pt-5 mx-auto;
 }
-.notice,
-.alert {
-  @apply text-center text-red-500;
-}
 
+#flash {
+  @apply bg-white fixed z-10;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 80px;
+  .notice,
+  .alert {
+    @apply text-center text-gray-900;
+  }
+}
+  
 .btn {
   @apply px-4 py-3 bg-gray-700 text-white rounded-lg m-1 text-sm cursor-pointer text-center;
   &-primary {
@@ -73,5 +82,23 @@ a {
     @apply text-green-500 inline-block absolute text-2xl;
     right: 20px;
     bottom: 5px;
+  }
+}
+
+.cart-icon {
+  @apply fixed bottom-2 right-5 bg-gray-900 rounded-full w-20 h-20 text-4xl text-white flex content-center justify-center;
+  span {
+    @apply absolute bg-red-500 rounded-full text-sm p-2;
+    right: -10px;
+    top: -15px;
+  }
+  i {
+    line-height: 2.5em;
+  }
+  &:hover {
+    @apply text-red-500 transition-all;
+    span {
+      @apply text-gray-900;
+    }
   }
 }

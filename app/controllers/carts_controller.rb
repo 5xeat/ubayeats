@@ -98,13 +98,11 @@ class CartsController < ApplicationController
       # 2. 清空購物車
       session[:cart1111] = nil
   
-      redirect_to root_path, notice: '付款已完成'
-      p '付款已完成'
+      redirect_to order, notice: '付款已完成'
 		else
 			order = current_user.orders.find_by(num: order_id)
       order.close!(transaction_id: transaction_id)
       redirect_to root_path, notice: '付款發生錯誤'
-      p '付款發生錯誤'
     end
   end
     
