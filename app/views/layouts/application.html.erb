@@ -10,8 +10,7 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    
+    <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{ENV['google_api_key']}&callback=initMap&libraries=&v=weekly" %>
   </head>
 
   <body class="<%= controller_name %> <%= action_name%>">
@@ -25,5 +24,11 @@
       <%= render "shared/flash" if notice || alert %>
       <%= yield %>
     </div>
+    <%= form_with url: "/" do |form| %>
+      <%= form.hidden_field :latitude, id: "latitude" %>
+      <%= form.hidden_field :longitude, id: 'longitude' %>
+      <%= form.hidden_field :href, id: 'href' %>
+      <%= form.submit %>
+    <% end %>
   </body>
 </html>
