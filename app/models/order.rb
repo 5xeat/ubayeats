@@ -3,6 +3,8 @@ class Order < ApplicationRecord
   belongs_to :store_profile
   has_many :order_items
 
+  before_create :generate_order_num
+
   include AASM
 
   aasm column: :state, no_direct_assignment: true do
@@ -12,6 +14,10 @@ class Order < ApplicationRecord
     event :pay do
       transitions from: :unpaid, to: :paid
       # after_transaction :pay_after
+      before do |args|
+        self.transaction_id = args[:transaction_id]
+        self.paid_at = Time.now
+      end
     end
 
     event :close do
@@ -38,5 +44,9 @@ class Order < ApplicationRecord
   private
   def pay_after
     redirect_to root_path
+  end
+
+  def generate_order_num
+    self.num = SecureRandom.hex(5) unless num
   end
 end
