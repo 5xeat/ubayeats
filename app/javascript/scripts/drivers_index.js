@@ -1,6 +1,9 @@
+import Rails from '@rails/ujs';
+
 document.addEventListener('turbolinks:load', () => {
   let rePosition;
   if (document.querySelector('.driver_profiles.index')){
+    document.querySelector('.cart-icon').remove()
     const onlineBtn = document.querySelector(".online-btn")
     onlineBtn.addEventListener('click', (e) => {
       e.preventDefault()
@@ -12,6 +15,16 @@ document.addEventListener('turbolinks:load', () => {
         document.querySelector('.status p').innerText = "未上線"
       }
       document.querySelector('.destination').classList.toggle('hidden')
+      Rails.ajax({
+        url: '/drivers/online',
+        type: 'post',
+        success: (resp) => {
+          console.log(resp);
+        },
+        error: function(err) {
+          console.log(err)
+        }
+      })
     })
 
     window.initMap = () => {

@@ -1,7 +1,7 @@
 class DriverProfilesController < ApplicationController
   before_action :session_required
   before_action :driver_pundit, except: [:new, :create]
-  before_action :set_driver, only: [:edit, :update]
+  before_action :set_driver, only: [:edit, :update, :online]
 
   def index
   end
@@ -31,11 +31,13 @@ class DriverProfilesController < ApplicationController
     end
   end
 
-
+  def online
+    @driver_profile.toggle!(:online)
+  end
 
   private
   def params_driver
-    params.require(:driver_profile).permit(:taiwan_id_front, :taiwan_id_back, :license, :car_number, :account)
+    params.require(:driver_profile).permit(:taiwan_id_front, :taiwan_id_back, :license, :car_number, :account, :online)
   end
 
   def driver_pundit

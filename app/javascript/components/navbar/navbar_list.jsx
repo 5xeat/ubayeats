@@ -72,7 +72,7 @@ function NavbarList({user, handleRouteClick}){
         <li
           className="list-item"
           onClick={() => handleRouteClick("/stores")}>
-          我的店家
+          開店
         </li>
         <li
           className="list-item selected"
