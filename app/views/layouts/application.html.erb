@@ -7,13 +7,12 @@
     <title>Ubayeats</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{ENV['google_api_key']}&map_ids=c57b36ae7dbc5a40&callback=initMap&libraries=places&v=beta", async: true, defer: true %>
   </head>
 
-  <body class="<%= controller_name %> <%= action_name%>">
+  <body class="<%= controller_name %> <%= action_name%> relative">
     <%= content_tag :div,
       id: "navbar",
       data: current_user.to_json do %>
@@ -24,6 +23,13 @@
 
     <div id="content">
       <%= yield %>
+    </div>
+
+    <div class="carts fixed bottom-0 right-0 " data-controller="cart" data-action="addToCart@window->cart#update">
+        <%= link_to carts_path do %>
+        <i class="fas fa-shopping-cart text-5xl"> </i>
+        (<span data-cart-target="detail"><%= current_cart.items.count %>/<%= current_cart.total_price %></span>)
+        <% end %>
     </div>
   </body>
 </html>

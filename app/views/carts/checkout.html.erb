@@ -1,25 +1,33 @@
-<h1>結帳</h1>
-<%= render "carts/cart" %>
-
-<%= form_for(@order, url: pay_carts_path)  do |form| %>
-  <div>
-    <%= form.label :username, '名稱'%>
-    
-    <%= form.text_field :username %>
+<div class="buy bg-yellow-50">
+  <h1>結帳</h1>
+  <%= render "carts/cart", cart:current_cart %>
+  <%= form_for(@order, url: pay_carts_path, method:'post')  do |form| %>
+  <div class="text-2xl">
+      <%= form.label :username, '名稱'%>
+    <div> 
+      <%= form.text_field :username %>
+    </div>
   </div>
+  <div class="text-2xl">
   <div>
     <%= form.label :tel,'電話' %>
+    <div>
     <%= form.text_field :tel %>
+    </div>
   </div>
+  <div class="text-2xl">
   <div>
     <%= form.label :address, '地址' %>
+    <div>
     <%= form.text_field :address %>
+    </div>
   </div>
 
-  <div id="dropin-container"></div>
+  <div id="dropin-container ">
+
   <input type="hidden" id="nonce" name="payment_method_nonce"/>
-
-
   <%= form.submit '確認付款' %>
+  </div>
 <% end %>
 
+</div>

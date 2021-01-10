@@ -1,41 +1,45 @@
-<h2>編輯用戶資料 <%= resource_name.to_s.humanize %></h2>
+<div class="container">
+  <h1>編輯<%= current_user.name %>的用戶資料</h1>
 
-<% if current_user.role == "driver" %>
-  <%= link_to '編輯外送員資料', edit_driver_profiles_path, class: 'btn' %>
-<% elsif curren_user.role == "store" %>
-  <%= link_to '編輯店家資料', edit_store_profiles_path, class: 'btn' %>
-<% end %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="form-item">
+      <%= f.label :email, "帳號" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+      <i class="fas fa-check-circle"></i>
+    </div>
 
-  <div class="field">
-    <%= f.label :email, "用戶信箱" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div class="form-item">
+      <%= f.label :name, "暱稱" %><br />
+      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+      <div class="error-message"></div>
+      <i class="fas fa-exclamation-circle"></i>
+      <i class="fas fa-check-circle"></i>
+    </div>
+
+    <div class="form-item">
+      <%= f.label :phone, "手機號碼" %><br />
+      <%= f.text_field :phone, autofocus: true, autocomplete: "phone" %>
+    </div>
+
+    <div class="form-item">
+      <%= f.label :address, "送餐地址" %><br />
+      <%= f.text_field :address, autofocus: true, autocomplete: "address" %>
+    </div>
+
+    <div class="flex">
+      <%= f.submit "送出", class: 'btn btn-primary btn-submit' %>
+    </div>
+
+    <div class="flex">
+      <%= link_to "回到上一頁", :back, class: 'btn btn-primary btn-submit' %>
+    </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name, "用戶名稱" %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :phone, "手機號碼" %><br />
-    <%= f.text_field :phone, autofocus: true, autocomplete: "phone" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :address, "送餐地址" %><br />
-    <%= f.text_field :address, autofocus: true, autocomplete: "address" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "送出" %>
-  </div>
-<% end %>
-
-<%= link_to "Back", :back %>
+</div>

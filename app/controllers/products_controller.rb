@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
     @product = current_user.store_profile.products.new(params_product)
     
     if @product.save
-      redirect_to stores_products_path, notice: "新增產品成功"
+      redirect_to store_profiles_path, notice: "新增產品成功"
     else
       render :new
     end
