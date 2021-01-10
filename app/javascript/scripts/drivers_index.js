@@ -44,7 +44,7 @@ document.addEventListener('turbolinks:load', () => {
         if (destinationInput.value !== ""){
           // 取得終點位置的placeID
           place = await destinationAutocomplete.getPlace();
-          directionMap()
+          await directionMap()
           
           const delivery = document.createElement('div');
           delivery.classList.add('btn')

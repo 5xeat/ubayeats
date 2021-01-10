@@ -1,0 +1,40 @@
+.store_profiles.delicacy{
+  .store-photo {
+    @apply w-full overflow-hidden;
+    max-height: 400px;
+    img {
+      @apply block m-auto h-full align-middle;
+    }
+  }
+  .container {
+    h1 {
+      @apply font-semibold text-2xl border-b-2 pb-5 m-0;
+    }
+    .product-list {
+      @apply w-full mx-auto table-auto divide-y divide-gray-500;
+      tbody {
+        @apply divide-y divide-gray-100;
+        tr {
+          &:hover {
+            @apply bg-gray-100;
+          }
+          td {
+            @apply py-5 px-2;
+            &:first-child {
+              @apply w-4/12;
+            }
+            &:nth-child(2) {
+              @apply w-5/12;
+            }
+            &:nth-child(3) {
+              @apply w-2/12;
+            }
+            &:nth-child(4) {
+              @apply w-1/12;
+            }
+          }
+        }
+      }
+    }
+  }
+}
