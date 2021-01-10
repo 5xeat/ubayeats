@@ -1,10 +1,25 @@
 class CartsController < ApplicationController
 
   def add_item
-		product = Product.find(params[:product_id])
-		current_cart.add_item(product[:id])
-		session[:cart1111] = current_cart.serialize
-		redirect_to delicacy_store_path, notice: '已加入購物車'
+    product = Product.find(params[:id])
+    # 加車
+    current_cart.add_item(product[:id])
+    session[:cart1111] = current_cart.serialize
+    render json: {
+      count: current_cart.items.count,
+      total_price: current_cart.total_price
+    }
+  end
+
+  def minus_item
+    product = Product.find(params[:id])
+    # 加車
+    current_cart.add_item(product[:id],quantity= -1)
+    session[:cart1111] = current_cart.serialize
+    render json: {
+      count: current_cart.items.count,
+      total_price: current_cart.total_price
+    }
   end
 
   def index
@@ -16,6 +31,16 @@ class CartsController < ApplicationController
   def destroy
     session[:cart1111] = nil
     redirect_to root_path, notice:'購物車清空'
+  end
+
+  def checkout
+    @order = Order.new
+  end
+    
+  def remove_item  
+    filter_res = session[:cart1111]["items"].filter {|item| item["item_id"] != params[:id].to_i}
+    session[:cart1111] = { 'items' => filter_res}
+    redirect_to carts_path, notice: '已刪除商品'
   end
 
   def checkout
