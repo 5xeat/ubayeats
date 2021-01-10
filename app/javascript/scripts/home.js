@@ -15,7 +15,7 @@ function geoFindMe() {
     document.querySelector('#latitude').value = latitude
     document.querySelector('#longitude').value = longitude
     document.querySelector('#href').value = window.location.href
-    document.querySelector('form').submit()
+    document.querySelector('#position_form').submit()
   }
   function error() {
     status.textContent = '無法取得您的目前位置';

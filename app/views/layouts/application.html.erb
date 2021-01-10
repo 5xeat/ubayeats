@@ -24,7 +24,7 @@
       <%= render "shared/flash" if notice || alert %>
       <%= yield %>
     </div>
-    <%= form_with url: "/" do |form| %>
+    <%= form_with url: "/", :html => {:id => "position_form"} do |form| %>
       <%= form.hidden_field :latitude, id: "latitude" %>
       <%= form.hidden_field :longitude, id: 'longitude' %>
       <%= form.hidden_field :href, id: 'href' %>
