@@ -7,23 +7,28 @@
     <title>Ubayeats</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     
   </head>
 
-  <body class="<%= controller_name %> <%= action_name%>">
+  <body class="<%= controller_name %> <%= action_name%> relative">
     <%= content_tag :div,
       id: "navbar",
       data: current_user.to_json do %>
     <% end %>
     <div id="navbar_component"></div>
-
+      <%= yield %>
+    </div>
     <div id="content">
       <%= render "shared/flash" if notice || alert %>
-      <%= yield %>
+    </div>
+    <div class="carts fixed bottom-0 right-0 " data-controller="cart" data-action="addToCart@window->cart#update">
+        <%= link_to carts_path do %>
+        <i class="fas fa-shopping-cart text-5xl"> </i>
+        (<span data-cart-target="detail"><%= current_cart.items.count %>/<%= current_cart.total_price %></span>)
+        <% end %>
     </div>
   </body>
 </html>

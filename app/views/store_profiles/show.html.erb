@@ -1,15 +1,58 @@
-<h1>店家首頁</h1>
-
-<%= link_to '新增產品', new_product_path %>
-<br>
-<%= link_to '新訂單', recieving_orders_path %>
-<br>
-<%= link_to '準備中', preparing_orders_path %>
-<br>
-<%= link_to '可取餐', delivering_orders_path %>
-<br>
-<%= link_to '訂單記錄', record_orders_path %>
-<br>
-<%= link_to '？', '#' %>
-<br>
-<%= link_to '編輯店家', edit_store_profiles_path %>
+<div class="container flex bg-green-100">
+    <div class="left">
+      <div class="dash">
+        <div class="btn add_items">
+          <%= link_to new_product_path do %>
+            新增商品
+          <% end %>
+        </div>
+      </div>
+      <div class="dash">
+        <div class="btn recieving">
+          <%= link_to recieving_orders_path, remote: true do %>
+            新訂單
+          <% end %>
+        </div>
+      </div>
+      <div class="dash">
+        <div class="btn preparing">
+          <%= link_to preparing_orders_path, remote:true do %>
+            準備中
+          <% end %>
+        </div>
+      </div>
+      <div class="dash">
+        <div class="btn delivering">
+          <%= link_to delivering_orders_path, remote:true do %>
+            外送員取餐
+          <% end %>
+        </div>
+      </div>
+      <div class="dash">
+        <div class="btn record">
+          <%= link_to record_orders_path, remote:true do %>
+            訂單記錄
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="dash">
+        <div class="btn">
+          <%= link_to '#', class: 'btn' do %>
+            ?
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="not_dash">
+        <div class="btn">
+          <%= link_to edit_store_profiles_path do %>
+            編輯店家
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      
+    </div>
+</div>

@@ -1,0 +1,42 @@
+.btn {
+  @apply px-4;
+  @apply py-3;
+  @apply bg-gray-700;
+  @apply text-white;
+  @apply rounded-lg;
+  @apply m-1;
+  @apply text-sm;
+  @apply cursor-pointer;
+  &-primary {
+    @apply bg-red-500;;
+    @apply text-white;
+    @apply rounded-lg;
+    &:hover {
+      @apply bg-gray-700;
+      @apply text-white;
+      @apply transition;
+      @apply duration-300;
+    }
+  }
+}
+
+.dash::after {
+  content: "";
+  display: block;
+  background-color: rgb(126, 88, 88);
+  width: 100%;
+  height: 2px;
+  margin-top: 20px;
+}
+
+.right{
+  width: 100%;
+  margin-left: 10px;
+  border: 1px solid black;
+}
+
+.left{
+  @apply flex;
+  @apply flex-col;
+  @apply space-y-6;
+}
