@@ -21,7 +21,8 @@ class StoreProfile < ApplicationRecord
     store_latlng = StoreProfile.pluck(:latitude, :longitude)
     result = store_latlng.map{|store_lat, store_lng| 
     Math.sqrt((store_lat - user_lat.to_f)**2 + (store_lng - user_lng.to_f)**2) }
-    result.map.with_index{|x, i| i if x < 0.03 }.compact
+    result_index = result.map.with_index{|x, i| i if x < 0.03 }.compact
+    result_store_id = result_index.map{ |index| index + 1 }
 
     # arrLat = []
     # stores = StoreProfile.all
