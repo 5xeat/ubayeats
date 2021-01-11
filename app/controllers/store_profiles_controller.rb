@@ -12,7 +12,11 @@ class StoreProfilesController < ApplicationController
   end
   
   def new
-    @store_profile = StoreProfile.new
+    # render file: 'public/422.html' if current_user.role == "store" || current_user.role == 'driver'
+    # @store_profile = StoreProfile.new
+
+    @store_profile = StoreProfile.new if current_user.role == "user"
+    render file: 'public/422.html'
   end
 
   def create

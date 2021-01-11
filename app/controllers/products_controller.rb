@@ -5,12 +5,20 @@ class ProductsController < ApplicationController
 
 
   def index
+    if current_user.role == "store"
     @products = Product.available.order(id: :desc)
     @productsUnavailable = Product.unavailable.order(id: :desc)
+    else
+      render file: 'public/422.html'
+    end
   end
 
   def new
-    @product = Product.new
+    if current_user.role == "store"
+      @product = Product.new
+    else
+      render file: 'public/422.html'
+    end
   end
 
   def create
