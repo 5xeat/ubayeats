@@ -1,5 +1,11 @@
-<h1>菜單</h1>
+<div class="flex  justify-center w-screen h-screen text-black bg-gray-100">
+<div class="text-center text-gray-500">
+
+<i class="fas fa-motorcycle text-4xl my-7">菜單</i>
+
+<div>
 <%= link_to "新增產品", new_product_path %> 
+</div>
 <% @products.each do |product| %>
 <ul>
   <li><%= product.name %></li>
@@ -32,3 +38,7 @@
   <% end %>
   </ul>
 <% end %>
+
+
+
+

@@ -2,8 +2,10 @@ import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
 
 export default class extends Controller {
-    static targets = ["quantity","count","price","subtotal"]
+    static targets = ["quantity","count","price","subtotal","total"]
     static values = { index: Number}
+
+    
     connect() {
     
       }  
@@ -13,6 +15,17 @@ export default class extends Controller {
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
     const subprice =  this.priceTarget.innerText * this.indexValue
     this.subtotalTarget.innerText = `${subprice}`
+
+
+    // e.currentTarget.previousSibling.previousSibling.value = this.indexValue
+    // const totalprice =  this.subtotalTarget.innerText * this.indexValue
+    // this.totalpriceTarget.textContent = `${totalprice}`
+
+  //   const quantity = document.querySelector('.cart-item.quantity')
+  // const price = document.querySelector('.cart-item.price')
+  // console.log(quantity.value * price.textContent)
+  //  const total = document.querySelector('.total')
+  //  total.textContent = quantity.value * price.textContent
 
     const id = this.data.get('id')
     // console.log(id)
@@ -42,6 +55,13 @@ export default class extends Controller {
     e.target.parentNode.nextSibling.nextSibling.value = this.indexValue
     const subprice =  this.priceTarget.innerText * this.indexValue
     this.subtotalTarget.innerText = `${subprice}`
+
+    const quantity = document.querySelector('.cart-item.quantity')
+  const price = document.querySelector('.cart-item.price')
+  console.log(quantity.value * price.textContent)
+   const total = document.querySelector('.total')
+   total.textContent = quantity.value * price.textContent
+
     const id = this.data.get('id')
     Rails.ajax({
       url: `/carts/minus_item/${id}`,
@@ -61,12 +81,14 @@ export default class extends Controller {
     })
     updateCart()
   }
+    
 }
   function updateCart(){
-    const quantity = document.querySelector('.cart-item.quantity')
-    const price = document.querySelector('.cart-item.price')
-    console.log(quantity.value * price.textContent)
-     const total = document.querySelector('.total')
-     total.textContent = quantity.value * price.textContent
-    
-  }
+  const quantity = document.querySelector('.cart-item.quantity')
+  const price = document.querySelector('.cart-item.price')
+  console.log(quantity.value * price.textContent)
+   const total = document.querySelector('.total')
+   total.textContent = quantity.value * price.textContent
+  
+ }
+ 
