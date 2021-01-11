@@ -4,7 +4,7 @@
   </div>
   <div class="info">
     <div class="status">
-      <p class="<%= 'inline' if @driver_profile.online %>">
+      <p>
         <%= @driver_profile.online ? "等待新訂單..." : "未上線"%>
       </p>
       <a href="#" class="btn online-btn">
@@ -13,13 +13,22 @@
     </div>
     <% if @driver_profile.online && @new_order %>
       <div class="order">
-        <p class="store-address"><%= @store.store_name %></p>
-        <p><%= @store.store_address %></p>
-        <p><%= @store.store_phone %></p>
-        <div class="text">
-          <p class="distance"></p>
-          <p class="time"></p>
+        <div class="distance-matrix">
+          <p></p>
         </div>
+        <div class="title">
+          <p class="store-name">
+            <%= @store.store_name %>
+          </p>
+          <div class="store-phone">
+            <a href="tel:+886<%= @store.store_phone %>">
+              <i class="fas fa-phone-alt"></i>
+            </a>
+          </div>
+        </div>
+        <p class="store-address">詳細地址：<%= @store.store_address %></p>
+        <p class="orderer">訂單人姓名：<%= @orderer.name %></p>
+        <p class="order-address">訂單地址：<%= @new_order.address %></p>
         <div class="btn-list">
           <div class="delivery btn">接單</div>
         </div>

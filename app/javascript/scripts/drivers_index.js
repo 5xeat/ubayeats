@@ -9,14 +9,11 @@ document.addEventListener('turbolinks:load', () => {
       e.preventDefault()
       if (onlineBtn.innerText === "上線"){
         onlineBtn.innerText = "下線"
-        document.querySelector('.status p').classList.add('inline')
         document.querySelector('.status p').innerText = "等待新訂單..."
       } else {
-        document.querySelector('.status p').classList.remove('inline')
         onlineBtn.innerText = "上線"
         document.querySelector('.status p').innerText = "未上線"
       }
-      document.querySelector('.destination').classList.toggle('hidden')
       Rails.ajax({
         url: '/drivers/online',
         type: 'post',
@@ -60,10 +57,6 @@ document.addEventListener('turbolinks:load', () => {
         lng = position.coords.longitude;
 
         origin = new google.maps.LatLng(lat, lng);
-        const orderDestination = document.querySelector('.store-address')
-        if (orderDestination){
-          destination = orderDestination.innerText;
-        }
     
         if (map === undefined){
           // 初始化地圖
@@ -83,7 +76,11 @@ document.addEventListener('turbolinks:load', () => {
             animation: google.maps.Animation.BOUNCE,
             icon: icons.start
           });
-          directionMap()
+          if (order){
+            const orderDestination = document.querySelector('.store-name')
+            destination = orderDestination.innerText;
+            directionMap()
+          }
         } else {
           marker.setPosition(origin);
           if (order){
@@ -113,8 +110,7 @@ document.addEventListener('turbolinks:load', () => {
             googleBtn.remove()
             takenBtn.remove()
             directionsDisplay.setMap(null);
-            document.querySelector('.distance').innerText = ''
-            document.querySelector('.time').innerText = ''
+            document.querySelector('.distance-matrix p').innerText = ''
             document.querySelector('.steps').remove()
             endMarker.setMap(null)
             document.querySelector('.order').remove()
@@ -163,8 +159,7 @@ document.addEventListener('turbolinks:load', () => {
               } else {
                 const distance = response.rows[0].elements[0].distance.text;
                 const time = response.rows[0].elements[0].duration.text;
-                document.querySelector('.distance').innerText = `路程：${distance}`;
-                document.querySelector('.time').innerText = `時間：${time}`;
+                document.querySelector('.distance-matrix p').innerText = `${time}(${distance})`;
               }
             }
           )
@@ -185,8 +180,7 @@ document.addEventListener('turbolinks:load', () => {
               } else {
                 const distance = response.rows[0].elements[0].distance.text;
                 const time = response.rows[0].elements[0].duration.text;
-                document.querySelector('.distance').innerText = `路程：${distance}`;
-                document.querySelector('.time').innerText = `時間：${time}`;
+                document.querySelector('.distance-matrix p').innerText = `${time}(${distance})`;
               }
             }
           )
