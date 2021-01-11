@@ -47,6 +47,12 @@ class OrdersController < ApplicationController
     redirect_to record_orders_path, notice:'訂單送達，辛苦了'
   end
 
+  def driver_take_order
+    order = Order.find_by!(num: params[:order])
+    driver = current_user.driver_profile
+    order.update(driver_id: driver.id)
+  end
+
   private
   def order_params
     params.require(:order).permit(:username, :tel, :address, :state, :total_price, :responsibility)

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :preparing
       get :delivering
       get :record
+      post :driver_take_order
     end
   end
 

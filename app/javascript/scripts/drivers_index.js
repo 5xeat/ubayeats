@@ -1,33 +1,61 @@
 import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load', () => {
-  let rePosition;
+  let rePosition
   if (document.querySelector('.driver_profiles.index')){
     document.querySelector('.cart-icon').remove()
-    const onlineBtn = document.querySelector(".online-btn")
-    onlineBtn.addEventListener('click', (e) => {
-      e.preventDefault()
-      if (onlineBtn.innerText === "上線"){
-        onlineBtn.innerText = "下線"
-        document.querySelector('.status p').innerText = "等待新訂單..."
-      } else {
-        onlineBtn.innerText = "上線"
-        document.querySelector('.status p').innerText = "未上線"
-      }
-      Rails.ajax({
-        url: '/drivers/online',
-        type: 'post',
-        success: (resp) => {
-          console.log(resp);
-        },
-        error: function(err) {
-          console.log(err)
-        }
-      })
-    })
-
     window.initMap = () => {
-      let map, marker, lat, lng, place, endMarker, leg, request, storeLatitude, storeLongitude, origin, destination;
+      let map, marker, lat, lng, place, endMarker, leg, request, origin, destination, orderDestination;
+      const order = document.querySelector('.order')
+      const step1 = document.querySelector('.take-btn')
+      const step2 = document.querySelector('.take-btn')
+      const storeDestination = document.querySelector('.store-name')
+      const userDestination = document.querySelector('.order-address')
+
+      const onlineBtn = document.querySelector(".online-btn")
+      onlineBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        if (onlineBtn.innerText === "上線"){
+          onlineBtn.innerText = "下線"
+          document.querySelector('.status p').innerText = "等待新訂單..."
+
+          // Rails.ajax({
+          //   url: '/drivers/online',
+          //   type: 'post',
+          //   success: (resp) => {
+          //     console.log(resp);
+          //   },
+          //   error: function(err) {
+          //     console.log(err)
+          //   }
+          // })  
+        } else {
+          onlineBtn.innerText = "上線"
+          document.querySelector('.status p').innerText = "未上線"
+          
+          if (order){
+            order.remove()
+            order = undefined
+            endMarker.setMap(null)
+            map.setCenter(origin)
+            directionsDisplay.setMap(null);
+            const steps = document.querySelector('.steps')
+            if (steps){
+              steps.remove()
+            }
+          }
+        }
+        Rails.ajax({
+          url: '/drivers/online',
+          type: 'post',
+          success: (resp) => {
+            console.log(resp);
+          },
+          error: function(err) {
+            console.log(err)
+          }
+        })
+      })  
       
       // 載入路線服務與路線顯示圖層
       let directionsService = new google.maps.DirectionsService();
@@ -49,8 +77,6 @@ document.addEventListener('turbolinks:load', () => {
         }
       };
       
-      let order = document.querySelector('.order')
-
       rePosition = navigator.geolocation.watchPosition((position) => {
         console.log('watchPosition')
         lat = position.coords.latitude;
@@ -61,13 +87,13 @@ document.addEventListener('turbolinks:load', () => {
         if (map === undefined){
           // 初始化地圖
           map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 18,
-              center: origin,
-              mapId: 'c57b36ae7dbc5a40',
-              mapTypeControl: false,
-              streetViewControl: false,
-              zoomControl: false,
-              fullscreenControl: false
+            zoom: 18,
+            center: origin,
+            mapId: 'c57b36ae7dbc5a40',
+            mapTypeControl: false,
+            streetViewControl: false,
+            zoomControl: false,
+            fullscreenControl: false
           });
     
           marker = new google.maps.Marker({
@@ -77,8 +103,7 @@ document.addEventListener('turbolinks:load', () => {
             icon: icons.start
           });
           if (order){
-            const orderDestination = document.querySelector('.store-name')
-            destination = orderDestination.innerText;
+            destination = storeDestination.innerText;
             directionMap()
           }
         } else {
@@ -97,19 +122,19 @@ document.addEventListener('turbolinks:load', () => {
         console.log('order');
         directionMap()
         
-        const delivery = document.querySelector('.delivery');    
-        delivery.addEventListener('click' , function(){
-          delivery.remove();
+        const takeOrderBtn = document.querySelector('.take-order-btn');    
+        takeOrderBtn.addEventListener('click' , function(){
+          takeOrderBtn.remove();
           // 導航按鈕
           const googleBtn = document.querySelector('.google')
-          const takenBtn = document.createElement('div')
-          takenBtn.classList.add('take-btn')
-          takenBtn.classList.add('btn')
-          takenBtn.innerText = "已取餐"
-          takenBtn.onclick = function(){
+          const takenMealBtn = document.createElement('div')
+          takenMealBtn.classList.add('take-meal-btn')
+          takenMealBtn.classList.add('btn')
+          takenMealBtn.innerText = "已取餐"
+          takenMealBtn.onclick = function(){
             googleBtn.remove()
-            takenBtn.remove()
-            directionsDisplay.setMap(null);
+            takenMealBtn.remove()
+            request.destination = new google.maps.LatLng(lat, lng)
             document.querySelector('.distance-matrix p').innerText = ''
             document.querySelector('.steps').remove()
             endMarker.setMap(null)
@@ -117,8 +142,24 @@ document.addEventListener('turbolinks:load', () => {
             order = undefined
             map.setCenter(origin)
           }
-  
-          document.querySelector('.btn-list').appendChild(takenBtn)
+          document.querySelector('.status').remove()
+          document.querySelector('.btn-list').appendChild(takenMealBtn)
+
+          const orderId = document.querySelector('.order-number').innerText
+          Rails.ajax({
+            url: '/orders/driver_take_order',
+            type: 'post',
+            data: new URLSearchParams({'order': orderId}),
+            success: (resp) => {
+              console.log('suc');
+              console.log(resp);
+            },
+            error: function(err) {
+              console.log('err')
+              console.log(err)
+            }
+          })
+
           if (googleBtn){
             document.querySelector('.steps').classList.remove('hidden');
             googleBtn.classList.remove('hidden');
@@ -245,6 +286,3 @@ document.addEventListener('turbolinks:load', () => {
     navigator.geolocation.clearWatch(rePosition)
   }
 })
-
-function googlemap(){
-}

@@ -26,11 +26,12 @@
             </a>
           </div>
         </div>
+        <p class="order-number"><%= @new_order.num %></p>
         <p class="store-address">詳細地址：<%= @store.store_address %></p>
         <p class="orderer">訂單人姓名：<%= @orderer.name %></p>
         <p class="order-address">訂單地址：<%= @new_order.address %></p>
         <div class="btn-list">
-          <div class="delivery btn">接單</div>
+          <div class="take-order-btn btn">接單</div>
         </div>
       </div>
     <% end %>
