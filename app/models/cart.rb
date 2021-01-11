@@ -1,6 +1,5 @@
 class Cart
   attr_reader :items
-
   def initialize(items = [])
     @items = items
   end
@@ -21,7 +20,7 @@ class Cart
   end
 
   def total_price
-    @items.reduce(0) { |sum, item| sum + item.price }
+    @items.reduce(0) { |sum, item| sum + item.item_total_price }
   end
 
   def serialize
@@ -40,4 +39,5 @@ class Cart
       }
     end
   end
+
 end

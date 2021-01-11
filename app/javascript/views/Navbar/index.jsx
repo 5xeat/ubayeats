@@ -28,9 +28,26 @@ function Navbar({user}){
         }
       })
       return
+    } else if (route === "/drivers"){
+      window.location.href = route
+    } else {
+      Turbolinks.visit(route)
     }
+  }
 
-    Turbolinks.visit(route)
+  const atClick = (e) => {
+    if (screen.width < 768){
+      e.currentTarget.classList.add('searchClick')
+      const closeBtn = document.createElement('i')
+      closeBtn.classList.add('fas')
+      closeBtn.classList.add('fa-times')
+      closeBtn.classList.add('closeBtn')
+      closeBtn.onclick = () => {
+        document.querySelector('.searchClick').classList.remove('searchClick')
+        closeBtn.remove()
+      }
+      e.currentTarget.insertAdjacentElement('afterbegin', closeBtn)
+    }
   }
 
   return (
@@ -43,7 +60,7 @@ function Navbar({user}){
       <li className="logo" onClick={() => handleRouteClick("/")}>
         <img src={require("../../images/logo/logo-white.png")} alt=""/>
       </li>
-      <Search user={user}/>
+      <Search user={user} onClick={atClick}/>
       <div className={sideBar ? 'list list-down' : 'list list-up'}>
         <NavbarList user={user} handleRouteClick={handleRouteClick}/>
       </div>

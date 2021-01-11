@@ -1,8 +1,14 @@
 class OrdersController < ApplicationController
+  before_action :session_required
   before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
   before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update]
 
-  def new
+  def index
+    @orders = current_user.orders
+  end
+
+  def show
+    @order = Order.find(params[:id])
   end
 
   def recieving
@@ -11,7 +17,7 @@ class OrdersController < ApplicationController
 
   def recieving_update
     @order.confirm! if @order.paid?
-    redirect_to recieving_orders_path, notice:'有新訂單已準備'
+    redirect_to store_profiles_path, notice:'有新訂單已準備'
   end
 
   def preparing
@@ -19,8 +25,8 @@ class OrdersController < ApplicationController
   end
 
   def preparing_update
-    @order.conplete! if @order.preparing?
-    redirect_to preparing_orders_path, notice:'有訂單已完成'
+    @order.complete! if @order.preparing?
+    redirect_to store_profiles_path, notice:'有訂單已完成'
   end
 
   def delivering
@@ -29,7 +35,7 @@ class OrdersController < ApplicationController
 
   def delivering_update
     @order.go! if @order.delivering?
-    redirect_to delivering_orders_path, notice:'有訂單外送中'
+    redirect_to store_profiles_path, notice:'有訂單外送中'
   end
 
   def record
@@ -39,6 +45,12 @@ class OrdersController < ApplicationController
   def record_update
     @order.arrive! if @order.completed?
     redirect_to record_orders_path, notice:'訂單送達，辛苦了'
+  end
+
+  def driver_take_order
+    order = Order.find_by!(num: params[:order])
+    driver = current_user.driver_profile
+    order.update(driver_id: driver.id)
   end
 
   private

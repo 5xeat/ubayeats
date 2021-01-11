@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     post "/unique_email", to: "users/registrations#unique_email?"
+    get "/users/info", to: "users/registrations#info"
   end
   
   resources :orders do 
@@ -22,12 +23,15 @@ Rails.application.routes.draw do
       get :preparing
       get :delivering
       get :record
+      post :driver_take_order
     end
   end
 
   resource :carts do 
     post 'add_item/:id', action: 'add_item', as: 'add_item'
-    get :checkout
+    post 'minus_item/:id', action: 'minus_item', as: 'minus_item'
+    delete 'remove_item/:id', action: 'remove_item', as: 'remove_item'
+  get :checkout
     collection do
       post :pay
       get :confirm
@@ -39,6 +43,7 @@ Rails.application.routes.draw do
 
   resource :driver_profiles, path: '/drivers', only: [:new, :create, :edit, :update] do
     get :index
+    post :online
   end
 
   resource :store_profiles, path: '/stores'

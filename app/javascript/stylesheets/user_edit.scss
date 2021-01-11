@@ -1,0 +1,13 @@
+.registrations.edit {
+  @apply bg-yellow-50;
+  .container {
+    @apply mx-auto px-5 md:px-40 lg:px-96;
+    padding-top: 100px;
+    h1 {
+      @apply text-center text-4xl font-black mb-5;
+    }
+    .btn {
+      @apply w-full;
+    }
+  }
+}

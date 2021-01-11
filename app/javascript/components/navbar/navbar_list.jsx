@@ -32,8 +32,8 @@ function NavbarList({user, handleRouteClick}){
         </li>
         <li
           className="list-item selected"
-          onClick={() => handleRouteClick("/users/edit")}>
-          會員資料
+          onClick={() => handleRouteClick("/users/info")}>
+          會員中心
         </li>
         <li
           className="list-item"
@@ -54,8 +54,8 @@ function NavbarList({user, handleRouteClick}){
         </li>
         <li
           className="list-item selected"
-          onClick={() => handleRouteClick("/users/edit")}>
-          會員資料
+          onClick={() => handleRouteClick("/users/info")}>
+          會員中心
         </li>
         <li
           className="list-item"
@@ -72,12 +72,12 @@ function NavbarList({user, handleRouteClick}){
         <li
           className="list-item"
           onClick={() => handleRouteClick("/stores")}>
-          我的店家
+          開店
         </li>
         <li
           className="list-item selected"
-          onClick={() => handleRouteClick("/users/edit")}>
-          會員資料
+          onClick={() => handleRouteClick("/users/info")}>
+          會員中心
         </li>
         <li
           className="list-item"

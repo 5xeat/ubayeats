@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_111524) do
+ActiveRecord::Schema.define(version: 2021_01_11_093255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2021_01_07_111524) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "online", default: false
     t.index ["user_id"], name: "index_driver_profiles_on_user_id"
   end
 
@@ -59,7 +60,11 @@ ActiveRecord::Schema.define(version: 2021_01_07_111524) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "total_price"
     t.bigint "store_profile_id", null: false
+<<<<<<< HEAD
     t.string "driver"
+=======
+    t.string "driver_id"
+>>>>>>> develop
     t.string "num"
     t.string "transaction_id"
     t.datetime "paid_at"
