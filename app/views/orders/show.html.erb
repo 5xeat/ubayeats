@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>訂單編號<%= @order.id %></h1>
+  <h2><%= @order.state %></h2>
+  <h2>餐點預計送達時間：</h2>
+  <p>下單時間：<%= @order.created_at.strftime('%Y/%m/%d %H:%M') %></p>
+
+  <p>店家：<%= StoreProfile.find(@order.store_profile_id).store_name %></p>
+  <div class="item-list">
+    <p>品項：</p>
+    <% @order.order_items.each do |item| %>
+    <%= Product.find(item.product_id).name %>
+    <%= item.price %>
+    <%= item.quantity %>
+    <% end %>
+  </div>
+
+  <p>餐點送達地址：<%= @order.address %></p>
+</div>

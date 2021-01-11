@@ -1,8 +1,14 @@
 class OrdersController < ApplicationController
+  before_action :session_required
   before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
   before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update]
 
-  def new
+  def index
+    @orders = current_user.orders
+  end
+
+  def show
+    @order = Order.find(params[:id])
   end
 
   def recieving
@@ -11,7 +17,7 @@ class OrdersController < ApplicationController
 
   def recieving_update
     @order.confirm! if @order.paid?
-    redirect_to recieving_orders_path, notice:'有新訂單已準備'
+    render 'store_profiles/show', notice:'有新訂單已準備'
   end
 
   def preparing
@@ -20,7 +26,7 @@ class OrdersController < ApplicationController
 
   def preparing_update
     @order.conplete! if @order.preparing?
-    redirect_to preparing_orders_path, notice:'有訂單已完成'
+    render 'store_profiles/show', notice:'有訂單已完成'
   end
 
   def delivering
@@ -29,7 +35,7 @@ class OrdersController < ApplicationController
 
   def delivering_update
     @order.go! if @order.delivering?
-    redirect_to delivering_orders_path, notice:'有訂單外送中'
+    render 'store_profiles/show', notice:'有訂單外送中'
   end
 
   def record

@@ -1,0 +1,46 @@
+.driver_profiles.index {
+  background-color: #18191B;
+  .map-container {
+    @apply flex flex-col pt-0;
+    height: calc(100vh - 70px);
+    .destination {
+      @apply absolute z-10 bg-white;
+    }
+    .map {
+      @apply flex-grow w-full;
+      margin-bottom: -25px;
+      #map {
+        @apply  h-full w-full;
+      }
+    }
+    .steps {
+      @apply w-full z-10;
+      background-color: rgb(9, 95, 35);
+      color: rgb(255, 255, 255);
+      padding: 10px;
+    }  
+    .info {
+      @apply flex-none rounded-t bg-white relative;
+      .status {
+        @apply text-center mt-5;
+        p {
+          @apply font-medium text-2xl;
+        }
+        .btn {
+          @apply bg-red-500;
+        }
+      }
+      .order {
+        .text {
+
+        }
+        .btn-list {
+          @apply flex;
+        }
+      }
+    }
+    .hidden {
+      @apply invisible;
+    }
+  }
+}
