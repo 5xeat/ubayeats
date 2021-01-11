@@ -76,7 +76,6 @@ export default class extends Controller {
     })
     updateCart()
   }
-    
 }
   function updateCart(){
   const subtotal = document.querySelectorAll('span.subtotal')
