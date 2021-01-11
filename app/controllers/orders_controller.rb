@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
 
   def recieving_update
     @order.confirm! if @order.paid?
-    render 'store_profiles/show', notice:'有新訂單已準備'
+    redirect_to store_profiles_path, notice:'有新訂單已準備'
   end
 
   def preparing
@@ -25,8 +25,8 @@ class OrdersController < ApplicationController
   end
 
   def preparing_update
-    @order.conplete! if @order.preparing?
-    render 'store_profiles/show', notice:'有訂單已完成'
+    @order.complete! if @order.preparing?
+    redirect_to store_profiles_path, notice:'有訂單已完成'
   end
 
   def delivering
@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
 
   def delivering_update
     @order.go! if @order.delivering?
-    render 'store_profiles/show', notice:'有訂單外送中'
+    redirect_to store_profiles_path, notice:'有訂單外送中'
   end
 
   def record
