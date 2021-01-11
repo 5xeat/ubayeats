@@ -1,4 +1,5 @@
 import Rails from '@rails/ujs';
+import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', () => {
   let rePosition
@@ -139,6 +140,13 @@ document.addEventListener('turbolinks:load', () => {
               order = undefined
               map.setCenter(origin)
               document.querySelector('.status').classList.remove('hidden')
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '此筆訂單已送達，辛苦了！',
+                showConfirmButton: false,
+                timer: 1500
+              })
             }
             document.querySelector('.btn-list').appendChild(completeBtn)
 
