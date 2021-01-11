@@ -6,11 +6,9 @@ document.addEventListener('turbolinks:load', () => {
     document.querySelector('.cart-icon').remove()
     window.initMap = () => {
       let map, marker, lat, lng, place, endMarker, leg, request, origin, destination, orderDestination;
-      const order = document.querySelector('.order')
-      const step1 = document.querySelector('.take-btn')
-      const step2 = document.querySelector('.take-btn')
+      let order = document.querySelector('.order')
       const storeDestination = document.querySelector('.store-name')
-      const userDestination = document.querySelector('.order-address')
+      const userDestination = document.querySelector('.order-address span')
 
       const onlineBtn = document.querySelector(".online-btn")
       onlineBtn.addEventListener('click', (e) => {
@@ -78,7 +76,6 @@ document.addEventListener('turbolinks:load', () => {
       };
       
       rePosition = navigator.geolocation.watchPosition((position) => {
-        console.log('watchPosition')
         lat = position.coords.latitude;
         lng = position.coords.longitude;
 
@@ -109,7 +106,6 @@ document.addEventListener('turbolinks:load', () => {
         } else {
           marker.setPosition(origin);
           if (order){
-            console.log('rerender')
             directionMap()
           } else {
             map.setCenter(origin)
@@ -118,8 +114,6 @@ document.addEventListener('turbolinks:load', () => {
       })
 
       if (order){
-        // 取得終點位置的placeID
-        console.log('order');
         directionMap()
         
         const takeOrderBtn = document.querySelector('.take-order-btn');    
@@ -128,24 +122,57 @@ document.addEventListener('turbolinks:load', () => {
           // 導航按鈕
           const googleBtn = document.querySelector('.google')
           const takenMealBtn = document.createElement('div')
-          takenMealBtn.classList.add('take-meal-btn')
-          takenMealBtn.classList.add('btn')
+          takenMealBtn.classList.add('take-meal-btn', 'btn')
           takenMealBtn.innerText = "已取餐"
           takenMealBtn.onclick = function(){
-            googleBtn.remove()
             takenMealBtn.remove()
-            request.destination = new google.maps.LatLng(lat, lng)
-            document.querySelector('.distance-matrix p').innerText = ''
-            document.querySelector('.steps').remove()
-            endMarker.setMap(null)
-            document.querySelector('.order').remove()
-            order = undefined
-            map.setCenter(origin)
+
+            const completeBtn = document.createElement('div')
+            completeBtn.classList.add('btn', 'complete-btn')
+            completeBtn.innerText = "已送達"
+            completeBtn.onclick = function(){
+              document.querySelector('.distance-matrix p').innerText = ''
+              document.querySelector('.steps').remove()
+              document.querySelector('.order').remove()  
+              directionsDisplay.setMap(null)
+              endMarker.setMap(null)
+              order = undefined
+              map.setCenter(origin)
+              document.querySelector('.status').classList.remove('hidden')
+            }
+            document.querySelector('.btn-list').appendChild(completeBtn)
+
+            destination = userDestination.innerText
+            request.destination = userDestination.innerText
+
+            // 終點標示改為訂單送達地址
+            const geocoder = new google.maps.Geocoder()
+            geocoder.geocode({'address': destination}, function (results, status) {
+              if (status == 'OK') {
+                endMarker.setPosition(results[0].geometry.location)
+              }
+              else {
+                alert('Geocode was not successful for the following reason: ' +    status);
+             }
+            });
+
+            const ordererphone = document.querySelector('.orderer-phone').innerText
+            document.querySelector('.phone a').setAttribute('href', `tel:+886${ordererphone}`)
+
+            const orderer = document.querySelector('.orderer')
+            orderer.innerText = orderer.querySelector('span').innerText
+            orderer.classList.add('font-medium', 'text-2xl', 'mr-5')
+            orderer.classList.remove('orderer')
+            document.querySelector('.title').insertAdjacentElement('afterbegin', orderer)
+            document.querySelector('.store-name').remove()
+            document.querySelector('.store-address').remove()
+
+            directionMap()
           }
-          document.querySelector('.status').remove()
+          document.querySelector('.status').classList.add('hidden')
           document.querySelector('.btn-list').appendChild(takenMealBtn)
 
-          const orderId = document.querySelector('.order-number').innerText
+          const orderId = document.querySelector('.order-number span').innerText
           Rails.ajax({
             url: '/orders/driver_take_order',
             type: 'post',
