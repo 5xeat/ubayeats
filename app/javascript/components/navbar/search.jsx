@@ -2,18 +2,10 @@ import React, {useState, useEffect} from "react";
 import Rails from '@rails/ujs';
 import "./search.scss";
 
-// let latitude, longitude, href
-// window.currentPos = {
-//   latitude: null,
-//   longitude: null
-// }
-
-
 function Search({user}){
   const [data, setData] = useState([])
   
-  useEffect(() => {  
-     
+  useEffect(() => { 
     geoFindMe()
   }, [])
 
@@ -31,7 +23,6 @@ function Search({user}){
           setData(resp)
         },
         error: function(err) {
-          console.log(err);
         }
         })
     }
@@ -44,7 +35,6 @@ function Search({user}){
           setData(resp)
         },
         error: function(err) {
-          console.log(err)
         }
       })
     }
@@ -58,11 +48,9 @@ function Search({user}){
           setData(resp)
         },
         error: function(err) {
-          console.log(err)
         }
       }) 
     } else {
-      console.log('KT------------------')
       console.log('正在取得定位…!');
       navigator.geolocation.getCurrentPosition(success, error);
       Rails.ajax({
@@ -72,7 +60,6 @@ function Search({user}){
           setData(resp)
         },
         error: function(err) {
-          console.log(err)
         }
       }) 
     }

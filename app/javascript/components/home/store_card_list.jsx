@@ -11,10 +11,7 @@ function StoreCardList(){
   const [data, setData] = useState([])
 
   useEffect(() => {
-    // let latitude
-
     geoFindMe()
-    // if (window.currentPos.latitude === null){
   }, [])
 
   const geoFindMe = () => {
@@ -36,7 +33,6 @@ function StoreCardList(){
         })
     }
     function error() {
-      console.log("sssssssssssssss");
       Rails.ajax({
         url: "/stores/recommand.json",
         type: "GET",
@@ -44,7 +40,6 @@ function StoreCardList(){
           setData(resp)
         },
         error: function(err) {
-          console.log(err)
         }
       })
     }
@@ -58,13 +53,11 @@ function StoreCardList(){
           setData(resp)
         },
         error: function(err) {
-          console.log(err)
         }
       }) 
     } else {
       console.log('正在取得定位…!');
       navigator.geolocation.getCurrentPosition(success, error);
-      console.log("sssssssssssssss");
       Rails.ajax({
         url: "/stores/recommand.json",
         type: "GET",
@@ -72,7 +65,6 @@ function StoreCardList(){
           setData(resp)
         },
         error: function(err) {
-          console.log(err)
         }
       })  
 
