@@ -7,7 +7,11 @@ class DriverProfilesController < ApplicationController
   end
   
   def new
-    @driver_profile = DriverProfile.new
+    if current_user.role == 'user'
+      @driver_profile = DriverProfile.new
+    else
+      render file: 'public/422.html'
+    end
   end
 
   def create
@@ -30,8 +34,6 @@ class DriverProfilesController < ApplicationController
       render :edit
     end
   end
-
-
 
   private
   def params_driver
