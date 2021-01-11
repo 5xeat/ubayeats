@@ -17,7 +17,7 @@ export default class extends Controller {
     this.subtotalTarget.innerText = `${subprice}`
 
 
-    // e.currentTarget.previousSibling.previousSibling.value = this.indexValue
+    // e.Target.previousSibling.previousSibling.value = this.indexValue
     // const totalprice =  this.subtotalTarget.innerText * this.indexValue
     // this.totalpriceTarget.textContent = `${totalprice}`
 
@@ -56,11 +56,6 @@ export default class extends Controller {
     const subprice =  this.priceTarget.innerText * this.indexValue
     this.subtotalTarget.innerText = `${subprice}`
 
-    const quantity = document.querySelector('.cart-item.quantity')
-  const price = document.querySelector('.cart-item.price')
-  console.log(quantity.value * price.textContent)
-   const total = document.querySelector('.total')
-   total.textContent = quantity.value * price.textContent
 
     const id = this.data.get('id')
     Rails.ajax({
@@ -84,11 +79,17 @@ export default class extends Controller {
     
 }
   function updateCart(){
+  const subtotal = document.querySelectorAll('span.subtotal')
+  
+  const total = document.querySelector('.total')
   const quantity = document.querySelector('.cart-item.quantity')
   const price = document.querySelector('.cart-item.price')
-  console.log(quantity.value * price.textContent)
-   const total = document.querySelector('.total')
-   total.textContent = quantity.value * price.textContent
-  
- }
- 
+  total.textContent = (quantity * price)
+
+  let itemtotal = 0
+  subtotal.forEach(item => {
+   itemtotal += Number(item.textContent)
+  })
+
+  total.textContent = itemtotal
+  }
