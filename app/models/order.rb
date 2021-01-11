@@ -32,7 +32,7 @@ class Order < ApplicationRecord
       transitions from: :paid, to: :preparing
     end
 
-    event :conplete do
+    event :complete do
       transitions from: :preparing, to: :delivering
     end
 

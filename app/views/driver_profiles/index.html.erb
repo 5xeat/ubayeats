@@ -1,28 +1,42 @@
-<div class="map-container">
-  <div class="destination hidden">
-    <input
-      id="destination-input"
-      class="controls"
-      type="text"
-      placeholder="輸入店家..."
-    />
-    <button class="btn calc-btn">計算</button>
-  </div>
-  
+<div class="map-container">  
   <div class="map">
     <div id="map"></div>
   </div>
   <div class="info">
     <div class="status">
-      <p>未上線</p>
-      <a href="#" class="btn online-btn">上線</a>
+      <p>
+        <%= @driver_profile.online ? "等待新訂單..." : "未上線"%>
+      </p>
+      <a href="#" class="btn online-btn">
+        <%= @driver_profile.online ? "下線" : "上線"%>
+      </a>
     </div>
-    <div class="order">
-      <div class="text">
-        <p class="distance"></p>
-        <p class="time"></p>
+    <% if @driver_profile.online && @new_order %>
+      <div class="order">
+        <div class="distance-matrix">
+          <p></p>
+        </div>
+        <div class="title">
+          <p class="store-name">
+            <%= @store.store_name %>
+          </p>
+          <div class="phone">
+            <a href="tel:+886<%= @store.store_phone %>">
+              <i class="fas fa-phone-alt"></i>
+            </a>
+          </div>
+        </div>
+        <p class="store-address"><%= @store.store_address %></p>
+        <p class="order-number">訂單編號：<span><%= @new_order.num %></span></p>
+        <p class="orderer">訂單人：
+          <span><%= @new_order.username %></span>
+          <span class="orderer-phone"><%= @new_order.tel %></span>
+        </p>
+        <p class="order-address">訂單地址：<span><%= @new_order.address %></span></p>
+        <div class="btn-list">
+          <div class="take-order-btn btn">接單</div>
+        </div>
       </div>
-      <div class="btn-list"></div>
-    </div>
+    <% end %>
   </div>
 </div>

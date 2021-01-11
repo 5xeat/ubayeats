@@ -1,9 +1,14 @@
 class DriverProfilesController < ApplicationController
   before_action :session_required
   before_action :driver_pundit, except: [:new, :create]
-  before_action :set_driver, only: [:edit, :update]
+  before_action :set_driver, only: [:index, :edit, :update, :online]
 
   def index
+    @new_order = Order.where(state: "preparing").first
+    if @new_order
+      @store = StoreProfile.find(@new_order.store_profile_id)
+      @orderer = User.find(@new_order.user_id)
+    end
   end
   
   def new
@@ -31,11 +36,13 @@ class DriverProfilesController < ApplicationController
     end
   end
 
-
+  def online
+    @driver_profile.toggle!(:online)
+  end
 
   private
   def params_driver
-    params.require(:driver_profile).permit(:taiwan_id_front, :taiwan_id_back, :license, :car_number, :account)
+    params.require(:driver_profile).permit(:taiwan_id_front, :taiwan_id_back, :license, :car_number, :account, :online)
   end
 
   def driver_pundit

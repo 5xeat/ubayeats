@@ -10,7 +10,7 @@ export default class extends Controller {
     e.preventDefault()
     const {count, total_price} = e.detail
     // console.log(this.detailTarget)
-    this.detailTarget.innerText = `${count}/${total_price}`
+    this.detailTarget.innerText = `${count}/$${total_price}`
   }
 
  
