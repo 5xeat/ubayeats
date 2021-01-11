@@ -24,11 +24,11 @@
       <%= render "shared/flash" if notice || alert %>
       <%= yield %>
     </div>
-    <%= form_with url: "/", :html => {:id => "position_form"} do |form| %>
-      <%= form.hidden_field :latitude, id: "latitude" %>
-      <%= form.hidden_field :longitude, id: 'longitude' %>
-      <%= form.hidden_field :href, id: 'href' %>
-      <%= form.submit %>
-    <% end %>
+      <%# form.hidden_field :latitude, id: "latitude" %>
+      <%# form.hidden_field :longitude, id: 'longitude' %>
+      <%# form.hidden_field :href, id: 'href' %>
+      <input id="latitude" type="hidden" name="latitude" value="">
+      <input id="longitude" type="hidden" name="longitude" value="">
+      <input id="href" type="hidden" name="href" value="">
   </body>
 </html>

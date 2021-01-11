@@ -2,21 +2,81 @@ import React, {useState, useEffect} from "react";
 import Rails from '@rails/ujs';
 import "./search.scss";
 
+// let latitude, longitude, href
+// window.currentPos = {
+//   latitude: null,
+//   longitude: null
+// }
+
+
 function Search({user}){
   const [data, setData] = useState([])
-
-  useEffect(() => {
-    Rails.ajax({
-      url: "/stores/recommand.json",
-      type: "GET",
-      success: (resp) => {
-        setData(resp)
-      },
-      error: function(err) {
-        console.log(err)
-      }
-    })
+  
+  useEffect(() => {  
+     
+    geoFindMe()
   }, [])
+
+  const geoFindMe = () => {
+    function success(position) {   
+      const latitude  = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      const href = window.location.href
+      
+      Rails.ajax({
+        url: '/distance_filter',
+        type: 'post',
+        data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
+        success: (resp) => {
+          setData(resp)
+        },
+        error: function(err) {
+          console.log(err);
+        }
+        })
+    }
+    function error() {
+      console.log('無法取得您的目前位置');
+      Rails.ajax({
+        url: "/stores/recommand.json",
+        type: "GET",
+        success: (resp) => {
+          setData(resp)
+        },
+        error: function(err) {
+          console.log(err)
+        }
+      })
+    }
+  
+    if(!navigator.geolocation) {
+      console.log('您的瀏覽器不支援定位服務!');
+      Rails.ajax({
+        url: "/stores/recommand.json",
+        type: "GET",
+        success: (resp) => {
+          setData(resp)
+        },
+        error: function(err) {
+          console.log(err)
+        }
+      }) 
+    } else {
+      console.log('KT------------------')
+      console.log('正在取得定位…!');
+      navigator.geolocation.getCurrentPosition(success, error);
+      Rails.ajax({
+        url: "/stores/recommand.json",
+        type: "GET",
+        success: (resp) => {
+          setData(resp)
+        },
+        error: function(err) {
+          console.log(err)
+        }
+      }) 
+    }
+  }
 
   let selectedSuggestionsIndex = -1
 
@@ -26,13 +86,16 @@ function Search({user}){
     let keyword = input.value
     if (e.key === 'Enter'){
       if (selectedSuggestionsIndex >= 0){
+        let latitude  = (position.coords.latitude).value;
+        let longitude = (position.coords.longitude).value;
+        let href = window.location.href
         keyword = document.querySelector('.result.selected').textContent
         input.value = keyword
         result_list.classList.add('hidden')
         selectedSuggestionsIndex = -1
-        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+        Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude.value}&longitude=${longitude.value}`)
       }
-      Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+      // Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude.value}&longitude=${longitude.value}`)
     }
   }
 

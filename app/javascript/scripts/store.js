@@ -15,7 +15,10 @@ document.addEventListener('turbolinks:load', function(){
     }, 500);
   }
 
-  document.querySelector('#new_store_profile').addEventListener('submit', function(e) {
+  const $newStoreProfile = document.querySelector('#new_store_profile')
+  if (!$newStoreProfile) return ;
+
+  $newStoreProfile.addEventListener('submit', function(e) {
     console.log('submit enter')
     if (!canSubmit) {
       e.preventDefault()
