@@ -4,6 +4,7 @@ import "./search.scss";
 
 function Search({user, onClick}){
   const [data, setData] = useState([])
+  const [currentPos, setCurrentPos] = useState({latitude: null, longitude: null})
   
   useEffect(() => { 
     geoFindMe()
@@ -11,9 +12,11 @@ function Search({user, onClick}){
 
   const geoFindMe = () => {
     function success(position) {   
-      const latitude  = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      const href = window.location.href
+      let latitude  = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      let href = window.location.href
+
+      setCurrentPos({latitude: latitude, longitude: longitude})
       
       Rails.ajax({
         url: '/distance_filter',
@@ -53,15 +56,6 @@ function Search({user, onClick}){
     } else {
       console.log('正在取得定位…!');
       navigator.geolocation.getCurrentPosition(success, error);
-      Rails.ajax({
-        url: "/stores/recommand.json",
-        type: "GET",
-        success: (resp) => {
-          setData(resp)
-        },
-        error: function(err) {
-        }
-      }) 
     }
   }
 
@@ -70,19 +64,19 @@ function Search({user, onClick}){
   const atKeyPress = (e) => {
     const input = document.querySelector('.search-input')
     const result_list = document.querySelector('.result-list')
+
+    let latitude  = currentPos.latitude;
+    let longitude = currentPos.longitude;
+    
     let keyword = input.value
     if (e.key === 'Enter'){
       if (selectedSuggestionsIndex >= 0){
-        let latitude  = (position.coords.latitude).value;
-        let longitude = (position.coords.longitude).value;
-        let href = window.location.href
         keyword = document.querySelector('.result.selected').textContent
         input.value = keyword
         result_list.classList.add('hidden')
         selectedSuggestionsIndex = -1
-        Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude.value}&longitude=${longitude.value}`)
       }
-      // Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude.value}&longitude=${longitude.value}`)
+      Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
     }
   }
 
@@ -123,15 +117,20 @@ function Search({user, onClick}){
       )
     })
     suggestions.forEach((suggestion) => {
+      
       const result = document.createElement('div')
       result.classList.add('result')
       result.textContent = suggestion.store_name
       result_list.appendChild(result)
       result.addEventListener('click', (e) => {
         const keyword = e.target.textContent
+        let latitude  = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        navigator.geolocation.getCurrentPosition(success, error);
+        // geoFindMe()
         input.value = keyword
         result_list.classList.add('hidden')
-        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+        Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
       })
     })
     if (inputValue === ''){

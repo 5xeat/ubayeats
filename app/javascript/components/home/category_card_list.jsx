@@ -38,12 +38,41 @@ const data = [
   },
 ];
 
+const geoFindMe = (keyword) => {
+  function success(position) {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
+  }
+  function error() {
+    Rails.ajax({
+      url: "/stores/recommand.json",
+      type: "GET",
+      success: (resp) => {
+        setData(resp)
+      },
+      error: function(err) {
+      }
+    })
+  }
+
+  if(!navigator.geolocation) {
+    console.log('您的瀏覽器不支援定位服務!');
+  } else {
+    console.log('正在取得定位…!');
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+}
+
+
 const atClick = (item) => {
   const keyword = item
-  Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+  let latitude, longitude
+  geoFindMe(keyword)
 }
 
 function CategoryCardList(){
+  let latitude, longitude, href
   return(
     <div className="category-card-list">
       {
