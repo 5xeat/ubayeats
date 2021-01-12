@@ -29,5 +29,13 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-zh-TW:
+en:
   hello: "Hello world"
+  order_status:
+    unpaid: "unpaid"
+    canceled: "canceled"
+    paid: "paid"
+    preparing: "preparing"
+    delivering: "delivering"
+    completed: "completed"
+    arrived: "arrived"

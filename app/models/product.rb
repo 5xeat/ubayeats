@@ -1,7 +1,9 @@
 class Product < ApplicationRecord
   acts_as_paranoid
   belongs_to :store_profile
-  include AASM
+	include AASM
+	# validates: :name, presence: true
+	# validates: :price, presence: true
 
   # scope :available, -> { where('available = true') }
 

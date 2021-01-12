@@ -1,19 +1,13 @@
 <div class="container flex bg-green-100">
     <div class="left">
       <div class="dash">
-        <div class="btn add_items">
-          <%= link_to new_product_path do %>
-            新增商品
-          <% end %>
-        </div>
-      </div>
-      <div class="dash">
         <div class="btn recieving">
           <%= link_to recieving_orders_path, remote: true do %>
             新訂單
           <% end %>
         </div>
       </div>
+
       <div class="dash">
         <div class="btn preparing">
           <%= link_to preparing_orders_path, remote:true do %>
@@ -21,6 +15,7 @@
           <% end %>
         </div>
       </div>
+
       <div class="dash">
         <div class="btn delivering">
           <%= link_to delivering_orders_path, remote:true do %>
@@ -28,6 +23,7 @@
           <% end %>
         </div>
       </div>
+
       <div class="dash">
         <div class="btn record">
           <%= link_to record_orders_path, remote:true do %>
@@ -40,6 +36,14 @@
         <div class="btn">
           <%= link_to '#', class: 'btn' do %>
             ?
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="dash">
+        <div class="btn add_items">
+          <%= link_to new_product_path do %>
+            新增商品
           <% end %>
         </div>
       </div>

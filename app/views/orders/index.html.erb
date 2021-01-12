@@ -28,7 +28,7 @@
               </td>
               <td>
                 <%= link_to((order), class: "btn") do %>
-                  <%= order.state %>
+                  <%= t("order_status.#{order.state}") %>
                 <% end %>
               </td>
             </tr>
