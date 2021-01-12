@@ -5,11 +5,35 @@ document.addEventListener('turbolinks:load', () => {
   let rePosition
   if (document.querySelector('.driver_profiles.index')){
     document.querySelector('.cart-icon').remove()
-    window.initMap = () => {
-      let map, marker, lat, lng, place, endMarker, leg, request, origin, destination, orderDestination;
+    window.initMap = async() => {
+      const geocoder = new google.maps.Geocoder()
+      let map, marker, lat, lng, place, endMarker, leg, request, origin, destination;
       let order = document.querySelector('.order')
-      const storeDestination = document.querySelector('.store-name')
-      const userDestination = document.querySelector('.order-address span')
+      let storeDestination = document.querySelector('.store-address').innerText
+      let userDestination = document.querySelector('.order-address span').innerText
+
+      await geocoder.geocode({'address': storeDestination}, function (results, status) {
+        if (status == 'OK') {
+          console.log(results[0].place_id);
+          storeDestination = results[0].place_id
+        }
+        else {
+          console.log('errrrrrrrrr1');
+          alert('Geocode was not successful for the following reason: ' +    status);
+       }
+      });
+
+      await geocoder.geocode({'address': userDestination}, function (results, status) {
+        if (status == 'OK') {
+          console.log(results);
+          userDestination = results[0].place_id
+        }
+        else {
+          console.log('errrrrrrrrr2');
+          alert('Geocode was not successful for the following reason: ' +    status);
+       }
+      });
+
 
       const onlineBtn = document.querySelector(".online-btn")
       onlineBtn.addEventListener('click', (e) => {
@@ -103,12 +127,14 @@ document.addEventListener('turbolinks:load', () => {
             icon: icons.start
           });
           if (order){
-            destination = storeDestination.innerText;
+            destination = storeDestination;
+            console.log(destination);
             directionMap()
           }
         } else {
           marker.setPosition(origin);
           if (order){
+            console.log(destination);
             directionMap()
           } else {
             map.setCenter(origin)
@@ -116,9 +142,7 @@ document.addEventListener('turbolinks:load', () => {
         }
       })
 
-      if (order){
-        directionMap()
-        
+      if (order){        
         const takeOrderBtn = document.querySelector('.take-order-btn');    
         takeOrderBtn.addEventListener('click' , function(){
           takeOrderBtn.remove();
@@ -152,19 +176,8 @@ document.addEventListener('turbolinks:load', () => {
             }
             document.querySelector('.btn-list').appendChild(completeBtn)
 
-            destination = userDestination.innerText
-            request.destination = userDestination.innerText
-
-            // 終點標示改為訂單送達地址
-            const geocoder = new google.maps.Geocoder()
-            geocoder.geocode({'address': destination}, function (results, status) {
-              if (status == 'OK') {
-                endMarker.setPosition(results[0].geometry.location)
-              }
-              else {
-                alert('Geocode was not successful for the following reason: ' +    status);
-             }
-            });
+            request.destination = userDestination
+            endMarker.setPosition(userDestination)
 
             const ordererphone = document.querySelector('.orderer-phone').innerText
             document.querySelector('.phone a').setAttribute('href', `tel:+886${ordererphone}`)
@@ -215,7 +228,7 @@ document.addEventListener('turbolinks:load', () => {
         if (request === undefined){
           request = {
             origin: origin,
-            destination: destination,
+            destination: {placeId: String(destination)},
             avoidFerries: true,
             avoidHighways: true,
             avoidTolls: true,
@@ -225,7 +238,7 @@ document.addEventListener('turbolinks:load', () => {
           service.getDistanceMatrix(
             {
               origins: [origin],
-              destinations: [destination],
+              destinations: [{placeId: String(destination)}],
               travelMode: google.maps.TravelMode.DRIVING,
               unitSystem: google.maps.UnitSystem.METRIC,
               avoidHighways: true,
@@ -246,7 +259,7 @@ document.addEventListener('turbolinks:load', () => {
           service.getDistanceMatrix(
             {
               origins: [origin],
-              destinations: [destination],
+              destinations: [{placeId: String(destination)}],
               travelMode: google.maps.TravelMode.DRIVING,
               unitSystem: google.maps.UnitSystem.METRIC,
               avoidHighways: true,
@@ -304,7 +317,7 @@ document.addEventListener('turbolinks:load', () => {
               googleBtn.innerText = '開啟google map';
               googleBtn.onclick = function(e){
                 window.open(
-                  `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving&dir_action=navigate`,
+                  `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destination}&travelmode=driving&dir_action=navigate`,
                   '_blank'
                 );
               }
@@ -313,6 +326,7 @@ document.addEventListener('turbolinks:load', () => {
     
             directionsDisplay.setDirections(result);
           } else {
+            console.log('err');
             console.log(status);
           }
         });
