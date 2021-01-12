@@ -98,9 +98,9 @@ ActiveRecord::Schema.define(version: 2021_01_11_093255) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "account"
     t.decimal "latitude"
     t.decimal "longitude"
+    t.string "account"
     t.index ["user_id"], name: "index_store_profiles_on_user_id"
   end
 
