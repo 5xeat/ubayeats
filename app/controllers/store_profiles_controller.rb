@@ -2,6 +2,7 @@ class StoreProfilesController < ApplicationController
   before_action :session_required, only: [:new, :create]
   before_action :set_store, only: [:show, :edit, :update]
   before_action :store_pundit, only: [:show, :edit, :update]
+  before_action :user_pundit, only: [:new, :create]
 
   def show
   end
@@ -12,11 +13,7 @@ class StoreProfilesController < ApplicationController
   end
   
   def new
-    if current_user.role == "user"
-      @store_profile = StoreProfile.new
-    else
-      render file: 'public/422.html'
-    end
+    @store_profile = StoreProfile.new
   end
 
   def create
@@ -62,5 +59,9 @@ class StoreProfilesController < ApplicationController
 
   def set_store
     @store_profile = current_user.store_profile
-  end       
+  end
+
+  def user_pundit
+    authorize current_user, :user_only
+  end
 end

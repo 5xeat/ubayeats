@@ -2,16 +2,13 @@ class DriverProfilesController < ApplicationController
   before_action :session_required
   before_action :driver_pundit, except: [:new, :create]
   before_action :set_driver, only: [:edit, :update]
+  before_action :user_pundit, only: [:new, :create]
 
   def index
   end
   
   def new
-    if current_user.role == 'user'
-      @driver_profile = DriverProfile.new
-    else
-      render file: 'public/422.html'
-    end
+    @driver_profile = DriverProfile.new
   end
 
   def create
@@ -46,5 +43,9 @@ class DriverProfilesController < ApplicationController
 
   def set_driver
     @driver_profile = current_user.driver_profile
+  end
+
+  def user_pundit
+    authorize current_user, :user_only
   end
 end
