@@ -3,16 +3,16 @@
 	<i class="fas fa-search-dollar text-4xl my-7">結帳</i>
   <%= render "carts/cart", cart:current_cart %>
   <%= form_for(@order, url: pay_carts_path, method:'post')  do |form| %>
-<div class="flex-col m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300">
+<div class="flex-col m-6 text-2xl font-medium text-gray-500 border-2 border-gray-800">
   <ul class="text-2xl m-6 text-2xl font-medium text-gray-500 ">
-     <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-800" > <%= form.label :username, '名稱'%></li>
-      <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-800"><%= form.text_field :username %></li>
+     <li> <%= form.label :username, '名稱'%></li>
+      <li class="m-6 text-2xl font-medium  border-2 border-gray-800  rounded-full text-center"><%= form.text_field :username %></li>
  
-      <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-800"><%= form.label :tel,'電話' %></li>  
-      <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-800"><%= form.text_field :tel %></li>
+      <li><%= form.label :tel,'電話' %></li>  
+      <li class="m-6 text-2xl font-medium  border-2 border-gray-800  rounded-full"><%= form.text_field :tel %></li>
   
-    <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-800"><%= form.label :address, '地址' %></li>
-    <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-800"><%= form.text_field :address %></li>
+    <li><%= form.label :address, '地址' %></li>
+    <li class="m-6 text-2xl font-medium  border-2 border-gray-800  rounded-full"><%= form.text_field :address %></li>
    </ul>
 </div>
   <div id="dropin-container ">
