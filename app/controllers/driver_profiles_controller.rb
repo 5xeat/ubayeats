@@ -7,14 +7,6 @@ class DriverProfilesController < ApplicationController
     @new_orders = Order.where(state: "preparing")
     @order = Order.where(state: "preparing").first
     @room = Room.find(1)
-    if @new_orders.present?
-      @new_orders.each{ |new_order| 
-        @store = StoreProfile.where(id: new_order.store_profile_id) ,
-        @orderer = User.find(new_order.user_id)
-      }
-      # @store = StoreProfile.find(@new_order.store_profile_id)
-      # @orderer = User.find(new_order.user_id)
-    end
   end
   
   def new

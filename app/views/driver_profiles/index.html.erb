@@ -18,16 +18,14 @@
         </div>
         <div class="title">
           <p class="store-name">
-            # <%= @store.store_name %>
           </p>
           <div class="phone">
-            # <a href="tel:+886<%= @store.store_phone %>">
               <i class="fas fa-phone-alt"></i>
             </a>
           </div>
           <% @new_orders.each do |new_order| %>
             </div>
-              # <p class="store-address"><%= @store.store_address %></p>
+              <p class="store-address"><%= new_order.store_profile.store_name %></p>
               <p class="order-number">訂單編號：<span><%= new_order.num %></span></p>
               <p class="orderer">訂單人：
                 <span><%= new_order.username %></span>
