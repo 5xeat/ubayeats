@@ -76,11 +76,11 @@ document.addEventListener('turbolinks:load', () => {
         }
       };
       
-      rePosition = navigator.geolocation.watchPosition((position) => {
+      rePosition = navigator.geolocation.watchPosition(async(position) => {
         lat = position.coords.latitude;
         lng = position.coords.longitude;
 
-        origin = new google.maps.LatLng(lat, lng);
+        origin =  await new google.maps.LatLng(lat, lng);
     
         if (map === undefined){
           // 初始化地圖
@@ -264,6 +264,8 @@ document.addEventListener('turbolinks:load', () => {
     
         // 繪製路線
         directionsService.route(request, function (result, status) {
+          console.log('hiii');
+
           if (status == 'OK') {
             leg = result.routes[0].legs[0];
             
@@ -311,6 +313,9 @@ document.addEventListener('turbolinks:load', () => {
     
             directionsDisplay.setDirections(result);
           } else {
+            console.log(origin);
+            console.log(destination);
+            console.log('hi');
             console.log(status);
           }
         });

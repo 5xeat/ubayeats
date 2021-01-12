@@ -54,6 +54,7 @@ class CartsController < ApplicationController
     end
     @order.store_profile_id = @order.order_items.first.product.store_profile_id
     @order.save
+    @order.create_room
         
     trade_no = "UB#{Time.zone.now.to_i}"
     body = {

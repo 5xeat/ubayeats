@@ -11,31 +11,40 @@
         <%= @driver_profile.online ? "下線" : "上線"%>
       </a>
     </div>
-    <% if @driver_profile.online && @new_order %>
+    <% if @driver_profile.online && @new_orders %>
       <div class="order">
         <div class="distance-matrix">
           <p></p>
         </div>
         <div class="title">
           <p class="store-name">
-            <%= @store.store_name %>
+            # <%= @store.store_name %>
           </p>
           <div class="phone">
-            <a href="tel:+886<%= @store.store_phone %>">
+            # <a href="tel:+886<%= @store.store_phone %>">
               <i class="fas fa-phone-alt"></i>
             </a>
           </div>
-        </div>
-        <p class="store-address"><%= @store.store_address %></p>
-        <p class="order-number">訂單編號：<span><%= @new_order.num %></span></p>
-        <p class="orderer">訂單人：
-          <span><%= @new_order.username %></span>
-          <span class="orderer-phone"><%= @new_order.tel %></span>
-        </p>
-        <p class="order-address">訂單地址：<span><%= @new_order.address %></span></p>
-        <div class="btn-list">
-          <div class="take-order-btn btn">接單</div>
-        </div>
+          <% @new_orders.each do |new_order| %>
+            </div>
+              # <p class="store-address"><%= @store.store_address %></p>
+              <p class="order-number">訂單編號：<span><%= new_order.num %></span></p>
+              <p class="orderer">訂單人：
+                <span><%= new_order.username %></span>
+                <span class="orderer-phone"><%= new_order.tel %></span>
+              </p>
+              <p class="order-address">訂單地址：<span><%= new_order.address %></span></p>
+              <div class="btn-list">
+                <div class="take-order-btn btn">接單</div>
+              </div>
+          <% end %>
+        <% if @room.present? && @order.state['preparing'] %>
+          <div class='chat-icon'><i class="far fa-comments"></i></div>
+          <div class="room-wrapper">
+            <div class="room-close">X</div>
+            <div><%= render 'rooms/room' %></div>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
