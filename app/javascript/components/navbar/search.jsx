@@ -127,7 +127,6 @@ function Search({user, onClick}){
         let latitude  = position.coords.latitude;
         let longitude = position.coords.longitude;
         navigator.geolocation.getCurrentPosition(success, error);
-        // geoFindMe()
         input.value = keyword
         result_list.classList.add('hidden')
         Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)

@@ -67,10 +67,8 @@ function StoreCardList(){
         error: function(err) {
         }
       })  
-
     }
   }
-  
 
   const atClick = (store) => {
     Turbolinks.visit(`/stores/${store}/delicacy`)
