@@ -1,40 +1,33 @@
-<div class="bg-yellow-50">
-  <div><img src=<%= @store_profile.store_photo %> alt="店家照片"/></div>
-   <div class="flex justify-between border-b pb-8">
-     <h1 class="font-semibold text-2xl"><%= @store_profile.store_name %></h1>
-     <h2 class="font-semibold text-2xl"><%= @store_profile.store_type %></h2>
-     <h2 class="font-semibold text-2xl"><%= @store_profile.store_address %></h2>
-   </div>
-  <div class="flex mt-10 mb-5 ">
-    <h3 class="font-semibold text-gray-600 text-lg uppercase w-2/5 ">商品</h3>
-    <%# <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">數量</h3> %>
-    <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">價錢</h3> 
-    <h3 class="font-semibold text-center text-gray-600 text-lg uppercase w-1/5 text-center">種類</h3>
-  </div>
-  <table>
-  <tbody data-controller="xyz" data-action="abc@document->xyz#hello"
-  data-controller="pricing" data-pricing-id='<%=  @products %>'>
-    <% @products.each do |product| %>
-       <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5  ">
-          <div class="flex w-2/5"> 
-          <!-- product -->  
-            <div class="flex flex-col justify-between ml-4 flex-grow">
-              <span class="font-bold text-sm "><%= product.name %></span>      
-            </div>
-          </div>
-         
-          <span class="text-center w-1/5 font-semibold text-sm"><%= product.price %></span>
-          <span class="text-center w-1/5 font-semibold text-sm"><%= product.description %></span>
-        </div>  
-        <button class="cartItemCount"> 
-         <div  data-controller="pricing" 
-        data-action='click->pricing#addToCart' data-pricing-id=<%= product.id %>>
-        加到購物車<i class="fas fa-cart-plus"></i>
-        </button>
-    <% end %>  
-    </div>
-  </tbody>
-  </table>  
-  </li>
-  <%= link_to "返回上一頁", :back %>
+<div class="store-photo">
+  <img src=<%= @store_profile.store_photo %> alt="店家照片"/>
+</div>
+
+<div class="container">
+  <h1><%= @store_profile.store_name %></h1>
+    <table class="product-list">
+      <tbody data-controller="xyz" data-action="abc@document->xyz#hello"
+      data-controller="pricing" data-pricing-id='<%=  @products %>'>
+      <% @products.each do |product| %>
+        <tr>
+            <td>
+              <span><%= product.name %></span>
+            </td>
+            <td>
+              <span><%= product.description %></span>
+            </td>
+            <td>
+              <span>$<%= product.price %></span>
+            </td>
+            <td>
+              <button class="cartItemCount btn">
+                <div  data-controller="pricing"
+                data-action='click->pricing#addToCart' data-pricing-id=<%= product.id %>>
+                  <i class="fas fa-cart-plus"></i>
+              </button>        
+            </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+   </li>
 </div>

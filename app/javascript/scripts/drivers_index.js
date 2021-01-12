@@ -1,21 +1,60 @@
-document.addEventListener('turbolinks:load', () => {
-  let rePosition;
-  if (document.querySelector('.driver_profiles.index')){
-    const onlineBtn = document.querySelector(".online-btn")
-    onlineBtn.addEventListener('click', (e) => {
-      e.preventDefault()
-      if (onlineBtn.innerText === "上線"){
-        onlineBtn.innerText = "下線"
-        document.querySelector('.status p').innerText = "等待新訂單..."
-      } else {
-        onlineBtn.innerText = "上線"
-        document.querySelector('.status p').innerText = "未上線"
-      }
-      document.querySelector('.destination').classList.toggle('hidden')
-    })
+import Rails from '@rails/ujs';
+import Swal from 'sweetalert2';
 
+document.addEventListener('turbolinks:load', () => {
+  let rePosition
+  if (document.querySelector('.driver_profiles.index')){
+    document.querySelector('.cart-icon').remove()
     window.initMap = () => {
-      let map, marker, lat, lng, place, endMarker, leg, request;
+      let map, marker, lat, lng, place, endMarker, leg, request, origin, destination, orderDestination;
+      let order = document.querySelector('.order')
+      const storeDestination = document.querySelector('.store-name')
+      const userDestination = document.querySelector('.order-address span')
+
+      const onlineBtn = document.querySelector(".online-btn")
+      onlineBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        if (onlineBtn.innerText === "上線"){
+          onlineBtn.innerText = "下線"
+          document.querySelector('.status p').innerText = "等待新訂單..."
+
+          // Rails.ajax({
+          //   url: '/drivers/online',
+          //   type: 'post',
+          //   success: (resp) => {
+          //     console.log(resp);
+          //   },
+          //   error: function(err) {
+          //     console.log(err)
+          //   }
+          // })  
+        } else {
+          onlineBtn.innerText = "上線"
+          document.querySelector('.status p').innerText = "未上線"
+          
+          if (order){
+            order.remove()
+            order = undefined
+            endMarker.setMap(null)
+            map.setCenter(origin)
+            directionsDisplay.setMap(null);
+            const steps = document.querySelector('.steps')
+            if (steps){
+              steps.remove()
+            }
+          }
+        }
+        Rails.ajax({
+          url: '/drivers/online',
+          type: 'post',
+          success: (resp) => {
+            console.log(resp);
+          },
+          error: function(err) {
+            console.log(err)
+          }
+        })
+      })  
       
       // 載入路線服務與路線顯示圖層
       let directionsService = new google.maps.DirectionsService();
@@ -36,87 +75,132 @@ document.addEventListener('turbolinks:load', () => {
           strokeColor: 'white'
         }
       };
-    
-      const calcBtn = document.querySelector(".calc-btn")
-      const destinationInput = document.getElementById("destination-input");
-      const destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
-      calcBtn.addEventListener("click", async (e) => {
-        if (destinationInput.value !== ""){
-          // 取得終點位置的placeID
-          place = await destinationAutocomplete.getPlace();
-          directionMap()
-          
-          const delivery = document.createElement('div');
-          delivery.classList.add('btn')
-          delivery.classList.add('delivery')
-          delivery.innerText = '接單'
-    
-          delivery.onclick = function(){
-            delivery.remove();
-            // 導航按鈕
-            const googleBtn = document.querySelector('.google')
-            const takenBtn = document.createElement('div')
-            takenBtn.classList.add('take-btn')
-            takenBtn.classList.add('btn')
-            takenBtn.innerText = "已取餐"
-            takenBtn.onclick = function(){
-              googleBtn.remove()
-              takenBtn.remove()
-              directionsDisplay.setMap(null);
-              document.querySelector('.distance').innerText = ''
-              document.querySelector('.time').innerText = ''
-              document.querySelector('.steps').remove()
-              endMarker.setMap(null)
-              place = undefined
-            }
-    
-            document.querySelector('.btn-list').appendChild(takenBtn)
-            if (googleBtn){
-              document.querySelector('.steps').classList.remove('hidden');
-              googleBtn.classList.remove('hidden');
-            };
-          }
-          document.querySelector('.btn-list').appendChild(delivery)
-          destinationInput.value = ''
-        }
-      })
-    
+      
       rePosition = navigator.geolocation.watchPosition((position) => {
-        console.log('watchPosition')
         lat = position.coords.latitude;
         lng = position.coords.longitude;
+
+        origin = new google.maps.LatLng(lat, lng);
     
         if (map === undefined){
           // 初始化地圖
           map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 18,
-              center: new google.maps.LatLng(lat, lng),
-              mapId: 'c57b36ae7dbc5a40',
-              mapTypeControl: false,
-              streetViewControl: false,
-              zoomControl: false,
-              fullscreenControl: false
+            zoom: 18,
+            center: origin,
+            mapId: 'c57b36ae7dbc5a40',
+            mapTypeControl: false,
+            streetViewControl: false,
+            zoomControl: false,
+            fullscreenControl: false
           });
     
           marker = new google.maps.Marker({
-            position: { lat: lat, lng: lng },
+            position: origin,
             map: map,
             animation: google.maps.Animation.BOUNCE,
             icon: icons.start
           });
-        } else {
-          marker.setPosition(new google.maps.LatLng(lat, lng));
-          if (place === undefined){
-            map.setCenter(new google.maps.LatLng(lat, lng))
-          } else {
-            console.log('rerender')
-            console.log(lat)
-            console.log(lng)
-    
+          if (order){
+            destination = storeDestination.innerText;
             directionMap()
+          }
+        } else {
+          marker.setPosition(origin);
+          if (order){
+            directionMap()
+          } else {
+            map.setCenter(origin)
           }
         }
       })
+
+      if (order){
+        directionMap()
+        
+        const takeOrderBtn = document.querySelector('.take-order-btn');    
+        takeOrderBtn.addEventListener('click' , function(){
+          takeOrderBtn.remove();
+          // 導航按鈕
+          const googleBtn = document.querySelector('.google')
+          const takenMealBtn = document.createElement('div')
+          takenMealBtn.classList.add('take-meal-btn', 'btn')
+          takenMealBtn.innerText = "已取餐"
+          takenMealBtn.onclick = function(){
+            takenMealBtn.remove()
+
+            const completeBtn = document.createElement('div')
+            completeBtn.classList.add('btn', 'complete-btn')
+            completeBtn.innerText = "已送達"
+            completeBtn.onclick = function(){
+              document.querySelector('.distance-matrix p').innerText = ''
+              document.querySelector('.steps').remove()
+              document.querySelector('.order').remove()  
+              directionsDisplay.setMap(null)
+              endMarker.setMap(null)
+              order = undefined
+              map.setCenter(origin)
+              document.querySelector('.status').classList.remove('hidden')
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '此筆訂單已送達，辛苦了！',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+            document.querySelector('.btn-list').appendChild(completeBtn)
+
+            destination = userDestination.innerText
+            request.destination = userDestination.innerText
+
+            // 終點標示改為訂單送達地址
+            const geocoder = new google.maps.Geocoder()
+            geocoder.geocode({'address': destination}, function (results, status) {
+              if (status == 'OK') {
+                endMarker.setPosition(results[0].geometry.location)
+              }
+              else {
+                alert('Geocode was not successful for the following reason: ' +    status);
+             }
+            });
+
+            const ordererphone = document.querySelector('.orderer-phone').innerText
+            document.querySelector('.phone a').setAttribute('href', `tel:+886${ordererphone}`)
+
+            const orderer = document.querySelector('.orderer')
+            orderer.innerText = orderer.querySelector('span').innerText
+            orderer.classList.add('font-medium', 'text-2xl', 'mr-5')
+            orderer.classList.remove('orderer')
+            document.querySelector('.title').insertAdjacentElement('afterbegin', orderer)
+            document.querySelector('.store-name').remove()
+            document.querySelector('.store-address').remove()
+
+            directionMap()
+          }
+          document.querySelector('.status').classList.add('hidden')
+          document.querySelector('.btn-list').appendChild(takenMealBtn)
+
+          const orderId = document.querySelector('.order-number span').innerText
+          Rails.ajax({
+            url: '/orders/driver_take_order',
+            type: 'post',
+            data: new URLSearchParams({'order': orderId}),
+            success: (resp) => {
+              console.log('suc');
+              console.log(resp);
+            },
+            error: function(err) {
+              console.log('err')
+              console.log(err)
+            }
+          })
+
+          if (googleBtn){
+            document.querySelector('.steps').classList.remove('hidden');
+            googleBtn.classList.remove('hidden');
+          };
+        })
+      }
     
       function directionMap(){
         // 計算路程時間距離
@@ -128,8 +212,8 @@ document.addEventListener('turbolinks:load', () => {
         // 路線相關設定
         if (request === undefined){
           request = {
-            origin: { lat: lat, lng: lng },
-            destination: { placeId: place.place_id },
+            origin: origin,
+            destination: destination,
             avoidFerries: true,
             avoidHighways: true,
             avoidTolls: true,
@@ -138,8 +222,8 @@ document.addEventListener('turbolinks:load', () => {
     
           service.getDistanceMatrix(
             {
-              origins: [{ lat: lat, lng: lng }],
-              destinations: [{placeId: place.place_id}],
+              origins: [origin],
+              destinations: [destination],
               travelMode: google.maps.TravelMode.DRIVING,
               unitSystem: google.maps.UnitSystem.METRIC,
               avoidHighways: true,
@@ -151,8 +235,7 @@ document.addEventListener('turbolinks:load', () => {
               } else {
                 const distance = response.rows[0].elements[0].distance.text;
                 const time = response.rows[0].elements[0].duration.text;
-                document.querySelector('.distance').innerText = `路程：${distance}`;
-                document.querySelector('.time').innerText = `時間：${time}`;
+                document.querySelector('.distance-matrix p').innerText = `${time}(${distance})`;
               }
             }
           )
@@ -160,8 +243,8 @@ document.addEventListener('turbolinks:load', () => {
           request.origin = new google.maps.LatLng(lat, lng)
           service.getDistanceMatrix(
             {
-              origins: [new google.maps.LatLng(lat, lng)],
-              destinations: [{placeId: place.place_id}],
+              origins: [origin],
+              destinations: [destination],
               travelMode: google.maps.TravelMode.DRIVING,
               unitSystem: google.maps.UnitSystem.METRIC,
               avoidHighways: true,
@@ -173,8 +256,7 @@ document.addEventListener('turbolinks:load', () => {
               } else {
                 const distance = response.rows[0].elements[0].distance.text;
                 const time = response.rows[0].elements[0].duration.text;
-                document.querySelector('.distance').innerText = `路程：${distance}`;
-                document.querySelector('.time').innerText = `時間：${time}`;
+                document.querySelector('.distance-matrix p').innerText = `${time}(${distance})`;
               }
             }
           )
@@ -200,7 +282,7 @@ document.addEventListener('turbolinks:load', () => {
     
               googleBtn.onclick = function(){
                 window.open(
-                  `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destinationInput.value}&destination_place_id=${place.place_id}&travelmode=driving&dir_action=navigate`,
+                  `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${destination}&travelmode=driving&dir_action=navigate`,
                   '_blank'
                 );
               }
@@ -239,6 +321,3 @@ document.addEventListener('turbolinks:load', () => {
     navigator.geolocation.clearWatch(rePosition)
   }
 })
-
-function googlemap(){
-}
