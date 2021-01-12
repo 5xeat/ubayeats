@@ -5,28 +5,24 @@
   <%= render "carts/cart", cart:current_cart %>
   <%= form_for(@order, url: pay_carts_path, method:'post')  do |form| %>
 
+<div class="flex-col">
 
   <span class="text-2xl m-6 text-2xl font-medium text-gray-500 ">
       <%= form.label :username, '名稱'%>
-       </span>
-  <span class="text-2xl m-6 text-2xl font-medium text-gray-500 ">
       <%= form.text_field :username %>
   </span>
 
   <span class="text-2xl m-6 text-2xl font-medium text-gray-500 ">
-    <%= form.label :tel,'電話' %>
-    </span>
-    <span class="text-2xl m-6 text-2xl font-medium text-gray-500">  
-    <%= form.text_field :tel %>
+      <%= form.label :tel,'電話' %>  
+      <%= form.text_field :tel %>
   </span>
 
   <span class="text-2xl m-6 text-2xl font-medium text-gray-500 ">
     <%= form.label :address, '地址' %>
-     </span>
-    <span class="text-2xl m-6 text-2xl font-medium text-gray-500">
     <%= form.text_field :address %>
   </span>
 
+</div>
   <div id="dropin-container ">
   <div class="flex justify-center ">
       <div class="self-center flex-1 text-center ">
