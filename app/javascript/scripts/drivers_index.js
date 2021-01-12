@@ -7,10 +7,12 @@ document.addEventListener('turbolinks:load', () => {
     document.querySelector('.cart-icon').remove()
     window.initMap = async() => {
       const geocoder = new google.maps.Geocoder()
-      let map, marker, lat, lng, endMarker, leg, request, origin, destination, googleDestination;
+      let map, marker, lat, lng, endMarker, leg, request, origin, destination, storeDestination, userDestination;
       let order = document.querySelector('.order')
-      let storeDestination = document.querySelector('.store-address').innerText
-      let userDestination = document.querySelector('.order-address span').innerText
+      if (order){
+        storeDestination = document.querySelector('.store-address').innerText
+        userDestination = document.querySelector('.order-address span').innerText
+      }
 
       await geocoder.geocode({'address': storeDestination}, function (results, status) {
         if (status == 'OK') {
