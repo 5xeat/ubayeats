@@ -55,6 +55,7 @@ class CartsController < ApplicationController
     @order.store_profile_id = @order.order_items.first.product.store_profile_id
     @order.total_price = current_cart.total_price
     @order.save
+    @order.close!
         
     trade_no = "UB#{Time.zone.now.to_i}"
     body = {
