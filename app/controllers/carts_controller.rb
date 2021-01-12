@@ -58,7 +58,7 @@ class CartsController < ApplicationController
     trade_no = "UB#{Time.zone.now.to_i}"
     body = {
             "amount": current_cart.total_price,
-            "confirmUrl":"https://ubayeats.herokuapp.com/confirm",
+            "confirmUrl":"https://ubayeats.herokuapp.com/carts/confirm",
             "productName":"Ubayeats",
             "orderId": @order.num,
             "currency": "TWD"
