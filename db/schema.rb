@@ -60,11 +60,7 @@ ActiveRecord::Schema.define(version: 2021_01_11_093255) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "total_price"
     t.bigint "store_profile_id", null: false
-<<<<<<< HEAD
-    t.string "driver"
-=======
     t.string "driver_id"
->>>>>>> develop
     t.string "num"
     t.string "transaction_id"
     t.datetime "paid_at"
