@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :preparing
       get :delivering
       get :record
+      post :driver_take_order
     end
   end
 
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
 
   resource :driver_profiles, path: '/drivers', only: [:new, :create, :edit, :update] do
     get :index
+    post :online
   end
 
   resource :store_profiles, path: '/stores'

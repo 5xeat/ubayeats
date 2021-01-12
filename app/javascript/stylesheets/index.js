@@ -9,4 +9,8 @@ import './user_edit.scss'
 import './store_show.scss'
 import './order_index.scss'
 import './order_show.scss'
+<<<<<<< HEAD
 
+=======
+import './store_delicacy.scss'
+>>>>>>> develop
