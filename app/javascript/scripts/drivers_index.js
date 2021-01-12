@@ -9,33 +9,32 @@ document.addEventListener('turbolinks:load', () => {
       const geocoder = new google.maps.Geocoder()
       let map, marker, lat, lng, endMarker, leg, request, origin, destination, storeDestination, userDestination;
       let order = document.querySelector('.order')
+      
       if (order){
         storeDestination = document.querySelector('.store-address').innerText
         userDestination = document.querySelector('.order-address span').innerText
+        await geocoder.geocode({'address': storeDestination}, function (results, status) {
+          if (status == 'OK') {
+            console.log(results[0].place_id);
+            storeDestination = results[0]
+          }
+          else {
+            console.log('errrrrrrrrr1');
+            alert('Geocode was not successful for the following reason: ' +    status);
+         }
+        });
+  
+        await geocoder.geocode({'address': userDestination}, function (results, status) {
+          if (status == 'OK') {
+            console.log(results);
+            userDestination = results[0]
+          }
+          else {
+            console.log('errrrrrrrrr2');
+            alert('Geocode was not successful for the following reason: ' +    status);
+         }
+        });  
       }
-
-      await geocoder.geocode({'address': storeDestination}, function (results, status) {
-        if (status == 'OK') {
-          console.log(results[0].place_id);
-          storeDestination = results[0]
-        }
-        else {
-          console.log('errrrrrrrrr1');
-          alert('Geocode was not successful for the following reason: ' +    status);
-       }
-      });
-
-      await geocoder.geocode({'address': userDestination}, function (results, status) {
-        if (status == 'OK') {
-          console.log(results);
-          userDestination = results[0]
-        }
-        else {
-          console.log('errrrrrrrrr2');
-          alert('Geocode was not successful for the following reason: ' +    status);
-       }
-      });
-
 
       const onlineBtn = document.querySelector(".online-btn")
       onlineBtn.addEventListener('click', (e) => {
