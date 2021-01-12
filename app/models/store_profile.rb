@@ -16,6 +16,4 @@ class StoreProfile < ApplicationRecord
   validates :store_address, presence: true
   validates :store_phone, presence: true
   validates :account, presence: true
-  
-
 end

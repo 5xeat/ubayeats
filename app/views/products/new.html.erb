@@ -1,10 +1,8 @@
 <div class="container">
-  <%= if @product.errors.any? %>
-  <ul>
+  <% if @product.errors.any? %>
     <% @product.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
+      <%= message %>
     <% end %>
-  </ul>
   <% end %>
 
   <h1>新增產品</h1>
@@ -28,8 +26,6 @@
     <div class="form-item">
       <%= form.label :description, "產品描述" %>
       <%= form.text_field :description %>
-      <div class="error-message"></div>
-      <i class="fas fa-exclamation-circle"></i>
     </div>
 
     <div class="actions">
