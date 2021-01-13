@@ -144,9 +144,9 @@ document.addEventListener('turbolinks:load', () => {
     
         if (map === undefined){
           // 初始化地圖
-          map = new google.maps.Map(document.getElementById('map'), {
+          map = await new google.maps.Map(document.getElementById('map'), {
             zoom: 18,
-            center: origin,
+            center: {lat: 0, lng: 0},
             mapId: 'c57b36ae7dbc5a40',
             mapTypeControl: false,
             streetViewControl: false,
