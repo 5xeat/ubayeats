@@ -14,6 +14,7 @@ document.addEventListener('turbolinks:load', () => {
     window.initMap = async() => {
       const geocoder = new google.maps.Geocoder()
       let map, marker, lat, lng, endMarker, leg, request, origin, destination, storeDestination, userDestination;
+      const num = document.querySelector('.order-number span').innerText
       
       storeDestination = document.querySelector('.store-address').innerText
       userDestination = document.querySelector('.order-address span').innerText
@@ -79,7 +80,7 @@ document.addEventListener('turbolinks:load', () => {
             animation: google.maps.Animation.BOUNCE,
             icon: icons.start
           });
-          if (document.querySelector('.order-state').innerText === 'delivering'){
+          if (document.querySelector('.order-state').innerText === 'completed'){
             destination = userDestination;
             renewBtn()
           } else {
@@ -101,41 +102,48 @@ document.addEventListener('turbolinks:load', () => {
       }
 
       function setTakeMealBtn(){
-        renewBtn()
-        destination = userDestination
-        endMarker.setPosition(userDestination.geometry.location)
-
-        const num = document.querySelector('.order-number span').innerText
         Rails.ajax({
           url: '/orders/delivering_update',
           type: 'post',
           data: new URLSearchParams({'num': num}),
           success: (resp) => {
-            console.log(resp);
+            renewBtn()
+            destination = userDestination
+            endMarker.setPosition(userDestination.geometry.location) 
+            directionMap()   
           },
           error: function(err) {
             console.log(err)
           }
         })
-
-        directionMap()
       }
 
-      async function setCompleteBtn(){
-        document.querySelector('.distance-matrix p').innerText = ''
-        document.querySelector('.steps').remove()
-        document.querySelector('.order').remove()  
-        directionsDisplay.setMap(null)
-        endMarker.setMap(null)
-        map.setCenter(origin)
-        await Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '此筆訂單已送達，辛苦了！',
-          showConfirmButton: false,
-          timer: 1500
+      function setCompleteBtn(){
+        Rails.ajax({
+          url: '/orders/record_update',
+          type: 'post',
+          data: new URLSearchParams({'num': num}),
+          success: async (resp) => {
+            document.querySelector('.distance-matrix p').innerText = ''
+            document.querySelector('.steps').remove()
+            document.querySelector('.order').remove()  
+            directionsDisplay.setMap(null)
+            endMarker.setMap(null)
+            map.setCenter(origin)
+    
+            await Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '此筆訂單已送達，辛苦了！',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            window.location.href = '/drivers'    
+          },
+          error: function(err) {
+            console.log(err)
+          }
         })
-        window.location.href = '/drivers'
       }
 
       function renewBtn(){

@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :session_required
   before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
-  before_action :find_order, only: [:recieving_update, :preparing_update, :record_update]
+  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order]
 
   def index
     @orders = current_user.orders
@@ -34,7 +34,6 @@ class OrdersController < ApplicationController
   end
 
   def delivering_update
-    @order = Order.find_by!(num: params[:num])
     @order.go! if @order.delivering?
   end
 
@@ -44,14 +43,12 @@ class OrdersController < ApplicationController
 
   def record_update
     @order.arrive! if @order.completed?
-    redirect_to record_orders_path, notice:'訂單送達，辛苦了'
   end
 
   def driver_take_order
-    order = Order.find_by!(num: params[:order])
     driver = current_user.driver_profile
-    if (Order.where(driver_id: driver.id, state: 'preparing').length) == 0
-      order.update(driver_id: driver.id)
+    if (Order.where(driver_id: driver.id, state: ['preparing', 'delivering']).length) == 0
+      @order.update(driver_id: driver.id)
     else
       redirect_to driver_profiles_path, notice: '不要太貪心唷！請先把訂單送達'
     end
@@ -67,6 +64,6 @@ class OrdersController < ApplicationController
   end
 
   def find_order
-    @order = Order.find_by(num: params[:order][:num])
+    @order = Order.find_by!(num: params[:num] || params[:order][:num])
   end
 end
