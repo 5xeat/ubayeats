@@ -75,8 +75,18 @@ function Search({user, onClick}){
         input.value = keyword
         result_list.classList.add('hidden')
         selectedSuggestionsIndex = -1
+        if (latitude!== null && latitude !== ""){
+          Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
+        } else{
+          Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+        }
+        
       }
-      Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
+      if (latitude!== null && latitude !== ""){
+        Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
+      } else{
+        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+      }
     }
   }
 

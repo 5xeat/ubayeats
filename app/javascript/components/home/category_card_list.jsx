@@ -1,5 +1,6 @@
 import React from 'react'
 import "./home.scss";
+import Rails from '@rails/ujs';
 
 // components
 import CategoryCard from './category_card.jsx'
@@ -49,7 +50,7 @@ const geoFindMe = (keyword) => {
       url: "/stores/recommand.json",
       type: "GET",
       success: (resp) => {
-        setData(resp)
+        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
       },
       error: function(err) {
       }
