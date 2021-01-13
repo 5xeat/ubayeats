@@ -9,6 +9,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @room = @order.room
   end
 
   def recieving
@@ -35,6 +36,7 @@ class OrdersController < ApplicationController
 
   def delivering_update
     @order.go! if @order.delivering?
+    room = @order.room.create
   end
 
   def record

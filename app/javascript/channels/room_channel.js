@@ -36,7 +36,14 @@ document.addEventListener('turbolinks:load', () => {
     
         const messageContainer = document.getElementById('messages')
         messageContainer.innerHTML = messageContainer.innerHTML + html
-        document.querySelector('#messages').scrollTo(0,document.querySelector('#messages').scrollHeight)
+        document.querySelector('#messages').scrollTo(0,document.querySelector('#messages').scrollHeight);
+
+        if(Notification.permission === "granted"){
+          var title = '您有新訊息'
+          var body  = data.content
+          var options = { body: body }
+          new Notification(title, options)
+        }
       }
     });
   }
