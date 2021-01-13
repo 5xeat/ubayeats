@@ -50,7 +50,11 @@ class OrdersController < ApplicationController
   def driver_take_order
     order = Order.find_by!(num: params[:order])
     driver = current_user.driver_profile
-    order.update(driver_id: driver.id)
+    if (Order.where(driver_id: driver.id, state: 'preparing').length) == 0
+      order.update(driver_id: driver.id)
+    else
+      redirect_to driver_profiles_path, notice: '不要太貪心唷！請先把訂單送達'
+    end
   end
 
   private
