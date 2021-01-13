@@ -119,6 +119,17 @@ document.addEventListener('turbolinks:load', () => {
         document.querySelector('.store-name').remove()
         document.querySelector('.store-address').remove()
 
+        Rails.ajax({
+          url: '/orders/delivering_update',
+          type: 'post',
+          success: (resp) => {
+            console.log(resp);
+          },
+          error: function(err) {
+            console.log(err)
+          }
+        })
+
         directionMap()
       }
 

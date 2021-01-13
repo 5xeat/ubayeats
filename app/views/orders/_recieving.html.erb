@@ -2,6 +2,6 @@
 
 <% recieving_orders.each do |recieving_order| %>
   <%= form_for(recieving_order, url: recieving_update_orders_path, method: 'post')  do |form| %>
-    <%= render 'form', form: form, recieving_order: recieving_order %>
+    <%= render 'form', form: form, recieving_order: recieving_order, button: '確認訂單' %>
   <% end %>
 <% end %>
