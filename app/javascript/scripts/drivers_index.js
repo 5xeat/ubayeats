@@ -1,7 +1,6 @@
 import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load', () => {
-  let rePosition
   if (document.querySelector('.driver_profiles.index')){
     document.querySelector('.cart-icon').remove()
     window.initMap = async() => {
@@ -99,27 +98,22 @@ document.addEventListener('turbolinks:load', () => {
         // })
       })  
       
-      rePosition = navigator.geolocation.watchPosition((position) => {
+      navigator.geolocation.watchPosition((position) => {
         lat = position.coords.latitude;
         lng = position.coords.longitude;
-        console.log(lat);
-        console.log(lng);
 
         origin = new google.maps.LatLng(lat, lng);
 
         if (orders){
-          console.log('recalc');
           const orders = document.querySelectorAll('.order')
           orders.forEach((order) => {
             const address = order.querySelector('.store-address').innerText
             geocoder.geocode({'address': address}, function (results, status) {
               if (status == 'OK') {
-                console.log(results[0].place_id);
                 const placeId = results[0].place_id
                 directionMap(order, placeId)
               }
               else {
-                console.log('err');
                 alert('Geocode was not successful for the following reason: ' +    status);
               }
             });  
@@ -129,18 +123,15 @@ document.addEventListener('turbolinks:load', () => {
       })
 
       function setTakeOrderBtn(e){
-        console.log(e.target.parentNode.querySelector('.order-num').innerText);
         const num = e.target.parentNode.querySelector('.order-num').innerText
         Rails.ajax({
           url: '/orders/driver_take_order',
           type: 'post',
           data: new URLSearchParams({'order': num}),
           success: (resp) => {
-            console.log('suc');
             window.location.href = `/drivers/order_deliver?order=${num}`
           },
           error: function(err) {
-            console.log('err')
             console.log(err)
           }
         })
@@ -171,8 +162,8 @@ document.addEventListener('turbolinks:load', () => {
         )
       }
     }
-  } else {
+  } else if (!document.querySelector('.driver_profiles.order_deliver')){
     window.initMap = () => {}
-    navigator.geolocation.clearWatch(rePosition)
+    navigator.geolocation.clearWatch(rePosition)    
   }
 })

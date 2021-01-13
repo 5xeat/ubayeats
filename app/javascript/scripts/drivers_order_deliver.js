@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', () => {
   let rePosition
+
   if (document.querySelector('.driver_profiles.order_deliver')){
     document.querySelector('.cart-icon').remove()
     window.initMap = async() => {
@@ -13,22 +14,18 @@ document.addEventListener('turbolinks:load', () => {
       userDestination = document.querySelector('.order-address span').innerText
       await geocoder.geocode({'address': storeDestination}, function (results, status) {
         if (status == 'OK') {
-          console.log(results[0].place_id);
           storeDestination = results[0]
         }
         else {
-          console.log('errrrrrrrrr1');
           alert('Geocode was not successful for the following reason: ' +    status);
         }
       });
 
       await geocoder.geocode({'address': userDestination}, function (results, status) {
         if (status == 'OK') {
-          console.log(results);
           userDestination = results[0]
         }
         else {
-          console.log('errrrrrrrrr2');
           alert('Geocode was not successful for the following reason: ' +    status);
         }
       });  
@@ -56,8 +53,6 @@ document.addEventListener('turbolinks:load', () => {
       rePosition = navigator.geolocation.watchPosition((position) => {
         lat = position.coords.latitude;
         lng = position.coords.longitude;
-        console.log(lat);
-        console.log(lng);
 
         origin = new google.maps.LatLng(lat, lng);
     
@@ -83,7 +78,6 @@ document.addEventListener('turbolinks:load', () => {
           directionMap()
         } else {
           marker.setPosition(origin);
-          console.log('rerender');
           directionMap()
         }
       })
@@ -103,7 +97,6 @@ document.addEventListener('turbolinks:load', () => {
         completeBtn.onclick = setCompleteBtn
         document.querySelector('.btn-list').appendChild(completeBtn)
 
-        console.log(userDestination.place_id);
         destination = userDestination
         endMarker.setPosition(userDestination.geometry.location)
 
@@ -121,28 +114,26 @@ document.addEventListener('turbolinks:load', () => {
         directionMap()
       }
 
-      function setCompleteBtn(){
+      async function setCompleteBtn(){
         document.querySelector('.distance-matrix p').innerText = ''
         document.querySelector('.steps').remove()
         document.querySelector('.order').remove()  
         directionsDisplay.setMap(null)
         endMarker.setMap(null)
-        order = undefined
         map.setCenter(origin)
-        document.querySelector('.status').classList.remove('hidden')
-        Swal.fire({
+        await Swal.fire({
           position: 'center',
           icon: 'success',
           title: '此筆訂單已送達，辛苦了！',
           showConfirmButton: false,
           timer: 1500
         })
+        window.location.href = '/drivers'
       }
 
       function directionMap(){
         // 計算路程時間距離
         const service = new google.maps.DistanceMatrixService();
-        console.log(destination);
     
         // 放置路線圖層
         directionsDisplay.setMap(map);
@@ -214,7 +205,7 @@ document.addEventListener('turbolinks:load', () => {
                 animation: google.maps.Animation.DROP
               })
             }
-            document.querySelector('.steps p').innerText = leg.steps[0].instructions
+            document.querySelector('.steps p').innerHTML = leg.steps[0].instructions
             let googleBtn = document.querySelector('.google')
             googleBtn.onclick = function(){
               window.open(
@@ -224,14 +215,10 @@ document.addEventListener('turbolinks:load', () => {
             }
             directionsDisplay.setDirections(result);
           } else {
-            console.log('err');
             console.log(status);
           }
         });
       }    
     }
-  } else {
-    window.initMap = () => {}
-    navigator.geolocation.clearWatch(rePosition)
   }
 })
