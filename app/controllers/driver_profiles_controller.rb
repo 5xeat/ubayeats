@@ -8,8 +8,7 @@ class DriverProfilesController < ApplicationController
   end
 
   def order_deliver
-    @order = Order.where(driver_id: @driver_profile.id).find_by!(num: params[:order])
-    p @order
+    @order = Order.find_by_driver_id_and_num_and_state!(@driver_profile.id, params[:order], 'preparing')
     @store = StoreProfile.find(@order.store_profile_id)
   end
   
