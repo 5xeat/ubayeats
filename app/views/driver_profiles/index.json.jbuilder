@@ -5,5 +5,5 @@ json.array!(@orders) do |order|
   json.total_price order.total_price
   json.num order.num
   json.user User.find(order.user_id)
-  json.store User.find(order.store_profile_id)
+  json.store StoreProfile.find(order.store_profile_id)
 end

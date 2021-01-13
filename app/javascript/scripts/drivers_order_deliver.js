@@ -5,6 +5,11 @@ document.addEventListener('turbolinks:load', () => {
   let rePosition
 
   if (document.querySelector('.driver_profiles.order_deliver')){
+    if (!navigator.geolocation){
+      alert('Geolocation is not supported by your browser')
+      return;
+    }
+  
     document.querySelector('.cart-icon').remove()
     window.initMap = async() => {
       const geocoder = new google.maps.Geocoder()
@@ -80,6 +85,9 @@ document.addEventListener('turbolinks:load', () => {
           marker.setPosition(origin);
           directionMap()
         }
+      },() => {
+        alert('請開啟定位服務！')
+        document.querySelector('.driver_profiles.order_deliver').innerHTML = ''
       })
 
       const takenMealBtn = document.querySelector('.take-meal-btn')

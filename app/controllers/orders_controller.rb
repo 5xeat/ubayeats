@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
 
   def preparing_update
     @order.complete! if @order.preparing?
-    redirect_to store_profiles_path, notice:'有訂單已完成'
+    redirect_to store_profiles_path, notice:'有訂單等待外送員取餐'
   end
 
   def delivering

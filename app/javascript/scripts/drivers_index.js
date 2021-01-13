@@ -2,6 +2,12 @@ import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('.driver_profiles.index')){
+    if (!navigator.geolocation){
+      console.log('not');
+      alert('Geolocation is not supported by your browser')
+      return;
+    }
+  
     document.querySelector('.cart-icon').remove()
     window.initMap = async() => {
       const geocoder = new google.maps.Geocoder()
@@ -12,6 +18,9 @@ document.addEventListener('turbolinks:load', () => {
       const offlineBtn = document.querySelector('.offline-btn')
       onlineBtn.addEventListener('click', (e) => {
         e.preventDefault()
+        onlineBtn.classList.add('bg-red-500', 'text-white')
+        offlineBtn.classList.remove('bg-red-500', 'text-white')
+
         document.querySelector('.status h1').innerText = "等待新訂單..."
 
         Rails.ajax({
@@ -57,6 +66,7 @@ document.addEventListener('turbolinks:load', () => {
                   }
                 });
                 document.querySelector('.order-lists').appendChild(ordercard)
+                orders = document.querySelector('.order')
                 ordercard.querySelector('.take-order-btn').addEventListener('click' , setTakeOrderBtn);
               })
             }
@@ -79,18 +89,18 @@ document.addEventListener('turbolinks:load', () => {
       })  
 
       offlineBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        offlineBtn.classList.add('bg-red-500', 'text-white')
+        onlineBtn.classList.remove('bg-red-500', 'text-white')
+        
         document.querySelector('.status h1').innerText = "未上線"
         
-        if (order){
-          order.remove()
-          order = undefined
-          endMarker.setMap(null)
-          map.setCenter(origin)
-          directionsDisplay.setMap(null);
-          const steps = document.querySelector('.steps')
-          if (steps){
-            steps.remove()
-          }
+        if (orders){
+          const orderLists = document.querySelector('.order-lists')
+          orderLists.querySelectorAll('.order').forEach((order) => {
+            order.remove()
+          })
+          orders = undefined
         }
         Rails.ajax({
           url: '/drivers/online',
@@ -105,6 +115,7 @@ document.addEventListener('turbolinks:load', () => {
       })
       
       navigator.geolocation.watchPosition((position) => {
+        
         lat = position.coords.latitude;
         lng = position.coords.longitude;
 
@@ -126,6 +137,9 @@ document.addEventListener('turbolinks:load', () => {
             order.querySelector('.take-order-btn').addEventListener('click', setTakeOrderBtn)
           })
         }
+      }, () => {
+        alert('請開啟定位服務！')
+        document.querySelector('.driver_profiles.index').innerHTML = ''
       })
 
       function setTakeOrderBtn(e){
