@@ -14,6 +14,27 @@ document.addEventListener('turbolinks:load', () => {
     window.initMap = async() => {
       let lat, lng, origin;
       let orders = document.querySelector('.order')
+
+      await navigator.geolocation.watchPosition((position) => {
+        
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+
+        origin = new google.maps.LatLng(lat, lng);
+
+        if (orders){
+          const orders = document.querySelectorAll('.order')
+          orders.forEach((order) => {
+            const latitude = order.querySelector('.store-latitude').innerText
+            const longitude = order.querySelector('.store-longitude').innerText
+            directionMap(order, latitude, longitude)
+            order.querySelector('.take-order-btn').addEventListener('click', setTakeOrderBtn)
+          })
+        }
+      }, () => {
+        alert('請開啟定位服務！')
+        document.querySelector('.driver_profiles.index').innerHTML = ''
+      })
       
       const onlineBtn = document.querySelector(".online-btn")
       const offlineBtn = document.querySelector('.offline-btn')
@@ -28,7 +49,6 @@ document.addEventListener('turbolinks:load', () => {
           url: '/drivers.json',
           type: 'get',
           success: (resp) => {
-            console.log(resp);
             if (resp !== {}){
               resp.map((order) => {
                 const ordercard = document.createElement('div')
@@ -43,6 +63,12 @@ document.addEventListener('turbolinks:load', () => {
                   </h1>
                   <p class="store-address flex items-center text-gray-600 pb-2 border-b border-gray-200">
                     ${order.store.store_address}
+                    <span class="store-latitude hidden">
+                      ${order.store.latitude}
+                    </span>
+                    <span class="store-longitude hidden">
+                      ${order.store.longitude}
+                    </span>            
                   </p>
                   <p class="distance flex items-center text-gray-600 mb-2 text-xl">
                     距離/時間
@@ -55,10 +81,10 @@ document.addEventListener('turbolinks:load', () => {
                   </button>
                 </div>
                 `
-                const latitude = order.store.store_latitude
-                const longitude = order.store.store_longitude
-                directionMap(order, latitude, longitude)
-                order.querySelector('.take-order-btn').addEventListener('click', setTakeOrderBtn)
+                const latitude = ordercard.querySelector('.store-latitude').innerText
+                const longitude = ordercard.querySelector('.store-longitude').innerText
+                directionMap(ordercard, latitude, longitude)
+                ordercard.querySelector('.take-order-btn').addEventListener('click', setTakeOrderBtn)
                 document.querySelector('.order-lists').appendChild(ordercard)
                 orders = document.querySelector('.order')
                 ordercard.querySelector('.take-order-btn').addEventListener('click' , setTakeOrderBtn);
@@ -74,7 +100,6 @@ document.addEventListener('turbolinks:load', () => {
           url: '/drivers/online',
           type: 'post',
           success: (resp) => {
-            console.log(resp);
           },
           error: function(err) {
             console.log(err)
@@ -100,7 +125,6 @@ document.addEventListener('turbolinks:load', () => {
           url: '/drivers/online',
           type: 'post',
           success: (resp) => {
-            console.log(resp);
           },
           error: function(err) {
             console.log(err)
@@ -108,27 +132,6 @@ document.addEventListener('turbolinks:load', () => {
         })
       })
       
-      navigator.geolocation.watchPosition((position) => {
-        
-        lat = position.coords.latitude;
-        lng = position.coords.longitude;
-
-        origin = new google.maps.LatLng(lat, lng);
-
-        if (orders){
-          const orders = document.querySelectorAll('.order')
-          orders.forEach((order) => {
-            const latitude = order.querySelector('.store-latitude').innerText
-            const longitude = order.querySelector('.store-longitude').innerText
-            directionMap(order, latitude, longitude)
-            order.querySelector('.take-order-btn').addEventListener('click', setTakeOrderBtn)
-          })
-        }
-      }, () => {
-        alert('請開啟定位服務！')
-        document.querySelector('.driver_profiles.index').innerHTML = ''
-      })
-
       function setTakeOrderBtn(e){
         const num = e.target.parentNode.querySelector('.order-num').innerText
         Rails.ajax({

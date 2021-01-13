@@ -1,7 +1,7 @@
 <section class="text-gray-600 body-font overflow-hidden">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="status flex flex-col text-center w-full mb-20">
-      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
+  <div class="container pb-24 mx-auto">
+    <div class="status flex flex-col text-center w-full mb-5">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-0 text-gray-900">
         <%= @driver_profile.online ? "等待新訂單..." : "未上線"%>
       </h1>
       <div class="flex mx-auto border-2 border-red-500 rounded overflow-hidden mt-6">
@@ -30,7 +30,7 @@
             </span>      
           </p>
           <p class="distance flex items-center text-gray-600 mb-2 text-xl">
-            距離/時間
+            計算時間距離...
           </p>
           <button class="take-order-btn flex items-center mt-auto text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-red-500 rounded">
             接單
