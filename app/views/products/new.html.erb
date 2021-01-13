@@ -5,31 +5,31 @@
     <% end %>
   <% end %>
 
-  <h1>新增產品</h1>
+  <h1>新增餐點</h1>
 
   <%= form_for(@product) do |form| %>
 
     <div class="form-item">
-      <%= form.label :name, "產品名稱" %>
+      <%= form.label :name, "餐點名稱" %>
       <%= form.text_field :name %>
       <div class="error-message"></div>
       <i class="fas fa-exclamation-circle"></i>
     </div>
 
     <div class="form-item">
-      <%= form.label :price, "產品價格" %>
+      <%= form.label :price, "餐點價格" %>
       <%= form.text_field :price %>
       <div class="error-message"></div>
       <i class="fas fa-exclamation-circle"></i>
     </div>
 
     <div class="form-item">
-      <%= form.label :description, "產品描述" %>
+      <%= form.label :description, "餐點描述" %>
       <%= form.text_field :description %>
     </div>
 
     <div class="actions">
-      <%= form.submit '新增產品', class:"btn btn-primary btn-submit" %>
+      <%= form.submit '新增餐點', class:"btn btn-primary btn-submit" %>
     </div>
 
   <% end %>

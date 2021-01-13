@@ -1,5 +1,5 @@
 <h1>菜單</h1>
-<%= link_to "新增產品", new_product_path %> 
+<%= link_to "新增餐點", new_product_path %> 
 <% @products.each do |product| %>
 <ul>
   <li><%= product.name %></li>
@@ -16,7 +16,7 @@
 </ul>
 <% end %>
 
-<h1>已下架商品</h1>
+<h1>已下架餐點</h1>
 <% @productsUnavailable.each do |product| %>
   <ul>
     <li><%= product.name %></li>

@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
     @product = current_user.store_profile.products.new(params_product)
     
     if @product.save
-      redirect_to store_profiles_path, notice: "新增產品成功"
+      redirect_to store_profiles_path, notice: "新增餐點成功"
     else
       render :new
     end
@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(params_product)
-      redirect_to product_path(@product), notice: '編輯商品成功'
+      redirect_to product_path(@product), notice: '編輯餐點成功'
     else
       render :edit
     end
@@ -36,17 +36,17 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy if @product
-    redirect_to stores_products_path, notice: '刪除商品成功'
+    redirect_to products_path, notice: '刪除餐點成功'
   end
 
   def toggle_publish
     authorize @product, :publish?
     if @product.may_publish?
       @product.publish!
-      redirect_to stores_products_path, notice: '商品已上架'
+      redirect_to products_path, notice: '餐點已上架'
     elsif @product.may_delist?
       @product.delist!
-      redirect_to stores_products_path, notice: '商品已下架'
+      redirect_to products_path, notice: '餐點已下架'
     end
   end
 

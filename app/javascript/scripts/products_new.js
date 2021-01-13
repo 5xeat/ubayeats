@@ -30,7 +30,7 @@ document.addEventListener('turbolinks:load', () => {
     function checkName() {
       const nameValue = name.value.trim()
       if (nameValue === '') {
-        setErrorFor(name, "產品名稱不得空白")
+        setErrorFor(name, "餐點名稱不得空白")
       } else {
         setSuccessFor(name)
       }
@@ -39,7 +39,7 @@ document.addEventListener('turbolinks:load', () => {
     function checkPrice() {
       const priceValue = price.value.trim()
       if (priceValue === '') {
-        setErrorFor(price, "產品價格不得空白")
+        setErrorFor(price, "餐點價格不得空白")
       } else {
         setSuccessFor(name)
       }

@@ -8,7 +8,7 @@ class StoreProfilesController < ApplicationController
 
   def delicacy
     @store_profile = StoreProfile.find_by!(id: params[:id])
-    @products = @store_profile.products
+    @products = @store_profile.products.available
   end
   
   def new
