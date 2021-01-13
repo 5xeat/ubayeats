@@ -1,10 +1,12 @@
-<div class="buy bg-yellow-50">
-<h1 class="font-semibold text-2xl">購物車</h1>
-<%= render "carts/cart" %>
-<button class="hover:bg-yellow-200 px-5 py-2 text-3xl text-white uppercase rounded border-4 border-blue-900"><%= link_to '繼續購買', root_path %></button>
-<button class="hover:bg-yellow-200 px-5 py-2 text-3xl text-white uppercase rounded border-4 border-blue-900"><%= link_to '結帳' , checkout_carts_path %></button>
-<button class=" hover:bg-yellow-200 px-5 py-2 text-3xl  uppercase rounded border-4 border-blue-900	"><%= link_to '清空購物車', carts_path, method: 'delete'%></button>
+
+<div class="text-center text-gray-500">
+    <i class="fas fa-shopping-bag text-4xl my-7 shadow-2xl bg-gray-100">購物車</i>
+    <%= render "carts/cart" %>
+    <button class="btn "><%= link_to '繼續購買', root_path %>
+    </button>
+    <button class="btn"><%= link_to '結帳' , checkout_carts_path %>
+    </button>
+    <button class="btn"><%= link_to '清空購物車', carts_path, method: 'delete'%>
+    </button>
 </div>
-
-
  
