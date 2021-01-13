@@ -134,19 +134,19 @@ document.addEventListener('turbolinks:load', () => {
         }
       };
       
-      rePosition = navigator.geolocation.watchPosition(async(position) => {
+      rePosition = navigator.geolocation.watchPosition((position) => {
         lat = position.coords.latitude;
         lng = position.coords.longitude;
         console.log(lat);
         console.log(lng);
 
-        origin = await new google.maps.LatLng(lat, lng);
+        origin = new google.maps.LatLng(lat, lng);
     
         if (map === undefined){
           // 初始化地圖
-          map = await new google.maps.Map(document.getElementById('map'), {
+          map = new google.maps.Map(document.getElementById('map'), {
             zoom: 18,
-            center: {lat: 0, lng: 0},
+            center: origin,
             mapId: 'c57b36ae7dbc5a40',
             mapTypeControl: false,
             streetViewControl: false,
