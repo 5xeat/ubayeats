@@ -119,9 +119,11 @@ document.addEventListener('turbolinks:load', () => {
         document.querySelector('.store-name').remove()
         document.querySelector('.store-address').remove()
 
+        const num = document.querySelector('.order-number span').innerText
         Rails.ajax({
           url: '/orders/delivering_update',
           type: 'post',
+          data: new URLSearchParams({'order': {'num': num}}),
           success: (resp) => {
             console.log(resp);
           },
