@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    @room = Room.find(1)
+    @room = @order.room
   end
 
   def recieving

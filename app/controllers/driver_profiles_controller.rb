@@ -4,9 +4,12 @@ class DriverProfilesController < ApplicationController
   before_action :set_driver, only: [:index, :edit, :update, :online]
 
   def index
-    @new_orders = Order.where(state: "preparing")
-    @order = Order.where(state: "preparing").first
-    @room = Room.find(1)
+    @new_order = Order.where(state: "preparing").first
+    @room = @new_order.room
+    if @new_order
+      @store = StoreProfile.find(@new_order.store_profile_id)
+      @orderer = User.find(@new_order.user_id)
+    end
   end
   
   def new
