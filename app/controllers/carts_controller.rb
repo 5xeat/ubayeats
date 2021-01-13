@@ -53,8 +53,10 @@ class CartsController < ApplicationController
     @order.order_items << OrderItem.new(product: item.product, quantity: item.quantity)
     end
     @order.store_profile_id = @order.order_items.first.product.store_profile_id
+    @order.total_price = current_cart.total_price
     @order.save
     @order.create_room
+    @order.close!
         
     trade_no = "UB#{Time.zone.now.to_i}"
     body = {

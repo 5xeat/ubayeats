@@ -6,12 +6,9 @@
     .destination {
       @apply absolute z-10 bg-white;
     }
-    .map {
+    #map {
       @apply flex-grow w-full;
       margin-bottom: -25px;
-      #map {
-        @apply  h-full w-full;
-      }
     }
     .steps {
       @apply w-full z-10;
