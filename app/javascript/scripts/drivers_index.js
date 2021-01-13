@@ -12,7 +12,6 @@ document.addEventListener('turbolinks:load', () => {
   
     document.querySelector('.cart-icon').remove()
     window.initMap = async() => {
-      const geocoder = new google.maps.Geocoder()
       let lat, lng, origin;
       let orders = document.querySelector('.order')
       
@@ -56,17 +55,10 @@ document.addEventListener('turbolinks:load', () => {
                   </button>
                 </div>
                 `
-                geocoder.geocode({'address': order.store.store_address}, function (results, status) {
-                  if (status === 'OK') {
-                    console.log(results[0].place_id);
-                    const orderPlaceId = results[0].place_id
-                    directionMap(ordercard, orderPlaceId)
-                  }
-                  else {
-                    console.log('errrrrrrrrr1');
-                    alert('Geocode was not successful for the following reason: ' +    status);
-                  }
-                });
+                const latitude = order.store.store_latitude
+                const longitude = order.store.store_longitude
+                directionMap(order, latitude, longitude)
+                order.querySelector('.take-order-btn').addEventListener('click', setTakeOrderBtn)
                 document.querySelector('.order-lists').appendChild(ordercard)
                 orders = document.querySelector('.order')
                 ordercard.querySelector('.take-order-btn').addEventListener('click' , setTakeOrderBtn);
@@ -126,16 +118,9 @@ document.addEventListener('turbolinks:load', () => {
         if (orders){
           const orders = document.querySelectorAll('.order')
           orders.forEach((order) => {
-            const address = order.querySelector('.store-address').innerText
-            geocoder.geocode({'address': address}, function (results, status) {
-              if (status == 'OK') {
-                const placeId = results[0].place_id
-                directionMap(order, placeId)
-              }
-              else {
-                alert('Geocode was not successful for the following reason: ' +    status);
-              }
-            });  
+            const latitude = order.querySelector('.store-latitude').innerText
+            const longitude = order.querySelector('.store-longitude').innerText
+            directionMap(order, latitude, longitude)
             order.querySelector('.take-order-btn').addEventListener('click', setTakeOrderBtn)
           })
         }
@@ -159,14 +144,15 @@ document.addEventListener('turbolinks:load', () => {
         })
       }
 
-      function directionMap(order, placeId){
+      function directionMap(order, latitude, longitude){
         // 計算路程時間距離
         const service = new google.maps.DistanceMatrixService();
+        const store = new google.maps.LatLng(latitude, longitude);
     
         service.getDistanceMatrix(
           {
             origins: [origin],
-            destinations: [{placeId: String(placeId)}],
+            destinations: [store],
             travelMode: google.maps.TravelMode.DRIVING,
             unitSystem: google.maps.UnitSystem.METRIC,
             avoidHighways: true,

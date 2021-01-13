@@ -22,6 +22,12 @@
           <h1 class="text-3xl text-gray-900 pb-4 mb-0 leading-none"><%= StoreProfile.find(order.store_profile_id).store_name %></h1>
           <p class="store-address flex items-center text-gray-600 pb-2 border-b border-gray-200">
             <%= StoreProfile.find(order.store_profile_id).store_address %>
+            <span class="store-latitude hidden">
+              <%= StoreProfile.find(order.store_profile_id).latitude %>
+            </span>
+            <span class="store-longitude hidden">
+              <%= StoreProfile.find(order.store_profile_id).longitude %>
+            </span>      
           </p>
           <p class="distance flex items-center text-gray-600 mb-2 text-xl">
             距離/時間
