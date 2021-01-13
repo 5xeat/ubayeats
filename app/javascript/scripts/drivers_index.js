@@ -134,13 +134,13 @@ document.addEventListener('turbolinks:load', () => {
         }
       };
       
-      rePosition = navigator.geolocation.watchPosition((position) => {
+      rePosition = navigator.geolocation.watchPosition(async(position) => {
         lat = position.coords.latitude;
         lng = position.coords.longitude;
         console.log(lat);
         console.log(lng);
 
-        origin = new google.maps.LatLng(lat, lng);
+        origin =  await new google.maps.LatLng(lat, lng);
     
         if (map === undefined){
           // 初始化地圖
@@ -376,7 +376,6 @@ document.addEventListener('turbolinks:load', () => {
     
             directionsDisplay.setDirections(result);
           } else {
-            console.log('err');
             console.log(status);
           }
         });
