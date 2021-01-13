@@ -1,14 +1,16 @@
 class DriverProfilesController < ApplicationController
   before_action :session_required
   before_action :driver_pundit, except: [:new, :create]
-  before_action :set_driver, only: [:index, :edit, :update, :online]
+  before_action :set_driver, only: [:index, :order_deliver, :edit, :update, :online]
 
   def index
-    @new_order = Order.where(state: "preparing").first
-    if @new_order
-      @store = StoreProfile.find(@new_order.store_profile_id)
-      @orderer = User.find(@new_order.user_id)
-    end
+    @orders = Order.where(state: "preparing")
+  end
+
+  def order_deliver
+    @order = Order.where(driver_id: @driver_profile.id).find_by!(num: params[:order])
+    p @order
+    @store = StoreProfile.find(@order.store_profile_id)
   end
   
   def new

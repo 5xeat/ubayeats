@@ -1,0 +1,34 @@
+<div class="map-container">  
+  <div id="map"></div>
+  <div class="steps">
+    <p></p>
+  </div>
+  <div class="info">
+    <div class="order">
+      <div class="distance-matrix">
+        <p></p>
+      </div>
+      <div class="title">
+        <p class="store-name">
+          <%= @store.store_name %>
+        </p>
+        <div class="phone">
+          <a href="tel:+886<%= @store.store_phone %>">
+            <i class="fas fa-phone-alt"></i>
+          </a>
+        </div>
+      </div>
+      <p class="store-address"><%= @store.store_address %></p>
+      <p class="order-number">訂單編號：<span><%= @order.num %></span></p>
+      <p class="orderer">訂單人：
+        <span><%= @order.username %></span>
+        <span class="orderer-phone"><%= @order.tel %></span>
+      </p>
+      <p class="order-address">訂單地址：<span><%= @order.address %></span></p>
+      <div class="btn-list">
+        <a class="google btn">開啟google map</a>
+        <button class="take-meal-btn btn">已取餐</button>
+      </div>
+    </div>
+  </div>
+</div>
