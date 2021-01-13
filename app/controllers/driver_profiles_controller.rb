@@ -4,7 +4,7 @@ class DriverProfilesController < ApplicationController
   before_action :set_driver, only: [:index, :order_deliver, :edit, :update, :online]
 
   def index
-    @order_delivering = Order.find_by_driver_id_and_state(@driver_profile.id, 'preparing' || 'delivering')
+    @order_delivering = Order.find_by_driver_id_and_state(@driver_profile.id, ['preparing', 'delivering'])
     if @order_delivering
       redirect_to order_deliver_driver_profiles_path(order: @order_delivering.num)
     else
@@ -13,7 +13,7 @@ class DriverProfilesController < ApplicationController
   end
 
   def order_deliver
-    @order = Order.find_by_driver_id_and_num_and_state!(@driver_profile.id, params[:order], 'preparing' || 'delivering')
+    @order = Order.find_by_driver_id_and_num_and_state!(@driver_profile.id, params[:order], ['preparing', 'delivering'])
     @store = StoreProfile.find(@order.store_profile_id)
   end
   

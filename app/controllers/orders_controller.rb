@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :session_required
   before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
-  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update]
+  before_action :find_order, only: [:recieving_update, :preparing_update, :record_update]
 
   def index
     @orders = current_user.orders
@@ -34,8 +34,8 @@ class OrdersController < ApplicationController
   end
 
   def delivering_update
+    @order = Order.find_by!(num: params[:num])
     @order.go! if @order.delivering?
-    redirect_to store_profiles_path, notice:'有訂單外送中'
   end
 
   def record

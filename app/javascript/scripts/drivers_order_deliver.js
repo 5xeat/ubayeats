@@ -79,7 +79,12 @@ document.addEventListener('turbolinks:load', () => {
             animation: google.maps.Animation.BOUNCE,
             icon: icons.start
           });
-          destination = storeDestination;
+          if (document.querySelector('.order-state').innerText === 'delivering'){
+            destination = userDestination;
+            renewBtn()
+          } else {
+            destination = storeDestination;
+          }
           directionMap()
         } else {
           marker.setPosition(origin);
@@ -96,34 +101,15 @@ document.addEventListener('turbolinks:load', () => {
       }
 
       function setTakeMealBtn(){
-        const takenMealBtn = document.querySelector('.take-meal-btn')
-        takenMealBtn.remove()
-
-        const completeBtn = document.createElement('div')
-        completeBtn.classList.add('btn', 'complete-btn')
-        completeBtn.innerText = "已送達"
-        completeBtn.onclick = setCompleteBtn
-        document.querySelector('.btn-list').appendChild(completeBtn)
-
+        renewBtn()
         destination = userDestination
         endMarker.setPosition(userDestination.geometry.location)
-
-        const ordererphone = document.querySelector('.orderer-phone').innerText
-        document.querySelector('.phone a').setAttribute('href', `tel:+886${ordererphone}`)
-
-        const orderer = document.querySelector('.orderer')
-        orderer.innerText = orderer.querySelector('span').innerText
-        orderer.classList.add('font-medium', 'text-2xl', 'mr-5')
-        orderer.classList.remove('orderer')
-        document.querySelector('.title').insertAdjacentElement('afterbegin', orderer)
-        document.querySelector('.store-name').remove()
-        document.querySelector('.store-address').remove()
 
         const num = document.querySelector('.order-number span').innerText
         Rails.ajax({
           url: '/orders/delivering_update',
           type: 'post',
-          data: new URLSearchParams({'order': {'num': num}}),
+          data: new URLSearchParams({'num': num}),
           success: (resp) => {
             console.log(resp);
           },
@@ -150,6 +136,28 @@ document.addEventListener('turbolinks:load', () => {
           timer: 1500
         })
         window.location.href = '/drivers'
+      }
+
+      function renewBtn(){
+        const takenMealBtn = document.querySelector('.take-meal-btn')
+        takenMealBtn.remove()
+
+        const completeBtn = document.createElement('div')
+        completeBtn.classList.add('btn', 'complete-btn')
+        completeBtn.innerText = "已送達"
+        completeBtn.onclick = setCompleteBtn
+        document.querySelector('.btn-list').appendChild(completeBtn)
+
+        const ordererphone = document.querySelector('.orderer-phone').innerText
+        document.querySelector('.phone a').setAttribute('href', `tel:+886${ordererphone}`)
+
+        const orderer = document.querySelector('.orderer')
+        orderer.innerText = orderer.querySelector('span').innerText
+        orderer.classList.add('font-medium', 'text-2xl', 'mr-5')
+        orderer.classList.remove('orderer')
+        document.querySelector('.title').insertAdjacentElement('afterbegin', orderer)
+        document.querySelector('.store-name').remove()
+        document.querySelector('.store-address').remove()
       }
 
       function directionMap(){
