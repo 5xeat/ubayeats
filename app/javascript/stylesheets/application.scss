@@ -86,7 +86,7 @@ a {
 }
 
 .cart-icon {
-  @apply fixed bottom-2 right-5 bg-gray-900 rounded-full w-20 h-20 text-4xl text-white flex content-center justify-center;
+  @apply fixed bottom-2 left-5 bg-gray-900 rounded-full w-20 h-20 text-4xl text-white flex content-center justify-center;
   span {
     @apply absolute bg-red-500 rounded-full text-sm p-2;
     right: -10px;

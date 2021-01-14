@@ -38,8 +38,15 @@ class StoreProfilesController < ApplicationController
   end
 
   def search
+    user_lat = params[:latitude]
+    user_lng = params[:longitude]
     @keyword = params[:keyword]
-    @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+    if params[:latitude]
+      stores = StoreProfile.calc_distance(user_lat, user_lng)
+      @stores = StoreProfile.where(id: stores).where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+    else
+      @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+    end
   end
 
   def recommand

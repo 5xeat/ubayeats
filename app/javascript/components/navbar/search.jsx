@@ -4,25 +4,70 @@ import "./search.scss";
 
 function Search({user, onClick}){
   const [data, setData] = useState([])
-
-  useEffect(() => {
-    Rails.ajax({
-      url: "/stores/recommand.json",
-      type: "GET",
-      success: (resp) => {
-        setData(resp)
-      },
-      error: function(err) {
-        console.log(err)
-      }
-    })
+  const [currentPos, setCurrentPos] = useState({latitude: null, longitude: null})
+  
+  useEffect(() => { 
+    geoFindMe()
   }, [])
+
+  const geoFindMe = () => {
+    function success(position) {   
+      let latitude  = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      let href = window.location.href
+
+      setCurrentPos({latitude: latitude, longitude: longitude})
+      
+      Rails.ajax({
+        url: '/distance_filter',
+        type: 'post',
+        data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
+        success: (resp) => {
+          setData(resp)
+        },
+        error: function(err) {
+        }
+        })
+    }
+    function error() {
+      console.log('無法取得您的目前位置');
+      Rails.ajax({
+        url: "/stores/recommand.json",
+        type: "GET",
+        success: (resp) => {
+          setData(resp)
+        },
+        error: function(err) {
+        }
+      })
+    }
+  
+    if(!navigator.geolocation) {
+      console.log('您的瀏覽器不支援定位服務!');
+      Rails.ajax({
+        url: "/stores/recommand.json",
+        type: "GET",
+        success: (resp) => {
+          setData(resp)
+        },
+        error: function(err) {
+        }
+      }) 
+    } else {
+      console.log('正在取得定位…!');
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+  }
 
   let selectedSuggestionsIndex = -1
 
   const atKeyPress = (e) => {
     const input = document.querySelector('.search-input')
     const result_list = document.querySelector('.result-list')
+
+    let latitude  = currentPos.latitude;
+    let longitude = currentPos.longitude;
+    
     let keyword = input.value
     if (e.key === 'Enter'){
       if (selectedSuggestionsIndex >= 0){
@@ -30,13 +75,25 @@ function Search({user, onClick}){
         input.value = keyword
         result_list.classList.add('hidden')
         selectedSuggestionsIndex = -1
+        if (latitude!== null && latitude !== ""){
+          Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
+        } else{
+          Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+        }
+        
+      }
+      if (latitude!== null && latitude !== ""){
+        Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
+      } else{
         Turbolinks.visit(`/stores/search?keyword=${keyword}`)
       }
-      Turbolinks.visit(`/stores/search?keyword=${keyword}`)
     }
   }
 
   const atKeyUp = (e) => {
+    let latitude  = currentPos.latitude;
+    let longitude = currentPos.longitude;
+
     const input = document.querySelector('.search-input')
     const inputValue = e.target.value
     const result_list = document.querySelector('.result-list')
@@ -73,6 +130,7 @@ function Search({user, onClick}){
       )
     })
     suggestions.forEach((suggestion) => {
+      
       const result = document.createElement('div')
       result.classList.add('result')
       result.textContent = suggestion.store_name
@@ -81,7 +139,7 @@ function Search({user, onClick}){
         const keyword = e.target.textContent
         input.value = keyword
         result_list.classList.add('hidden')
-        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
+        Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
       })
     })
     if (inputValue === ''){
