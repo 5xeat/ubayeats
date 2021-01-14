@@ -12,7 +12,6 @@ export default class extends Controller {
     this.subtotalTarget.innerText = `${subprice}`
 
     const id = this.data.get('id')
-    // console.log(id)
     Rails.ajax({
       url: `/carts/add_item/${id}`,
       type:'post',
@@ -72,4 +71,5 @@ export default class extends Controller {
   })
 
   total.textContent = itemtotal
+  }
 }
