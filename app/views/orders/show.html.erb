@@ -16,3 +16,10 @@
 
   <p>餐點送達地址：<%= @order.address %></p>
 </div>
+<% if @room.present? && @order.state['delivering'] %>
+  <div class='chat-icon'><i class="far fa-comments"></i></div>
+  <div class="room-wrapper">
+    <div class="room-close">X</div>
+    <div><%= render 'rooms/room' %></div>
+  </div>
+<% end %>

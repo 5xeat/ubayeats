@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get '/distance_filter', to: 'home#distance_filter'
 
   devise_for :users, controllers: { 
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
 
   resource :driver_profiles, path: '/drivers', only: [:new, :create, :edit, :update] do
     get :index
+    get :order_deliver
     post :online
   end
 

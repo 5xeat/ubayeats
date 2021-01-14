@@ -1,20 +1,15 @@
 import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load', function(){
+  let myLat, myLng, myLatLng, loc;
+  let canSubmit = false
+
+  function delayOpenSubmit() {
+    setTimeout(() => {
+      Rails.enableElement(document.querySelector('input[type="submit"]'))
+    }, 500);
+  }
   if (document.querySelector('.store_profiles.new')){
-    let myLat;
-    let myLng;
-    let myLatLng;
-    let loc;
-
-    let canSubmit = false
-
-    function delayOpenSubmit() {
-      setTimeout(() => {
-        Rails.enableElement(document.querySelector('input[type="submit"]'))
-      }, 500);
-    }
-
     document.querySelector('#new_store_profile').addEventListener('submit', function(e) {
       console.log('submit enter')
       if (!canSubmit) {

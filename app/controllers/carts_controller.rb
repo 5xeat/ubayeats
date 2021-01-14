@@ -2,7 +2,6 @@ class CartsController < ApplicationController
 
   def add_item
     product = Product.find(params[:id])
-    # 加車
     current_cart.add_item(product[:id])
     session[:cart1111] = current_cart.serialize
     render json: {
@@ -13,7 +12,6 @@ class CartsController < ApplicationController
 
   def minus_item
     product = Product.find(params[:id])
-    # 加車
     current_cart.add_item(product[:id],quantity= -1)
     session[:cart1111] = current_cart.serialize
     render json: {
@@ -55,7 +53,9 @@ class CartsController < ApplicationController
     @order.store_profile_id = @order.order_items.first.product.store_profile_id
     @order.total_price = current_cart.total_price
     @order.save
-        
+    @order.create_room
+    @order.close!
+    
     trade_no = "UB#{Time.zone.now.to_i}"
     body = {
             "amount": current_cart.total_price,
@@ -92,7 +92,6 @@ class CartsController < ApplicationController
       order_id = result["info"]["orderId"]
       transaction_id = result["info"]["transactionId"]
   
-      # 1. 變更 order 狀態
       order = current_user.orders.find_by(num: order_id)
       order.pay!(transaction_id: transaction_id)
       store = StoreProfile.find(order.store_profile_id).user
@@ -100,7 +99,6 @@ class CartsController < ApplicationController
         receiver: store.id, orderId: order.num, price: order.total_price 
       })
   
-      # 2. 清空購物車
       session[:cart1111] = nil
   
       redirect_to order, notice: '付款已完成'
