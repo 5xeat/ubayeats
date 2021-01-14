@@ -1,7 +1,23 @@
-<h1><%= current_user.store_profile.store_name %>的新訂單</h1>
+<div class="container">
+  <h1><%= current_user.store_profile.store_name %> 的新訂單</h1>
 
-<% recieving_orders.each do |recieving_order| %>
-  <%= form_for(recieving_order, url: recieving_update_orders_path, method: 'post')  do |form| %>
-    <%= render 'orders/form', form: form, recieving_order: recieving_order %>
-  <% end %>
-<% end %>
+  <div class="order-lists">
+    <table>
+      <thead>
+        <tr>
+          <th>訂單編號</th>
+          <th>訂單明細</th>
+          <th>姓名</th>
+          <th>電話</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recieving_orders.each do |recieving_order| %>
+          <%= form_for(recieving_order, url: recieving_update_orders_path, method: 'post') do |form| %>
+            <%= render 'orders/form', form: form, recieving_order: recieving_order %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
