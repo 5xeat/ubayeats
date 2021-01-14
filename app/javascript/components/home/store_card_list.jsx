@@ -25,6 +25,7 @@ function StoreCardList(){
         type: 'post',
         data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
         success: (resp) => {
+          console.log(resp);
           setData(resp)
         },
         error: function(err) {
