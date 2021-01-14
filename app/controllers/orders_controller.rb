@@ -35,8 +35,14 @@ class OrdersController < ApplicationController
   end
 
   def delivering_update
-    @order.go! if @order.delivering?
-    room = @order.room.create
+    if @order.delivering?
+      @order.go!
+    else
+      render json: {
+        error: "店家尚未準備好餐點唷！",
+        status: 404
+      }, status: 404
+    end
   end
 
   def record

@@ -110,10 +110,14 @@ document.addEventListener('turbolinks:load', () => {
             renewBtn()
             destination = userDestination
             endMarker.setPosition(userDestination.geometry.location) 
-            directionMap()   
+            directionMap()
           },
           error: function(err) {
-            console.log(err)
+            Swal.fire({
+              icon: 'error',
+              title: err.error,
+              text: '騎太快啦～小心安全唷',
+            })
           }
         })
       }
