@@ -96,7 +96,9 @@ class CartsController < ApplicationController
       order = current_user.orders.find_by(num: order_id)
       order.pay!(transaction_id: transaction_id)
       store = StoreProfile.find(order.store_profile_id).user
-      ActionCable.server.broadcast "notifications_#{store.id}", {price: order.total_price, name: "kk" }
+      ActionCable.server.broadcast("notifications", {
+        receiver: store.id, orderId: order.num, price: order.total_price 
+      })
   
       # 2. 清空購物車
       session[:cart1111] = nil

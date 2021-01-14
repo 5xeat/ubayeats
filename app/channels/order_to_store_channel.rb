@@ -1,6 +1,6 @@
-class OrderChannel < ApplicationCable::Channel
+class OrderToStoreChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "notifications_#{current_user.id}"
+    stream_from "notifications"
   end
 
   def unsubscribed
