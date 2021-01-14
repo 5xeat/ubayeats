@@ -5,6 +5,11 @@ class User < ApplicationRecord
   has_many :rooms, through: :messages
   has_one :driver_profile
   has_one :store_profile
+
+  has_many :favorite_users, through: :favorite_products, source: 'user'
+  #p1 = favorite_users
+  # upload
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

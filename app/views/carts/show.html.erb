@@ -7,4 +7,6 @@
     <button class="btn"><%= link_to '清空購物車', carts_path, method: 'delete'%></button>
    </div>
 </div>
- 
+<%= link_to '#', id 'favorite_btn' do %>
+<i class="far fa-heart"></i>
+ <% end %>

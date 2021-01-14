@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:edit, :destroy]
-  before_action :find_current_user_product, only: [:update, :toggle_publish]
+  before_action :find_current_user_product, only: [:update, :toggle_publish,:favorite]
   before_action :session_required
 
 
@@ -48,6 +48,14 @@ class ProductsController < ApplicationController
       @product.delist!
       redirect_to stores_products_path, notice: '商品已下架'
     end
+  end
+
+  def favorite
+    product = Product.find(params[:id])
+if current_user.favorite(product)
+  render json: {status: 're'}
+else
+end
   end
 
   private

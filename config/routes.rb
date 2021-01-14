@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   resources :store_profiles, as: 'stores', path: '/stores', only: [] do
     member do
       get :delicacy
+      post :favorite
     end
     collection do
       get :recommand
