@@ -10,25 +10,12 @@ export default class extends Controller {
     
       }  
   next(e) {
-    // console.log(this.indexValue)
     this.indexValue += 1
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
     const subprice =  this.priceTarget.innerText * this.indexValue
     this.subtotalTarget.innerText = `${subprice}`
 
-
-    // e.Target.previousSibling.previousSibling.value = this.indexValue
-    // const totalprice =  this.subtotalTarget.innerText * this.indexValue
-    // this.totalpriceTarget.textContent = `${totalprice}`
-
-  //   const quantity = document.querySelector('.cart-item.quantity')
-  // const price = document.querySelector('.cart-item.price')
-  // console.log(quantity.value * price.textContent)
-  //  const total = document.querySelector('.total')
-  //  total.textContent = quantity.value * price.textContent
-
     const id = this.data.get('id')
-    // console.log(id)
     Rails.ajax({
       url: `/carts/add_item/${id}`,
       type:'post',
