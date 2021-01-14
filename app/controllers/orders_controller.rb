@@ -37,7 +37,6 @@ class OrdersController < ApplicationController
   def delivering_update
     @order.go! if @order.delivering?
     redirect_to store_profiles_path, notice:'有訂單外送中'
-    room = @order.room.create
   end
 
   def record
