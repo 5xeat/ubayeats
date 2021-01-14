@@ -10,6 +10,7 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{ENV['google_api_key']}&map_ids=c57b36ae7dbc5a40&callback=initMap&libraries=places&v=beta", async: true, defer: true %>
+
   </head>
 
   <body class="<%= controller_name %> <%= action_name%>">
@@ -24,7 +25,6 @@
     <div id="content">
       <%= yield %>
     </div>
-
     <%= link_to carts_path do %>
       <div class="cart-icon" data-controller="cart" data-action="addToCart@window->cart#update">
           <span data-cart-target="detail">

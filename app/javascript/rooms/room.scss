@@ -1,9 +1,9 @@
 .chat-room{
-  height: 575px;
+  height: 360px;
   overflow-y: scroll;
   position: relative;
   #messages{
-    height: 475px;
+    height: 275px;
     overflow: auto;
   }
   .message{
@@ -58,4 +58,56 @@
 
 .rooms{
   height: 575px;
+}
+
+.chat-icon {
+  position: absolute;
+  bottom: 3px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: red;
+  border: 1px solid black;
+  &.invisible {
+    display: none;
+  }
+}
+
+.room-wrapper {
+  display: none;
+  &.show {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 400px;
+    border: 2px solid black;
+    
+    .room-close {
+      display: block;
+    }
+  }
+  .chat-container {
+    background-color: #CEFFCE;
+    width: 100%;
+    height: 100%;
+  }
+  .room-close {
+    display: none;
+    position: absolute;
+    font-size: 20px;
+    color: red;
+    z-index: 50;
+    right: 10px;
+    top: -5px;
+  }
+}
+
+
+.fa-comments{
+  font-size: 37px;
+  margin-top: 4px;
+  margin-left: 2px;
 }
