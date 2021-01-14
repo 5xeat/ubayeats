@@ -91,6 +91,9 @@ function Search({user, onClick}){
   }
 
   const atKeyUp = (e) => {
+    let latitude  = currentPos.latitude;
+    let longitude = currentPos.longitude;
+
     const input = document.querySelector('.search-input')
     const inputValue = e.target.value
     const result_list = document.querySelector('.result-list')
@@ -134,9 +137,6 @@ function Search({user, onClick}){
       result_list.appendChild(result)
       result.addEventListener('click', (e) => {
         const keyword = e.target.textContent
-        let latitude  = position.coords.latitude;
-        let longitude = position.coords.longitude;
-        navigator.geolocation.getCurrentPosition(success, error);
         input.value = keyword
         result_list.classList.add('hidden')
         Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
