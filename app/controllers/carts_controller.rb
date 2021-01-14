@@ -53,8 +53,19 @@ class CartsController < ApplicationController
     @order.order_items << OrderItem.new(product: item.product, quantity: item.quantity)
     end
     @order.store_profile_id = @order.order_items.first.product.store_profile_id
-    @order.save
-        
+    # @order.save
+    if @order.save
+      # OrderChannel.broadcast_to(@store,{id: 123, name: "kk123" })
+      ActionCable.server.broadcast(@store, {id: 123, name: "kk123" })
+      # ActionCable.server.broadcast("order_to_store_channel", {comment: "您有一筆新訂單!!", nickname: @order.store_profile.store_name })
+      
+      # ActionCable.server.broadcast "comment", { commit: 'ADD_LIST', payload: render_to_string(:show, format: :json)}
+      # redirect_to @post if false      
+    end
+ 
+    
+
+
     trade_no = "UB#{Time.zone.now.to_i}"
     body = {
             "amount": current_cart.total_price,
