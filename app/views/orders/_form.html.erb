@@ -1,12 +1,26 @@
-    <%= form.label :username %>
-    <%= form.text_field :username, value: recieving_order.username, readonly: true %>
+<%= form.label :num, "訂單編號"%>
+<%= recieving_order.num %>
 
-    <%= form.label :tel %>
-    <%= form.text_field :tel, value: recieving_order.tel, readonly: true %>
+<%= form.label :username, "姓名" %>
+<%= recieving_order.username %>
+<%#= form.text_field :username, value: recieving_order.username, readonly: true %>
 
-    <%= form.label :address %>
-    <%= form.text_field :address, value: recieving_order.address, readonly: true %>
+<%= form.label :tel, "電話" %>
+<%= recieving_order.tel %>
+<%#= form.text_field :tel, value: recieving_order.tel, readonly: true %>
 
-    <p><%= recieving_order.state %></p>
+<%#= form.label :address, "地址" %>
+<%#= recieving_order.address %>
+<%#= form.text_field :address, value: recieving_order.address, readonly: true, html: {disabled: true}%>
+<br>
+餐點明細
+<% recieving_order.order_items.each do |item| %>
+	<%= Product.find(item.product_id).name %>
+	<%= item.quantity %>
+<% end %>
 
-    <%= form.submit '準備'%>
+<p><%#= recieving_order.state %></p>
+
+<%= form.hidden_field :num, value: recieving_order.num %>
+
+<%= form.submit '準備'%>

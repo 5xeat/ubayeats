@@ -4,6 +4,8 @@ class StoreProfilesController < ApplicationController
   before_action :store_pundit, only: [:show, :edit, :update]
 
   def show
+    @orders = current_user.store_profile.orders.all
+    @recieving_orders = @orders.where(state: 'paid')
   end
 
   def delicacy
