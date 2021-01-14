@@ -22,10 +22,9 @@ function StoreCardList(){
       
       Rails.ajax({
         url: '/distance_filter.json',
-        type: 'post',
+        type: 'POST',
         data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
         success: (resp) => {
-          console.log(resp);
           setData(resp)
         },
         error: function(err) {
@@ -41,6 +40,7 @@ function StoreCardList(){
           setData(resp)
         },
         error: function(err) {
+          console.log(err);
         }
       })
     }
@@ -54,6 +54,7 @@ function StoreCardList(){
           setData(resp)
         },
         error: function(err) {
+          console.log(err);
         }
       }) 
     } else {
