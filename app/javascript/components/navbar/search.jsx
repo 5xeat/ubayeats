@@ -19,13 +19,14 @@ function Search({user, onClick}){
       setCurrentPos({latitude: latitude, longitude: longitude})
       
       Rails.ajax({
-        url: '/distance_filter',
-        type: 'post',
+        url: '/distance_filter.json',
+        type: 'GET',
         data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
         success: (resp) => {
           setData(resp)
         },
         error: function(err) {
+          console.log(err);
         }
         })
     }
@@ -38,6 +39,7 @@ function Search({user, onClick}){
           setData(resp)
         },
         error: function(err) {
+          console.log(err);
         }
       })
     }
@@ -51,6 +53,7 @@ function Search({user, onClick}){
           setData(resp)
         },
         error: function(err) {
+          console.log(err);
         }
       }) 
     } else {

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
-  post '/distance_filter', to: 'home#distance_filter'
+  get '/distance_filter', to: 'home#distance_filter'
 
   devise_for :users, controllers: { 
     omniauth_callbacks: "users/omniauth_callbacks",
