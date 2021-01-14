@@ -1,7 +1,5 @@
 <div class="map-container">  
-  <div class="map">
-    <div id="map"></div>
-  </div>
+  <div id="map"></div>
   <div class="info">
     <div class="status">
       <p>
@@ -36,6 +34,13 @@
         <div class="btn-list">
           <div class="take-order-btn btn">接單</div>
         </div>
+        <% if @room.present? && @new_order.state['preparing'] %>
+          <div class='chat-icon'><i class="far fa-comments"></i></div>
+          <div class="room-wrapper">
+            <div class="room-close">X</div>
+            <div><%= render 'rooms/room' %></div>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>

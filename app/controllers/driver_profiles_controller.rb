@@ -5,6 +5,7 @@ class DriverProfilesController < ApplicationController
 
   def index
     @new_order = Order.where(state: "preparing").first
+    @room = @new_order.room
     if @new_order
       @store = StoreProfile.find(@new_order.store_profile_id)
       @orderer = User.find(@new_order.user_id)

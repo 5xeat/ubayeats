@@ -1,7 +1,7 @@
 <div id="room-id" data-room-id="<%= @room.try(:id) %>"></div>
 <div id="user-id" data-user-id="<%= current_user.id %>"></div>
 
-<div class="container">
+<div class="chat-container">
   <% if @room.present? %>
     <p>hello,<%= current_user.name %></p>
     <div class="chat-room">

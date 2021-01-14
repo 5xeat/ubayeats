@@ -24,3 +24,5 @@ import '../rooms/room.scss'
 // const imagePath = (name) => images(name, true)
 
 import "controllers"
+
+Notification.requestPermission().then(function (result){})
