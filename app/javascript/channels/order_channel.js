@@ -11,6 +11,9 @@ consumer.subscriptions.create("OrderChannel", {
 
   received(data) {
     console.log(data);
-    
+    let notice = document.createElement('div')
+    notice.textContent = `您有一筆${data.price}元的訂單!請立即查看`
+    document.querySelector('.right').insertAdjacentElement('afterbegin', notice)
+    document.querySelector('.recieving').classList.add("bg-red-600");
   }
 });
