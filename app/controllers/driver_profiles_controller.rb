@@ -1,23 +1,28 @@
 class DriverProfilesController < ApplicationController
   before_action :session_required
   before_action :driver_pundit, except: [:new, :create]
+  before_action :set_driver, only: [:index, :order_deliver, :edit, :update, :online]
   before_action :user_pundit, only: [:new, :create]
-  before_action :set_driver, only: [:index, :edit, :update, :online]
 
   def index
-    @new_order = Order.where(state: "preparing").first
-    if @new_order.present?
-      @room = @new_order.room
-      if @new_order
-        @store = StoreProfile.find(@new_order.store_profile_id)
-        @orderer = User.find(@new_order.user_id)
-      end
+    order = Order.find_by_driver_id_and_state(@driver_profile.id, ['preparing', 'delivering', 'completed'])
+    if order
+      redirect_to order_deliver_driver_profiles_path(order: order.num)
     else
-      if @new_order
-        @store = StoreProfile.find(@new_order.store_profile_id)
-        @orderer = User.find(@new_order.user_id)
+      @orders = Order.where(state: ['preparing', 'delivering'])
+      if @orders.present?
+        @room = @orders.room
+        if @orders
+          @store = StoreProfile.find(@orders.store_profile_id)
+          @orderer = User.find(@orders.user_id)
+        end
       end
     end
+  end
+
+  def order_deliver
+    @order = Order.find_by_driver_id_and_num_and_state!(@driver_profile.id, params[:order], ['preparing', 'delivering', 'completed'])
+    @store = StoreProfile.find(@order.store_profile_id)
   end
   
   def new
