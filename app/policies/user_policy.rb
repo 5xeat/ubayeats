@@ -6,6 +6,10 @@ class UserPolicy < ApplicationPolicy
   def start_business
     user && user.role == 'store'
   end
+
+  def user_only
+    user && user.role == 'user'
+  end
   
   class Scope < Scope
     def resolve

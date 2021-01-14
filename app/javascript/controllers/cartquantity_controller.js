@@ -1,13 +1,9 @@
 import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
-
 export default class extends Controller {
     static targets = ["quantity","count","price","subtotal","total"]
     static values = { index: Number}
-
-    
-    connect() {
-    
+    connect() { 
       }  
   next(e) {
     this.indexValue += 1
@@ -43,7 +39,6 @@ export default class extends Controller {
     const subprice =  this.priceTarget.innerText * this.indexValue
     this.subtotalTarget.innerText = `${subprice}`
 
-
     const id = this.data.get('id')
     Rails.ajax({
       url: `/carts/minus_item/${id}`,
@@ -65,13 +60,11 @@ export default class extends Controller {
   }
 }
   function updateCart(){
-  const subtotal = document.querySelectorAll('span.subtotal')
-  
+  const subtotal = document.querySelectorAll('span.subtotal') 
   const total = document.querySelector('.total')
   const quantity = document.querySelector('.cart-item.quantity')
   const price = document.querySelector('.cart-item.price')
   total.textContent = (quantity * price)
-
   let itemtotal = 0
   subtotal.forEach(item => {
    itemtotal += Number(item.textContent)
@@ -79,3 +72,4 @@ export default class extends Controller {
 
   total.textContent = itemtotal
   }
+}
