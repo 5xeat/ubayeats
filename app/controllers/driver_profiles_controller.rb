@@ -9,6 +9,13 @@ class DriverProfilesController < ApplicationController
       redirect_to order_deliver_driver_profiles_path(order: order.num)
     else
       @orders = Order.where(state: ['preparing', 'delivering'])
+      if @orders.present?
+        @room = @orders.room
+        if @orders
+          @store = StoreProfile.find(@orders.store_profile_id)
+          @orderer = User.find(@orders.user_id)
+        end
+      end
     end
   end
 
