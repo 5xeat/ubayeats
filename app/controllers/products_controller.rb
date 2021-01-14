@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:edit, :destroy]
   before_action :find_current_user_product, only: [:update, :toggle_publish]
   before_action :session_required
-
+  before_action :store_pundit, only: [:index, :new, :create]
 
   def index
     @products = Product.available.order(id: :desc)
@@ -65,5 +65,9 @@ class ProductsController < ApplicationController
 
   def find_user_id
     @user = User.find_by!(id: params[:user_id])
+  end
+
+  def store_pundit
+    authorize current_user, :start_business
   end
 end

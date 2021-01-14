@@ -2,7 +2,6 @@ class CartsController < ApplicationController
 
   def add_item
     product = Product.find(params[:id])
-    # 加車
     current_cart.add_item(product[:id])
     session[:cart1111] = current_cart.serialize
     render json: {
@@ -13,7 +12,6 @@ class CartsController < ApplicationController
 
   def minus_item
     product = Product.find(params[:id])
-    # 加車
     current_cart.add_item(product[:id],quantity= -1)
     session[:cart1111] = current_cart.serialize
     render json: {
@@ -53,19 +51,12 @@ class CartsController < ApplicationController
     @order.order_items << OrderItem.new(product: item.product, quantity: item.quantity)
     end
     @order.store_profile_id = @order.order_items.first.product.store_profile_id
-    # @order.save
+    @order.total_price = current_cart.total_price
     if @order.save
-      # OrderChannel.broadcast_to(@store,{id: 123, name: "kk123" })
-      ActionCable.server.broadcast(@store, {id: 123, name: "kk123" })
-      # ActionCable.server.broadcast("order_to_store_channel", {comment: "您有一筆新訂單!!", nickname: @order.store_profile.store_name })
-      
-      # ActionCable.server.broadcast "comment", { commit: 'ADD_LIST', payload: render_to_string(:show, format: :json)}
-      # redirect_to @post if false      
+      @order.create_room
+      @order.close!
     end
- 
     
-
-
     trade_no = "UB#{Time.zone.now.to_i}"
     body = {
             "amount": current_cart.total_price,
@@ -102,11 +93,9 @@ class CartsController < ApplicationController
       order_id = result["info"]["orderId"]
       transaction_id = result["info"]["transactionId"]
   
-      # 1. 變更 order 狀態
       order = current_user.orders.find_by(num: order_id)
       order.pay!(transaction_id: transaction_id)
   
-      # 2. 清空購物車
       session[:cart1111] = nil
   
       redirect_to order, notice: '付款已完成'

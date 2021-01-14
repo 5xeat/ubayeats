@@ -2,6 +2,7 @@ class StoreProfilesController < ApplicationController
   before_action :session_required, only: [:new, :create]
   before_action :set_store, only: [:show, :edit, :update]
   before_action :store_pundit, only: [:show, :edit, :update]
+  before_action :user_pundit, only: [:new, :create]
 
   def show
   end
@@ -66,5 +67,8 @@ class StoreProfilesController < ApplicationController
   def set_store
     @store_profile = current_user.store_profile
   end
-         
+
+  def user_pundit
+    authorize current_user, :user_only
+  end
 end
