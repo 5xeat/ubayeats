@@ -20,7 +20,7 @@ function Search({user, onClick}){
       
       Rails.ajax({
         url: '/distance_filter.json',
-        type: 'POST',
+        type: 'GET',
         data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
         success: (resp) => {
           setData(resp)
