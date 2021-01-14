@@ -59,7 +59,7 @@ export default class extends Controller {
     updateCart()
   }
 }
-  function updateCart(){
+function updateCart(){
   const subtotal = document.querySelectorAll('span.subtotal') 
   const total = document.querySelector('.total')
   const quantity = document.querySelector('.cart-item.quantity')
@@ -71,5 +71,4 @@ export default class extends Controller {
   })
 
   total.textContent = itemtotal
-  }
 }
