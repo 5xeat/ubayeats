@@ -53,6 +53,7 @@ class CartsController < ApplicationController
     @order.order_items << OrderItem.new(product: item.product, quantity: item.quantity)
     end
     @order.store_profile_id = @order.order_items.first.product.store_profile_id
+    @order.total_price = current_cart.total_price
     @order.save
         
     trade_no = "UB#{Time.zone.now.to_i}"
@@ -94,6 +95,8 @@ class CartsController < ApplicationController
       # 1. 變更 order 狀態
       order = current_user.orders.find_by(num: order_id)
       order.pay!(transaction_id: transaction_id)
+      store = StoreProfile.find(order.store_profile_id).user
+      ActionCable.server.broadcast "notifications_#{store.id}", {price: order.total_price, name: "kk" }
   
       # 2. 清空購物車
       session[:cart1111] = nil
