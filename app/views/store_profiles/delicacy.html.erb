@@ -5,8 +5,7 @@
 <div class="container">
   <h1><%= @store_profile.store_name %></h1>
     <table class="product-list">
-      <tbody data-controller="xyz" data-action="abc@document->xyz#hello"
-      data-controller="pricing" data-pricing-id='<%=  @products %>'>
+      <tbody data-controller="pricing" data-pricing-id='<%=  @products %>'>
       <% @products.each do |product| %>
         <tr>
             <td>
