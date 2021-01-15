@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+  before_action :session_required
 
   def add_item
     product = Product.find(params[:id])
