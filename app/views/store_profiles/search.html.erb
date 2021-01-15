@@ -1,13 +1,18 @@
 <div class="container">
   <p class="text-xl">『<%= @keyword %>』搜尋結果：</p>
-  
-  <div class="store-card-list">
-    <% @stores.each do |store| %>
+   
+
+<% @stores.each do |store| %>
+<div class="store-card-list" data-controller="favorite" data-action='click->favorite#go' data-favorite-id="<%= store.id %>">
       <%= link_to(delicacy_store_path(store)) do %>
-        <div class="card">
+        <%# <div class="card"> %>
           <div class="heart">
-            <i class="far fa-heart"></i>
-          </div>
+           <% if current_user.favorite?(@store) %> 
+            <i class="far fa-heart" data-favorite-target="icon"></i>
+          <%# </div> %>
+          <% else %>
+            <i class="fas fa-heart" data-favorite-target="icon"></i>
+          <% end %>           
           <div class="image">
             <img src=<%= store.store_photo %> alt="店家照片">
           </div>
@@ -15,7 +20,7 @@
             <p class="title"><%= store.store_name %></p>
             <p class="description"><%= store.store_type %></p>
             <div class="star">
-              <i class="fas fa-star"></i>
+              <%# <i class="fas fa-star"></i> %>
             </div>
           </div>
         </div>
@@ -23,3 +28,4 @@
     <% end %>
   </div>
 </div>
+ </div> 

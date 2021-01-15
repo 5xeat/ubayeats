@@ -59,6 +59,25 @@ export default class extends Controller {
     })
     updateCart()
   }
+  remove(){
+    console.log(remove);
+    // const row =  e.currentTarget.parentElement.parentElement.parentElement
+    // const product_id = row.getAttribute('id')
+    // // '/carts/remove_item/' + product_id.to_s 
+    // Rails.ajax({
+    //     url: `/carts/remove_item/${product_id}`,
+    //     type: 'delete',
+    //     success: (resp) => {
+    //       console.log(resp);
+    //       // resp.target.remove()
+    //     },
+    //     error: (err) => {
+    //         console.log(err)
+    //     }
+    // })
+
+    // calcCart()
+  }
 }
   function updateCart(){
   const subtotal = document.querySelectorAll('span.subtotal') 
@@ -73,3 +92,28 @@ export default class extends Controller {
 
   total.textContent = itemtotal
 }
+
+// document.addEventListener('turbolinks:load',()=>{
+//     document.querySelectorAll('.remove-item-btn').forEach(btn => {
+//         btn.addEventListener('click', setRemoveItemBtn)
+//         })
+//     document.querySelectorAll('.cart .quantity').forEach(input =>{
+//             input.addEventListener('change', setQuantity)
+//         })
+// })
+
+// function calcCart(){
+//     const cartItems = document.querySelectorAll('.cart .cart-item')
+//   const remove = document.querySelectorAll('.remove-item-btn').forEach(btn => {
+//     btn.addEventListener('click', setRemoveItemBtn)
+
+
+//     let total = 0
+//     cartItems.forEach(item => {
+//         const quantity = item.querySelector('.quantity').value
+//         const price = item.querySelector('.price').innerText
+//         total += (quantity * price)
+//     })
+
+//      document.querySelector('.total-price').innerText = total.textContent
+// }

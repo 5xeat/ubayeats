@@ -4,8 +4,12 @@ class StoreProfile < ApplicationRecord
   has_many :orders
   has_many :products
 
-  has_many :my_favorite, through: :favorite_products,source: 'products'
+  has_many :favorite_store
+  has_many :favorite_users, through: :favorite_stores, source: 'user'
   #p1 = favorite_users
+  # upload
+
+  
   # upload
   mount_uploader :store_certificate, RegistrationUploader
   mount_uploader :store_photo, RegistrationUploader
@@ -19,9 +23,4 @@ class StoreProfile < ApplicationRecord
   validates :store_phone, presence: true
   validates :account, presence: true
   
-
-def favorite?(product)
-  my_favorite.include?(product)
-end
-
 end

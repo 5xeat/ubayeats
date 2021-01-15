@@ -50,14 +50,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  def favorite
-    product = Product.find(params[:id])
-if current_user.favorite(product)
-  render json: {status: 're'}
-else
-end
-  end
-
   private
   def params_product
     params.require(:product).permit(:name, :price, :description)

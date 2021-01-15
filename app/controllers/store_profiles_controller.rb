@@ -46,6 +46,16 @@ class StoreProfilesController < ApplicationController
     render json: @store_profiles
   end
 
+  def favorite
+    store = StoreProfile.find(params[:id])
+    if current_user.my_favorites.include?(store)
+       render json: {status: 'added'}
+    else
+       current_user.my_favorites << store
+       render json: {status: 'remove'}
+    end
+  end
+
   private
   def params_store
     params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account, :latitude, :longitude)
@@ -59,5 +69,5 @@ class StoreProfilesController < ApplicationController
   def set_store
     @store_profile = current_user.store_profile
   end
-         
+  
 end

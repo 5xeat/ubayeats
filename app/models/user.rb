@@ -6,14 +6,24 @@ class User < ApplicationRecord
   has_one :driver_profile
   has_one :store_profile
 
-  has_many :favorite_users, through: :favorite_products, source: 'user'
+  has_many :favoritestores
+  has_many :my_favorites, through: :favoritestores,source: 'store_profile'
   #p1 = favorite_users
-  # upload
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
+
+  def favorite?(store)
+    my_favorites.include?(store)
+  end
+
+  # if not Favoritestore.where(user_id: user, store_profile: store).empty?
+  #   false
+  # else
+  #   true
+  # end
 
   def display_name
     name.blank? ? email : name
