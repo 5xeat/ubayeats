@@ -18,6 +18,10 @@ class OrdersController < ApplicationController
 
   def recieving_update
     @order.confirm! if @order.paid?
+      order_user = User.find(@order.user_id)
+      ActionCable.server.broadcast("notifications", {
+        receiver: order_user.id, notice: "店家已經接受您的訂單，正在準備中!" , order_state: "preparing"
+      })
     redirect_to store_profiles_path, notice:'有新訂單已準備'
   end
 
@@ -27,6 +31,10 @@ class OrdersController < ApplicationController
 
   def preparing_update
     @order.complete! if @order.preparing?
+    order_user = User.find(@order.user_id)
+    ActionCable.server.broadcast("notifications", {
+      receiver: order_user.id, notice: "店家已完成您的餐點，正在等待外送員領取..." , order_state: "delivering"
+    })
     redirect_to store_profiles_path, notice:'有訂單等待外送員取餐'
   end
 
@@ -37,6 +45,10 @@ class OrdersController < ApplicationController
   def delivering_update
     if @order.delivering?
       @order.go!
+      order_user = User.find(@order.user_id)
+      ActionCable.server.broadcast("notifications", {
+        receiver: order_user.id, notice: "外送員已領取餐點，正在前往您的位置..." , order_state: "completed"
+      })
     else
       render json: {
         error: "店家尚未準備好餐點唷！",
@@ -51,6 +63,10 @@ class OrdersController < ApplicationController
 
   def record_update
     @order.arrive! if @order.completed?
+    order_user = User.find(@order.user_id)
+    ActionCable.server.broadcast("notifications", {
+      receiver: order_user.id, notice: "外送員已抵達，請準備取餐!" ,order_state: "arrived"
+    })
   end
 
   def driver_take_order
