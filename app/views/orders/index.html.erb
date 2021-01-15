@@ -1,12 +1,13 @@
 <div class="container">
   <h1>我的訂單(消費者視角)</h1>
-  
+  	<span class="block text-lg font-semibold mt-4 flex-wrap border-2 border-gray-300"> </span>
   <div class="order-lists">
     <table>
       <thead>
         <tr>
           <th>訂單日期</th>
           <th>訂單明細</th>
+          <th>總計金額</th>
           <th>收件地址</th>
           <th>訂單狀態</th>
         </tr>
@@ -18,10 +19,14 @@
               <td>
                 <%= StoreProfile.find(order.store_profile_id).store_name %>
                 <% order.order_items.each do |item| %>
+                  <div>
+                  <span class="num"><%= item.quantity %></span>
                   <%= Product.find(item.product_id).name %>
-                  <%= item.price %>
-                  <%= item.quantity %>
+                  </div>
                 <% end %>
+              </td>
+              <td>
+                <%= order.total_price %>元
               </td>
               <td>
                 <%= order.address %>

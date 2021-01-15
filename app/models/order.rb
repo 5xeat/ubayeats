@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :store_profile
+  has_one :room
   has_many :order_items
   # 結帳 validations
   validates :username, presence: true
@@ -16,7 +17,7 @@ class Order < ApplicationRecord
     state :canceled, :paid, :preparing, :delivering, :completed, :arrived
     
     event :pay do
-      transitions from: :unpaid, to: :paid
+      transitions from: [:unpaid, :canceled], to: :paid
       # after_transaction :pay_after
       before do |args|
         self.transaction_id = args[:transaction_id]
