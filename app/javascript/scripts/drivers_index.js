@@ -5,7 +5,6 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector('.driver_profiles.index')){
     if (!navigator.geolocation){
-      console.log('not');
       alert('Geolocation is not supported by your browser')
       return;
     }

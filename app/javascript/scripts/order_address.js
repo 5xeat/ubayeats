@@ -1,37 +1,33 @@
+import Rails from '@rails/ujs';
 import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('.carts.checkout')){
-    let input, autocomplete;
-    let validAddress = false
     const form = document.querySelector('#new_order')
     const orderName = form.querySelector('#order_username')
     const orderAddress = form.querySelector('#order_address')
     const orderPhone = form.querySelector('#order_tel')
 
     window.initMap = () => {
-      input = document.getElementById("order_address");
-      autocomplete = new google.maps.places.Autocomplete(input);
+      const input = document.getElementById("order_address");
+      const autocomplete = new google.maps.places.Autocomplete(input);
+
       autocomplete.setFields([
         "address_components",
         "geometry",
         "icon",
         "name",
       ]);
-      autocomplete.addListener("place_changed", checkAddress)
 
-      form.addEventListener('submit', (e) => {
+      document.querySelector('.submit-btn').addEventListener('click', (e) => {
         e.preventDefault()
         const orderNameValue = orderName.value.trim()
         const orderPhoneValue = orderPhone.value.trim()
-        console.log(orderNameValue);
-        console.log(orderPhoneValue);
+        const orderAddressValue = orderAddress.value.trim()
+        console.log(orderAddressValue);
   
         if (orderNameValue !== '' && orderPhoneValue !== ''){
-          checkAddress()
-          if (validAddress){
-            delayOpenSubmit()
-          }
+          checkAddress(orderAddressValue)
         } else {
           Swal.fire({
             icon: 'error',
@@ -40,26 +36,40 @@ document.addEventListener('turbolinks:load', () => {
         }
       })
 
-      function checkAddress() {
-        const place = autocomplete.getPlace();
-    
-        if (!place.geometry) {
-          window.alert(
-            "此地址為無效地址: '" + place.name + "'"
-          );
-          validAddress = false
-          return;
-        } else {
-          validAddress = true
-        }
-      }
-  
-      function delayOpenSubmit() {
-        setTimeout(() => {
-          Rails.enableElement(document.querySelector('input[type="submit"]'))
-        }, 500);
-      }
-  
+      function checkAddress(address) {
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: address }, (results, status) => {
+          if (status !== "OK") {
+            Swal.fire({
+              icon: 'error',
+              title: '送達地址為無效地址！',
+              text: '請正確填寫外送員才不會迷路～'
+            })
+            return;
+          } else {
+            console.log(results[0].plus_code.global_code);
+            if (results[0].plus_code.global_code.substring(0,2) === '7Q'){
+              Swal.fire({
+                position: 'top-end',
+                didOpen: () => {
+                  Swal.showLoading()
+                },
+                title: '即將導向LinePay付款請勿關閉視窗...',
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                form.submit();
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: '送達地址為無效地址！',
+                text: '請正確填寫外送員才不會迷路～'
+              })
+            }
+          }
+        })  
+      }  
     }
   }
 })
