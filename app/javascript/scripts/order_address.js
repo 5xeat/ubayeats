@@ -7,6 +7,7 @@ document.addEventListener('turbolinks:load', () => {
     const orderName = form.querySelector('#order_username')
     const orderAddress = form.querySelector('#order_address')
     const orderPhone = form.querySelector('#order_tel')
+    const submitBtn = document.querySelector('.submit-btn')
 
     window.initMap = () => {
       const input = document.getElementById("order_address");
@@ -19,13 +20,15 @@ document.addEventListener('turbolinks:load', () => {
         "name",
       ]);
 
-      document.querySelector('.submit-btn').addEventListener('click', (e) => {
+      submitBtn.addEventListener('click', (e) => {
         e.preventDefault()
         const orderNameValue = orderName.value.trim()
         const orderPhoneValue = orderPhone.value.trim()
-        const orderAddressValue = orderAddress.value.trim()
-        console.log(orderAddressValue);
+        const orderAddressValue = orderAddress.value
   
+        submitBtn.disabled = true
+        submitBtn.value = '...'
+        
         if (orderNameValue !== '' && orderPhoneValue !== ''){
           checkAddress(orderAddressValue)
         } else {
@@ -33,10 +36,13 @@ document.addEventListener('turbolinks:load', () => {
             icon: 'error',
             title: '訂單欄位不得空白唷！',
           })
+          submitBtn.disabled = false
+          submitBtn.value = '確認付款'
         }
       })
 
       function checkAddress(address) {
+        console.log(address);
         const geocoder = new google.maps.Geocoder();
         geocoder.geocode({ address: address }, (results, status) => {
           if (status !== "OK") {
@@ -45,6 +51,8 @@ document.addEventListener('turbolinks:load', () => {
               title: '送達地址為無效地址！',
               text: '請正確填寫外送員才不會迷路～'
             })
+            submitBtn.disabled = false
+            submitBtn.value = '確認付款'
             return;
           } else {
             console.log(results[0].plus_code.global_code);
@@ -66,6 +74,8 @@ document.addEventListener('turbolinks:load', () => {
                 title: '送達地址為無效地址！',
                 text: '請正確填寫外送員才不會迷路～'
               })
+              submitBtn.disabled = false
+              submitBtn.value = '確認付款'
             }
           }
         })  
