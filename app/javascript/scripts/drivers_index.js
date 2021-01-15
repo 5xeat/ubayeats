@@ -172,7 +172,7 @@ document.addEventListener('turbolinks:load', () => {
         )
       }
     }
-  } else if (!document.querySelector('.driver_profiles.order_deliver')){
+  } else if (!document.querySelector('.driver_profiles.order_deliver') && !document.querySelector('.store_profiles.new') && !document.querySelector('.carts.checkout')){
     window.initMap = () => {}
     navigator.geolocation.clearWatch(rePosition)
   }

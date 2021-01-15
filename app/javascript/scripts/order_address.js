@@ -1,4 +1,3 @@
-import Rails from '@rails/ujs';
 import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', () => {
@@ -42,7 +41,6 @@ document.addEventListener('turbolinks:load', () => {
       })
 
       function checkAddress(address) {
-        console.log(address);
         const geocoder = new google.maps.Geocoder();
         geocoder.geocode({ address: address }, (results, status) => {
           if (status !== "OK") {
@@ -55,7 +53,6 @@ document.addEventListener('turbolinks:load', () => {
             submitBtn.value = '確認付款'
             return;
           } else {
-            console.log(results[0].plus_code.global_code);
             if (results[0].plus_code.global_code.substring(0,2) === '7Q'){
               Swal.fire({
                 position: 'top-end',
