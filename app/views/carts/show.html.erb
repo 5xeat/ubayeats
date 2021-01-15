@@ -1,9 +1,17 @@
 <div class="container text-center text-gray-500">
     <i class="fas fa-shopping-bag text-4xl my-7 shadow-2xl bg-gray-100">購物車</i>
-    <%= render "carts/cart" %>
-    <div class="flex justify-center">
-      <button class="btn"><%= link_to '繼續購買', root_path, class: 'text-white' %></button>
-      <button class="btn btn-primary"><%= link_to '結帳' , checkout_carts_path, class: 'text-white' %></button>
-      <button class="btn"><%= link_to '清空購物車', carts_path, method: 'delete', class: 'text-white' %></button>
-    </div>
+    <% if current_cart.items.length > 0 %>
+      <%= render "carts/cart" %>
+      <div class="flex justify-center">
+        <button class="btn"><%= link_to '繼續購買', root_path, class: 'text-white' %></button>
+        <button class="btn btn-primary"><%= link_to '結帳' , checkout_carts_path, class: 'text-white' %></button>
+        <button class="btn"><%= link_to '清空購物車', carts_path, method: 'delete', class: 'text-white' %></button>
+      </div>
+    <% else %>
+      <h1>購物車目前是空的！</h1>
+      <div class="flex justify-center">
+        <button class="btn btn-primary"><%= link_to '繼續購買', root_path, class: 'text-white' %></button>
+      </div>
+    <% end %>
+  
 </div>

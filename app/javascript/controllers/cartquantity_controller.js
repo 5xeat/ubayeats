@@ -1,11 +1,9 @@
 import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
 export default class extends Controller {
-  static targets = ["quantity","count","price","subtotal","total"]
+  static targets = ["quantity","count","price","subtotal"]
   static values = { index: Number}
-  connect() { 
-    }  
-  next(e) {
+  add(e) {
     this.indexValue += 1
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
     const subprice =  this.priceTarget.innerText * this.indexValue
@@ -30,7 +28,7 @@ export default class extends Controller {
     })
     updateCart()
   }
-  previous(e) {
+  minus(e) {
     this.indexValue -= 1
     if (this.indexValue <= 0){
       this.indexValue = 1;
@@ -58,6 +56,24 @@ export default class extends Controller {
     })
     updateCart()
   }
+
+  empty(e) {
+    const row = e.currentTarget.parentElement
+    const id = this.data.get('id')
+
+    row.remove()
+    Rails.ajax({
+      url: `/carts/remove_item/${id}`,
+      type: 'delete',
+      success: (resp) => {
+        updateCart()
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+  
 }
 
 function updateCart(){
