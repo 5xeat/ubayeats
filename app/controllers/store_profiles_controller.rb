@@ -12,6 +12,10 @@ class StoreProfilesController < ApplicationController
     @products = @store_profile.products
   end
   
+  def store_myfavorite
+    @my_favorites = current_user.my_favorites
+  end
+
   def new
     @store_profile = StoreProfile.new
   end
@@ -83,5 +87,7 @@ class StoreProfilesController < ApplicationController
   def user_pundit
     authorize current_user, :user_only
   end
+
+  
 end
 

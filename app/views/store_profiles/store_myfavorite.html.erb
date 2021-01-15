@@ -1,0 +1,6 @@
+<% @my_favorites.each do |my_favorite| %>
+ <img src=<%= my_favorite.store_photo %> alt="店家照片">
+  
+  <p class="title"><%= my_favorite.store_name %></p>
+ <p class="description"><%= my_favorite.store_type %></p>
+<% end %>
