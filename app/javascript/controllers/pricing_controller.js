@@ -5,7 +5,6 @@ export default class extends Controller {
 
   addToCart(e){
     const productId = this.data.get('id');
-    // console.log(productId)
     Rails.ajax({
       url: `/carts/add_item/${productId}`,
       type:'post',
