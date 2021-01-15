@@ -1,26 +1,37 @@
-<div class="flex-wrap">
-   <div class="text-center text-gray-900">
-  	<i class="fas fa-search-dollar text-4xl my-7">結帳</i>
-   <%= render "carts/cart", cart:current_cart %>
-    <%= form_for(@order, url: pay_carts_path, method:'post') do |form| %>
+<div class="container">
+  <br class="text-center text-gray-900">
+  <i class="fas fa-search-dollar text-4xl my-7">結帳</i>
+  <%= render "carts/cart", cart:current_cart %>
+  <%= form_for(@order, url: pay_carts_path, method:'post') do |form| %>
   <div class="flex-col m-4 text-2xl text-gray-500 border-4">
-    <ul class="text-2xl m-6 text-2xl font-medium text-gray-500 ">
-      <li> <%= form.label :username,'名稱'%></li>
-      <li class="m-6 text-2xl border-4 border-gray-800 rounded-full text-center"><%= form.text_field :username %></li>
-      <li><%= form.label :tel,'電話'%></li>  
-      <li class="m-6 text-2xl border-4 border-gray-800 rounded-full"><%= form.text_field :tel %></li>
-      <li><%= form.label :address,'地址'%></li>
-      <li class="m-6 text-2xl border-4 border-gray-800 rounded-full"><%= form.text_field :address %></li>
+    <ul class="text-2xl m-6 text-2xl font-medium text-gray-500 mx-auto px-5 md:px-40">
+      <li>
+        <%= form.label :username,'名稱'%>
+      </li>
+      <li>
+        <%= form.text_field :username, class: "text-2xl border-4 border-gray-800 rounded-sm focus:outline-none px-2 w-full mb-2" %>
+      </li>
+      <li>
+        <%= form.label :tel,'電話'%>
+      </li>  
+      <li>
+        <%= form.text_field :tel, class: "text-2xl border-4 border-gray-800 rounded-sm focus:outline-none px-2 w-full mb-2" %>
+      </li>
+      <li>
+        <%= form.label :address,'地址'%>
+      </li>
+      <li>
+        <%= form.text_field :address, class: "text-2xl border-4 border-gray-800 rounded-sm focus:outline-none px-2 w-full mb-2" %>
+      </li>
     </ul>
   </div>
   <div id="dropin-container">
-    <div class="flex justify-center">
-      <div class="self-center flex-1 text-center">
-        <button class="btn"><input type="hidden" id="nonce" name="payment_method_nonce"/>
-        <%= form.submit''%>確認付款</button>
-      </div> 
-  	</div> 
+    <button class="btn mx-auto">
+      <input type="hidden" id="nonce" name="payment_method_nonce"/>
+      <%= form.submit''%>
+      確認付款
+    </button>
   </div>
-    <% end %>
+  <% end %>
 </div>
    
