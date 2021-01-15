@@ -56,7 +56,9 @@ class StoreProfilesController < ApplicationController
 
   def favorite
     store = StoreProfile.find(params[:id])
-    if current_user.my_favorites.include?(store)
+    if current_user.favorite?(store)
+
+      current_user.my_favorites.destroy(store)
        render json: {status: 'added'}
     else
        current_user.my_favorites << store

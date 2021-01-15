@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
 export default class extends Controller {
-    static targets = ["quantity","count","price","subtotal","total"]
+    static targets = ["quantity","count","price","subtotal","total","remove"]
     static values = { index: Number}
     connect() { 
       }  
@@ -58,26 +58,25 @@ export default class extends Controller {
     })
     updateCart()
   }
-  remove(){
-    console.log(remove);
-    // const row =  e.currentTarget.parentElement.parentElement.parentElement
-    // const product_id = row.getAttribute('id')
-    // // '/carts/remove_item/' + product_id.to_s 
-    // Rails.ajax({
-    //     url: `/carts/remove_item/${product_id}`,
-    //     type: 'delete',
-    //     success: (resp) => {
-    //       console.log(resp);
-    //       // resp.target.remove()
-    //     },
-    //     error: (err) => {
-    //         console.log(err)
-    //     }
-    // })
-
-    // calcCart()
+  remove(e){
+    const row =  e.currentTarget.parentElement.parentElement.parentElement
+    const product_id = row.getAttribute('id')
+    Rails.ajax({
+        url: `/carts/remove_item/${product_id}`,
+        type: 'delete',
+        success: (resp) => {
+          console.log(resp);
+        },
+        error: (err) => {
+            console.log(err)
+        }
+    })
+    
+    
   }
+
 }
+
 function updateCart(){
   const subtotal = document.querySelectorAll('span.subtotal') 
   const total = document.querySelector('.total')
@@ -88,19 +87,9 @@ function updateCart(){
   subtotal.forEach(item => {
    itemtotal += Number(item.textContent)
   })
-
   total.textContent = itemtotal
 }
-
-// document.addEventListener('turbolinks:load',()=>{
-//     document.querySelectorAll('.remove-item-btn').forEach(btn => {
-//         btn.addEventListener('click', setRemoveItemBtn)
-//         })
-//     document.querySelectorAll('.cart .quantity').forEach(input =>{
-//             input.addEventListener('change', setQuantity)
-//         })
-// })
-
+  
 // function calcCart(){
 //     const cartItems = document.querySelectorAll('.cart .cart-item')
 //   const remove = document.querySelectorAll('.remove-item-btn').forEach(btn => {
