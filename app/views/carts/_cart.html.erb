@@ -12,7 +12,7 @@
         <%= item.product.name %>
       </span>    
     </div>
-    <div class="flex justify-center w-1/5 ">
+    <div class="flex justify-center w-1/5">
       <button class="fill-current text-gray-600 w-3" data-action="click->cartquantity#minus">
         <i class="fas fa-minus"></i>
       </button>
@@ -25,7 +25,7 @@
       $<%= item.product.price %>
     </div>
     <div class="subtotal text-center w-1/5 font-semibold text-sm text-lg" data-cartquantity-target="subtotal">
-      $<%= item.item_total_price%>
+      $<%= item.item_total_price %>
     </div>
     <button class="remove-item-btn btn-success  bg-red-500 hover:bg-red-600 p-3 text-white w-1/5 rounded-lg justify-center items-center" data-action="click->cartquantity#empty">
       <i class="fas fa-trash"></i>

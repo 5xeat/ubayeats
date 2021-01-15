@@ -1,10 +1,48 @@
 <div class="container">
-  <br class="text-center text-gray-900">
-  <i class="fas fa-search-dollar text-4xl my-7">結帳</i>
-  <%= render "carts/cart", cart:current_cart %>
+  <h1 class="text-center text-gray-900 text-4xl mb-5">
+    <i class="fas fa-search-dollar mr-2"></i>結帳
+  </h1>
+
+  <table class="table-fixed w-full">
+    <thead class="border-b-2 border-gray-300">
+      <tr>
+        <th class="font-semibold text-center text-gray-600 text-2xl w-1/5">商品</th>
+        <th class="font-semibold text-center text-gray-600 text-2xl w-1/5">數量</th>
+        <th class="font-semibold text-center text-gray-600 text-2xl w-1/5">單價</th> 
+        <th class="font-semibold text-center text-gray-600 text-2xl w-1/5">小計</th>
+      </tr>
+    </thead>
+    <tbody class="border-b-2 border-gray-300">
+      <% current_cart.items.each do |item| %>
+        <tr>
+          <td class="text-center font-bold text-xl w-1/5 py-5">
+            <%= item.product.name %>
+          </td>
+          <td class="text-center font-bold text-xl w-1/5">
+            <%= item.quantity %>
+          </td>
+          <td class="text-center font-bold text-xl w-1/5">
+            $<%= item.product.price %>
+          </td>
+          <td class="text-center font-bold text-xl w-1/5">
+            $<%= item.item_total_price %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr class="text-right mt-2 text-xl">
+        <td colspan="3" class="font-bold pt-2">總價</td>
+        <td class="text-center w-6/12 font-semibold pt-2">
+          $<%= current_cart.total_price %>
+        </td>
+      </tr>    
+    </tfoot>
+  </table>
+
   <%= form_for(@order, url: pay_carts_path, method:'post') do |form| %>
-    <div class="m-4 text-2xl text-gray-500 border-4">
-      <ul class="text-2xl m-6 text-2xl font-medium text-gray-500 mx-auto px-5 md:px-40">
+    <div class="m-4 border-4">
+      <ul class="text-xl m-6 font-medium text-gray-500 mx-auto px-5 md:px-40">
         <li>
           <%= form.label :username,'訂單人姓名'%>
         </li>
@@ -26,7 +64,7 @@
       </ul>
     </div>
     <input type="hidden" id="nonce" name="payment_method_nonce"/>
-    <%= form.submit '確認付款', class: 'btn block mx-auto' %>
+    <%= form.submit '確認付款', class: 'btn btn-primary block mx-auto' %>
   <% end %>
 </div>
    
