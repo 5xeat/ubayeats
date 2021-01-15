@@ -1,10 +1,10 @@
 import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
 export default class extends Controller {
-    static targets = ["quantity","count","price","subtotal","total"]
-    static values = { index: Number}
-    connect() { 
-      }  
+  static targets = ["quantity","count","price","subtotal","total"]
+  static values = { index: Number}
+  connect() { 
+    }  
   next(e) {
     this.indexValue += 1
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
@@ -59,16 +59,15 @@ export default class extends Controller {
     updateCart()
   }
 }
-function updateCart(){
-  const subtotal = document.querySelectorAll('span.subtotal') 
-  const total = document.querySelector('.total')
-  const quantity = document.querySelector('.cart-item.quantity')
-  const price = document.querySelector('.cart-item.price')
-  total.textContent = (quantity * price)
-  let itemtotal = 0
-  subtotal.forEach(item => {
-   itemtotal += Number(item.textContent)
-  })
 
-  total.textContent = itemtotal
+function updateCart(){
+  let total = 0
+  document.querySelectorAll('.cart-item').forEach((item) => {
+    const quantity = item.querySelector('.quantity').value
+    const price = item.querySelector('.price').innerText.replace('$', '')
+    item.querySelector('.subtotal').innerText =`$${quantity * price}`
+    total += (quantity * price)
+  })
+  document.querySelector('.total').innerText = `$${total}`
 }
+
