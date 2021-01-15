@@ -10,6 +10,8 @@ document.addEventListener('turbolinks:load', function(){
     }, 500);
   }
   if (document.querySelector('.store_profiles.new')){
+    const submitBtn = document.querySelector('.btn-submit')
+
     window.initMap = () => {
       const input = document.getElementById("store_profile_store_address");
       if (input){
@@ -55,6 +57,8 @@ document.addEventListener('turbolinks:load', function(){
         })
       } else {
         // real submit
+        submitBtn.disabled = true
+        submitBtn.value = '註冊中...'
         canSubmit = false
         return true
       }
