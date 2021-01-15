@@ -1,4 +1,9 @@
-json.set! :order do
-  json.extract! @new_order, :username, :tel, :address, :num
-  json.set! :store, StoreProfile.find(@new_order.store_profile_id)
+json.array!(@orders) do |order|
+  json.username order.username
+  json.tel order.tel
+  json.address order.address
+  json.total_price order.total_price
+  json.num order.num
+  json.user User.find(order.user_id)
+  json.store StoreProfile.find(order.store_profile_id)
 end

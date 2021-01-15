@@ -1,40 +1,45 @@
-<div class="map-container">  
-  <div id="map"></div>
-  <div class="info">
-    <div class="status">
-      <p>
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container pb-24 mx-auto">
+    <div class="status flex flex-col text-center w-full mb-5">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-0 text-gray-900">
         <%= @driver_profile.online ? "等待新訂單..." : "未上線"%>
-      </p>
-      <a href="#" class="btn online-btn">
-        <%= @driver_profile.online ? "下線" : "上線"%>
-      </a>
+      </h1>
+      <div class="flex mx-auto border-2 border-red-500 rounded overflow-hidden mt-6">
+        <button class="online-btn py-1 px-4 focus:outline-none <%= @driver_profile.online ? 'bg-red-500 text-white' : '' %>">
+          上線
+        </button>
+        <button class="offline-btn py-1 px-4 focus:outline-none <%= @driver_profile.online ? '' : 'bg-red-500 text-white' %>">
+          下線
+        </button>
+      </div>
     </div>
-    <% if @driver_profile.online && @new_order %>
-      <div class="order">
-        <div class="distance-matrix">
-          <p></p>
-        </div>
-        <div class="title">
-          <p class="store-name">
-            <%= @store.store_name %>
+    <div class="order-lists flex flex-wrap -m-4">
+      <% if @driver_profile.online %>
+      <% @orders.each do |order| %>
+      <div class="order p-4 xl:w-1/4 md:w-1/2 w-full">
+        <div class="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden">
+          <h2 class="order-num text-sm tracking-widest title-font mb-1 font-medium"><%= order.num %></h2>
+          <h1 class="text-3xl text-gray-900 pb-4 mb-0 leading-none"><%= StoreProfile.find(order.store_profile_id).store_name %></h1>
+          <p class="store-address flex items-center text-gray-600 pb-2 border-b border-gray-200">
+            <%= StoreProfile.find(order.store_profile_id).store_address %>
+            <span class="store-latitude hidden">
+              <%= StoreProfile.find(order.store_profile_id).latitude %>
+            </span>
+            <span class="store-longitude hidden">
+              <%= StoreProfile.find(order.store_profile_id).longitude %>
+            </span>      
           </p>
-          <div class="phone">
-            <a href="tel:+886<%= @store.store_phone %>">
-              <i class="fas fa-phone-alt"></i>
-            </a>
-          </div>
+          <p class="distance flex items-center text-gray-600 mb-2 text-xl">
+            計算時間距離...
+          </p>
+          <button class="take-order-btn flex items-center mt-auto text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-red-500 rounded">
+            接單
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
         </div>
-        <p class="store-address"><%= @store.store_address %></p>
-        <p class="order-number">訂單編號：<span><%= @new_order.num %></span></p>
-        <p class="orderer">訂單人：
-          <span><%= @new_order.username %></span>
-          <span class="orderer-phone"><%= @new_order.tel %></span>
-        </p>
-        <p class="order-address">訂單地址：<span><%= @new_order.address %></span></p>
-        <div class="btn-list">
-          <div class="take-order-btn btn">接單</div>
-        </div>
-        <% if @room.present? && @new_order.state['preparing'] %>
+        <% if @room.present? && @new_order.state['delivering'] %>
           <div class='chat-icon'><i class="far fa-comments"></i></div>
           <div class="room-wrapper">
             <div class="room-close">X</div>
@@ -42,6 +47,8 @@
           </div>
         <% end %>
       </div>
-    <% end %>
+      <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
+</section>

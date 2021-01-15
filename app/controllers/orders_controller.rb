@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :session_required
   before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
-  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update]
+  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order]
 
   def index
     @orders = current_user.orders
@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
 
   def preparing_update
     @order.complete! if @order.preparing?
-    redirect_to store_profiles_path, notice:'有訂單已完成'
+    redirect_to store_profiles_path, notice:'有訂單等待外送員取餐'
   end
 
   def delivering
@@ -35,9 +35,14 @@ class OrdersController < ApplicationController
   end
 
   def delivering_update
-    @order.go! if @order.delivering?
-    redirect_to store_profiles_path, notice:'有訂單外送中'
-    room = @order.room.create
+    if @order.delivering?
+      @order.go!
+    else
+      render json: {
+        error: "店家尚未準備好餐點唷！",
+        status: 404
+      }, status: 404
+    end
   end
 
   def record
@@ -46,13 +51,15 @@ class OrdersController < ApplicationController
 
   def record_update
     @order.arrive! if @order.completed?
-    redirect_to record_orders_path, notice:'訂單送達，辛苦了'
   end
 
   def driver_take_order
-    order = Order.find_by!(num: params[:order])
     driver = current_user.driver_profile
-    order.update(driver_id: driver.id)
+    if (Order.where(driver_id: driver.id, state: ['preparing', 'delivering']).length) == 0
+      @order.update(driver_id: driver.id)
+    else
+      redirect_to driver_profiles_path, notice: '不要太貪心唷！請先把訂單送達'
+    end
   end
 
   private
@@ -65,6 +72,6 @@ class OrdersController < ApplicationController
   end
 
   def find_order
-    @order = Order.find_by(tel: params[:order][:tel])
+    @order = Order.find_by!(num: params[:num] || params[:order][:num])
   end
 end

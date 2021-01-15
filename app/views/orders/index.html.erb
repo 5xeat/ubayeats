@@ -7,6 +7,7 @@
         <tr>
           <th>訂單日期</th>
           <th>訂單明細</th>
+          <th>總計金額</th>
           <th>收件地址</th>
           <th>訂單狀態</th>
         </tr>
@@ -18,10 +19,14 @@
               <td>
                 <%= StoreProfile.find(order.store_profile_id).store_name %>
                 <% order.order_items.each do |item| %>
+                  <div>
+                  <span class="num"><%= item.quantity %></span>
                   <%= Product.find(item.product_id).name %>
-                  <%= item.price %>
-                  <%= item.quantity %>
+                  </div>
                 <% end %>
+              </td>
+              <td>
+                <%= order.total_price %>元
               </td>
               <td>
                 <%= order.address %>

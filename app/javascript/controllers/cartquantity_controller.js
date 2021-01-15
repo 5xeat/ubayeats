@@ -12,7 +12,6 @@ export default class extends Controller {
     this.subtotalTarget.innerText = `${subprice}`
 
     const id = this.data.get('id')
-    // console.log(id)
     Rails.ajax({
       url: `/carts/add_item/${id}`,
       type:'post',
@@ -79,7 +78,7 @@ export default class extends Controller {
     // calcCart()
   }
 }
-  function updateCart(){
+function updateCart(){
   const subtotal = document.querySelectorAll('span.subtotal') 
   const total = document.querySelector('.total')
   const quantity = document.querySelector('.cart-item.quantity')
