@@ -11,7 +11,6 @@ document.addEventListener('turbolinks:load', function(){
   }
   if (document.querySelector('.store_profiles.new')){
     document.querySelector('#new_store_profile').addEventListener('submit', function(e) {
-      console.log('submit enter')
       if (!canSubmit) {
         e.preventDefault()
         delayOpenSubmit()

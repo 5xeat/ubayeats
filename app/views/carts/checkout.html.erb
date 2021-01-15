@@ -22,7 +22,7 @@
             <%= item.quantity %>
           </td>
           <td class="text-center font-bold text-xl w-1/5">
-            $<%= item.product.price %>
+            <%= item.product.price %>
           </td>
           <td class="text-center font-bold text-xl w-1/5">
             $<%= item.item_total_price %>
@@ -47,16 +47,16 @@
           <%= form.label :username,'訂單人姓名'%>
         </li>
         <li>
-          <%= form.text_field :username, class: "text-2xl border-4 border-gray-800 rounded-sm focus:outline-none px-2 w-full mb-2" %>
+          <%= form.text_field :username, class: "text-2xl border-4 border-gray-800 rounded-sm focus:outline-none px-2 w-full mb-2", placeHolder: '請輸入姓名' %>
         </li>
         <li>
           <%= form.label :tel,'聯絡電話'%>
         </li>  
         <li>
-          <%= form.text_field :tel, class: "text-2xl border-4 border-gray-800 rounded-sm focus:outline-none px-2 w-full mb-2" %>
+          <%= form.text_field :tel, class: "text-2xl border-4 border-gray-800 rounded-sm focus:outline-none px-2 w-full mb-2", placeHolder: '請輸入電話' %>
         </li>
         <li>
-          <%= form.label :address,'餐點送達地址'%>
+          <%= form.label :address,'餐點送達地址' %>
         </li>
         <li>
           <%= form.text_field :address, class: "text-2xl border-4 border-gray-800 rounded-sm focus:outline-none px-2 w-full mb-2" %>
