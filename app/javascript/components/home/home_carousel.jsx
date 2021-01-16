@@ -1,28 +1,21 @@
 import React from 'react'
 import { Carousel } from 'antd';
-
-const contentStyle = {
-  minHeight: '300px',
-  color: '#fff',
-  textAlign: 'center',
-  backgroundImage: 'url("https://i.imgur.com/dbaXURd.png")',
-  backgroundSize: 'cover'
-};
+import "./home.scss";
 
 function HomeCarousel(){
   return(
     <Carousel autoplay={true}>
-      <div>
-        <h3 style={contentStyle} />
+      <div className="carousel">
+        <img src="https://i.imgur.com/dbaXURd.png" style={{width: '100%'}} />
       </div>
-      <div>
-        <h3 style={contentStyle} />
+      <div className="carousel">
+        <img src="https://i.imgur.com/dbaXURd.png" style={{width: '100%'}} />
       </div>
-      <div>
-        <h3 style={contentStyle} />
+      <div className="carousel">
+        <img src="https://i.imgur.com/dbaXURd.png" style={{width: '100%'}} />
       </div>
-      <div>
-        <h3 style={contentStyle} />
+      <div className="carousel">
+        <img src="https://i.imgur.com/dbaXURd.png" style={{width: '100%'}} />
       </div>  
     </Carousel>
   );
