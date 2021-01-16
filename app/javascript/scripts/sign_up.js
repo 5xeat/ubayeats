@@ -8,6 +8,8 @@ document.addEventListener('turbolinks:load', () => {
     const password = form.querySelector('#user_password')
     const passwordConfirm = form.querySelector('#user_password_confirmation')
     const name = form.querySelector('#user_name')
+
+    document.querySelector('.cart-icon').remove()
   
     email.addEventListener('keyup', (e) => {
       checkEmail()

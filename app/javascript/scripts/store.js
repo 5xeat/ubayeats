@@ -64,4 +64,7 @@ document.addEventListener('turbolinks:load', function(){
       }
     })
   }
+  if (document.querySelector('.store_profiles.show')){
+    document.querySelector('.cart-icon').remove()
+  }
 })

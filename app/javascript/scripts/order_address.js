@@ -8,6 +8,7 @@ document.addEventListener('turbolinks:load', () => {
     const orderPhone = form.querySelector('#order_tel')
     const submitBtn = document.querySelector('.submit-btn')
 
+    document.querySelector('.cart-icon').remove()
     window.initMap = () => {
       const input = document.getElementById("order_address");
       const autocomplete = new google.maps.places.Autocomplete(input);

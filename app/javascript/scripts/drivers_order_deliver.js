@@ -11,6 +11,7 @@ document.addEventListener('turbolinks:load', () => {
     }
   
     document.querySelector('.cart-icon').remove()
+    document.querySelector('.footer').remove()
     window.initMap = async() => {
       const geocoder = new google.maps.Geocoder()
       let map, marker, lat, lng, endMarker, leg, request, origin, destination, storeDestination, userDestination;
