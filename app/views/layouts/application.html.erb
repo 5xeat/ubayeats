@@ -25,6 +25,9 @@
     <div id="content">
       <%= yield %>
     </div>
+
+    <%= render "shared/footer" %>
+    
     <%= link_to carts_path do %>
       <div class="cart-icon" data-controller="cart" data-action="addToCart@window->cart#update">
           <span data-cart-target="detail">

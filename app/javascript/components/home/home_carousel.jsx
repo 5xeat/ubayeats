@@ -4,7 +4,6 @@ import { Carousel } from 'antd';
 const contentStyle = {
   minHeight: '300px',
   color: '#fff',
-  lineHeight: '300px',
   textAlign: 'center',
   backgroundImage: 'url("https://i.imgur.com/dbaXURd.png")',
   backgroundSize: 'cover'
