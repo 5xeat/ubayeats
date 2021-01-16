@@ -15,9 +15,11 @@ class User < ApplicationRecord
   end
 
   def self.create_from_provider_data(provider_data)
-    where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do |user|
-      user.email = provider_data.info.email
+    where(email: provider_data.info.email).first_or_create do |user|
       user.password = Devise.friendly_token[0, 20]
+      user.name = provider_data.info.last_name
+      user.provider = provider_data.provider
+      user.uid = provider_data.uid
     end
   end
 
@@ -32,8 +34,5 @@ class User < ApplicationRecord
     event :become_store do
       transitions from: :user, to: :store
     end
-
-    # event :store do
-    #   transitions from: :driver, to: :store
   end
 end
