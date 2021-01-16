@@ -29,7 +29,7 @@ function StoreCardList(){
         error: function(err) {
           console.log(err);
         }
-        })
+      })
     }
     function error() {
       Rails.ajax({

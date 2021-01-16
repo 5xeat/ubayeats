@@ -48,6 +48,7 @@ document.addEventListener('turbolinks:load', function(){
             myLng = JSON.parse(loc).lng
             document.getElementById('latitude').value = myLat;
             document.getElementById('longitude').value = myLng;
+            document.getElementById('place-id').value = results[0].place_id;
             canSubmit = true
             Rails.enableElement(document.querySelector('input[type="submit"]'))
             document.querySelector('#new_store_profile').submit()  
