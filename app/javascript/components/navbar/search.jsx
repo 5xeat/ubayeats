@@ -11,17 +11,17 @@ function Search({user, onClick}){
   }, [])
 
   const geoFindMe = () => {
-    function success(position) {   
+    function success(position) {  
+      console.log('suc'); 
       let latitude  = position.coords.latitude;
       let longitude = position.coords.longitude;
-      let href = window.location.href
 
       setCurrentPos({latitude: latitude, longitude: longitude})
       
       Rails.ajax({
         url: '/distance_filter.json',
         type: 'GET',
-        data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
+        data: new URLSearchParams({latitude: latitude, longitude: longitude}),
         success: (resp) => {
           setData(resp)
         },

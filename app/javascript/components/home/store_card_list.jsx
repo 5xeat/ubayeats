@@ -18,12 +18,11 @@ function StoreCardList(){
     function success(position) {
       const latitude  = position.coords.latitude;
       const longitude = position.coords.longitude;
-      const href = window.location.href
       
       Rails.ajax({
         url: '/distance_filter.json',
         type: 'GET',
-        data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
+        data: new URLSearchParams({latitude: latitude, longitude: longitude}),
         success: (resp) => {
           setData(resp)
         },
@@ -58,7 +57,6 @@ function StoreCardList(){
         }
       }) 
     } else {
-      console.log('正在取得定位…!');
       navigator.geolocation.getCurrentPosition(success, error);
     }
   }
