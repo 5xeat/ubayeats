@@ -7,6 +7,7 @@ import "./home.scss";
 import HomeCarousel from "../../components/home/home_carousel.jsx";
 import CategoryCardList from "../../components/home/category_card_list.jsx";
 import StoreCardList from "../../components/home/store_card_list.jsx";
+import Footer from "../../components/home/footer.jsx";
 
 function Home(){
   return (
@@ -20,6 +21,7 @@ function Home(){
       <div className="container">
         <StoreCardList />
       </div>
+      <Footer />
     </div>
   );
 };
