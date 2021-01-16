@@ -15,8 +15,6 @@ function StoreCard({store_name, store_photo, store_type, place_id, id, onClick})
 
   const callback = (place, status) => {
     if ( status == google.maps.places.PlacesServiceStatus.OK ) {
-      console.log('ok');
-      console.log(place);
       setData(place.rating)
     }
   }

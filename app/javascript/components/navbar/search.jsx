@@ -12,7 +12,6 @@ function Search({user, onClick}){
 
   const geoFindMe = () => {
     function success(position) {  
-      console.log('suc'); 
       let latitude  = position.coords.latitude;
       let longitude = position.coords.longitude;
 
@@ -57,7 +56,6 @@ function Search({user, onClick}){
         }
       }) 
     } else {
-      console.log('正在取得定位…!');
       navigator.geolocation.getCurrentPosition(success, error);
     }
   }

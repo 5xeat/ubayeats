@@ -13,7 +13,7 @@ document.addEventListener('turbolinks:load', function(){
     const submitBtn = document.querySelector('.btn-submit')
 
     window.initMap = () => {
-      const input = document.getElementById("store_profile_store_address");
+      const input = document.getElementById("store_profile_store_name");
       if (input){
         console.log('hi');
       }
@@ -21,7 +21,19 @@ document.addEventListener('turbolinks:load', function(){
 
       autocomplete.setFields([
         "address_components",
+        "place_id",
+        "name"
       ]);
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        const address = []
+        place.address_components.map((item) => {
+          address.push(item.long_name)
+        })
+        document.getElementById('store_profile_store_address').value = address.reverse().reduce((a, b) => a + b)
+        document.getElementById('store_profile_store_name').value = place.name
+        document.getElementById('place-id').value = place.place_id;
+      })
     }
 
     document.querySelector('#new_store_profile').addEventListener('submit', function(e) {
@@ -29,11 +41,12 @@ document.addEventListener('turbolinks:load', function(){
         e.preventDefault()
         delayOpenSubmit()
 
-        const address = document.getElementById("store_profile_store_address").value;
-        if (address.length === 0) {
+        const name = document.getElementById("store_profile_store_name").value;
+        if (name.length === 0) {
           return false
         }
-
+        
+        const address = document.getElementById('store_profile_store_address').value
         const geocoder = new google.maps.Geocoder();
         geocoder.geocode({ address: address }, (results, status) => {
           if ( status !== 'OK' ) {
@@ -48,7 +61,10 @@ document.addEventListener('turbolinks:load', function(){
             myLng = JSON.parse(loc).lng
             document.getElementById('latitude').value = myLat;
             document.getElementById('longitude').value = myLng;
-            document.getElementById('place-id').value = results[0].place_id;
+            const placeId = document.getElementById('place-id').value
+            if (placeId === ''){
+              placeId.value = results[0].place_id;
+            }
             canSubmit = true
             Rails.enableElement(document.querySelector('input[type="submit"]'))
             document.querySelector('#new_store_profile').submit()  
