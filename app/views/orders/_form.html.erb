@@ -1,15 +1,26 @@
-<%= form.label :訂單編號 %>
-<%= form.text_field :num, value: recieving_order.num, readonly: true %>
+<td>
+	<%= recieving_order.num %>
+</td>
 
-<%= form.label :訂單人 %>
-<%= form.text_field :username, value: recieving_order.username, readonly: true %>
+<td>
+	<% recieving_order.order_items.each do |item| %>
+		<div>
+			<%= item.quantity %>
+			<%= Product.find(item.product_id).name %>
+		</div>
+	<% end %>
+</td>
 
-<%= form.label :訂單人電話 %>
-<%= form.text_field :tel, value: recieving_order.tel, readonly: true %>
+<td>
+	<%= recieving_order.username %>
+</td>
 
-<%= form.label :訂單地址 %>
-<%= form.text_field :address, value: recieving_order.address, readonly: true %>
+<td>
+	<%= recieving_order.tel %>
+</td>
 
-<p><%= recieving_order.state %></p>
+<%= form.hidden_field :num, value: recieving_order.num %>
 
-<%= form.submit button %>
+<td>
+	<%= form.submit '準備' %>
+</td>

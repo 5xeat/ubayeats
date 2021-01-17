@@ -54,7 +54,7 @@ class CartsController < ApplicationController
   def remove_item  
     filter_res = session[:cart1111]["items"].filter {|item| item["item_id"] != params[:id].to_i}
     session[:cart1111] = { 'items' => filter_res}
-    redirect_to carts_path, notice: '已刪除商品'
+    redirect_to carts_path, notice: '已刪除餐點'
   end
 
   def checkout
