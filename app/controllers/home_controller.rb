@@ -6,8 +6,8 @@ class HomeController < ApplicationController
   def distance_filter
     @user_lat = params[:latitude]
     @user_lng = params[:longitude]
-    stores = StoreProfile.calc_distance(@user_lat, @user_lng)
-    @stores = StoreProfile.where(id: stores)
+    near_stores = StoreProfile.calc_distance(@user_lat, @user_lng)
+    @stores = StoreProfile.where(id: near_stores)
     if params[:latitude]
       render json: @stores
     end

@@ -10,19 +10,14 @@ class DriverProfilesController < ApplicationController
       redirect_to order_deliver_driver_profiles_path(order: order.num)
     else
       @orders = Order.where(state: ['preparing', 'delivering'])
-      if @orders.present?
-        @room = @orders.room
-        if @orders
-          @store = StoreProfile.find(@orders.store_profile_id)
-          @orderer = User.find(@orders.user_id)
-        end
-      end
     end
   end
 
   def order_deliver
     @order = Order.find_by_driver_id_and_num_and_state!(@driver_profile.id, params[:order], ['preparing', 'delivering', 'completed'])
     @store = StoreProfile.find(@order.store_profile_id)
+    @room = @order.room
+    @orderer = User.find(@order.user_id)
   end
   
   def new

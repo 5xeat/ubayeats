@@ -1,13 +1,30 @@
 class CartsController < ApplicationController
+  before_action :session_required
 
   def add_item
     product = Product.find(params[:id])
-    current_cart.add_item(product[:id])
-    session[:cart1111] = current_cart.serialize
-    render json: {
-      count: current_cart.items.count,
-      total_price: current_cart.total_price
-    }
+    store = product.store_profile_id
+    
+    if !current_cart.empty?
+      cart_item = current_cart.items.first.item_id
+      cart_item_store = Product.find(cart_item).store_profile_id
+    end
+
+    if current_cart.empty? || cart_item_store == store
+      current_cart.add_item(product[:id])
+      session[:cart1111] = current_cart.serialize
+      render json: {
+        status: 'ok',
+        count: current_cart.items.count,
+        total_price: current_cart.total_price
+      }
+    else
+      render json: {
+        status: 'not the same store!',
+        store: StoreProfile.find(cart_item_store).store_name,
+        new_store: StoreProfile.find(store).store_name
+      }
+    end
   end
 
   def minus_item
@@ -28,7 +45,6 @@ class CartsController < ApplicationController
 
   def destroy
     session[:cart1111] = nil
-    redirect_to root_path, notice:'購物車清空'
   end
 
   def checkout

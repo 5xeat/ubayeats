@@ -10,6 +10,4 @@ export default class extends Controller {
     const {count, total_price} = e.detail
     this.detailTarget.innerText = `${count}/$${total_price}`
   }
-
- 
 }

@@ -58,7 +58,7 @@ function Navbar({user}){
         }
       </li>
       <li className="logo" onClick={() => handleRouteClick("/")}>
-        <img src={require("../../images/logo/logo-white.png")} alt=""/>
+        <img src={require("../../images/logo/logo-white.png")} alt="logo"/>
       </li>
       <Search user={user} onClick={atClick}/>
       <div className={sideBar ? 'list list-down' : 'list list-up'}>

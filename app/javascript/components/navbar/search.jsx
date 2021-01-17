@@ -11,17 +11,16 @@ function Search({user, onClick}){
   }, [])
 
   const geoFindMe = () => {
-    function success(position) {   
+    function success(position) {  
       let latitude  = position.coords.latitude;
       let longitude = position.coords.longitude;
-      let href = window.location.href
 
       setCurrentPos({latitude: latitude, longitude: longitude})
       
       Rails.ajax({
         url: '/distance_filter.json',
         type: 'GET',
-        data: new URLSearchParams({latitude: latitude, longitude: longitude, href: href}),
+        data: new URLSearchParams({latitude: latitude, longitude: longitude}),
         success: (resp) => {
           setData(resp)
         },
@@ -57,7 +56,6 @@ function Search({user, onClick}){
         }
       }) 
     } else {
-      console.log('正在取得定位…!');
       navigator.geolocation.getCurrentPosition(success, error);
     }
   }

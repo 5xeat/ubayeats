@@ -5,6 +5,8 @@ document.addEventListener('turbolinks:load', () => {
     const name = form.querySelector('#user_name')
     const submitBtn = form.querySelector('.btn-submit')
 
+    document.querySelector('.cart-icon').remove()
+
     email.addEventListener('focusout', () => {
       checkEmail()
     })

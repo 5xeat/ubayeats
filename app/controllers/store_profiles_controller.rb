@@ -44,8 +44,8 @@ class StoreProfilesController < ApplicationController
     user_lng = params[:longitude]
     @keyword = params[:keyword]
     if params[:latitude]
-      stores = StoreProfile.calc_distance(user_lat, user_lng)
-      @stores = StoreProfile.where(id: stores).where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+      near_stores = StoreProfile.calc_distance(user_lat, user_lng)
+      @stores = StoreProfile.where(id: near_stores).where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
     else
       @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
     end
@@ -58,7 +58,7 @@ class StoreProfilesController < ApplicationController
 
   private
   def params_store
-    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account, :latitude, :longitude)
+    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account, :latitude, :longitude, :place_id)
 
   end
 

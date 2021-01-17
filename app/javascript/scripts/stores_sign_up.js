@@ -8,6 +8,8 @@ document.addEventListener('turbolinks:load', () => {
     const address = form.querySelector('#store_profile_store_address')
     const phone = form.querySelector('#store_profile_store_phone')
     const account = form.querySelector('#store_profile_account')
+
+    document.querySelector('.cart-icon').remove()
     
     certificate.addEventListener('focusout', () => {
       checkCertificate()

@@ -11,6 +11,7 @@ document.addEventListener('turbolinks:load', () => {
     }
   
     document.querySelector('.cart-icon').remove()
+    document.querySelector('.footer').remove()
     window.initMap = async() => {
       const geocoder = new google.maps.Geocoder()
       let map, marker, lat, lng, endMarker, leg, request, origin, destination, storeDestination, userDestination;
@@ -261,5 +262,8 @@ document.addEventListener('turbolinks:load', () => {
         });
       }    
     }
+  } else if (!document.querySelector('.driver_profiles.order_deliver') && !document.querySelector('.store_profiles.new') && !document.querySelector('.carts.checkout')){
+    window.initMap = () => {}
+    navigator.geolocation.clearWatch(rePosition)
   }
 })

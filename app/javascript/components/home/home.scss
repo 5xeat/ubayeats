@@ -37,39 +37,37 @@
     @apply md:grid-cols-3;
     @apply gap-4;
     .card {
-      @apply cursor-pointer relative h-48 xl:h-60 border-2;
+      @apply cursor-pointer relative border-2;
       .image {
-        @apply w-full h-32 xl:h-40;
-        @apply overflow-hidden;
-        @apply bg-gray-500;
+        @apply w-full h-32 xl:h-40 overflow-hidden bg-gray-500;
         img {
           @apply w-full;
         }
       }
       .text{
         @apply p-3;
-        @apply grid;
-        @apply  grid-rows-2;
-        @apply  grid-flow-col;
         color: black;
         .title {
-          @apply row-span-1;
-          @apply col-span-5;
-          @apply text-lg;
-          @apply font-medium;
+          @apply flex justify-between;
+          .name {
+            @apply text-lg font-medium;
+          }
+          .rate {
+            @apply text-sm font-normal text-yellow-500;
+            .fa-star {
+              
+            }
+          }
         }
-        .description {
-          @apply row-span-1;
-          @apply col-span-5;
-          @apply text-sm;
-          @apply font-normal;
+        .type {
+          @apply text-sm font-normal overflow-hidden;
         }
         .heart {
-          @apply row-span-1;
-          @apply col-span-1;
-          @apply text-right;
+          @apply absolute;
           @apply text-red-500;
           @apply text-lg;
+          top: 5px;
+          right: 5px;
         }
       }
       &:hover{
@@ -84,5 +82,8 @@
         }
       }  
     }
+  }
+  .carousel {
+    max-height: 400px;
   }
 }

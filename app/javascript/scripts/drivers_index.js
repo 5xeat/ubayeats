@@ -5,7 +5,6 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector('.driver_profiles.index')){
     if (!navigator.geolocation){
-      console.log('not');
       alert('Geolocation is not supported by your browser')
       return;
     }
@@ -173,7 +172,7 @@ document.addEventListener('turbolinks:load', () => {
         )
       }
     }
-  } else if (!document.querySelector('.driver_profiles.order_deliver')){
+  } else if (!document.querySelector('.driver_profiles.order_deliver') && !document.querySelector('.store_profiles.new') && !document.querySelector('.carts.checkout')){
     window.initMap = () => {}
     navigator.geolocation.clearWatch(rePosition)
   }

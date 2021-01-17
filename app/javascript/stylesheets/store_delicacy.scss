@@ -1,9 +1,8 @@
 .store_profiles.delicacy{
   .store-photo {
     @apply w-full overflow-hidden;
-    max-height: 400px;
     img {
-      @apply block m-auto h-full align-middle;
+      @apply block m-auto w-full align-middle;
     }
   }
   .container {
