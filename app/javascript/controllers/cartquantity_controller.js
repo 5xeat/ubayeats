@@ -1,18 +1,10 @@
 import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
 export default class extends Controller {
-<<<<<<< HEAD
-    static targets = ["quantity","count","price","subtotal","total","remove"]
-    static values = { index: Number}
-    connect() { 
-      }  
-  next(e) {
-=======
   static targets = ["quantity","count","price","subtotal"]
   static values = { index: Number}
 
   add(e) {
->>>>>>> develop
     this.indexValue += 1
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
     const subprice =  this.priceTarget.innerText * this.indexValue
@@ -83,27 +75,6 @@ export default class extends Controller {
       }
     })
   }
-<<<<<<< HEAD
-  remove(e){
-    const row =  e.currentTarget.parentElement.parentElement.parentElement
-    const product_id = row.getAttribute('id')
-    Rails.ajax({
-        url: `/carts/remove_item/${product_id}`,
-        type: 'delete',
-        success: (resp) => {
-          console.log(resp);
-        },
-        error: (err) => {
-            console.log(err)
-        }
-    })
-    
-    
-  }
-
-=======
-  
->>>>>>> develop
 }
 
 function updateCart(){
@@ -114,27 +85,5 @@ function updateCart(){
     item.querySelector('.subtotal').innerText =`$${quantity * price}`
     total += (quantity * price)
   })
-<<<<<<< HEAD
-  total.textContent = itemtotal
-}
-  
-// function calcCart(){
-//     const cartItems = document.querySelectorAll('.cart .cart-item')
-//   const remove = document.querySelectorAll('.remove-item-btn').forEach(btn => {
-//     btn.addEventListener('click', setRemoveItemBtn)
-
-
-//     let total = 0
-//     cartItems.forEach(item => {
-//         const quantity = item.querySelector('.quantity').value
-//         const price = item.querySelector('.price').innerText
-//         total += (quantity * price)
-//     })
-
-//      document.querySelector('.total-price').innerText = total.textContent
-// }
-=======
   document.querySelector('.total').innerText = `$${total}`
 }
-
->>>>>>> develop
