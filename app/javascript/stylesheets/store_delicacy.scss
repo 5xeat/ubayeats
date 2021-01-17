@@ -1,8 +1,8 @@
 .store_profiles.delicacy{
   .store-photo {
-    @apply w-full overflow-hidden;
+    @apply w-full h-64 md:h-96 overflow-hidden;
     img {
-      @apply block m-auto w-full align-middle;
+      @apply block m-auto h-full align-middle;
     }
   }
   .container {

@@ -9,13 +9,13 @@ function HomeCarousel(){
         <img src="https://i.imgur.com/IIlCdI5.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
-        <img src="https://i.imgur.com/CQDqTPM.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/YPJzLJB.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
-        <img src="https://i.imgur.com/XmeKzjE.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/exhGBGY.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
-        <img src="https://i.imgur.com/giCl0Gc.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/iD7kqjj.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
         <img src="https://i.imgur.com/mn01ltg.png" style={{width: '100%'}} />

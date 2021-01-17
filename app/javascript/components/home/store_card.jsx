@@ -27,7 +27,12 @@ function StoreCard({store_name, store_photo, store_type, place_id, id, onClick})
         <div className="text">
           <div className="title">
             <p className="name">{store_name}</p>
-            <p className="rate">{data} <i className="fas fa-star"></i></p>
+            <div className="rate">
+              <div className="img">
+                <img src={require("../../images/google_icon.png")} alt="google"/> 
+              </div>
+              {data}<i className="fas fa-star"></i>
+            </div>
           </div>
           <p className="type">{store_type}</p>
           <div className="heart">
