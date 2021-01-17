@@ -65,10 +65,10 @@ class StoreProfilesController < ApplicationController
     if current_user.favorite?(store)
 
       current_user.my_favorites.destroy(store)
-       render json: {status: 'added'}
-    else
-       current_user.my_favorites << store
        render json: {status: 'remove'}
+    else
+       current_user.my_favorites<< store
+       render json: {status: 'added'}
     end
   end
 
