@@ -22,8 +22,7 @@ export default class extends Controller {
         } else {
           Swal.fire({
             title: "是否建立新訂單？",
-            html: `您的訂單含有 <b>${resp.store}</b> 的餐點。` + 
-                  `建立新訂單，即可新增 <b>${resp.new_store}</b> 提供的餐點。`,
+            html: `您的訂單尚有 <b>${resp.store}</b> 的餐點未結帳！<br>建立新訂單，即可新增 <b>${resp.new_store}</b> 提供的餐點。`,
             showCloseButton: true,
             confirmButtonColor: '#EF4444',
             confirmButtonText: '建立新訂單',
