@@ -5,7 +5,7 @@
       <div class="flex justify-center">
         <%= link_to '繼續購買', root_path, class: 'btn text-white' %>
         <%= link_to '結帳' , checkout_carts_path, class: 'btn btn-primary text-white', data: { turbolinks: false } %>
-        <%= link_to '清空購物車', carts_path, method: 'delete', class: 'btn text-white' %>
+        <%= link_to '清空購物車', '#', class: 'empty_cart_btn btn text-white' %>
       </div>
     <% else %>
       <h1>購物車目前是空的！</h1>

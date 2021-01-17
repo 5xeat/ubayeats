@@ -4,9 +4,6 @@ export default class extends Controller {
   static targets = ["quantity","count","price","subtotal"]
   static values = { index: Number}
 
-  connect(){
-    document.querySelector('.cart-icon').remove()
-  }
   add(e) {
     this.indexValue += 1
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
