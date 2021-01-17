@@ -1,11 +1,18 @@
 import { Controller } from "stimulus"
 import Rails from '@rails/ujs'
 export default class extends Controller {
+<<<<<<< HEAD
     static targets = ["quantity","count","price","subtotal","total","remove"]
     static values = { index: Number}
     connect() { 
       }  
   next(e) {
+=======
+  static targets = ["quantity","count","price","subtotal"]
+  static values = { index: Number}
+
+  add(e) {
+>>>>>>> develop
     this.indexValue += 1
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
     const subprice =  this.priceTarget.innerText * this.indexValue
@@ -30,34 +37,53 @@ export default class extends Controller {
     })
     updateCart()
   }
-  previous(e) {
+  minus(e) {
     this.indexValue -= 1
     if (this.indexValue <= 0){
       this.indexValue = 1;
-      }
-    e.target.parentNode.nextSibling.nextSibling.value = this.indexValue
-    const subprice =  this.priceTarget.innerText * this.indexValue
-    this.subtotalTarget.innerText = `${subprice}`
+    } else {
+      e.target.parentNode.nextSibling.nextSibling.value = this.indexValue
+      const subprice =  this.priceTarget.innerText * this.indexValue
+      this.subtotalTarget.innerText = `${subprice}`
+  
+      const id = this.data.get('id')
+      Rails.ajax({
+        url: `/carts/minus_item/${id}`,
+        type:'post',
+        success: resp => {
+          const event = new CustomEvent('click',{
+            detail: {
+              count: resp.count,
+              total_price: resp.total_price
+            }  
+          })
+          window.dispatchEvent(event)
+        },
+        error: err => {
+          console.log('err');
+        }
+      })
+      updateCart()
+    }
+  }
 
+  empty(e) {
+    const row = e.currentTarget.parentElement
     const id = this.data.get('id')
+
+    row.remove()
     Rails.ajax({
-      url: `/carts/minus_item/${id}`,
-      type:'post',
-      success: resp => {
-        const event = new CustomEvent('click',{
-          detail: {
-            count: resp.count,
-            total_price: resp.total_price
-          }  
-        })
-        window.dispatchEvent(event)
+      url: `/carts/remove_item/${id}`,
+      type: 'delete',
+      success: (resp) => {
+        updateCart()
       },
-      error: err => {
-        console.log('err');
+      error: (err) => {
+        console.log(err)
       }
     })
-    updateCart()
   }
+<<<<<<< HEAD
   remove(e){
     const row =  e.currentTarget.parentElement.parentElement.parentElement
     const product_id = row.getAttribute('id')
@@ -75,18 +101,20 @@ export default class extends Controller {
     
   }
 
+=======
+  
+>>>>>>> develop
 }
 
 function updateCart(){
-  const subtotal = document.querySelectorAll('span.subtotal') 
-  const total = document.querySelector('.total')
-  const quantity = document.querySelector('.cart-item.quantity')
-  const price = document.querySelector('.cart-item.price')
-  total.textContent = (quantity * price)
-  let itemtotal = 0
-  subtotal.forEach(item => {
-   itemtotal += Number(item.textContent)
+  let total = 0
+  document.querySelectorAll('.cart-item').forEach((item) => {
+    const quantity = item.querySelector('.quantity').value
+    const price = item.querySelector('.price').innerText.replace('$', '')
+    item.querySelector('.subtotal').innerText =`$${quantity * price}`
+    total += (quantity * price)
   })
+<<<<<<< HEAD
   total.textContent = itemtotal
 }
   
@@ -105,3 +133,8 @@ function updateCart(){
 
 //      document.querySelector('.total-price').innerText = total.textContent
 // }
+=======
+  document.querySelector('.total').innerText = `$${total}`
+}
+
+>>>>>>> develop

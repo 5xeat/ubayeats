@@ -39,7 +39,19 @@
     </div>
 
     <div class="flex">
-      <%= link_to "回到上一頁", :back, class: 'btn btn-primary btn-submit' %>
+      <%= link_to "回到上一頁", :back, class: 'btn btn-submit' %>
     </div>
+
+    <% if current_user.role == 'driver' %>
+    <div class="flex">
+      <%= link_to "編輯外送員資料", edit_driver_profiles_path, class: 'btn' %>
+    </div>
+    <% end %>
+
+    <% if current_user.role == 'store' %>
+    <div class="flex">
+      <%= link_to "編輯店家資料", edit_store_profiles_path, class: 'btn' %>
+    </div>
+    <% end %>
   <% end %>
 </div>

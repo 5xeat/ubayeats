@@ -39,13 +39,6 @@
             </svg>
           </button>
         </div>
-        <% if @room.present? && @new_order.state['delivering'] %>
-          <div class='chat-icon'><i class="far fa-comments"></i></div>
-          <div class="room-wrapper">
-            <div class="room-close">X</div>
-            <div><%= render 'rooms/room' %></div>
-          </div>
-        <% end %>
       </div>
       <% end %>
       <% end %>

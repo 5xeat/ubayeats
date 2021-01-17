@@ -1,30 +1,27 @@
 <div class="store-photo">
-  <img src=<%= @store_profile.store_photo %> alt="店家照片"/>
+  <img src="<%= @store_profile.store_photo %>" alt="店家照片">
 </div>
 
 <div class="container">
   <h1><%= @store_profile.store_name %></h1>
     <table class="product-list">
-      <tbody data-controller="pricing" data-pricing-id='<%=  @products %>'>
+      <tbody>
       <% @products.each do |product| %>
-        <tr>
-            <td>
-              <span><%= product.name %></span>
-            </td>
-            <td>
-              <span><%= product.description %></span>
-            </td>
-            <td>
-              <span>$<%= product.price %></span>
-            </td>
-            <td>
-              <button class="cartItemCount btn">
-                <div  data-controller="pricing"
-                      data-action='click->pricing#addToCart' 
-                      data-pricing-id=<%= product.id %>>
-                  <i class="fas fa-cart-plus"></i>
-              </button>        
-            </td>
+        <tr data-controller="pricing" data-pricing-id=<%= product.id %> >
+          <td>
+            <span><%= product.name %></span>
+          </td>
+          <td>
+            <span><%= product.description %></span>
+          </td>
+          <td>
+            <span>$<%= product.price %></span>
+          </td>
+          <td>
+            <button class="cartItemCount btn" data-action='click->pricing#addToCart'>
+              <i class="fas fa-cart-plus"></i>
+            </button>        
+          </td>
         </tr>
       <% end %>
       </tbody>
