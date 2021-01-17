@@ -28,6 +28,24 @@ ActiveRecord::Schema.define(version: 2021_01_16_134037) do
     t.index ["user_id"], name: "index_driver_profiles_on_user_id"
   end
 
+  create_table "favoritestore_profiles", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["store_profile_id"], name: "index_favoritestore_profiles_on_store_profile_id"
+    t.index ["user_id"], name: "index_favoritestore_profiles_on_user_id"
+  end
+
+  create_table "favoritestores", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["store_profile_id"], name: "index_favoritestores_on_store_profile_id"
+    t.index ["user_id"], name: "index_favoritestores_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.text "content"
     t.bigint "user_id", null: false
@@ -100,10 +118,14 @@ ActiveRecord::Schema.define(version: 2021_01_16_134037) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "account"
     t.decimal "latitude"
     t.decimal "longitude"
+<<<<<<< HEAD
+=======
     t.string "account"
     t.string "place_id"
+>>>>>>> develop
     t.index ["user_id"], name: "index_store_profiles_on_user_id"
   end
 
@@ -126,6 +148,10 @@ ActiveRecord::Schema.define(version: 2021_01_16_134037) do
   end
 
   add_foreign_key "driver_profiles", "users"
+  add_foreign_key "favoritestore_profiles", "store_profiles"
+  add_foreign_key "favoritestore_profiles", "users"
+  add_foreign_key "favoritestores", "store_profiles"
+  add_foreign_key "favoritestores", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "order_items", "orders"
