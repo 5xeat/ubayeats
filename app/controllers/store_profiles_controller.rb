@@ -5,11 +5,13 @@ class StoreProfilesController < ApplicationController
   before_action :user_pundit, only: [:new, :create]
 
   def show
+    @orders = current_user.store_profile.orders.all
+    @recieving_orders = @orders.where(state: 'paid')
   end
 
   def delicacy
     @store_profile = StoreProfile.find_by!(id: params[:id])
-    @products = @store_profile.products
+    @products = @store_profile.products.available
   end
   
   def new

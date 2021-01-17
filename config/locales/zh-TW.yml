@@ -1,0 +1,9 @@
+zh-TW:
+  order_status:
+    unpaid: "未付款"
+    canceled: "已取消"
+    paid: "已付款"
+    preparing: "準備中"
+    delivering: "運送中"
+    completed: "餐點已完成"
+    arrived: "已送達"

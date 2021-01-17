@@ -1,45 +1,38 @@
 <div class="flex justify-center w-screen h-screen text-black bg-gray-100">
   <div class="text-center text-gray-500">
-	   <i class="fas fa-shopping-bag text-4xl my-7">更新產品</i>
-  	 <%= form_for(@product) do |form| %>
-	  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-	   <div class="w-80 bg-white shadow-2xl p-6 rounded-2xl">
-	  	<div class="flex items-center">
-	     <span class="flex items-center justify-center w-6 h-6 rounded-full bg-pink-100"></span>
-	     <span class="ml-2 text-2xl font-medium text-gray-500">產品名稱</span>
-  	  </div>
-  	   <span class="block text-lg font-semibold mt-4 flex-wrap border-2 border-gray-300"> <%= form.text_field :name %></span>
-    </div>
-  <div class="w-80 bg-white shadow-2xl p-6 rounded-2xl">
-	  <div class="flex items-center">
-		 <span class="flex items-center justify-center w-6 h-6 rounded-full bg-red-100"></span>
-		 <span class="ml-2 text-2xl font-medium text-gray-500">產品價格</span>
-		</div>
-		 <span class="block text-lg font-semibold mt-4 border-2 border-gray-300"><%= form.text_field :price %></span>
+		<i class="fas fa-shopping-bag text-4xl my-7">更新餐點</i>
+		<%= form_for(@product) do |form| %>
+	  	<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+	  	 	<div class="w-80 bg-white shadow-2xl p-6 rounded-2xl">
+	  			<div class="flex items-center">
+	  	   		<span class="flex items-center justify-center w-6 h-6 rounded-full bg-pink-100"></span>
+	  	   		<span class="ml-2 text-2xl font-medium text-gray-500">餐點名稱</span>
+  		  	</div>
+  		   	<span class="block text-lg font-semibold mt-4 flex-wrap border-2 border-gray-300"> <%= form.text_field :name %></span>
+    		</div>
+
+				<div class="w-80 bg-white shadow-2xl p-6 rounded-2xl">
+	  			<div class="flex items-center">
+			 			<span class="flex items-center justify-center w-6 h-6 rounded-full bg-red-100"></span>
+			 			<span class="ml-2 text-2xl font-medium text-gray-500">餐點價格</span>
+					</div>
+			 		<span class="block text-lg font-semibold mt-4 border-2 border-gray-300"><%= form.text_field :price %></span>
+				</div>
+
+  			<div class="w-80 bg-white shadow-2xl p-6 rounded-2xl">
+					<div class="flex items-center">
+						<span class="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100"></span>
+						<span class="ml-2 text-2xl font-medium text-gray-500">餐點描述</span>
+					</div>
+					<span class="block text-lg font-semibold mt-4 border-2 border-gray-300"><%= form.text_field :description %></span>	
+	  		</div>
+			</div>
+
+  		<div class="flex justify-center ">
+    	 	<div class="self-center flex-1 text-center ">
+    	    <button class="btn"><%= form.submit %>更新餐點</button>
+    	 	</div> 
+  		</div>
+		<% end %>
 	</div>
-  <div class="w-80 bg-white shadow-2xl p-6 rounded-2xl">
-		<div class="flex items-center">
-			<span class="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100"></span>
-			<span class="ml-2 text-2xl font-medium text-gray-500">產品描述</span>
-	  </div>
-			<span class="block text-lg font-semibold mt-4 border-2 border-gray-300"><%= form.text_field :description %></span>	
-	</div>
-  <div class="flex justify-center ">
-     <div class="self-center flex-1 text-center ">
-        <button class="btn"><%= form.submit "" %>更新產品</button>
-     </div> 
-  </div>
 </div>
-<% end %>
-
-
-
-
-
-
-
-
-
-
-
-
