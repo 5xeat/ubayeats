@@ -7,9 +7,6 @@ class StoreProfile < ApplicationRecord
   has_many :favoritestores
   has_many :favorite_users, through: :favoritestores, source: 'user'
   
-  
-
-  
   # upload
   mount_uploader :store_certificate, RegistrationUploader
   mount_uploader :store_photo, RegistrationUploader
@@ -23,7 +20,6 @@ class StoreProfile < ApplicationRecord
   validates :store_phone, presence: true
   validates :account, presence: true
   
-
   def self.calc_distance(user_lat, user_lng)
     store_latlng = StoreProfile.pluck(:latitude, :longitude)
     result = store_latlng.map{|store_lat, store_lng| 

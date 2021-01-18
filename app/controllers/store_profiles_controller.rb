@@ -63,19 +63,17 @@ class StoreProfilesController < ApplicationController
   def favorite
     store = StoreProfile.find(params[:id])
     if current_user.favorite?(store)
-
       current_user.my_favorites.destroy(store)
-       render json: {status: 'remove'}
+      render json: {status: 'remove'}
     else
-       current_user.my_favorites<< store
-       render json: {status: 'added'}
+      current_user.my_favorites<< store
+      render json: {status: 'added'}
     end
   end
 
   private
   def params_store
     params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account, :latitude, :longitude, :place_id)
-
   end
 
   def store_pundit
@@ -90,6 +88,5 @@ class StoreProfilesController < ApplicationController
     authorize current_user, :user_only
   end
 
-  
 end
 

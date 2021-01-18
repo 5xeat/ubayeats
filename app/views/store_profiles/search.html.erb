@@ -5,7 +5,7 @@
 <div class="store-card-list" >
       <%= link_to(delicacy_store_path(store)) do %>
         <div class="card">
-          <div class="heart" data-controller="favorite" data-action='click->favorite#go' data-favorite-id="<%= store.id %>">
+          <div class="heart" data-controller="favorite" data-action='click->favorite#like' data-favorite-id="<%= store.id %>">
            <% if current_user.favorite?(store) %> 
             <i class="far fa-heart" data-favorite-target="icon"></i>
           <% else %>

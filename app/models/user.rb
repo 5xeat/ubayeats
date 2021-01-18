@@ -8,8 +8,7 @@ class User < ApplicationRecord
 
   has_many :favoritestores
   has_many :my_favorites, through: :favoritestores,source: 'store_profile'
-  #p1 = favorite_users
-
+ 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -18,12 +17,6 @@ class User < ApplicationRecord
   def favorite?(store)
     my_favorites.include?(store)
   end
-
-  # if not Favoritestore.where(user_id: user, store_profile: store).empty?
-  #   false
-  # else
-  #   true
-  # end
 
   def display_name
     name.blank? ? email : name
