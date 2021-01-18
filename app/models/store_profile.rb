@@ -4,10 +4,10 @@ class StoreProfile < ApplicationRecord
   has_many :orders
   has_many :products
 
-  has_many :favorite_store
-  has_many :favorite_users, through: :favorite_stores, source: 'user'
-  #p1 = favorite_users
-  # upload
+  has_many :favoritestores
+  has_many :favorite_users, through: :favoritestores, source: 'user'
+  
+  
 
   
   # upload

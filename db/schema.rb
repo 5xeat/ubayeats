@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_01_14_055657) do
-=======
 ActiveRecord::Schema.define(version: 2021_01_16_134037) do
->>>>>>> develop
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,11 +121,8 @@ ActiveRecord::Schema.define(version: 2021_01_16_134037) do
     t.string "account"
     t.decimal "latitude"
     t.decimal "longitude"
-<<<<<<< HEAD
-=======
     t.string "account"
     t.string "place_id"
->>>>>>> develop
     t.index ["user_id"], name: "index_store_profiles_on_user_id"
   end
 
