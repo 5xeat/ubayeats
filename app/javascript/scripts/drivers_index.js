@@ -2,6 +2,8 @@ import Rails from '@rails/ujs';
 
 document.addEventListener('turbolinks:load', () => {
   let rePosition
+  window.initMap = () => {}
+  navigator.geolocation.clearWatch(rePosition)
 
   if (document.querySelector('.driver_profiles.index')){
     if (!navigator.geolocation){
@@ -172,8 +174,5 @@ document.addEventListener('turbolinks:load', () => {
         )
       }
     }
-  } else if (!document.querySelector('.driver_profiles.order_deliver') && !document.querySelector('.store_profiles.new') && !document.querySelector('.carts.checkout')){
-    window.initMap = () => {}
-    navigator.geolocation.clearWatch(rePosition)
   }
 })
