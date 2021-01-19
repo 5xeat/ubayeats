@@ -50,6 +50,14 @@ function Navbar({user}){
     }
   }
 
+  const infoClick = (e) => {
+    if (screen.width < 768){
+      e.currentTarget.querySelector('.info').classList.toggle('block');
+      e.currentTarget.querySelector('.info').classList.toggle('hidden');
+      e.currentTarget.querySelector('.info').classList.toggle('absolute');
+    }
+  }
+
   return (
     <ul className="nav">
       <li className="bars" onClick={sidebar}>
@@ -62,7 +70,7 @@ function Navbar({user}){
       </li>
       <Search user={user} onClick={atClick}/>
       <div className={sideBar ? 'list list-down' : 'list list-up'}>
-        <NavbarList user={user} handleRouteClick={handleRouteClick}/>
+        <NavbarList user={user} handleRouteClick={handleRouteClick} infoClick={infoClick}/>
       </div>
     </ul>
   );
