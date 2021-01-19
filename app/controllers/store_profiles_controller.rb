@@ -1,5 +1,5 @@
 class StoreProfilesController < ApplicationController
-  before_action :session_required, only: [:new, :create]
+  before_action :session_required, only: [:new, :create, :myfavorite]
   before_action :set_store, only: [:show, :edit, :update]
   before_action :store_pundit, only: [:show, :edit, :update]
   before_action :user_pundit, only: [:new, :create]
@@ -14,8 +14,8 @@ class StoreProfilesController < ApplicationController
     @products = @store_profile.products.available
   end
   
-  def store_myfavorite
-    @my_favorites = current_user.my_favorites
+  def myfavorite
+    @stores = current_user.my_favorites
   end
 
   def new
