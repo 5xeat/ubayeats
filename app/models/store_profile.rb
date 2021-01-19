@@ -15,7 +15,7 @@ class StoreProfile < ApplicationRecord
   validates :store_certificate, presence: true
   validates :store_photo, presence: true
   validates :store_name, presence: true
-  validates :store_type, presence: true
+  validates :store_type, presence: true, inclusion: { in: %w(日式 韓式 速食 飲料 甜點 蔬食) }
   validates :store_address, presence: true
   validates :store_phone, presence: true
   validates :account, presence: true

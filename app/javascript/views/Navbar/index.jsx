@@ -28,7 +28,7 @@ function Navbar({user}){
         }
       })
       return
-    } else if (route === "/drivers"){
+    } else if (route === "/drivers" || "/stores/new"){
       window.location.href = route
     } else {
       Turbolinks.visit(route)

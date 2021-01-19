@@ -31,6 +31,11 @@
       <div class="error-message"></div>
       <i class="fas fa-exclamation-circle"></i>
     </div>
+    
+    <div class="store-address">
+      <%= form.label :store_address, '地址：' %>
+      <%= form.text_field :store_address, readonly: true %>
+    </div>
   
     <div class="form-item">
       <%= form.label :store_type, '店家種類' %>
@@ -38,14 +43,7 @@
       <div class="error-message"></div>
       <i class="fas fa-exclamation-circle"></i>
     </div>
-  
-    <div class="form-item">
-      <%= form.label :store_address, '店家地址' %>
-      <%= form.text_field :store_address %>
-      <div class="error-message"></div>
-      <i class="fas fa-exclamation-circle"></i>
-    </div>
-    
+      
     <div class="form-item">
       <%= form.label :store_phone, '店家電話' %>
       <%= form.text_field :store_phone %>

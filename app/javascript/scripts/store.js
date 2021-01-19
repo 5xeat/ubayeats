@@ -14,9 +14,6 @@ document.addEventListener('turbolinks:load', function(){
 
     window.initMap = () => {
       const input = document.getElementById("store_profile_store_name");
-      if (input){
-        console.log('hi');
-      }
       const autocomplete = new google.maps.places.Autocomplete(input);
 
       autocomplete.setFields([
@@ -54,15 +51,15 @@ document.addEventListener('turbolinks:load', function(){
             return ;
           }
 
-          if (results[0].plus_code.global_code.substring(0,2) === '7Q'){
+          if (results[0].formatted_address.includes('台灣')){
             loc = JSON.stringify(results[0].geometry.location)
             myLatLng = JSON.parse(loc)
             myLat = JSON.parse(loc).lat
             myLng = JSON.parse(loc).lng
             document.getElementById('latitude').value = myLat;
             document.getElementById('longitude').value = myLng;
-            const placeId = document.getElementById('place-id').value
-            if (placeId === ''){
+            const placeId = document.getElementById('place-id')
+            if (placeId.value === ''){
               placeId.value = results[0].place_id;
             }
             canSubmit = true
