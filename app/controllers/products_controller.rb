@@ -5,8 +5,8 @@ class ProductsController < ApplicationController
   before_action :store_pundit, only: [:index, :new, :create]
 
   def index
-    @products = Product.available.order(id: :desc)
-    @productsUnavailable = Product.unavailable.order(id: :desc)
+    @products = current_user.store_profile.products.available.order(id: :desc)
+    @productsUnavailable = current_user.store_profile.products.unavailable.order(id: :desc)
   end
 
   def new
