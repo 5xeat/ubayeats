@@ -57,7 +57,19 @@ class StoreProfilesController < ApplicationController
 
   def recommand
     @store_profiles = StoreProfile.all
-    render json: @store_profiles
+    if current_user
+      @store_profiles = @store_profiles.map{|store| 
+        favorite = current_user.favorite?(store)
+        img = store.store_photo
+        store = store.attributes
+        store['favorite'] = favorite
+        store['store_photo'] = img
+        store
+      }
+      render json: @store_profiles
+    else
+      render json: @store_profiles
+    end
   end
 
   def favorite
