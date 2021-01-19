@@ -42,9 +42,16 @@ a {
   }
   input {
     @apply py-2 px-4 w-full rounded-lg shadow-inner border-2 border-double border-gray-900;
+    &:focus {
+      @apply outline-none bg-gray-900 text-white;
+    }
   }
-  input:focus {
-    @apply outline-none bg-gray-900 text-white;
+  textarea {
+    @apply py-2 px-4 w-full rounded-lg shadow-inner border-2 border-double border-gray-900 h-40 overflow-auto;
+    resize: none;
+    &:focus {
+      @apply outline-none bg-gray-900 text-white;
+    }
   }
   select {
     @apply py-2 px-4 w-full rounded-lg shadow-inner border-2 border-double border-gray-900;

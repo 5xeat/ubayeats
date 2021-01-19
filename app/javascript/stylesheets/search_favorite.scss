@@ -2,22 +2,25 @@
   .store-card-list {
     @apply grid grid-cols-1 gap-4 xl:grid-cols-2;
     .card {
-      @apply cursor-pointer relative h-48 xl:h-40 md:flex border border-gray-300;
+      @apply cursor-pointer relative md:h-60 xl:h-40 md:flex border border-gray-300;
       .heart {
         @apply text-red-500 text-lg absolute;
         bottom: 10px;
         right: 10px;
       }
       .image {
-        @apply w-full h-3/4 md:h-full md:w-2/4 overflow-hidden bg-gray-500;
+        @apply w-full h-44 md:h-full md:w-2/4 overflow-hidden bg-gray-500;
         img {
           @apply w-full;
         }
       }
       .text{
-        @apply text-black p-2;
+        @apply text-black p-4 md:w-2/4;
         .title {
           @apply text-lg font-medium m-0;
+        }
+        .description {
+          @apply text-sm font-normal overflow-ellipsis mt-4;
         }
       }
       &:hover{

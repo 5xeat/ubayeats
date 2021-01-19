@@ -46,7 +46,9 @@ Rails.application.routes.draw do
     get :order_deliver
     post :online
   end
-    
+  
+  resource :store_profiles, path: '/stores'
+  
   resources :store_profiles, as: 'stores', path: '/stores', only: [] do
     member do
       get :delicacy
