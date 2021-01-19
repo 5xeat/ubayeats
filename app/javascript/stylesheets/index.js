@@ -10,4 +10,3 @@ import './store_show.scss'
 import './order_index.scss'
 import './order_show.scss'
 import './store_delicacy.scss'
-

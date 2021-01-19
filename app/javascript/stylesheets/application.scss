@@ -29,6 +29,9 @@
       @apply bg-gray-700 text-white transition duration-300;
     }
   }
+  a {
+    @apply text-white;
+  }
 }
 
 a {

@@ -54,7 +54,7 @@ document.addEventListener('turbolinks:load', () => {
             submitBtn.value = '確認付款'
             return;
           } else {
-            if (results[0].plus_code.global_code.substring(0,2) === '7Q'){
+            if (results[0].formatted_address.includes('台灣')){
               Swal.fire({
                 position: 'top-end',
                 didOpen: () => {

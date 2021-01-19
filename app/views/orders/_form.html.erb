@@ -5,7 +5,7 @@
 <td>
 	<% receiving_order.order_items.each do |item| %>
 		<div>
-			<%= item.quantity %>
+			<span class="num"><%= item.quantity %></span>
 			<%= Product.find(item.product_id).name %>
 		</div>
 	<% end %>
@@ -22,5 +22,5 @@
 <%= form.hidden_field :num, value: receiving_order.num %>
 
 <td>
-	<%= form.submit '準備' %>
+	<%= form.submit '準備', class: "btn" %>
 </td>
