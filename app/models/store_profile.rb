@@ -21,10 +21,8 @@ class StoreProfile < ApplicationRecord
   validates :account, presence: true
   
   def self.calc_distance(user_lat, user_lng)
-    store_latlng = StoreProfile.pluck(:latitude, :longitude)
-    result = store_latlng.map{|store_lat, store_lng| 
-    Math.sqrt((store_lat - user_lat.to_f)**2 + (store_lng - user_lng.to_f)**2) }
-    result_index = result.map.with_index{|x, i| i if x < 0.03 }.compact
-    result_store_id = result_index.map{ |index| index + 1 }
+    lat = user_lat.to_f
+    lng = user_lng.to_f
+    StoreProfile.where.not(:latitude => nil).where.not(:latitude => nil).where("((latitude - #{lat})^2+(longitude - #{lng})^2)^0.5 < 0.03").pluck(:id)
   end
 end
