@@ -3,6 +3,7 @@ document.addEventListener('turbolinks:load', () => {
   const chatRoom = document.querySelector('.room-wrapper');
   const closeIcon = document.querySelector('.room-close');
 
+
   if(chatIcon){
     chatIcon.addEventListener('click', () => {
       chatRoom.classList.add('show');
@@ -16,3 +17,4 @@ document.addEventListener('turbolinks:load', () => {
     })
   }
 })
+

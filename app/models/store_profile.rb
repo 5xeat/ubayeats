@@ -4,6 +4,9 @@ class StoreProfile < ApplicationRecord
   has_many :orders
   has_many :products
 
+  has_many :favoritestores
+  has_many :favorite_users, through: :favoritestores, source: 'user'
+  
   # upload
   mount_uploader :store_certificate, RegistrationUploader
   mount_uploader :store_photo, RegistrationUploader

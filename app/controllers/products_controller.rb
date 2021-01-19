@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:edit, :destroy]
-  before_action :find_current_user_product, only: [:update, :toggle_publish]
+  before_action :find_current_user_product, only: [:update, :toggle_publish,:favorite]
   before_action :session_required
   before_action :store_pundit, only: [:index, :new, :create]
 

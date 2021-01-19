@@ -75,7 +75,6 @@ export default class extends Controller {
       }
     })
   }
-  
 }
 
 function updateCart(){
@@ -88,4 +87,3 @@ function updateCart(){
   })
   document.querySelector('.total').innerText = `$${total}`
 }
-

@@ -5,10 +5,18 @@ class User < ApplicationRecord
   has_many :rooms, through: :messages
   has_one :driver_profile
   has_one :store_profile
+
+  has_many :favoritestores
+  has_many :my_favorites, through: :favoritestores,source: 'store_profile'
+ 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
+
+  def favorite?(store)
+    my_favorites.include?(store)
+  end
 
   def display_name
     name.blank? ? email : name
