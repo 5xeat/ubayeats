@@ -1,7 +1,7 @@
 <div class="flex  justify-center w-screen h-screen text-black bg-gray-100">
-  <div class="text-center text-gray-500">
+  <div class="w-full text-center text-gray-500">
     <i class="fas fa-motorcycle text-4xl my-7">菜單</i>
-		<div class="w-80 bg-white shadow-2xl p-6 rounded-2xl">
+		<div class="w-full h-screen overflow-auto bg-white shadow-2xl p-6 rounded-2xl">
 			<div class="flex items-center">
 				<span class="flex items-center justify-center w-6 h-6 rounded-full bg-pink-100">
         <%# icon %>
@@ -12,12 +12,33 @@
       <span class="block text-lg font-semibold mt-4 flex-wrap border-2 border-gray-300"></span>
 	    <div class="mt-2">
         <span class="ml-2 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= link_to "新增餐點", new_product_path %></span>
-        <% @products.each do |product| %>
-          <ul class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300">
-            <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= product.name %></li>
+        <div class="flex overflow-auto">
+          <% @products.each do |product| %>
+            <ul class="w-1/5 m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300">
+              <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300 truncate"><%= product.name %></li>
+              <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= product.picture %></li>
+              <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300">$<%= product.price %></li>
+              <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300 truncate"><%= product.description %></li>
+              <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= link_to '編輯', edit_product_path(product) %></li>
+              <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= link_to '刪除', product_path(product), method: 'delete', data: { confirm: '確定要刪除嗎?'} %></li>
+              <% if check_product_state?(product) %>
+                <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= link_to '上架', toggle_publish_product_path(product), method: 'patch' %></li>
+              <% else %>
+                <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= link_to '下架', toggle_publish_product_path(product), method: 'patch' %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+
+      <h1 class="text-3xl text-red-600">已下架商品</h1>
+      <div class="flex overflow-auto">
+        <% @productsUnavailable.each do |product| %>
+          <ul class="w-1/5 m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300">
+            <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300 truncate"><%= product.name %></li>
             <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= product.picture %></li>
-            <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= product.price %></li>
-            <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= product.description %></li>
+            <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300">$<%= product.price %></li>
+            <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300 truncate"><%= product.description %></li>
             <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= link_to '編輯', edit_product_path(product) %></li>
             <li class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300"><%= link_to '刪除', product_path(product), method: 'delete', data: { confirm: '確定要刪除嗎?'} %></li>
             <% if check_product_state?(product) %>
@@ -28,24 +49,6 @@
           </ul>
         <% end %>
       </div>
-
-      <h1>已下架商品</h1>
-
-      <% @productsUnavailable.each do |product| %>
-        <ul class="m-6 text-2xl font-medium text-gray-500 border-2 border-gray-300">
-          <li><%= product.name %></li>
-          <li><%= product.picture %></li>
-          <li><%= product.price %></li>
-          <li><%= product.description %></li>
-          <li><%= link_to '編輯', edit_product_path(product) %></li>
-          <li><%= link_to '刪除', product_path(product), method: 'delete', data: { confirm: '確定要刪除嗎?'} %></li>
-          <% if check_product_state?(product) %>
-            <li><%= link_to '上架', toggle_publish_product_path(product), method: 'patch' %></li>
-          <% else %>
-            <li><%= link_to '下架', toggle_publish_product_path(product), method: 'patch' %></li>
-          <% end %>
-        </ul>
-      <% end %>
     </div>
   </div>
 </div>
