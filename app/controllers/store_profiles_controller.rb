@@ -6,7 +6,7 @@ class StoreProfilesController < ApplicationController
 
   def show
     @orders = current_user.store_profile.orders.all
-    @recieving_orders = @orders.where(state: 'paid')
+    @receiving_orders = @orders.where(state: 'paid')
   end
 
   def delicacy

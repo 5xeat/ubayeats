@@ -12,9 +12,9 @@
         </tr>
       </thead>
       <tbody>
-        <% recieving_orders.each do |recieving_order| %>
-          <%= form_for(recieving_order, url: preparing_update_orders_path, method: 'post') do |form| %>
-            <%= render 'orders/form', form: form, recieving_order: recieving_order %>
+        <% receiving_orders.each do |receiving_order| %>
+          <%= form_for(receiving_order, url: preparing_update_orders_path, method: 'post') do |form| %>
+            <%= render 'orders/form', form: form, receiving_order: receiving_order %>
           <% end %>
         <% end %>
       </tbody>

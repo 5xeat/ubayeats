@@ -15,11 +15,11 @@ Rails.application.routes.draw do
   
   resources :orders do 
     collection do
-      post :recieving_update
+      post :receiving_update
       post :preparing_update
       post :delivering_update
       post :record_update
-      get :recieving
+      get :receiving
       get :preparing
       get :delivering
       get :record

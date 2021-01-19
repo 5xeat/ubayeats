@@ -1,9 +1,9 @@
 <td>
-	<%= recieving_order.num %>
+	<%= receiving_order.num %>
 </td>
 
 <td>
-	<% recieving_order.order_items.each do |item| %>
+	<% receiving_order.order_items.each do |item| %>
 		<div>
 			<%= item.quantity %>
 			<%= Product.find(item.product_id).name %>
@@ -12,14 +12,14 @@
 </td>
 
 <td>
-	<%= recieving_order.username %>
+	<%= receiving_order.username %>
 </td>
 
 <td>
-	<%= recieving_order.tel %>
+	<%= receiving_order.tel %>
 </td>
 
-<%= form.hidden_field :num, value: recieving_order.num %>
+<%= form.hidden_field :num, value: receiving_order.num %>
 
 <td>
 	<%= form.submit '準備' %>

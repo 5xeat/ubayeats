@@ -1,6 +1,5 @@
 <div class="container">
   <h1><%= current_user.store_profile.store_name %> 的新訂單</h1>
-
   <div class="order-lists">
     <table>
       <thead>
@@ -12,9 +11,9 @@
         </tr>
       </thead>
       <tbody>
-        <% recieving_orders.each do |recieving_order| %>
-          <%= form_for(recieving_order, url: recieving_update_orders_path, method: 'post') do |form| %>
-            <%= render 'orders/form', form: form, recieving_order: recieving_order %>
+        <% receiving_orders.each do |receiving_order| %>
+          <%= form_for(receiving_order, url: receiving_update_orders_path, method: 'post') do |form| %>
+            <%= render 'orders/form', form: form, receiving_order: receiving_order %>
           <% end %>
         <% end %>
       </tbody>
