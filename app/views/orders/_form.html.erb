@@ -1,4 +1,8 @@
 <td>
+	<%= receiving_order.created_at.strftime('%Y/%m/%d %H:%M') %>
+</td>
+
+<td>
 	<%= receiving_order.num %>
 </td>
 
@@ -17,6 +21,10 @@
 
 <td>
 	<%= receiving_order.tel %>
+</td>
+
+<td>
+	<%= receiving_order.total_price %>元
 </td>
 
 <%= form.hidden_field :num, value: receiving_order.num %>
