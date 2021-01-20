@@ -23,10 +23,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def info
-    @orders = current_user.orders
-  end
-
   protected
 
   # If you have extra params to permit, append them to the sanitizer.

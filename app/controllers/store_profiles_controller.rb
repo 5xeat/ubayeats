@@ -1,5 +1,5 @@
 class StoreProfilesController < ApplicationController
-  before_action :session_required, only: [:new, :create]
+  before_action :session_required, only: [:new, :create, :myfavorite]
   before_action :set_store, only: [:show, :edit, :update]
   before_action :store_pundit, only: [:show, :edit, :update]
   before_action :user_pundit, only: [:new, :create]
@@ -14,8 +14,8 @@ class StoreProfilesController < ApplicationController
     @products = @store_profile.products.available
   end
   
-  def store_myfavorite
-    @my_favorites = current_user.my_favorites
+  def myfavorite
+    @stores = current_user.my_favorites
   end
 
   def new
@@ -57,7 +57,19 @@ class StoreProfilesController < ApplicationController
 
   def recommand
     @store_profiles = StoreProfile.all
-    render json: @store_profiles
+    if current_user
+      @store_profiles = @store_profiles.map{|store| 
+        favorite = current_user.favorite?(store)
+        img = store.store_photo
+        store = store.attributes
+        store['favorite'] = favorite
+        store['store_photo'] = img
+        store
+      }
+      render json: @store_profiles
+    else
+      render json: @store_profiles
+    end
   end
 
   def favorite
@@ -73,7 +85,7 @@ class StoreProfilesController < ApplicationController
 
   private
   def params_store
-    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :store_mail, :store_address, :store_phone, :account, :latitude, :longitude, :place_id)
+    params.require(:store_profile).permit(:store_certificate, :store_photo, :store_name, :store_type, :description, :store_mail, :store_address, :store_phone, :account, :latitude, :longitude, :place_id)
   end
 
   def store_pundit

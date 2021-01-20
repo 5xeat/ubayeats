@@ -11,7 +11,6 @@ export default class extends Controller {
       url: `/stores/${id}/favorite`,
       type: 'post',
       success: (resp) => {
-       
         if(resp.status == "added"){
           this.iconTarget.classList.remove("far")
           this.iconTarget.classList.add("fas")
@@ -21,8 +20,8 @@ export default class extends Controller {
         }
       },
       error: (err) => {
-          console.log('err');
-      }      
+        console.log(err);
+      }
     })
   }
 }

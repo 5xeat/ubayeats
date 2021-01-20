@@ -19,6 +19,7 @@ class StoreProfile < ApplicationRecord
   validates :store_address, presence: true
   validates :store_phone, presence: true
   validates :account, presence: true
+  validates_length_of :description, :maximum => 50
   
   def self.calc_distance(user_lat, user_lng)
     store_latlng = StoreProfile.pluck(:latitude, :longitude)

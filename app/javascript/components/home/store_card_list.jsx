@@ -9,6 +9,7 @@ import StoreCard from './store_card.jsx'
 function StoreCardList(){
 
   const [data, setData] = useState([])
+  const [heart, setHeart] = useState('far')
 
   useEffect(() => {
     geoFindMe()
@@ -61,8 +62,25 @@ function StoreCardList(){
     }
   }
 
-  const atClick = (store) => {
+  const atCardClick = (store) => {
     Turbolinks.visit(`/stores/${store}/delicacy`)
+  }
+
+  const atHeartClick = (e, store) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const icon = e.currentTarget.querySelector('.fa-heart')
+    icon.classList.toggle('far');
+    icon.classList.toggle('fas');
+    Rails.ajax({
+      url: `/stores/${store}/favorite`,
+      type: 'post',
+      success: (resp) => {
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
   
   return(
@@ -73,7 +91,8 @@ function StoreCardList(){
             <StoreCard 
               {...store}
               key={store.id}
-              onClick={atClick}
+              atCardClick={atCardClick}
+              atHeartClick={atHeartClick}
             />
           )
         })

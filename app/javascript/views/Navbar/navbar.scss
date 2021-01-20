@@ -58,8 +58,7 @@
       line-height: 60px;
     }
     &-item {
-      @apply text-white;
-      @apply font-medium;
+      @apply text-white font-medium relative;
       line-height: 60px;
       font-size: 18px;
       letter-spacing: .1em;
@@ -74,9 +73,35 @@
     &-item.selected {
       @apply text-gray-900;
       @apply bg-red-500;
+      .fa-sort-down {
+        @apply relative;
+        bottom: 3px;
+      }
     }
     &-item.selected:hover {
       @apply text-white;
+    }
+    .dropdown {
+      @apply relative;
+      .info {
+        @apply w-full left-0 bg-gray-900 rounded-b-sm;
+        top: 70px;
+        li {
+          @apply w-full text-center text-white font-medium cursor-pointer;
+          line-height: 60px;
+          font-size: 18px;
+          letter-spacing: .1em;
+          padding: 5px 20px;
+        }
+      }
+      &:hover{
+        .info {
+          @apply md:block;
+          li:hover {
+            @apply bg-red-500 text-gray-900;
+          }
+        }
+      }
     }
   }
 }

@@ -16,7 +16,7 @@
   <body class="<%= controller_name %> <%= action_name%>">
     <%= content_tag :div,
       id: "navbar",
-      data: current_user.to_json do %>
+      data: current_user.to_json(only: [ :name, :role ]) do %>
     <% end %>
     <div id="navbar_component"></div>
 

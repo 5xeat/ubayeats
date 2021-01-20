@@ -8,6 +8,7 @@ document.addEventListener('turbolinks:load', () => {
     const address = form.querySelector('#store_profile_store_address')
     const phone = form.querySelector('#store_profile_store_phone')
     const account = form.querySelector('#store_profile_account')
+    const description = form.querySelector('#store_profile_description')
 
     document.querySelector('.cart-icon').remove()
     
@@ -38,6 +39,10 @@ document.addEventListener('turbolinks:load', () => {
     account.addEventListener('focusout', () => {
       checkAccount()
     })
+
+    description.addEventListener('focusout', () => {
+      checkDescription()
+    })
   
     form.addEventListener('submit', (e) => {
       e.preventDefault()
@@ -52,6 +57,7 @@ document.addEventListener('turbolinks:load', () => {
       checkAddress()
       checkPhone()
       checkAccount()
+      checkDescription()
       
       return (form.querySelector('.error') === null)
     }
@@ -116,6 +122,15 @@ document.addEventListener('turbolinks:load', () => {
         setErrorFor(account, "此欄位不得空白")
       } else {
         setSuccessFor(account)
+      }
+    }
+
+    function checkDescription(){
+      const descriptionValue = description.value.trim()
+      if (descriptionValue.length > 50){
+        setErrorFor(description, "店家簡介不得超過50字")
+      } else {
+        setSuccessFor(description)
       }
     }
 

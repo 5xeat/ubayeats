@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import "./home.scss";
 
-function StoreCard({store_name, store_photo, store_type, place_id, id, onClick}){
+function StoreCard({store_name, store_photo, description, place_id, id, favorite, atCardClick, atHeartClick}){
   const [data, setData] = useState('?')
   
   useEffect(() => {
@@ -20,7 +20,7 @@ function StoreCard({store_name, store_photo, store_type, place_id, id, onClick})
   }
 
   return(
-      <div className="card" onClick={()=>onClick(id)}>
+      <div className="card" onClick={()=>atCardClick(id)}>
         <div className="image">
           <img src={store_photo.url} alt=""/>
         </div>
@@ -34,9 +34,9 @@ function StoreCard({store_name, store_photo, store_type, place_id, id, onClick})
               {data}<i className="fas fa-star"></i>
             </div>
           </div>
-          <p className="type">{store_type}</p>
-          <div className="heart">
-            <i className="far fa-heart"></i>
+          <p className="description">{description}</p>
+          <div className="heart" onClick={(e)=>atHeartClick(e, id)}>
+            <i className={favorite? 'fas fa-heart':'far fa-heart'}></i>
           </div>
         </div>
       </div>
