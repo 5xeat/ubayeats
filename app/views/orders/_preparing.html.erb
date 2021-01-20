@@ -1,26 +1,24 @@
 <div class="container">
   <h1><%= current_user.store_profile.store_name %> 的準備中訂單</h1>
   <div class="order-lists">
-    <table>
-      <thead>
-        <tr>
-          <th>訂單日期</th>
-          <th>訂單編號</th>
-          <th>訂單明細</th>
-          <th>姓名</th>
-          <th>電話</th>
-          <th>總計金額</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="table">
+      <div class="thead">
+        <div class="tr">
+          <div class="th">訂單日期</div>
+          <div class="th">訂單明細</div>
+          <div class="th">姓名</div>
+          <div class="th">電話</div>
+          <div class="th">總計金額</div>
+          <div class="th">狀態</div>
+        </div>
+      </div>
+      <div class="tbody">
         <% receiving_orders.each do |receiving_order| %>
-          <tr>
-            <%= form_for(receiving_order, url: preparing_update_orders_path, method: 'post') do |form| %>
-              <%= render 'orders/form', form: form, receiving_order: receiving_order %>
-            <% end %>
-          </tr>
+          <div class="tr">
+            <%= render 'orders/form', receiving_order: receiving_order, url: preparing_update_orders_path %>
+          </div>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+    </div>
   </div>
 </div>

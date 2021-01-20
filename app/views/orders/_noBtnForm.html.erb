@@ -1,39 +1,45 @@
 <div class="order-lists">
-  <table>
-    <thead>
-      <tr>
-        <th>訂單編號</th>
-        <th>訂單明細</th>
-        <th>姓名</th>
-        <th>電話</th>
-        <th>訂單狀態</th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="table">
+    <div class="thead">
+      <div class="tr">
+        <div class="th">訂單日期</div>
+        <div class="th">訂單明細</div>
+        <div class="th">姓名</div>
+        <div class="th">電話</div>
+        <div class="th">總計金額</div>
+        <div class="th">訂單狀態</div>
+      </div>
+    </div>
+    <div class="tbody">
       <% @receiving_orders.each do |order| %>
-        <tr>
-          <td>
-            <%= order.num %>
-          </td>
-          <td>
-            <% order.order_items.each do |item| %>
-              <div>
-                <%= item.quantity %>
-                <%= Product.find(item.product_id).name %>
-              </div>
-            <% end %>
-          </td>
-          <td>
-            <%= order.username %>
-          </td>
-          <td>
-            <%= order.tel %>
-          </td>
-          <td>
-            <%= t("order_status.#{order.state}") %>
-          </td>
-        </tr>
+        <div class="tr">
+          <div class="edit_order">
+            <div class="td">
+              <%= order.created_at.strftime('%Y/%m/%d %H:%M') %>
+            </div>
+            <div class="td">
+              <% order.order_items.each do |item| %>
+                <div>
+                  <span class="num"><%= item.quantity %></span>
+                  <%= Product.find(item.product_id).name %>
+                </div>
+              <% end %>
+            </div>
+            <div class="td">
+              <%= order.username %>  
+            </div>
+            <div class="td">
+              <%= order.tel %>
+            </div>
+            <div class="td">
+              <%= order.total_price %>元
+            </div>
+            <div class="td">
+              <%= t("order_status.#{order.state}") %>
+            </div>
+          </div>
+        </div>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  </div>
 </div>
