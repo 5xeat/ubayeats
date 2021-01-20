@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :find_order, only: [:receiving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order]
 
   def index
-    @orders = current_user.orders
+    @orders = current_user.orders.order(id: :desc)
   end
 
   def show
@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def receiving
-    @receiving_orders = @orders.where(state: 'paid')
+    @receiving_orders = @orders.where(state: 'paid').order(id: :desc)
   end
 
   def receiving_update
@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   end
 
   def preparing
-    @receiving_orders = @orders.where(state: 'preparing')
+    @receiving_orders = @orders.where(state: 'preparing').order(id: :desc)
   end
 
   def preparing_update
@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   end
 
   def delivering
-    @receiving_orders = @orders.where(state: 'delivering')
+    @receiving_orders = @orders.where(state: 'delivering').order(id: :desc)
   end
 
   def delivering_update
@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
   end
 
   def record
-    @receiving_orders = @orders.where(state: 'completed')
+    @receiving_orders = @orders.where(state: 'completed').order(id: :desc)
   end
 
   def record_update
