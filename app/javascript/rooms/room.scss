@@ -1,9 +1,9 @@
 .chat-room{
-  height: 360px;
+  height: 285px;
   overflow-y: scroll;
   position: relative;
   #messages{
-    height: 275px;
+    height: 240px;
     overflow: auto;
   }
   .message{
@@ -35,7 +35,7 @@
   .chat-box{
     position: absolute;
     bottom: 0;
-    padding: 20px;
+    height: 45px;
     width: 100%;
     #new_message{
       display: flex;
@@ -82,7 +82,7 @@
     bottom: 0;
     right: 0;
     width: 300px;
-    height: 400px;
+    height: 322px;
     border: 2px solid black;
     
     .room-close {
@@ -110,4 +110,8 @@
   font-size: 37px;
   margin-top: 4px;
   margin-left: 2px;
+}
+
+#content{
+  position: relative;
 }
