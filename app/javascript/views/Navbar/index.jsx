@@ -79,7 +79,8 @@ function Navbar({user}){
 document.addEventListener('turbolinks:load', () => {
   const node = document.getElementById('navbar')
   const data = JSON.parse(node.getAttribute('data'))
-
+  node.remove()
+  
   ReactDOM.render(
     <Navbar user={data}/>,
     document.getElementById('navbar_component')
