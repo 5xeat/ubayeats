@@ -1,6 +1,6 @@
 <div class="container">
   <h1>訂單編號<%= @order.id %></h1>
-  <h2><%= @order.state %></h2>
+  <h2><%= t("order_status.#{@order.state}") %></h2>
   <h2>餐點預計送達時間：</h2>
   <p>下單時間：<%= @order.created_at.strftime('%Y/%m/%d %H:%M') %></p>
 
@@ -16,7 +16,7 @@
 
   <p>餐點送達地址：<%= @order.address %></p>
 </div>
-<% if @room.present? && @order.state['delivering'] || ['completed'] %>
+<% if @room.present? && @order.state['delivering'] || @order.state['completed'] %>
   <div class='chat-icon'><i class="far fa-comments"></i></div>
   <div class="room-wrapper">
     <div class="room-close">X</div>
