@@ -138,6 +138,7 @@ document.addEventListener('turbolinks:load', () => {
         Rails.ajax({
           url: '/orders/driver_take_order',
           type: 'post',
+          dataType: 'json',
           data: {'num': num},
           success: (resp) => {
             window.location.href = `/drivers/order_deliver?order=${num}`
