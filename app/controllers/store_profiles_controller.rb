@@ -1,5 +1,5 @@
 class StoreProfilesController < ApplicationController
-  before_action :session_required, only: [:new, :create, :myfavorite]
+  before_action :session_required, only: [:new, :create, :favorite, :myfavorite]
   before_action :set_store, only: [:show, :edit, :update]
   before_action :store_pundit, only: [:show, :edit, :update]
   before_action :user_pundit, only: [:new, :create]
