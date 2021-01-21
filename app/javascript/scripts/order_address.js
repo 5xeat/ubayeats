@@ -54,7 +54,7 @@ document.addEventListener('turbolinks:load', () => {
             submitBtn.value = '確認付款'
             return;
           } else {
-            if (results[0].formatted_address.includes('台灣')){
+            if (results[0].formatted_address.includes('台灣' || 'Taiwan')){
               Swal.fire({
                 position: 'top-end',
                 didOpen: () => {

@@ -51,7 +51,7 @@ document.addEventListener('turbolinks:load', function(){
             return ;
           }
 
-          if (results[0].formatted_address.includes('台灣')){
+          if (results[0].formatted_address.includes('台灣' || 'Taiwan')){
             loc = JSON.stringify(results[0].geometry.location)
             myLatLng = JSON.parse(loc)
             myLat = JSON.parse(loc).lat
