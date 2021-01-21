@@ -5,13 +5,15 @@ function StoreCard({store_name, store_photo, description, place_id, id, favorite
   const [data, setData] = useState('?')
   
   useEffect(() => {
-    const map = new google.maps.Map(document.createElement( 'div' ));
-    const service = new google.maps.places.PlacesService(map)
-    service.getDetails({
-      placeId: place_id,
-      fields: [ 'rating', 'review' ]
-    }, callback)
-  }, [])
+    if (store_name !== null){
+      const map = new google.maps.Map(document.createElement( 'div' ));
+      const service = new google.maps.places.PlacesService(map)
+      service.getDetails({
+        placeId: place_id,
+        fields: [ 'rating', 'review' ]
+      }, callback)  
+    }
+  }, [store_name])
 
   const callback = (place, status) => {
     if ( status == google.maps.places.PlacesServiceStatus.OK ) {
@@ -20,9 +22,9 @@ function StoreCard({store_name, store_photo, description, place_id, id, favorite
   }
 
   return(
-      <div className="card" onClick={()=>atCardClick(id)}>
+      <div className="card" onClick={store_name ? ()=>atCardClick(id) : ()=>{}}>
         <div className="image">
-          <img src={store_photo.url} alt=""/>
+          <img src={store_photo && store_photo.url} alt=""/>
         </div>
         <div className="text">
           <div className="title">
@@ -35,7 +37,7 @@ function StoreCard({store_name, store_photo, description, place_id, id, favorite
             </div>
           </div>
           <p className="description">{description}</p>
-          <div className="heart" onClick={(e)=>atHeartClick(e, id)}>
+          <div className="heart" onClick={store_name ? (e)=>atHeartClick(e, id) : ()=>{}}>
             <i className={favorite? 'fas fa-heart':'far fa-heart'}></i>
           </div>
         </div>
