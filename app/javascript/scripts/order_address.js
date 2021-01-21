@@ -55,28 +55,25 @@ document.addEventListener('turbolinks:load', () => {
             submitBtn.value = '確認付款'
             return;
           } else {
-            if (results[0].formatted_address.includes('台灣' || 'Taiwan')){
-              Swal.fire({
-                position: 'top-end',
-                didOpen: () => {
-                  Swal.showLoading()
-                },
-                title: '即將導向LinePay付款請勿關閉視窗...',
-                showConfirmButton: false,
-                timer: 1500
-              }).then(() => {
-                form.submit();
-              });
-            } else {
-              console.log('error2');
-              Swal.fire({
-                icon: 'error',
-                title: '送達地址為無效地址！',
-                text: '請正確填寫外送員才不會迷路～'
-              })
-              submitBtn.disabled = false
-              submitBtn.value = '確認付款'
-            }
+            Swal.fire({
+              position: 'top-end',
+              didOpen: () => {
+                Swal.showLoading()
+              },
+              title: '即將導向LinePay付款請勿關閉視窗...',
+              showConfirmButton: false,
+              timer: 1500
+            }).then(() => {
+              form.submit();
+            });
+            console.log('error2');
+            Swal.fire({
+              icon: 'error',
+              title: '送達地址為無效地址！',
+              text: '請正確填寫外送員才不會迷路～'
+            })
+            submitBtn.disabled = false
+            submitBtn.value = '確認付款'
           }
         })  
       }  

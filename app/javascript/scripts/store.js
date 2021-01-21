@@ -51,23 +51,19 @@ document.addEventListener('turbolinks:load', function(){
             return ;
           }
 
-          if (results[0].formatted_address.includes('台灣' || 'Taiwan')){
-            loc = JSON.stringify(results[0].geometry.location)
-            myLatLng = JSON.parse(loc)
-            myLat = JSON.parse(loc).lat
-            myLng = JSON.parse(loc).lng
-            document.getElementById('latitude').value = myLat;
-            document.getElementById('longitude').value = myLng;
-            const placeId = document.getElementById('place-id')
-            if (placeId.value === ''){
-              placeId.value = results[0].place_id;
-            }
-            canSubmit = true
-            Rails.enableElement(document.querySelector('input[type="submit"]'))
-            document.querySelector('#new_store_profile').submit()  
-          } else {
-            alert('請填寫正確店家地址！')
+          loc = JSON.stringify(results[0].geometry.location)
+          myLatLng = JSON.parse(loc)
+          myLat = JSON.parse(loc).lat
+          myLng = JSON.parse(loc).lng
+          document.getElementById('latitude').value = myLat;
+          document.getElementById('longitude').value = myLng;
+          const placeId = document.getElementById('place-id')
+          if (placeId.value === ''){
+            placeId.value = results[0].place_id;
           }
+          canSubmit = true
+          Rails.enableElement(document.querySelector('input[type="submit"]'))
+          document.querySelector('#new_store_profile').submit()  
         })
       } else {
         // real submit
