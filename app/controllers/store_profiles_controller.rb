@@ -56,7 +56,7 @@ class StoreProfilesController < ApplicationController
   end
 
   def recommand
-    @store_profiles = StoreProfile.all
+    @store_profiles = StoreProfile.all.limit(12)
     if current_user
       @store_profiles = @store_profiles.map{|store| 
         favorite = current_user.favorite?(store)

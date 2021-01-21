@@ -24,6 +24,6 @@ class StoreProfile < ApplicationRecord
   def self.calc_distance(user_lat, user_lng)
     lat = user_lat.to_f
     lng = user_lng.to_f
-    StoreProfile.where.not(:latitude => nil).where.not(:latitude => nil).where("((latitude - #{lat})^2+(longitude - #{lng})^2)^0.5 < 0.03").pluck(:id)
+    StoreProfile.where.not(:latitude => nil).where.not(:latitude => nil).where("((latitude - #{lat})^2+(longitude - #{lng})^2)^0.5 < 0.03").limit(12).pluck(:id)
   end
 end
