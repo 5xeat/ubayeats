@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     @user_lat = params[:latitude]
     @user_lng = params[:longitude]
     near_stores = StoreProfile.calc_distance(@user_lat, @user_lng)
-    @stores = StoreProfile.where(id: near_stores)
+    @stores = StoreProfile.where(id: near_stores).limit(12)
     if params[:latitude]
       render json: @stores
     end
