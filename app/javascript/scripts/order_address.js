@@ -45,6 +45,7 @@ document.addEventListener('turbolinks:load', () => {
         const geocoder = new google.maps.Geocoder();
         geocoder.geocode({ address: address }, (results, status) => {
           if (status !== "OK") {
+            console.log('error1');
             Swal.fire({
               icon: 'error',
               title: '送達地址為無效地址！',
@@ -67,6 +68,7 @@ document.addEventListener('turbolinks:load', () => {
                 form.submit();
               });
             } else {
+              console.log('error2');
               Swal.fire({
                 icon: 'error',
                 title: '送達地址為無效地址！',
