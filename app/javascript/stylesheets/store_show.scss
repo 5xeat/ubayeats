@@ -1,25 +1,3 @@
-.btn {
-  @apply px-4;
-  @apply py-3;
-  @apply bg-gray-700;
-  @apply text-white;
-  @apply rounded-lg;
-  @apply m-1;
-  @apply text-sm;
-  @apply cursor-pointer;
-  &-primary {
-    @apply bg-red-500;;
-    @apply text-white;
-    @apply rounded-lg;
-    &:hover {
-      @apply bg-gray-700;
-      @apply text-white;
-      @apply transition;
-      @apply duration-300;
-    }
-  }
-}
-
 .dash::after {
   content: "";
   display: block;
@@ -30,13 +8,84 @@
 }
 
 .right{
-  width: 100%;
+  width: 85%;
   margin-left: 10px;
-  border: 1px solid black;
+  .container {
+    h1 {
+      @apply mx-auto text-xl;
+    }
+    .order-lists {
+      .table {
+        @apply w-full mx-auto table-fixed divide-y divide-gray-500;
+        .thead {
+          .tr {
+            display: flex;
+            .th {
+              &:first-child {
+                @apply w-2/12;
+              }
+              &:nth-child(2) {
+                @apply w-2/12;
+              }
+              &:nth-child(3) {
+                @apply w-2/12;
+              }
+              &:nth-child(4) {
+                @apply w-2/12;
+              }
+              &:nth-child(5) {
+                @apply w-2/12;
+              }
+              &:nth-child(6) {
+                @apply w-2/12;
+              }
+            }
+          }
+        }
+        .tbody {
+          @apply divide-y divide-gray-100;
+          .tr {
+            .edit_order {
+              display: flex;
+              align-items: center;
+              &:hover {
+                @apply bg-gray-100;
+              }
+              .td {
+                @apply py-5;
+                &:first-child {
+                  @apply w-2/12;
+                }
+                &:nth-child(2) {
+                  @apply w-2/12;
+                }
+                &:nth-child(3) {
+                  @apply w-2/12;
+                }
+                &:nth-child(4) {
+                  @apply w-2/12;
+                }
+                &:nth-child(5) {
+                  @apply w-2/12;
+                }
+                &:nth-child(6) {
+                  @apply w-2/12;
+                }
+                .num {
+                  @apply py-0 px-1 text-white bg-green-500;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .left{
-  @apply flex;
-  @apply flex-col;
-  @apply space-y-6;
+  @apply flex flex-col space-y-6;
+  .btn {
+    font-size: large;
+  }
 }

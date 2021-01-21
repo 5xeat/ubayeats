@@ -1,5 +1,5 @@
 <div class="container">
-  <h1><%= current_user.store_profile.store_name %> 的準備中訂單</h1>
+  <h1><%= current_user.store_profile.store_name %> 的新訂單</h1>
   <div class="order-lists">
     <div class="table">
       <div class="thead">
@@ -15,7 +15,7 @@
       <div class="tbody">
         <% receiving_orders.each do |receiving_order| %>
           <div class="tr">
-            <%= render 'orders/form', receiving_order: receiving_order, url: preparing_update_orders_path %>
+            <%= render 'orders/form', receiving_order: receiving_order, url: receiving_update_orders_path %>
           </div>
         <% end %>
       </div>

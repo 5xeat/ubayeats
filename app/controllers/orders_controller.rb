@@ -1,10 +1,10 @@
 class OrdersController < ApplicationController
   before_action :session_required
-  before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
-  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order]
+  before_action :set_orders, only: [:receiving, :preparing, :delivering, :record]
+  before_action :find_order, only: [:receiving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order]
 
   def index
-    @orders = current_user.orders
+    @orders = current_user.orders.order(id: :desc)
   end
 
   def show
@@ -12,17 +12,17 @@ class OrdersController < ApplicationController
     @room = @order.room
   end
 
-  def recieving
-    @recieving_orders = @orders.where(state: 'paid')
+  def receiving
+    @receiving_orders = @orders.where(state: 'paid').order(id: :desc)
   end
 
-  def recieving_update
+  def receiving_update
     @order.confirm! if @order.paid?
     redirect_to store_profiles_path, notice:'有新訂單已準備'
   end
 
   def preparing
-    @recieving_orders = @orders.where(state: 'preparing')
+    @receiving_orders = @orders.where(state: 'preparing').order(id: :desc)
   end
 
   def preparing_update
@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   end
 
   def delivering
-    @recieving_orders = @orders.where(state: 'delivering')
+    @receiving_orders = @orders.where(state: 'delivering').order(id: :desc)
   end
 
   def delivering_update
@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
   end
 
   def record
-    @recieving_orders = @orders.where(state: 'completed')
+    @receiving_orders = @orders.where(state: 'completed').order(id: :desc)
   end
 
   def record_update

@@ -4,6 +4,8 @@
       @apply mx-auto text-xl;
     }
     .order-lists {
+    height: 450px;
+    overflow: auto;
       table {
         @apply w-full mx-auto table-fixed divide-y divide-gray-500;
         thead {
@@ -15,10 +17,10 @@
               @apply w-3/12;
             }
             &:nth-child(3) {
-              @apply w-3/12;
+              @apply w-4/12;
             }
             &:nth-child(4) {
-              @apply w-3/12;
+              @apply w-2/12;
             }
             &:nth-child(5) {
               @apply w-1/12;

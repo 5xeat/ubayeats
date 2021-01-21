@@ -1,26 +1,32 @@
-<td>
-	<%= recieving_order.num %>
-</td>
+<%= form_for(receiving_order, url: url, method: 'post') do |form| %>
+	<div class="td">
+		<%= receiving_order.created_at.strftime('%Y/%m/%d %H:%M') %>
+	</div>
 
-<td>
-	<% recieving_order.order_items.each do |item| %>
-		<div>
-			<%= item.quantity %>
-			<%= Product.find(item.product_id).name %>
-		</div>
-	<% end %>
-</td>
+	<div class="td">
+		<% receiving_order.order_items.each do |item| %>
+			<div>
+				<span class="num"><%= item.quantity %></span>
+				<%= Product.find(item.product_id).name %>
+			</div>
+		<% end %>
+	</div>
+	
+	<div class="td">
+		<%= receiving_order.username %>
+	</div>
+	
+	<div class="td">
+		<%= receiving_order.tel %>
+	</div>
+	
+	<div class="td">
+		<%= receiving_order.total_price %>元
+	</div>
 
-<td>
-	<%= recieving_order.username %>
-</td>
-
-<td>
-	<%= recieving_order.tel %>
-</td>
-
-<%= form.hidden_field :num, value: recieving_order.num %>
-
-<td>
-	<%= form.submit '準備' %>
-</td>
+	<%= form.hidden_field :num, value: receiving_order.num %>
+	
+	<div class="td">
+		<%= form.submit '製餐完成', class: "btn" %>
+	</div>
+<% end %>
