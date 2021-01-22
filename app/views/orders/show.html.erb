@@ -1,7 +1,56 @@
 <div class="container">
-  <h1>訂單編號<%= @order.id %></h1>
+  <div class="map-container mb-5 hidden">
+    <div id="map"></div>
+  </div>
+  
+  <% if @order.paid? %>
+    <div class="h-10 grid grid-cols-4 gap-4 j-order-state">
+      <div class="m-2 bg-gray-300 j-preparing">1</div>
+      <div class="m-2 bg-gray-300 j-delivering">2</div>
+      <div class="m-2 bg-gray-300 j-completed">3</div>
+      <div class="m-2 bg-gray-300 j-arrived">4</div>
+    </div>
+    <h2 class="j-order-state-text">店家已收到訂單，等待店家回覆...</h2>
+  <% elsif @order.preparing? %>
+    <div class="h-10 grid grid-cols-4 gap-4 j-order-state">
+      <div class="m-2 bg-red-300 j-preparing">1</div>
+      <div class="m-2 bg-gray-300 j-delivering">2</div>
+      <div class="m-2 bg-gray-300 j-completed">3</div>
+      <div class="m-2 bg-gray-300 j-arrived">4</div>
+    </div>
+    <h2 class="j-order-state-text">店家已接受您的訂單，正在準備中...</h2>
+  <% elsif @order.delivering? %>
+    <div class="h-10 grid grid-cols-4 gap-4 j-order-state">
+      <div class="m-2 bg-red-300 j-preparing">1</div>
+      <div class="m-2 bg-red-300 j-delivering">2</div>
+      <div class="m-2 bg-gray-300 j-completed">3</div>
+      <div class="m-2 bg-gray-300 j-arrived">4</div>
+    </div>
+    <h2 class="j-order-state-text">店家已完成您的餐點，正在等待外送員領取...</h2>
+  <% elsif @order.completed? %>
+  
+    <div class="h-10 grid grid-cols-4 gap-4 j-order-state">
+      <div class="m-2 bg-red-300 j-preparing">1</div>
+      <div class="m-2 bg-red-300 j-delivering">2</div>
+      <div class="m-2 bg-red-300 j-completed">3</div>
+      <div class="m-2 bg-gray-300 j-arrived">4</div>
+    </div>
+    <%= link_to "查看外送員", delivering_orders_path %>
+    <h2 class="j-order-state-text">外送員已領取餐點，正在前往您的位置...</h2>
+  <% elsif @order.arrived? %>
+  <div class="h-10 grid grid-cols-4 gap-4 j-order-state">
+    <div class="m-2 bg-red-300 j-preparing">1</div>
+    <div class="m-2 bg-red-300 j-delivering">2</div>
+    <div class="m-2 bg-red-300 j-completed">3</div>
+    <div class="m-2 bg-red-300 j-arrived">4</div>
+  </div>
+  <h2 class="j-order-state-text">外送員已抵達，請準備取餐!</h2>
+  <% end %>
+
+
+  <h1>訂單編號 <span class="order-num"><%= @order.num %></span></h1>
   <h2><%= @order.state %></h2>
-  <h2>餐點預計送達時間：</h2>
+  <h2>餐點預計送達時間：<span class="time"></span></h2>
   <p>下單時間：<%= @order.created_at.strftime('%Y/%m/%d %H:%M') %></p>
 
   <p>店家：<%= StoreProfile.find(@order.store_profile_id).store_name %></p>
@@ -14,7 +63,7 @@
     <% end %>
   </div>
 
-  <p>餐點送達地址：<%= @order.address %></p>
+  <p class="address">餐點送達地址：<span class="address-text"><%= @order.address %></span></p>
 </div>
 <% if @room.present? && @order.state['delivering'] %>
   <div class='chat-icon'><i class="far fa-comments"></i></div>
@@ -23,3 +72,5 @@
     <div><%= render 'rooms/room' %></div>
   </div>
 <% end %>
+<input type="hidden" name="latitude" id='latitude' value="">
+<input type="hidden" name="longitude" id='longitude' value="">
