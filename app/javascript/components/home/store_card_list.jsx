@@ -6,9 +6,95 @@ import "./home.scss";
 // components
 import StoreCard from './store_card.jsx'
 
+const defaultStore = [
+  {
+    id: 1,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 2,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 3,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 4,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 5,    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 6,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 7,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 8,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 9,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 10,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 11,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  },
+  {
+    id: 12,
+    store_name: null,
+    place_id: null,
+    description: null,
+    favorite: false
+  }
+]
+
 function StoreCardList(){
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState(defaultStore)
 
   useEffect(() => {
     geoFindMe()
