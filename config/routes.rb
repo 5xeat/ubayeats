@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root 'home#index'
-  get '/distance_filter', to: 'home#distance_filter'
 
   devise_for :users, controllers: { 
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -54,7 +53,8 @@ Rails.application.routes.draw do
       post :favorite
     end
     collection do
-      get :recommand
+      post :recommand
+      post :distance_filter
       get :search
       get :myfavorite
       resources :products, shallow: true do

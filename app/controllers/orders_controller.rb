@@ -72,6 +72,9 @@ class OrdersController < ApplicationController
   end
 
   def find_order
-    @order = Order.find_by!(num: params[:num] || params[:order][:num])
+    if params.keys.filter{|i| i[/.num/]}
+      num = JSON.parse(params.keys.filter{|i| i[/.num/]}.first)["num"]
+    end
+    @order = Order.find_by!(num: num || params[:order][:num])
   end
 end

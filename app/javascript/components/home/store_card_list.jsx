@@ -9,7 +9,6 @@ import StoreCard from './store_card.jsx'
 function StoreCardList(){
 
   const [data, setData] = useState([])
-  const [heart, setHeart] = useState('far')
 
   useEffect(() => {
     geoFindMe()
@@ -21,9 +20,9 @@ function StoreCardList(){
       const longitude = position.coords.longitude;
       
       Rails.ajax({
-        url: '/distance_filter.json',
-        type: 'GET',
-        data: new URLSearchParams({latitude: latitude, longitude: longitude}),
+        url: '/stores/distance_filter.json',
+        type: 'POST',
+        data: JSON.stringify({latitude: latitude, longitude: longitude}),
         success: (resp) => {
           setData(resp)
         },
@@ -35,7 +34,7 @@ function StoreCardList(){
     function error() {
       Rails.ajax({
         url: "/stores/recommand.json",
-        type: "GET",
+        type: "POST",
         success: (resp) => {
           setData(resp)
         },
@@ -49,7 +48,7 @@ function StoreCardList(){
       console.log('您的瀏覽器不支援定位服務!');
       Rails.ajax({
         url: "/stores/recommand.json",
-        type: "GET",
+        type: "POST",
         success: (resp) => {
           setData(resp)
         },
@@ -74,7 +73,7 @@ function StoreCardList(){
     icon.classList.toggle('fas');
     Rails.ajax({
       url: `/stores/${store}/favorite`,
-      type: 'post',
+      type: 'POST',
       success: (resp) => {
       },
       error: (err) => {

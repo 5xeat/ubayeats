@@ -106,8 +106,7 @@ document.addEventListener('turbolinks:load', () => {
         Rails.ajax({
           url: '/orders/delivering_update',
           type: 'post',
-          dataType: 'json',
-          data: {'num': num},
+          data: JSON.stringify({num: num}),
           success: (resp) => {
             renewBtn()
             destination = userDestination
@@ -128,8 +127,7 @@ document.addEventListener('turbolinks:load', () => {
         Rails.ajax({
           url: '/orders/record_update',
           type: 'post',
-          dataType: 'json',
-          data: {'num': num},
+          data: JSON.stringify({num: num}),
           success: async (resp) => {
             document.querySelector('.distance-matrix p').innerText = ''
             document.querySelector('.steps').remove()
