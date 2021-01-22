@@ -22,10 +22,10 @@
       </button>
     </div>
     <div class="price text-center w-1/5 font-semibold text-sm text-lg" data-cartquantity-target="price">
-      $<%= item.product.price %>
+      <%= item.product.price %>
     </div>
     <div class="subtotal text-center w-1/5 font-semibold text-sm text-lg" data-cartquantity-target="subtotal">
-      $<%= item.item_total_price %>
+      <%= item.item_total_price %>
     </div>
     <button class="remove-item-btn btn-success  bg-red-500 hover:bg-red-600 p-3 text-white w-1/5 rounded-lg justify-center items-center" data-action="click->cartquantity#empty">
       <i class="fas fa-trash"></i>
@@ -36,6 +36,6 @@
 <div class="text-right mt-2">
   <span class="font-bold text-4xl">總價</span>
   <span class="total text-center w-6/12 font-semibold text-3xl">
-    <%= current_cart.total_price %>
+    $<%= current_cart.total_price %>
   </span>
 </div>

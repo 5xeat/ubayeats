@@ -53,7 +53,12 @@ class CartsController < ApplicationController
     product = Product.find(params[:id])
     store = product.store_profile_id
     quantity = JSON.parse(params.keys.filter{|i| i[/.quantity/]}.first)["quantity"]
-    current_cart.items.map{|item| item.quantity = quantity if item.item_id == product[:id]}
+    current_cart.items.map do |item| 
+      if item.item_id == product[:id]
+        item.quantity = quantity 
+        item.item_total_price
+      end
+    end
     session[:cart1111] = current_cart.serialize
     render json: {
       status: 'ok',

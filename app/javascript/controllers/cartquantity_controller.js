@@ -4,6 +4,12 @@ export default class extends Controller {
   static targets = ["quantity","count","price","subtotal"]
   static values = { index: Number}
 
+  connect() {
+    setTimeout(() => {
+      updateCart()
+    }, 1000);
+  }
+
   add(e) {
     this.indexValue += 1
     e.currentTarget.previousSibling.previousSibling.value = this.indexValue
@@ -120,7 +126,7 @@ function updateCart(){
   document.querySelectorAll('.cart-item').forEach((item) => {
     const quantity = item.querySelector('.quantity').value
     const price = item.querySelector('.price').innerText.replace('$', '')
-    item.querySelector('.subtotal').innerText =`$${quantity * price}`
+    item.querySelector('.subtotal').innerText = quantity * price
     total += (quantity * price)
   })
   document.querySelector('.total').innerText = `$${total}`
