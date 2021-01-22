@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   before_action :session_required
-  before_action :set_orders, only: [:receiving, :preparing, :delivering, :record]
-  before_action :find_order, only: [:receiving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order]
+  before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
+  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order, :update_driver_position, :display_driver_position]
+
 
   def index
     @orders = current_user.orders.order(id: :desc)
@@ -18,6 +19,10 @@ class OrdersController < ApplicationController
 
   def receiving_update
     @order.confirm! if @order.paid?
+      order_user = User.find(@order.user_id)
+      ActionCable.server.broadcast("notifications", {
+        receiver: order_user.id, notice: "店家已經接受您的訂單，正在準備中!" , order_state: "preparing"
+      })
     redirect_to store_profiles_path, notice:'有新訂單已準備'
   end
 
@@ -27,6 +32,10 @@ class OrdersController < ApplicationController
 
   def preparing_update
     @order.complete! if @order.preparing?
+    order_user = User.find(@order.user_id)
+    ActionCable.server.broadcast("notifications", {
+      receiver: order_user.id, notice: "店家已完成您的餐點，正在等待外送員領取..." , order_state: "delivering"
+    })
     redirect_to store_profiles_path, notice:'有訂單等待外送員取餐'
   end
 
@@ -37,6 +46,12 @@ class OrdersController < ApplicationController
   def delivering_update
     if @order.delivering?
       @order.go!
+      order_user = User.find(@order.user_id)
+      latitude = JSON.parse(params.keys.filter{|i| i[/.latitude/]}.first)["latitude"]
+      longitude = JSON.parse(params.keys.filter{|i| i[/.longitude/]}.first)["longitude"]
+      ActionCable.server.broadcast("notifications", {
+        receiver: order_user.id, notice: "外送員已領取餐點，正在前往您的位置..." , order_state: "completed", latitude: latitude, longitude: longitude
+      })
     else
       render json: {
         error: "店家尚未準備好餐點唷！",
@@ -51,6 +66,10 @@ class OrdersController < ApplicationController
 
   def record_update
     @order.arrive! if @order.completed?
+    order_user = User.find(@order.user_id)
+    ActionCable.server.broadcast("notifications", {
+      receiver: order_user.id, notice: "外送員已抵達，請準備取餐!", order_state: "arrived"
+    })
   end
 
   def driver_take_order
@@ -60,6 +79,21 @@ class OrdersController < ApplicationController
     else
       redirect_to driver_profiles_path, notice: '不要太貪心唷！請先把訂單送達'
     end
+  end
+
+  def update_driver_position
+    latitude = JSON.parse(params.keys.filter{|i| i[/.latitude/]}.first)["latitude"]
+    longitude = JSON.parse(params.keys.filter{|i| i[/.longitude/]}.first)["longitude"]
+    @order.update(driver_latitude: latitude, driver_longitude: longitude)
+    order_user = User.find(@order.user_id)
+    ActionCable.server.broadcast("notifications", {
+      receiver: order_user.id, notice: "外送員位置更新", latitude: latitude, longitude: longitude, order_state: "completed"
+    })
+  end
+
+  def display_driver_position
+    render json: { driver_latitude: @order.driver_latitude,
+                   driver_longitude: @order.driver_longitude }
   end
 
   private
@@ -72,6 +106,9 @@ class OrdersController < ApplicationController
   end
 
   def find_order
-    @order = Order.find_by!(num: params[:num] || params[:order][:num])
+    if params.keys.filter{|i| i[/.num/]}.first
+      num = JSON.parse(params.keys.filter{|i| i[/.num/]}.first)["num"]
+    end
+    @order = Order.find_by!(num: num || params[:order][:num])
   end
 end
