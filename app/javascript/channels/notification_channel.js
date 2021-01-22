@@ -2,7 +2,7 @@ import consumer from "./consumer"
 import Rails from '@rails/ujs';
 import Swal from 'sweetalert2';
 
-consumer.subscriptions.create("OrderToStoreChannel", {
+consumer.subscriptions.create("NotificationChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },

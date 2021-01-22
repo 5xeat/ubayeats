@@ -1,4 +1,5 @@
 import Rails from '@rails/ujs';
+import { stringify } from 'postcss';
 
 document.addEventListener('turbolinks:load', () => {
   let rePosition
@@ -12,6 +13,7 @@ document.addEventListener('turbolinks:load', () => {
     }
   
     document.querySelector('.cart-icon').remove()
+    console.log("di");
     window.initMap = async() => {
       let lat, lng, origin;
       let orders = document.querySelector('.order')
@@ -138,7 +140,7 @@ document.addEventListener('turbolinks:load', () => {
         Rails.ajax({
           url: '/orders/driver_take_order',
           type: 'post',
-          data: new URLSearchParams({'num': num}),
+          data: JSON.stringify({num: num}),
           success: (resp) => {
             window.location.href = `/drivers/order_deliver?order=${num}`
           },

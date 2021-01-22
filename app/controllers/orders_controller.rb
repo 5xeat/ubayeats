@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :session_required
   before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
-  before_action :find_order, only: [:recieving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order, :update_driver_position, :display_driver_position]
+  before_action :find_order, only: [:receiving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order, :update_driver_position, :display_driver_position]
 
 
   def index
@@ -106,9 +106,11 @@ class OrdersController < ApplicationController
   end
 
   def find_order
-    if params.keys.filter{|i| i[/.num/]}.first
+    if params[:order]
+      num = params[:order][:num]
+    else
       num = JSON.parse(params.keys.filter{|i| i[/.num/]}.first)["num"]
     end
-    @order = Order.find_by!(num: num || params[:order][:num])
+    @order = Order.find_by!(num: num)
   end
 end
