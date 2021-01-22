@@ -16,7 +16,7 @@
       <button class="fill-current text-gray-600 w-3" data-action="click->cartquantity#minus">
         <i class="fas fa-minus"></i>
       </button>
-      <input class="quantity mx-2 border text-center w-8 text-lg" value="<%=item.quantity%>" data-cartquantity-target="count">
+      <input class="quantity mx-2 border text-center w-8 text-lg" value="<%=item.quantity%>" data-cartquantity-target="count" data-action="input->cartquantity#change">
       <button class="cartbtn fill-current text-gray-600 w-3 text-lg"  data-action="click->cartquantity#add">
         <i class="fas fa-plus"></i>
       </button>

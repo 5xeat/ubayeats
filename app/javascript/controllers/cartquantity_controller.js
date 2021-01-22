@@ -12,7 +12,7 @@ export default class extends Controller {
 
     const id = this.data.get('id')
     Rails.ajax({
-      url: `/carts/add_item/${id}`,
+      url: `/carts/cart_add_item/${id}`,
       type:'post',
       success: resp => {
         const event = new CustomEvent('click',{
@@ -42,6 +42,44 @@ export default class extends Controller {
       Rails.ajax({
         url: `/carts/minus_item/${id}`,
         type:'post',
+        success: resp => {
+          const event = new CustomEvent('click',{
+            detail: {
+              count: resp.count,
+              total_price: resp.total_price
+            }  
+          })
+          window.dispatchEvent(event)
+        },
+        error: err => {
+          console.log('err');
+        }
+      })
+      updateCart()
+    }
+  }
+
+  change(e){
+    console.log("test");
+    if (e.currentTarget.value <= 0 || (Number(e.currentTarget.value)%1) != 0){
+      e.currentTarget.value = 1;
+      this.indexValue = e.currentTarget.value
+      const subprice =  this.priceTarget.innerText * this.indexValue
+      this.subtotalTarget.innerText = `${subprice}`
+      updateCart()
+    } else {
+      this.indexValue = e.currentTarget.value
+      console.log(e.currentTarget.value);
+      console.log(this.indexValue);
+      const subprice =  this.priceTarget.innerText * this.indexValue
+      this.subtotalTarget.innerText = `${subprice}`
+      
+      const quantity = parseInt(e.currentTarget.value);
+      const id = this.data.get('id')
+      Rails.ajax({
+        url: `/carts/change_quantity/${id}`,
+        type:'post',
+        data: JSON.stringify({quantity: quantity}),
         success: resp => {
           const event = new CustomEvent('click',{
             detail: {

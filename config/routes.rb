@@ -27,9 +27,11 @@ Rails.application.routes.draw do
 
   resource :carts do 
     post 'add_item/:id', action: 'add_item', as: 'add_item'
+    post 'cart_add_item/:id', action: 'cart_add_item', as: 'cart_add_item'
     post 'minus_item/:id', action: 'minus_item', as: 'minus_item'
+    post 'change_quantity/:id', action: 'change_quantity', as: 'change_quantity'
     delete 'remove_item/:id', action: 'remove_item', as: 'remove_item'
-  get :checkout
+    get :checkout
     collection do
       post :pay
       get :confirm

@@ -54,17 +54,18 @@ document.addEventListener('turbolinks:load', () => {
             submitBtn.value = '確認付款'
             return;
           } else {
-            Swal.fire({
-              position: 'top-end',
-              didOpen: () => {
-                Swal.showLoading()
-              },
-              title: '即將導向LinePay付款請勿關閉視窗...',
-              showConfirmButton: false,
-              timer: 1500
-            }).then(() => {
-              form.submit();
-            });
+            if (results[0].formatted_address.includes('台灣' || 'Taiwan')){
+              Swal.fire({
+                didOpen: () => {
+                  Swal.showLoading()
+                },
+                title: '即將導向LinePay付款請勿關閉視窗...',
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                form.submit();
+              });
+            }
           }
         })  
       }  

@@ -1,5 +1,6 @@
 import Rails from '@rails/ujs';
 import {setErrorFor} from './stores_sign_up.js'
+import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', function(){
   let myLat, myLng, myLatLng, loc;
@@ -64,10 +65,16 @@ document.addEventListener('turbolinks:load', function(){
             if (placeId.value === ''){
               placeId.value = results[0].place_id;
             }
+            Swal.fire({
+              title: '註冊中...',
+              didOpen: () => {
+                Swal.showLoading()
+              }
+            })
+            submitBtn.disabled = true
+            submitBtn.value = '註冊中...'
             canSubmit = true
             Rails.enableElement(document.querySelector('input[type="submit"]'))
-            submitBtn.disabled = true
-            submitBtn.value = '註冊中...'    
             document.querySelector('#new_store_profile').submit()
           } else {
             console.log(results);

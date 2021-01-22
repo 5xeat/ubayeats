@@ -27,11 +27,36 @@ class CartsController < ApplicationController
     end
   end
 
+  def cart_add_item
+    product = Product.find(params[:id])
+    store = product.store_profile_id
+    current_cart.add_item(product[:id])
+    session[:cart1111] = current_cart.serialize
+    render json: {
+      status: 'ok',
+      count: current_cart.items.count,
+      total_price: current_cart.total_price
+    }
+  end
+
   def minus_item
     product = Product.find(params[:id])
     current_cart.add_item(product[:id],quantity= -1)
     session[:cart1111] = current_cart.serialize
     render json: {
+      count: current_cart.items.count,
+      total_price: current_cart.total_price
+    }
+  end
+
+  def change_quantity
+    product = Product.find(params[:id])
+    store = product.store_profile_id
+    quantity = JSON.parse(params.keys.filter{|i| i[/.quantity/]}.first)["quantity"]
+    current_cart.items.map{|item| item.quantity = quantity if item.item_id == product[:id]}
+    session[:cart1111] = current_cart.serialize
+    render json: {
+      status: 'ok',
       count: current_cart.items.count,
       total_price: current_cart.total_price
     }
