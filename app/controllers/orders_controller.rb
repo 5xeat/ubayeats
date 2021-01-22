@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
   end
 
   def record
-    @receiving_orders = @orders.where(state: 'completed').order(id: :desc)
+    @receiving_orders = @orders.where(state: ['completed', 'arrived']).order(id: :desc)
   end
 
   def record_update

@@ -65,7 +65,7 @@
 
   <p class="address">餐點送達地址：<span class="address-text"><%= @order.address %></span></p>
 </div>
-<% if @room.present? && @order.state['delivering'] %>
+<% if @room.present? && @order.state['delivering'] || @order.state['completed'] %>
   <div class='chat-icon'><i class="far fa-comments"></i></div>
   <div class="room-wrapper">
     <div class="room-close">X</div>

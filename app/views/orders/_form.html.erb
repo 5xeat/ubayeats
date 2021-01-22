@@ -27,6 +27,10 @@
 	<%= form.hidden_field :num, value: receiving_order.num %>
 	
 	<div class="td">
-		<%= form.submit '製餐完成', class: "btn" %>
+		<% if receiving_order.state == "paid" %>
+			<%= form.submit '開始製餐', class: "btn" %>
+		<% else %>
+			<%= form.submit '製餐完成', class: "btn" %>
+		<% end %>
 	</div>
 <% end %>
