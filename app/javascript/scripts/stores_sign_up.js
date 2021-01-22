@@ -1,3 +1,17 @@
+function setErrorFor(input, message){
+  const formItem = input.parentElement
+  const errorMessage = formItem.querySelector('.error-message')
+  errorMessage.innerText = message
+  formItem.classList.remove('correct')
+  formItem.classList.add('error')
+  formItem.appendChild(errorMessage)
+}
+
+function setSuccessFor(input){
+  const formItem = input.parentElement
+  formItem.classList.remove('error')
+}
+
 document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('.store_profiles.new')){
     const form = document.querySelector('.new_store_profile')
@@ -133,20 +147,8 @@ document.addEventListener('turbolinks:load', () => {
         setSuccessFor(description)
       }
     }
-
-    function setErrorFor(input, message){
-      const formItem = input.parentElement
-      const errorMessage = formItem.querySelector('.error-message')
-      errorMessage.innerText = message
-      formItem.classList.remove('correct')
-      formItem.classList.add('error')
-      formItem.appendChild(errorMessage)
-    }
-  
-    function setSuccessFor(input){
-      const formItem = input.parentElement
-      formItem.classList.remove('error')
-    }
   }
 })
+
+export {setErrorFor}
 

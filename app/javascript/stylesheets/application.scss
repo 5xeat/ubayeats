@@ -71,7 +71,7 @@ a {
 }
 .form-item.error{
   @apply relative;
-  input {
+  input, textarea {
     @apply border-red-500 border-4 border-solid;
   }
   .fa-exclamation-circle {
