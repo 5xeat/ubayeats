@@ -18,7 +18,7 @@
       id: "navbar",
       data: current_user.to_json(only: [ :name, :role ]) do %>
     <% end %>
-    <div id="navbar_component"></div>
+    <div id="navbar_component" data-id=<%= current_user.id if current_user %>></div>
 
     <%= render "shared/flash" if notice || alert %>
 

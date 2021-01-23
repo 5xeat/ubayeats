@@ -2,6 +2,7 @@ import Rails from '@rails/ujs';
 import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', () => {
+  console.log("123");
   let rePosition
 
   if (document.querySelector('.driver_profiles.order_deliver')){
@@ -62,7 +63,7 @@ document.addEventListener('turbolinks:load', () => {
         lng = position.coords.longitude;
 
         origin = new google.maps.LatLng(lat, lng);
-    
+
         if (map === undefined){
           // 初始化地圖
           map = new google.maps.Map(document.getElementById('map'), {
@@ -91,6 +92,17 @@ document.addEventListener('turbolinks:load', () => {
         } else {
           marker.setPosition(origin);
           directionMap()
+          Rails.ajax({
+            url: '/orders/update_driver_position',
+            type: 'post',
+            data: JSON.stringify({num: num, latitude: lat, longitude: lng}),
+            success: (resp) => {
+              console.log('suc');
+            },
+            error: function(err) {
+              console.log(err);
+            }
+          })
         }
       },() => {
         alert('請開啟定位服務！')
@@ -102,11 +114,12 @@ document.addEventListener('turbolinks:load', () => {
         takenMealBtn.addEventListener('click', setTakeMealBtn)
       }
 
+    
       function setTakeMealBtn(){
         Rails.ajax({
           url: '/orders/delivering_update',
           type: 'post',
-          data: JSON.stringify({num: num}),
+          data: JSON.stringify({num: num, latitude: lat, longitude: lng}),
           success: (resp) => {
             renewBtn()
             destination = userDestination

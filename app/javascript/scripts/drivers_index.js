@@ -1,4 +1,5 @@
 import Rails from '@rails/ujs';
+import { stringify } from 'postcss';
 
 document.addEventListener('turbolinks:load', () => {
   let rePosition
@@ -12,6 +13,7 @@ document.addEventListener('turbolinks:load', () => {
     }
   
     document.querySelector('.cart-icon').remove()
+    console.log("di");
     window.initMap = async() => {
       let lat, lng, origin;
       let orders = document.querySelector('.order')
