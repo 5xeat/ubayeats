@@ -16,11 +16,13 @@
             <tr>
               <td><%= order.created_at.strftime('%Y/%m/%d %H:%M') %></td>
               <td>
-                <%= StoreProfile.find(order.store_profile_id).store_name %>
+                <%#= StoreProfile.find(order.store_profile_id).store_name %>
+                <%= order.store_profile.store_name %>
                 <% order.order_items.each do |item| %>
                   <div>
                   <span class="num"><%= item.quantity %></span>
-                  <%= Product.find(item.product_id).name %>
+                  <%#= Product.find(item.product_id).name %>
+                  <%= item.product.name %>
                   </div>
                 <% end %>
               </td>
