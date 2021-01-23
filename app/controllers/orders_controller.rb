@@ -41,7 +41,6 @@ class OrdersController < ApplicationController
 
   def delivering
     @receiving_orders = @orders.includes(order_items: :product).where(state: 'delivering').order(id: :desc)
-    # @receiving_orders = Order.includes(order_items: :product).where(state: "delivering", store_profile_id: current_user.store_profile).order(id: :desc)
   end
 
   def delivering_update
