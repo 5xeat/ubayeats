@@ -6,5 +6,12 @@
     h2 {
       @apply text-3xl;
     }
+    .map-container {
+      @apply w-full;
+      height: calc(100vh - 70px);
+      #map {
+        @apply h-full w-full;
+      }
+    }
   }
 }
