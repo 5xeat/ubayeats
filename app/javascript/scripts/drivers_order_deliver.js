@@ -2,7 +2,6 @@ import Rails from '@rails/ujs';
 import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', () => {
-  console.log("123");
   let rePosition
 
   if (document.querySelector('.driver_profiles.order_deliver')){
@@ -97,7 +96,6 @@ document.addEventListener('turbolinks:load', () => {
             type: 'post',
             data: JSON.stringify({num: num, latitude: lat, longitude: lng}),
             success: (resp) => {
-              console.log('suc');
             },
             error: function(err) {
               console.log(err);

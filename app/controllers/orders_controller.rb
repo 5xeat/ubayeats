@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @store = StoreProfile.find(@order.store_profile_id)
     @room = @order.room
   end
 

@@ -38,8 +38,6 @@ document.addEventListener('turbolinks:load', () => {
           type:'post',
           data: JSON.stringify({num: num}),
           success: async (resp) => {
-            console.log('suc');
-            console.log(resp);
             const lat = resp.driver_latitude;
             const lng = resp.driver_longitude;
             const driverPosition = await new google.maps.LatLng(lat, lng)
@@ -66,11 +64,10 @@ document.addEventListener('turbolinks:load', () => {
             });      
           },
           error: err => {
-            console.log('err');
+            console.log(err);
           }
         })
       } else {
-        console.log('test');
         window.$map = new google.maps.Map(document.getElementById('map'), {
           zoom: 17,
           center: new google.maps.LatLng(25.040897779251093, 121.51185413844331),
