@@ -18,9 +18,9 @@ function Search({user, onClick}){
       setCurrentPos({latitude: latitude, longitude: longitude})
       
       Rails.ajax({
-        url: '/distance_filter.json',
-        type: 'GET',
-        data: new URLSearchParams({latitude: latitude, longitude: longitude}),
+        url: '/stores/distance_filter.json',
+        type: 'POST',
+        data: JSON.stringify({latitude: latitude, longitude: longitude}),
         success: (resp) => {
           setData(resp)
         },
@@ -33,7 +33,7 @@ function Search({user, onClick}){
       console.log('無法取得您的目前位置');
       Rails.ajax({
         url: "/stores/recommand.json",
-        type: "GET",
+        type: "POST",
         success: (resp) => {
           setData(resp)
         },
@@ -47,7 +47,7 @@ function Search({user, onClick}){
       console.log('您的瀏覽器不支援定位服務!');
       Rails.ajax({
         url: "/stores/recommand.json",
-        type: "GET",
+        type: "POST",
         success: (resp) => {
           setData(resp)
         },

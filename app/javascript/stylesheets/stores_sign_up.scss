@@ -5,13 +5,6 @@
     h1 {
       @apply text-center text-4xl font-black mb-5;
     }
-    .store-address {
-      @apply mb-5 flex w-full;
-      margin-top: -10px;
-      input {
-        @apply focus:outline-none bg-yellow-50 flex-grow;
-      }
-    }   
     .form-item-upload {
       @apply mb-5;
       label {

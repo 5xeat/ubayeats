@@ -1,4 +1,6 @@
 import Rails from '@rails/ujs';
+import {setErrorFor} from './stores_sign_up.js'
+import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', function(){
   let myLat, myLng, myLatLng, loc;
@@ -46,12 +48,13 @@ document.addEventListener('turbolinks:load', function(){
         const address = document.getElementById('store_profile_store_address').value
         const geocoder = new google.maps.Geocoder();
         geocoder.geocode({ address: address }, (results, status) => {
+          const address = document.querySelector('#store_profile_store_address')
           if ( status !== 'OK' ) {
-            alert("請填寫正確店家地址！");
+            setErrorFor(address, "請填寫正確地址")
             return ;
           }
 
-          if (results[0].formatted_address.includes('台灣')){
+          if (results[0].formatted_address.includes('台灣' || 'Taiwan')){
             loc = JSON.stringify(results[0].geometry.location)
             myLatLng = JSON.parse(loc)
             myLat = JSON.parse(loc).lat
@@ -62,17 +65,25 @@ document.addEventListener('turbolinks:load', function(){
             if (placeId.value === ''){
               placeId.value = results[0].place_id;
             }
+            Swal.fire({
+              title: '註冊中...',
+              didOpen: () => {
+                Swal.showLoading()
+              }
+            })
+            submitBtn.disabled = true
+            submitBtn.value = '註冊中...'
             canSubmit = true
             Rails.enableElement(document.querySelector('input[type="submit"]'))
-            document.querySelector('#new_store_profile').submit()  
+            document.querySelector('#new_store_profile').submit()
           } else {
-            alert('請填寫正確店家地址！')
+            console.log(results);
+            setErrorFor(address, "請填寫正確地址")
+            return
           }
         })
       } else {
         // real submit
-        submitBtn.disabled = true
-        submitBtn.value = '註冊中...'
         canSubmit = false
         return true
       }
