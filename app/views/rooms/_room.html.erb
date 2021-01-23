@@ -3,7 +3,7 @@
 
 <div class="chat-container">
   <% if @room.present? %>
-    <p>hello,<%= current_user.name %></p>
+    <p>外送員：<%= User.find(DriverProfile.find(Order.find(@room.order_id).driver_id).user_id).name %></p>
     <div class="chat-room">
       <div id="messages">
         <% @room.messages.each do |message| %>
