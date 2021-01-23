@@ -7,23 +7,20 @@
     height: 450px;
     overflow: auto;
       table {
-        @apply w-full mx-auto table-fixed divide-y divide-gray-500;
+        @apply w-full mx-auto table-fixed divide-y divide-gray-500 text-center;
         thead {
           th {
             &:first-child {
-              @apply w-2/12;
-            }
-            &:nth-child(2) {
               @apply w-3/12;
             }
-            &:nth-child(3) {
+            &:nth-child(2) {
               @apply w-4/12;
             }
-            &:nth-child(4) {
-              @apply w-2/12;
+            &:nth-child(3) {
+              @apply w-full;
             }
-            &:nth-child(5) {
-              @apply w-1/12;
+            &:nth-child(4) {
+              @apply w-4/12;
             }
           }
         }

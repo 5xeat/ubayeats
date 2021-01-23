@@ -48,7 +48,7 @@
 
 
   <h1>訂單編號 <span class="order-num"><%= @order.num %></span></h1>
-  <h2>餐點預計送達時間：<span class="time">---</span></h2>
+  <h2>餐點預計送達時間：<span class="time">-</span></h2>
   <p>下單時間：<%= @order.created_at.strftime('%Y/%m/%d %H:%M') %></p>
 
   <p>店家：<%= link_to @store.store_name, delicacy_store_path(@store) %></p>

@@ -84,7 +84,7 @@ consumer.subscriptions.create("NotificationChannel", {
         document.querySelector(".j-arrived").classList.remove('bg-gray-300')
         document.querySelector(".j-arrived").classList.add('bg-red-400')
         document.querySelector('.map-container').classList.add('hidden')
-        document.querySelector('.time').innerText = "---"
+        document.querySelector('.time').innerText = "-"
         document.querySelector(".j-order-state-text").textContent = '外送員已送達，用餐愉快!'
       }
     }
