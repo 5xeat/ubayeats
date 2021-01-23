@@ -54,9 +54,8 @@ document.addEventListener('turbolinks:load', () => {
             submitBtn.value = '確認付款'
             return;
           } else {
-            if (results[0].formatted_address.includes('台灣')){
+            if (results[0].formatted_address.includes('台灣' || 'Taiwan')){
               Swal.fire({
-                position: 'top-end',
                 didOpen: () => {
                   Swal.showLoading()
                 },
@@ -66,14 +65,6 @@ document.addEventListener('turbolinks:load', () => {
               }).then(() => {
                 form.submit();
               });
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: '送達地址為無效地址！',
-                text: '請正確填寫外送員才不會迷路～'
-              })
-              submitBtn.disabled = false
-              submitBtn.value = '確認付款'
             }
           }
         })  

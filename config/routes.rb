@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root 'home#index'
-  get '/distance_filter', to: 'home#distance_filter'
 
   devise_for :users, controllers: { 
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -23,14 +22,18 @@ Rails.application.routes.draw do
       get :delivering
       get :record
       post :driver_take_order
+      post :update_driver_position
+      post :display_driver_position
     end
   end
 
   resource :carts do 
     post 'add_item/:id', action: 'add_item', as: 'add_item'
+    post 'cart_add_item/:id', action: 'cart_add_item', as: 'cart_add_item'
     post 'minus_item/:id', action: 'minus_item', as: 'minus_item'
+    post 'change_quantity/:id', action: 'change_quantity', as: 'change_quantity'
     delete 'remove_item/:id', action: 'remove_item', as: 'remove_item'
-  get :checkout
+    get :checkout
     collection do
       post :pay
       get :confirm
@@ -54,7 +57,8 @@ Rails.application.routes.draw do
       post :favorite
     end
     collection do
-      get :recommand
+      post :recommand
+      post :distance_filter
       get :search
       get :myfavorite
       resources :products, shallow: true do

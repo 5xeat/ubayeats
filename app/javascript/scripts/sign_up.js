@@ -1,4 +1,5 @@
 import Rails from '@rails/ujs'
+import Swal from 'sweetalert2';
 
 document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('.registrations.new')){
@@ -43,6 +44,14 @@ document.addEventListener('turbolinks:load', () => {
       checkName()
       
       if (form.querySelector('.error') === null){
+        Swal.fire({
+          title: '註冊中...',
+          didOpen: () => {
+            Swal.showLoading()
+          }
+        })
+        submitBtn.disabled = true
+        submitBtn.value = '註冊中...'
         form.submit()
       }
     }

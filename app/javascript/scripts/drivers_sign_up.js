@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2'
+
 document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('.driver_profiles.new')){
     const form = document.querySelector('.new_driver_profile')
@@ -41,6 +43,14 @@ document.addEventListener('turbolinks:load', () => {
       checkAccount()
       
       if (form.querySelector('.error') === null){
+        Swal.fire({
+          title: '註冊中...',
+          didOpen: () => {
+            Swal.showLoading()
+          }
+        })
+        submitBtn.disabled = true
+        submitBtn.value = '註冊中...'
         form.submit()
       }
     }
