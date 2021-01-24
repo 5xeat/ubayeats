@@ -77,6 +77,9 @@ class OrdersController < ApplicationController
     driver = current_user.driver_profile
     if (Order.where(driver_id: driver.id, state: ['preparing', 'delivering']).length) == 0
       @order.update(driver_id: driver.id)
+      ActionCable.server.broadcast("notifications", {
+        receiver: order_user.id, notice: "外送員已接單！", driver: current_user.name
+      })
     else
       redirect_to driver_profiles_path, notice: '不要太貪心唷！請先把訂單送達'
     end

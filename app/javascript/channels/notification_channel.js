@@ -6,10 +6,6 @@ document.addEventListener('turbolinks:load', () => {
       console.log('test');
     },
 
-    disconnected() {
-      // Called when the subscription has been terminated by the server
-    },
-
     received(data) {
       // let store = JSON.parse(document.querySelector('#navbar_component').dataset.id)
       // if(data.receiver === store){
@@ -32,6 +28,35 @@ document.addEventListener('turbolinks:load', () => {
           document.querySelector(".j-delivering").classList.add('bg-red-400')
           document.querySelector(".j-order-state-text").textContent = '店家已完成您的餐點，正在等待外送員領取...'
         } else if (data.order_state === 'completed') {
+          // 聊天室
+          // const chatIcon = document.createElement('div')
+          // chatIcon.classList.add('chat-icon')
+          // chatIcon.innerHTML = "<i class='far fa-comments'></i>"
+          // const chatRoom = document.createElement('div')
+          // chatRoom.classList.add('room-wrapper')
+          // chatRoom.innerHTML = `<div class='room-close'>X</div>
+          //                       <div id="room-id" data-room-id="<%= @room.try(:id) %>"></div>
+          //                       <div id="user-id" data-user-id="<%= current_user.id %>"></div>
+
+          //                       <div class="chat-container">
+          //                           <p>外送員：<%= User.find(DriverProfile.find(Order.find(@room.order_id).driver_id).user_id).name %></p>
+          //                           <div class="chat-room">
+          //                             <div id="messages">
+          //                               <% @room.messages.each do |message| %>
+          //                                 <%= render 'messages/message', message: message %>
+          //                               <% end %>
+          //                             </div>
+          //                             <div>
+          //                               <div class="chat-box">
+          //                                 <%= render 'messages/form', message: Message.new, room: @room %>
+          //                               </div>
+          //                             </div>
+          //                           </div>
+                                  
+          //                       </div>`
+          // document.querySelector('.container').insertAdjacentElement('afterend', chatIcon)
+          // document.querySelector('.chat-icon').insertAdjacentElement('afterend', chatRoom)
+          //地圖
           let driverPosition = new google.maps.LatLng(data.latitude, data.longitude)
           let destination =  document.querySelector(".address-text").innerText;
 
@@ -79,12 +104,19 @@ document.addEventListener('turbolinks:load', () => {
           document.querySelector('#latitude').value = data.latitude
           document.querySelector('#longitude').value = data.longitude
           
-        } else if (data.order_state=== 'arrived') {
+        } else if (data.order_state === 'arrived') {
           document.querySelector(".j-arrived").classList.remove('bg-gray-300')
           document.querySelector(".j-arrived").classList.add('bg-red-400')
           document.querySelector('.map-container').classList.add('hidden')
           document.querySelector('.time').innerText = "-"
+          document.querySelector('.driver-name').remove()
           document.querySelector(".j-order-state-text").textContent = '外送員已送達，用餐愉快!'
+        } else if (data.notice === "外送員已接單！"){
+          const driverName = data.driver
+          const driver = document.createElement('p')
+          driver.classList.add('driver-name')
+          driver.innerText = `外送員：${driverName}`
+          document.querySelector('.order-created-time').insertAdjacentElement('beforebegin', driver)
         }
       }
     }

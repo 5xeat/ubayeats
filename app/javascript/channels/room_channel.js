@@ -22,6 +22,9 @@ document.addEventListener('turbolinks:load', () => {
           content.value = ''
         } else {
           html = data.theirs
+          const notification = document.querySelector('.dot')
+          notification.classList.remove('invisible')
+
           if(Notification.permission === "granted"){
             var title = '您有新訊息'
             var body  = data.content

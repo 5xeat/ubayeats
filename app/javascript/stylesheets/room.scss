@@ -71,6 +71,11 @@
   i {
     line-height: 1.5em;
   }
+  .dot {
+    @apply absolute bg-red-500 rounded-full h-5 w-5;
+    top: -5px;
+    right: -5px;
+  }
 }
 
 .room-wrapper {
