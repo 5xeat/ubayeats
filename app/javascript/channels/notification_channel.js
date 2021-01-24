@@ -2,21 +2,7 @@ import consumer from "./consumer"
 
 document.addEventListener('turbolinks:load', () => {
   consumer.subscriptions.create("NotificationChannel", {
-    connected() {
-      console.log('test');
-    },
-
-    received(data) {
-      // let store = JSON.parse(document.querySelector('#navbar_component').dataset.id)
-      // if(data.receiver === store){
-      //   let notice = document.createElement('div')
-      //   notice.textContent = `您有一筆${data.price}元的訂單，請立即查看!訂單編號${data.orderId}`
-      //   const $right = document.querySelector('.right')
-      //   $right && $right.insertAdjacentElement('afterbegin', notice)
-      //   const $recieving = document.querySelector('.recieving')
-      //   $recieving && $recieving.classList.add("bg-red-600");
-      // } 
-      
+    received(data) {      
       let user = JSON.parse(document.querySelector('#navbar_component').dataset.id)
       if(data.receiver === user){
         if (data.order_state === 'preparing'){

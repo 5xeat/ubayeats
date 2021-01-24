@@ -5,11 +5,7 @@ document.addEventListener('turbolinks:load', () => {
   if (room_element){
     const room_id = room_element.getAttribute('data-room-id');
   
-    consumer.subscriptions.create({ channel: "RoomChannel", room_id: room_id }, {
-      connected() {
-        console.log("已連結上" + room_id)
-      },
-        
+    consumer.subscriptions.create({ channel: "RoomChannel", room_id: room_id }, {        
       received(data) {
         const user_element = document.getElementById('user-id');
         const user_id = Number(user_element.getAttribute('data-user-id'));
