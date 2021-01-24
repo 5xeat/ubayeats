@@ -24,4 +24,6 @@ import "../views"
 
 import "controllers"
 
-Notification.requestPermission().then(function (result){})
+if (navigator.userAgent.indexOf("Safari") === -1){
+  Notification.requestPermission().then(function (result){})
+}
