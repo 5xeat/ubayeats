@@ -113,10 +113,7 @@ document.addEventListener('turbolinks:load', () => {
           document.querySelector(".j-order-state-text").textContent = '外送員已送達，用餐愉快!'
         } else if (data.notice === "外送員已接單！"){
           const driverName = data.driver
-          const driver = document.createElement('p')
-          driver.classList.add('driver-name')
-          driver.innerText = `外送員：${driverName}`
-          document.querySelector('.order-created-time').insertAdjacentElement('beforebegin', driver)
+          document.querySelector('.driver-name').innerText = `外送員：${driverName}`
         }
       }
     }

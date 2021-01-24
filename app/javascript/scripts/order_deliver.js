@@ -28,6 +28,11 @@ document.addEventListener('turbolinks:load', () => {
         myLng = JSON.parse(loc).lng
         positionLatLng = new google.maps.LatLng(myLat, myLng)
       })
+
+      const driver = document.querySelector('.driver-name').innerText
+      if (driver.includes('外送員：')){
+        document.querySelector('.chat-container p').innerText = "外送員:" + driver.substr(4)
+      }
       
       if (document.querySelector('.j-order-state-text').innerText === '外送員已領取餐點，正在前往您的位置...'){
         document.querySelector('.map-container').classList.remove('hidden')
@@ -61,7 +66,9 @@ document.addEventListener('turbolinks:load', () => {
             endMarker = new google.maps.Marker({
               position: positionLatLng,
               map: $map,
-            });      
+            });
+            
+            calcTime(driverPosition, position)
           },
           error: err => {
             console.log(err);
@@ -88,7 +95,7 @@ document.addEventListener('turbolinks:load', () => {
         endMarker = new google.maps.Marker({
           position: positionLatLng,
           map: $map,
-        });  
+        });
       }
 
       function calcTime(driverPosition, destination){

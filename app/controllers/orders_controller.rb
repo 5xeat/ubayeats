@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @store = StoreProfile.find(@order.store_profile_id)
     @room = @order.room
+    @driver = DriverProfile.find_by(id: @order.driver_id).user
   end
 
   def receiving

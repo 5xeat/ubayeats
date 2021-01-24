@@ -271,7 +271,15 @@ document.addEventListener('turbolinks:load', () => {
             console.log(status);
           }
         });
-      }    
+      }
+
+      if (document.querySelector('.orderer')){
+        const customer = document.querySelector('.orderer span:first-child').innerText
+        document.querySelector('.chat-container p').innerText = "訂單人:" + customer
+      } else {
+        const customer = document.querySelector('.title p').innerText
+        document.querySelector('.chat-container p').innerText = "訂單人:" + customer
+      }
     }
   }
 })
