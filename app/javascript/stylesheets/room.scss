@@ -6,6 +6,7 @@
   #messages{
     height: 240px;
     overflow: auto;
+    padding-top: 10px;
   }
   .message{
     min-height: 59px;
@@ -75,6 +76,11 @@
     @apply absolute bg-red-500 rounded-full h-5 w-5;
     top: -5px;
     right: -5px;
+  }
+  .driver-take-order-notice {
+    @apply absolute bg-red-500 rounded-full text-white text-sm p-2 w-32;
+    top: -40px;
+    right: 0;
   }
 }
 

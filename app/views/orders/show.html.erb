@@ -10,7 +10,7 @@
       <div class="h-5 bg-gray-300 j-completed"></div>
       <div class="h-5 bg-gray-300 j-arrived"></div>
     </div>
-    <h2 class="j-order-state-text">店家已收到訂單，等待店家回覆...</h2>
+    <h2 class="j-order-state-text mb-10">店家已收到訂單，等待店家回覆...</h2>
   <% elsif @order.preparing? %>
     <div class="h-10 grid grid-cols-4 gap-2 md:gap-3 j-order-state">
       <div class="h-5 bg-red-400 j-preparing"></div>
@@ -18,7 +18,7 @@
       <div class="h-5 bg-gray-300 j-completed"></div>
       <div class="h-5 bg-gray-300 j-arrived"></div>
     </div>
-    <h2 class="j-order-state-text">店家已接受您的訂單，正在準備中...</h2>
+    <h2 class="j-order-state-text mb-10">店家已接受您的訂單，正在準備中...</h2>
   <% elsif @order.delivering? %>
     <div class="h-10 grid grid-cols-4 gap-2 md:gap-3 j-order-state">
       <div class="h-5 bg-red-400 j-preparing"></div>
@@ -26,7 +26,7 @@
       <div class="h-5 bg-gray-300 j-completed"></div>
       <div class="h-5 bg-gray-300 j-arrived"></div>
     </div>
-    <h2 class="j-order-state-text">店家已完成您的餐點，正在等待外送員領取...</h2>
+    <h2 class="j-order-state-text mb-10">店家已完成您的餐點，正在等待外送員領取...</h2>
   <% elsif @order.completed? %>
   
     <div class="h-10 grid grid-cols-4 gap-2 md:gap-3 j-order-state">
@@ -35,7 +35,7 @@
       <div class="h-5 bg-red-400 j-completed"></div>
       <div class="h-5 bg-gray-300 j-arrived"></div>
     </div>
-    <h2 class="j-order-state-text">外送員已領取餐點，正在前往您的位置...</h2>
+    <h2 class="j-order-state-text mb-10">外送員已領取餐點，正在前往您的位置...</h2>
   <% elsif @order.arrived? %>
   <div class="h-10 grid grid-cols-4 gap-2 md:gap-3 j-order-state">
     <div class="h-5 bg-red-400 j-preparing"></div>
@@ -43,13 +43,13 @@
     <div class="h-5 bg-red-400 j-completed"></div>
     <div class="h-5 bg-red-400 j-arrived"></div>
   </div>
-  <h2 class="j-order-state-text">外送員已送達，用餐愉快!</h2>
+  <h2 class="j-order-state-text mb-10">外送員已送達，用餐愉快!</h2>
   <% end %>
 
 
   <h1>訂單編號 <span class="order-num"><%= @order.num %></span></h1>
   <h2>餐點預計送達時間： <span class="time">-</span></h2>
-  <p class="driver-name"><%= "外送員：#{@driver.name}" if @driver %></p>
+  <p class="driver-name"><%= "外送員：#{@driver.name}" if @driver && !@order.arrived? %></p>
   <p class="order-created-time">下單時間：<%= @order.created_at.strftime('%Y/%m/%d %H:%M') %></p>
 
   <p>店家：<%= link_to @store.store_name, delicacy_store_path(@store) %></p>
@@ -62,10 +62,10 @@
     <% end %>
   </div>
 
-  <p class="address">餐點送達地址：<span class="address-text"><%= @order.address %></span></p>
+  <p class="address mt-5 mb-10">餐點送達地址：<span class="address-text"><%= @order.address %></span></p>
   <%= link_to '回到訂單列表', orders_path, class: 'btn' %>
 </div>
-<% if @room.present? %>
+<% if @room.present? && !@order.arrived? && !@order.canceled? %>
   <div class='chat-icon'>
     <i class="far fa-comments"></i>
     <div class="dot invisible"></div>

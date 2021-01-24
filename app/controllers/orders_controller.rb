@@ -12,7 +12,9 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @store = StoreProfile.find(@order.store_profile_id)
     @room = @order.room
-    @driver = DriverProfile.find_by(id: @order.driver_id).user
+    if driver_profile = DriverProfile.find_by(id: @order.driver_id)
+      @driver = driver_profile.user
+    end
   end
 
   def receiving
@@ -76,6 +78,7 @@ class OrdersController < ApplicationController
 
   def driver_take_order
     driver = current_user.driver_profile
+    order_user = User.find(@order.user_id)
     if (Order.where(driver_id: driver.id, state: ['preparing', 'delivering']).length) == 0
       @order.update(driver_id: driver.id)
       ActionCable.server.broadcast("notifications", {
