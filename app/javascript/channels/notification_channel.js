@@ -86,6 +86,7 @@ document.addEventListener('turbolinks:load', () => {
           document.querySelector(".j-order-state-text").textContent = '外送員已送達，用餐愉快!'
         } else if (data.notice === "外送員已接單！"){
           const driverName = data.driver
+          document.querySelector('.driver-name').innerText = `外送員：${driverName}`
           document.querySelector('.chat-container p').innerText = `外送員：${driverName}`
           const notice = document.createElement('div')
           notice.classList.add('driver-take-order-notice')
