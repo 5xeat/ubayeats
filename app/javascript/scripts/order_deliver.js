@@ -28,6 +28,11 @@ document.addEventListener('turbolinks:load', () => {
         myLng = JSON.parse(loc).lng
         positionLatLng = new google.maps.LatLng(myLat, myLng)
       })
+
+      const driver = document.querySelector('.driver-name').innerText
+      if (driver.includes('外送員：')){
+        document.querySelector('.chat-container p').innerText = "外送員:" + driver.substr(4)
+      }
       
       if (document.querySelector('.j-order-state-text').innerText === '外送員已領取餐點，正在前往您的位置...'){
         document.querySelector('.map-container').classList.remove('hidden')
@@ -38,8 +43,6 @@ document.addEventListener('turbolinks:load', () => {
           type:'post',
           data: JSON.stringify({num: num}),
           success: async (resp) => {
-            console.log('suc');
-            console.log(resp);
             const lat = resp.driver_latitude;
             const lng = resp.driver_longitude;
             const driverPosition = await new google.maps.LatLng(lat, lng)
@@ -63,14 +66,15 @@ document.addEventListener('turbolinks:load', () => {
             endMarker = new google.maps.Marker({
               position: positionLatLng,
               map: $map,
-            });      
+            });
+            
+            calcTime(driverPosition, position)
           },
           error: err => {
-            console.log('err');
+            console.log(err);
           }
         })
       } else {
-        console.log('test');
         window.$map = new google.maps.Map(document.getElementById('map'), {
           zoom: 17,
           center: new google.maps.LatLng(25.040897779251093, 121.51185413844331),
@@ -91,7 +95,7 @@ document.addEventListener('turbolinks:load', () => {
         endMarker = new google.maps.Marker({
           position: positionLatLng,
           map: $map,
-        });  
+        });
       }
 
       function calcTime(driverPosition, destination){

@@ -31,8 +31,11 @@
         <button class="take-meal-btn btn">已取餐</button>
       </div>
     </div>
-    <% if @room.present? && @order.state['delivering'] || @order.state['completed'] %>
-      <div class='chat-icon'><i class="far fa-comments"></i></div>
+    <% if @room.present? %>
+      <div class='chat-icon'>
+        <i class="far fa-comments"></i>
+        <div class="dot invisible"></div>
+      </div>
       <div class="room-wrapper">
         <div class="room-close">X</div>
         <div><%= render 'rooms/room' %></div>

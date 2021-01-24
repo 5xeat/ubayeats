@@ -6,8 +6,7 @@
         <tr>
           <th>訂單日期</th>
           <th>訂單明細</th>
-          <th>收件地址</th>
-          <th>總計金額</th>
+          <th class="hidden md:inline-block">金額</th>
           <th>訂單狀態</th>
         </tr>
       </thead>
@@ -24,14 +23,11 @@
                   </div>
                 <% end %>
               </td>
-              <td>
-                <%= order.address %>
-              </td>
-              <td>
+              <td class="hidden md:inline-block">
                 <%= order.total_price %>元                
               </td>
               <td>
-                <%= link_to((order), class: "btn") do %>
+                <%= link_to((order), class: "btn", data: { turbolinks: false }) do %>
                   <%= t("order_status.#{order.state}") %>
                 <% end %>
               </td>

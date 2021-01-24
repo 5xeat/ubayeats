@@ -7,7 +7,7 @@ export default class extends Controller {
   connect() {
     setTimeout(() => {
       updateCart()
-    }, 1000);
+    }, 100);
   }
 
   add(e) {

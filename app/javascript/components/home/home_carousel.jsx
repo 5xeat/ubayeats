@@ -6,22 +6,22 @@ function HomeCarousel(){
   return(
     <Carousel autoplay={true}>
       <div className="carousel">
-        <img src="https://i.imgur.com/RHnjONq.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/YK3rLhP.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
-        <img src="https://i.imgur.com/YPJzLJB.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/X3pL5Xw.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
-        <img src="https://i.imgur.com/exhGBGY.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/1rjxcBs.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
-        <img src="https://i.imgur.com/iD7kqjj.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/jjnQSCQ.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
-        <img src="https://i.imgur.com/mn01ltg.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/Mz1EbnX.png" style={{width: '100%'}} />
       </div>
       <div className="carousel">
-        <img src="https://i.imgur.com/aFvVBRS.png" style={{width: '100%'}} />
+        <img src="https://i.imgur.com/2sIHNm6.png" style={{width: '100%'}} />
       </div>
     </Carousel>
   );

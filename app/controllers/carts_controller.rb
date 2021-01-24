@@ -107,6 +107,7 @@ class CartsController < ApplicationController
             "amount": current_cart.total_price,
             "confirmUrl":"http://localhost:5000/carts/confirm",
             "productName":"Ubayeats",
+            "productImageUrl": "https://i.imgur.com/dApG2mq.png",
             "orderId": @order.num,
             "currency": "TWD"
            }
