@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :session_required
-  before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
+  before_action :set_orders, only: [:receiving, :preparing, :delivering, :record]
   before_action :find_order, only: [:receiving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order, :update_driver_position, :display_driver_position]
 
 
