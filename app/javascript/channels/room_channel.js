@@ -21,7 +21,7 @@ document.addEventListener('turbolinks:load', () => {
           const notification = document.querySelector('.dot')
           notification.classList.remove('invisible')
 
-          if (navigator.userAgent.indexOf("Safari") === -1){
+          if (navigator.userAgent.indexOf("Chrome") != -1){
             if(Notification.permission === "granted"){
               var title = '您有新訊息'
               var body  = data.content

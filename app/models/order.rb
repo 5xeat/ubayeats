@@ -12,7 +12,7 @@ class Order < ApplicationRecord
 
   include AASM
 
-  aasm column: :state, no_direct_assignment: false do
+  aasm column: :state, no_direct_assignment: true do
     state :unpaid, initial: true
     state :canceled, :paid, :preparing, :delivering, :completed, :arrived
     
