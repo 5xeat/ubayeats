@@ -21,11 +21,13 @@ document.addEventListener('turbolinks:load', () => {
           const notification = document.querySelector('.dot')
           notification.classList.remove('invisible')
 
-          if(Notification.permission === "granted"){
-            var title = '您有新訊息'
-            var body  = data.content
-            var options = { body: body }
-            new Notification(title, options)
+          if (Notification){
+            if(Notification.permission === "granted"){
+              var title = '您有新訊息'
+              var body  = data.content
+              var options = { body: body }
+              new Notification(title, options)
+            }  
           }
         }
     
