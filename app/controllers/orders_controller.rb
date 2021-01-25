@@ -1,15 +1,15 @@
 class OrdersController < ApplicationController
   before_action :session_required
-  before_action :set_orders, only: [:recieving, :preparing, :delivering, :record]
+  before_action :set_orders, only: [:receiving, :preparing, :delivering, :record]
   before_action :find_order, only: [:receiving_update, :preparing_update, :delivering_update, :record_update, :driver_take_order, :update_driver_position, :display_driver_position]
 
 
   def index
-    @orders = current_user.orders.order(id: :desc)
+    @orders = current_user.orders.includes(order_items: :product).order(id: :desc)
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = Order.includes(order_items: :product).find(params[:id])
     @store = StoreProfile.find(@order.store_profile_id)
     @room = @order.room
     if driver_profile = DriverProfile.find_by(id: @order.driver_id)
@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
   end
 
   def receiving
-    @receiving_orders = @orders.where(state: 'paid').order(id: :desc)
+    @receiving_orders = @orders.includes(order_items: :product).where(state: 'paid').order(id: :desc)
   end
 
   def receiving_update
@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   end
 
   def preparing
-    @receiving_orders = @orders.where(state: 'preparing').order(id: :desc)
+    @receiving_orders = @orders.includes(order_items: :product).where(state: 'preparing').order(id: :desc)
   end
 
   def preparing_update
@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
   end
 
   def delivering
-    @receiving_orders = @orders.where(state: 'delivering').order(id: :desc)
+    @receiving_orders = @orders.includes(order_items: :product).where(state: 'delivering').order(id: :desc)
   end
 
   def delivering_update
@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
   end
 
   def record
-    @receiving_orders = @orders.where(state: ['completed', 'arrived']).order(id: :desc)
+    @receiving_orders = @orders.includes(order_items: :product).where(state: ['completed', 'arrived']).order(id: :desc)
   end
 
   def record_update

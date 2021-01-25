@@ -56,9 +56,9 @@
   <div class="item-list">
     <p>品項：</p>
     <% @order.order_items.each do |item| %>
-    <%= Product.find(item.product_id).name %>
-    <%= item.price %>
-    <%= item.quantity %>
+      <%= item.quantity %>
+      <%= item.product.name %>
+      <%= item.price %>
     <% end %>
   </div>
 

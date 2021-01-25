@@ -21,7 +21,7 @@
               <% order.order_items.each do |item| %>
                 <div>
                   <span class="num"><%= item.quantity %></span>
-                  <%= Product.find(item.product_id).name %>
+                  <%= item.product.name %>
                 </div>
               <% end %>
             </div>
