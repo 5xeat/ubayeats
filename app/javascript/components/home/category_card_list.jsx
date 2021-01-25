@@ -46,15 +46,7 @@ const geoFindMe = (keyword) => {
     Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
   }
   function error() {
-    Rails.ajax({
-      url: "/stores/recommand.json",
-      type: "POST",
-      success: (resp) => {
-        Turbolinks.visit(`/stores/search?keyword=${keyword}`)
-      },
-      error: function(err) {
-      }
-    })
+    Turbolinks.visit(`/stores/search?keyword=${keyword}`)
   }
 
   if(!navigator.geolocation) {
