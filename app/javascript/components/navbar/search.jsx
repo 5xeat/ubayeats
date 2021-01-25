@@ -32,7 +32,7 @@ function Search({user, onClick}){
     function error() {
       console.log('無法取得您的目前位置');
       Rails.ajax({
-        url: "/stores/recommand.json",
+        url: "/stores/all_store.json",
         type: "POST",
         success: (resp) => {
           setData(resp)
@@ -46,7 +46,7 @@ function Search({user, onClick}){
     if(!navigator.geolocation) {
       console.log('您的瀏覽器不支援定位服務!');
       Rails.ajax({
-        url: "/stores/recommand.json",
+        url: "/stores/all_store.json",
         type: "POST",
         success: (resp) => {
           setData(resp)
