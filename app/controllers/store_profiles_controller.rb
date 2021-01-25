@@ -77,7 +77,19 @@ class StoreProfilesController < ApplicationController
     @user_lng = JSON.parse(params.keys.filter{|i| i[/.longitude/]}.first)["longitude"]
     near_stores = StoreProfile.calc_distance(@user_lat, @user_lng)
     @stores = StoreProfile.where(id: near_stores)
-    render json: @stores
+    if current_user
+      @stores = @stores.map{|store| 
+        favorite = current_user.favorite?(store)
+        img = store.store_photo
+        store = store.attributes
+        store['favorite'] = favorite
+        store['store_photo'] = img
+        store
+      }
+      render json: @stores
+    else
+      render json: @stores
+    end
   end
 
   def favorite
