@@ -49,7 +49,7 @@ class StoreProfilesController < ApplicationController
     @keyword = params[:keyword]
     if params[:latitude] != "null"
       near_stores = StoreProfile.calc_distance(user_lat, user_lng)
-      @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+      @stores = StoreProfile.where(id: near_stores).where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
     else
       @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
     end
