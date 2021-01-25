@@ -38,7 +38,7 @@ function StoreCard({store_name, store_photo, description, place_id, id, favorite
           </div>
           <p className="description">{description}</p>
           <div className="heart" onClick={store_name ? (e)=>atHeartClick(e, id) : ()=>{}}>
-            <i className={favorite? 'fas fa-heart':'far fa-heart'}></i>
+            <i className={favorite ? 'fas fa-heart':'far fa-heart'}></i>
           </div>
         </div>
       </div>
