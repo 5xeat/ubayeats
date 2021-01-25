@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       post :favorite
     end
     collection do
+      post :all_store
       post :recommand
       post :distance_filter
       get :search

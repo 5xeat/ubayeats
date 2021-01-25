@@ -47,12 +47,17 @@ class StoreProfilesController < ApplicationController
     user_lat = params[:latitude]
     user_lng = params[:longitude]
     @keyword = params[:keyword]
-    if params[:latitude]
+    if params[:latitude] != "null"
       near_stores = StoreProfile.calc_distance(user_lat, user_lng)
-      @stores = StoreProfile.where(id: near_stores).where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
+      @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
     else
       @stores = StoreProfile.where("lower(store_name) || store_type LIKE ?", "%#{@keyword.downcase}%")
     end
+  end
+
+  def all_store
+    @store_profiles = StoreProfile.all
+    render json: @store_profiles
   end
 
   def recommand
