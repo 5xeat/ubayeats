@@ -24,4 +24,6 @@ import "../views"
 
 import "controllers"
 
-Notification.requestPermission().then(function (result){})
+if (navigator.userAgent.indexOf("Chrome") != -1){
+  Notification.requestPermission().then(function (result){})
+}
