@@ -48,7 +48,7 @@ const geoFindMe = (keyword) => {
   function error() {
     Rails.ajax({
       url: "/stores/recommand.json",
-      type: "GET",
+      type: "POST",
       success: (resp) => {
         Turbolinks.visit(`/stores/search?keyword=${keyword}`)
       },
