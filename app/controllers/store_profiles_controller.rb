@@ -56,7 +56,7 @@ class StoreProfilesController < ApplicationController
   end
 
   def recommand
-    @store_profiles = StoreProfile.all.limit(12)
+    @store_profiles = StoreProfile.all.limit(8)
     if current_user
       @store_profiles = @store_profiles.map{|store| 
         favorite = current_user.favorite?(store)
@@ -76,7 +76,7 @@ class StoreProfilesController < ApplicationController
     @user_lat = JSON.parse(params.keys.filter{|i| i[/.latitude/]}.first)["latitude"]
     @user_lng = JSON.parse(params.keys.filter{|i| i[/.longitude/]}.first)["longitude"]
     near_stores = StoreProfile.calc_distance(@user_lat, @user_lng)
-    @stores = StoreProfile.where(id: near_stores)
+    @stores = StoreProfile.where(id: near_stores).limit(8)
     if current_user
       @stores = @stores.map{|store| 
         favorite = current_user.favorite?(store)
