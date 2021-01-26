@@ -60,11 +60,8 @@ document.addEventListener('turbolinks:load', () => {
                   Swal.showLoading()
                 },
                 title: '即將導向LinePay付款請勿關閉視窗...',
-                showConfirmButton: false,
-                timer: 1500
-              }).then(() => {
-                form.submit();
-              });
+              })
+              form.submit();
             }
           }
         })  
