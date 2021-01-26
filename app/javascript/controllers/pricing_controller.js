@@ -19,6 +19,12 @@ export default class extends Controller {
             }  
           })
           window.dispatchEvent(event)
+          console.log(e.target);
+          const addCart = e.target
+          // const animation = document.createElement('i')
+          // animation.classList.add('fas', 'fa-plus-circle', 'text-yellow-500', 'absolute', 'text-3xl', 'left-0', 'bottom-0')
+          // addCart.classList.add('relative')
+          // addCart.appendChild(animation)
         } else {
           Swal.fire({
             title: "是否建立新訂單？",
