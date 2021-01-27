@@ -115,6 +115,7 @@ a {
 .cart-animation {
   animation: big .3s ease-in-out;
   animation-iteration-count: 1;
+  animation-delay: .5s;
 }
 
 @keyframes big {
@@ -130,18 +131,22 @@ a {
 }
 
 .copy {
-  @apply absolute left-0 bottom-0 scale-50 opacity-50;
+  @apply absolute left-0 opacity-0;
+  bottom: 10%;
   animation-name: itemSize, itemX, itemY;
-  animation-duration: 3s;
-  animation-timing-function: ease-in-out, linear, cubic-bezier(.3,-0.63,.9,.61);
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out, linear, cubic-bezier(.11,-0.31,.54,.09);
 }
 
 @keyframes itemSize {
   0% {
     transform: scale(.8);
+    opacity: .5;
   }
-  100% {
+  50% {
     transform: scale(0);
+    opacity: 0;
   }
 }
 
@@ -153,6 +158,6 @@ a {
 
 @keyframes itemY {
   100% {
-    transform: translateY(-100vw);
+    transform: translateY(100vw);
   }
 }

@@ -20,18 +20,19 @@ export default class extends Controller {
           })
           window.dispatchEvent(event)
           const cartItem = this.iconTarget.parentNode
-          const copy = cartItem.cloneNode(true);
-          copy.classList.add('copy')
-          cartItem.classList.add('relative')
-          cartItem.appendChild(copy)
-          setTimeout(function(){
+          if (document.querySelector('.copy')){
             document.querySelector('.copy').remove()
             cartItem.classList.remove('relative')
-          }, 100)
-          // const animation = document.createElement('i')
-          // animation.classList.add('fas', 'fa-plus-circle', 'text-yellow-500', 'absolute', 'text-3xl', 'left-0', 'bottom-0')
-          // addCart.classList.add('relative')
-          // addCart.appendChild(animation)
+            const copy = cartItem.cloneNode(true);
+            copy.classList.add('copy')
+            cartItem.classList.add('relative')
+            cartItem.appendChild(copy)
+          } else {
+            const copy = cartItem.cloneNode(true);
+            copy.classList.add('copy')
+            cartItem.classList.add('relative')
+            cartItem.appendChild(copy)
+          }
         } else {
           Swal.fire({
             title: "是否建立新訂單？",

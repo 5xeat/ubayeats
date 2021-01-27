@@ -10,13 +10,13 @@ export default class extends Controller {
       cartIcon.classList.remove('cart-animation')
       setTimeout(function(){
         cartIcon.classList.add('cart-animation')
-      }, 10)
+      }, 50)
     } else {
       cartIcon.classList.add('cart-animation')
     }
-    
-    
     const {count, total_price} = e.detail
-    this.detailTarget.innerText = `${count}/$${total_price}`
+    setTimeout(() => {
+      this.detailTarget.innerText = `${count}/$${total_price}`
+    }, 500);
   }
 }
