@@ -83,7 +83,7 @@ function Search({user, onClick}){
         }
         
       }
-      if (latitude!== null && latitude !== ""){
+      if (latitude !== null && latitude !== ""){
         Turbolinks.visit(`/stores/search?keyword=${keyword}&latitude=${latitude}&longitude=${longitude}`)
       } else{
         Turbolinks.visit(`/stores/search?keyword=${keyword}`)
