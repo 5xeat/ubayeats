@@ -19,25 +19,17 @@ export default class extends Controller {
             }  
           })
           window.dispatchEvent(event)
-          const cartItem = this.iconTarget.parentNode
-          if (document.querySelector('.copy')){
-            document.querySelector('.copy').remove()
-            cartItem.classList.remove('relative')
-            const copy = cartItem.cloneNode(true);
-            copy.classList.add('copy')
-            cartItem.classList.add('relative')
-            cartItem.appendChild(copy)
+          const cartIcon = this.iconTarget
+          if (cartIcon.classList.contains('copy')){
+            cartIcon.classList.remove('copy')
+            cartIcon.classList.add('copy')
             setTimeout(() => {
-              document.querySelector('.copy').remove()
+              cartIcon.classList.remove('copy')
             }, 1000);
           } else {
-            cartItem.classList.remove('relative')
-            const copy = cartItem.cloneNode(true);
-            copy.classList.add('copy')
-            cartItem.classList.add('relative')
-            cartItem.appendChild(copy)
+            cartIcon.classList.add('copy')
             setTimeout(() => {
-              document.querySelector('.copy').remove()
+              cartIcon.classList.remove('copy')
             }, 1000);
           }
         } else {
