@@ -56,6 +56,11 @@ export default class extends Controller {
                         }  
                       })
                       window.dispatchEvent(event)
+                      const cartIcon = this.iconTarget
+                      cartIcon.classList.add('copy')
+                      setTimeout(() => {
+                        cartIcon.classList.remove('copy')
+                      }, 1000);
                     }
                   })
                 },
