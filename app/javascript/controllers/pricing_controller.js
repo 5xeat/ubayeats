@@ -31,6 +31,7 @@ export default class extends Controller {
               document.querySelector('.copy').remove()
             }, 1000);
           } else {
+            cartItem.classList.remove('relative')
             const copy = cartItem.cloneNode(true);
             copy.classList.add('copy')
             cartItem.classList.add('relative')
