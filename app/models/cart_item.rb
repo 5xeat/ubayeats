@@ -15,6 +15,10 @@ class CartItem
     Product.find_by(id: @item_id)  #回傳指定商品
   end
 
+  def price
+    Product.find_by(id: @item_id).price
+  end
+
   def item_total_price
     product.price * @quantity.to_i
   end

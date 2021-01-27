@@ -94,7 +94,7 @@ class CartsController < ApplicationController
   def pay
     @order = current_user.orders.new(order_params)
     current_cart.items.each do |item|
-    @order.order_items << OrderItem.new(product: item.product, quantity: item.quantity)
+      @order.order_items << OrderItem.new(product: item.product, quantity: item.quantity, price: item.price, total_price: item.item_total_price)
     end
     @order.store_profile_id = @order.order_items.first.product.store_profile_id
     @order.total_price = current_cart.total_price

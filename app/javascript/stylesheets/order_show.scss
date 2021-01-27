@@ -13,5 +13,8 @@
         @apply h-full w-full;
       }
     }
+    .num {
+      @apply py-0 px-1 text-white bg-green-500;
+    }
   }
 }

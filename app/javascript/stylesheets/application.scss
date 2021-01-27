@@ -131,27 +131,41 @@ a {
 }
 
 .copy {
-  @apply absolute left-0 opacity-0;
-  animation-name: itemSize, itemX, itemY;
-  animation-duration: 2s;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in-out, linear, cubic-bezier(.11,-0.31,.54,.09);
+  @apply relative;
+  &:after {
+    content:'1';
+    display:block;
+    position: absolute;
+    line-height:24px;
+    height:24px;
+    width:24px;
+    font-size:12px;
+    font-weight:600;
+    background:#2bd156;
+    color:white;
+    border-radius:20px;
+    text-align:center;
+    left: 0;
+    top: 0;
+    animation-name: itemSize, itemX, itemY;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out, ease-in, cubic-bezier(.11,-0.31,.54,.09);  
+  }
 }
 
 @keyframes itemSize {
   0% {
-    transform: scale(.8);
-    opacity: .5;
+    opacity: 1;
   }
-  50% {
-    transform: scale(0);
+  30% {
     opacity: 0;
   }
 }
 
 @keyframes itemX {
   100% {
-    transform: translateX(-100vw);
+    transform: translateX(-300vw);
   }
 }
 
