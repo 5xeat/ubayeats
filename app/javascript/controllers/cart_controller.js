@@ -5,7 +5,6 @@ export default class extends Controller {
   static values = { index: Number }
   update(e){
     e.preventDefault()
-    console.log(this.detailTarget.parentNode);
     const cartIcon = this.detailTarget.parentNode
     if (cartIcon.classList.contains('cart-animation')){
       cartIcon.classList.remove('cart-animation')

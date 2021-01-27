@@ -3,7 +3,7 @@ import Rails from '@rails/ujs'
 import Swal from 'sweetalert2';
 
 export default class extends Controller {
-  static targets = []
+  static targets = ["icon"]
 
   addToCart(e){
     const productId = this.data.get('id');
@@ -19,8 +19,15 @@ export default class extends Controller {
             }  
           })
           window.dispatchEvent(event)
-          console.log(e.target);
-          const addCart = e.target
+          const cartItem = this.iconTarget.parentNode
+          const copy = cartItem.cloneNode(true);
+          copy.classList.add('copy')
+          cartItem.classList.add('relative')
+          cartItem.appendChild(copy)
+          setTimeout(function(){
+            document.querySelector('.copy').remove()
+            cartItem.classList.remove('relative')
+          }, 100)
           // const animation = document.createElement('i')
           // animation.classList.add('fas', 'fa-plus-circle', 'text-yellow-500', 'absolute', 'text-3xl', 'left-0', 'bottom-0')
           // addCart.classList.add('relative')

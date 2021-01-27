@@ -128,3 +128,31 @@ a {
     transform: scale(1);
   }
 }
+
+.copy {
+  @apply absolute left-0 bottom-0 scale-50 opacity-50;
+  animation-name: itemSize, itemX, itemY;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out, linear, cubic-bezier(.3,-0.63,.9,.61);
+}
+
+@keyframes itemSize {
+  0% {
+    transform: scale(.8);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes itemX {
+  100% {
+    transform: translateX(-100vw);
+  }
+}
+
+@keyframes itemY {
+  100% {
+    transform: translateY(-100vw);
+  }
+}
