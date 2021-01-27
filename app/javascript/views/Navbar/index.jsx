@@ -81,7 +81,6 @@ document.addEventListener('turbolinks:load', () => {
   let data
   if (node){
     data = JSON.parse(node.getAttribute('data'))
-    node.remove()
   }
   
   ReactDOM.render(
