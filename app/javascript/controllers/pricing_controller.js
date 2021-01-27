@@ -3,7 +3,7 @@ import Rails from '@rails/ujs'
 import Swal from 'sweetalert2';
 
 export default class extends Controller {
-  static targets = []
+  static targets = ["icon"]
 
   addToCart(e){
     const productId = this.data.get('id');
@@ -19,6 +19,20 @@ export default class extends Controller {
             }  
           })
           window.dispatchEvent(event)
+          const cartItem = this.iconTarget.parentNode
+          if (document.querySelector('.copy')){
+            document.querySelector('.copy').remove()
+            cartItem.classList.remove('relative')
+            const copy = cartItem.cloneNode(true);
+            copy.classList.add('copy')
+            cartItem.classList.add('relative')
+            cartItem.appendChild(copy)
+          } else {
+            const copy = cartItem.cloneNode(true);
+            copy.classList.add('copy')
+            cartItem.classList.add('relative')
+            cartItem.appendChild(copy)
+          }
         } else {
           Swal.fire({
             title: "是否建立新訂單？",

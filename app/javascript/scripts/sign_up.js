@@ -17,7 +17,7 @@ document.addEventListener('turbolinks:load', () => {
     })
   
     email.addEventListener('focusout', () => {
-      checkEmail()
+      checkEmailUnique()
     })
   
     password.addEventListener('focusout', () => {
@@ -38,7 +38,7 @@ document.addEventListener('turbolinks:load', () => {
     })
   
     function checkInputs(){
-      checkEmail()
+      checkEmailUnique()
       checkPassword()
       checkPasswordConfirm()
       checkName()
@@ -63,6 +63,17 @@ document.addEventListener('turbolinks:load', () => {
       } else if (!isEmail(emailValue)){
         setErrorFor(email, "信箱格式不正確")
       } else {
+        setSuccessFor(email)
+      }
+    }
+
+    function checkEmailUnique(){
+      const emailValue = email.value.trim()
+      if (emailValue === ''){
+        setErrorFor(email, "此欄位不得空白")
+      } else if (!isEmail(emailValue)){
+        setErrorFor(email, "信箱格式不正確")
+      } else {
         Rails.ajax({
           url: '/unique_email',
           type: 'post',
@@ -80,6 +91,7 @@ document.addEventListener('turbolinks:load', () => {
         })
       }
     }
+
   
     function checkPassword(){
       const passwordValue = password.value.trim()
