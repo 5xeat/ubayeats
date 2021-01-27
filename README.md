@@ -42,8 +42,9 @@ Github: https://github.com/tingyiiii
 呂冠霖
 Responsibility負責項目
 產品列表
-店家位置
 購物車及訂單整合
+訂單進度同步功能
+經緯度距離篩選
 Github: https://github.com/s8852s
 
 郭鴻毅
