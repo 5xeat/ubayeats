@@ -132,7 +132,6 @@ a {
 
 .copy {
   @apply absolute left-0 opacity-0;
-  bottom: 10%;
   animation-name: itemSize, itemX, itemY;
   animation-duration: 2s;
   animation-iteration-count: 1;
