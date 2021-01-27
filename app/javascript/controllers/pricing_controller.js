@@ -27,11 +27,17 @@ export default class extends Controller {
             copy.classList.add('copy')
             cartItem.classList.add('relative')
             cartItem.appendChild(copy)
+            setTimeout(() => {
+              document.querySelector('.copy').remove()
+            }, 1000);
           } else {
             const copy = cartItem.cloneNode(true);
             copy.classList.add('copy')
             cartItem.classList.add('relative')
             cartItem.appendChild(copy)
+            setTimeout(() => {
+              document.querySelector('.copy').remove()
+            }, 1000);
           }
         } else {
           Swal.fire({
