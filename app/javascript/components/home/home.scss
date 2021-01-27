@@ -47,11 +47,11 @@
         .title {
           @apply flex justify-between;
           .name {
-            @apply text-lg font-medium flex-grow;
+            @apply text-lg font-medium;
           }
           .rate {
             @apply text-sm font-normal text-yellow-500 text-right;
-            width: 70px;
+            min-width: 60px;
             .img {
               @apply inline-block w-3 h-3 mr-1;
               img {
