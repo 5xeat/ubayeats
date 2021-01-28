@@ -30,7 +30,7 @@ export default class extends Controller {
             cartIcon.classList.add('copy')
             setTimeout(() => {
               cartIcon.classList.remove('copy')
-            }, 1000);
+            }, 500);
           }
         } else {
           Swal.fire({
@@ -60,7 +60,7 @@ export default class extends Controller {
                       cartIcon.classList.add('copy')
                       setTimeout(() => {
                         cartIcon.classList.remove('copy')
-                      }, 1000);
+                      }, 500);
                     }
                   })
                 },

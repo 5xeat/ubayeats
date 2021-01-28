@@ -115,7 +115,7 @@ a {
 .cart-animation {
   animation: big .3s ease-in-out;
   animation-iteration-count: 1;
-  animation-delay: .5s;
+  animation-delay: 1s;
 }
 
 @keyframes big {
@@ -147,8 +147,9 @@ a {
     text-align:center;
     left: 0;
     top: 0;
+    opacity: 0;
     animation-name: itemSize, itemX, itemY;
-    animation-duration: 2s;
+    animation-duration: .5s, 2s, 2s;
     animation-iteration-count: 1;
     animation-timing-function: ease-in-out, ease-in, cubic-bezier(.11,-0.31,.54,.09);  
   }
@@ -158,7 +159,7 @@ a {
   0% {
     opacity: 1;
   }
-  30% {
+  100% {
     opacity: 0;
   }
 }
