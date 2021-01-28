@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     end
     collection do
       post :all_store
+      post :all_store_distance_filter
       post :recommand
       post :distance_filter
       get :search
