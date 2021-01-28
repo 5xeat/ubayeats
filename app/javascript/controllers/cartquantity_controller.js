@@ -66,7 +66,6 @@ export default class extends Controller {
   }
 
   change(e){
-    console.log("test");
     if (e.currentTarget.value <= 0 || (Number(e.currentTarget.value)%1) != 0){
       e.currentTarget.value = 1;
       this.indexValue = e.currentTarget.value
@@ -75,8 +74,6 @@ export default class extends Controller {
       updateCart()
     } else {
       this.indexValue = e.currentTarget.value
-      console.log(e.currentTarget.value);
-      console.log(this.indexValue);
       const subprice =  this.priceTarget.innerText * this.indexValue
       this.subtotalTarget.innerText = `${subprice}`
       

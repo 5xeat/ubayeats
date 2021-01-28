@@ -2,7 +2,9 @@ import Rails from '@rails/ujs'
 
 document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('.carts.show')){
-    document.querySelector('.cart-icon').remove()
+    if (document.querySelector('.cart-icon')){
+      document.querySelector('.cart-icon').remove()
+    }
     const emptyCartICon = document.querySelector('.empty_cart_btn')
     if (emptyCartICon){
       emptyCartICon.addEventListener('click', () => {
