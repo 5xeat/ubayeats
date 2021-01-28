@@ -61,6 +61,14 @@ class StoreProfilesController < ApplicationController
     render json: @store_profiles
   end
 
+  def all_store_distance_filter
+    @user_lat = JSON.parse(params.keys.filter{|i| i[/.latitude/]}.first)["latitude"]
+    @user_lng = JSON.parse(params.keys.filter{|i| i[/.longitude/]}.first)["longitude"]
+    near_stores = StoreProfile.calc_distance(@user_lat, @user_lng)
+    @stores = StoreProfile.where(id: near_stores)
+    render json: @stores
+  end
+
   def recommand
     @store_profiles = StoreProfile.all.limit(8)
     if current_user

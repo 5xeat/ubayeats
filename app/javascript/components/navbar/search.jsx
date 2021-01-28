@@ -18,7 +18,7 @@ function Search({user, onClick}){
       setCurrentPos({latitude: latitude, longitude: longitude})
       
       Rails.ajax({
-        url: '/stores/distance_filter.json',
+        url: '/stores/all_store_distance_filter.json',
         type: 'POST',
         data: JSON.stringify({latitude: latitude, longitude: longitude}),
         success: (resp) => {
