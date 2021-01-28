@@ -64,9 +64,8 @@
           @apply text-sm font-normal truncate;
         }
         .heart {
-          @apply absolute;
-          @apply text-red-500;
-          @apply text-lg;
+          @apply absolute text-red-500 text-lg bg-white rounded-full;
+          padding: 1px 6px;
           top: 5px;
           right: 5px;
         }
