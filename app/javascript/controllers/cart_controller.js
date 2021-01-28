@@ -17,6 +17,6 @@ export default class extends Controller {
     const {count, total_price} = e.detail
     setTimeout(() => {
       this.detailTarget.innerText = `${count}/$${total_price}`
-    }, 500);
+    }, 1000);
   }
 }
