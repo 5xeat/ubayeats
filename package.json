@@ -11,7 +11,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
     "@tailwindcss/postcss7-compat": "^2.0.2",
-    "antd": "^4.9.4",
+    "antd": "^4.14.0",
     "autoprefixer": "^9",
     "axios": "^0.21.1",
     "babel-plugin-import": "^1.13.3",
