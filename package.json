@@ -25,7 +25,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "stimulus": "^2.0.0",
-    "sweetalert2": "^10.13.0",
+    "sweetalert2": "^10.15.6",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "turbolinks": "^5.2.0"
   },
