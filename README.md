@@ -29,6 +29,7 @@ Other Technologies其他技術 : AWS S3 / Heroku / google map API / Action cable
 
 
 Contributer 開發團隊
+
 陳庭儀
 Responsibility負責項目
 前端畫面
